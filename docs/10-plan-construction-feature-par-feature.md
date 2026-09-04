@@ -250,9 +250,9 @@ Tests de sortie : slug unique, cycle hiérarchique impossible, catégorie inacti
 |---|---|---|---|---|---|
 | Recherche, filtres, liste/carte, détail | Favori/contact après authentification | Consulte comme membre | Consulte comme membre | Aperçu public, historique et modération | Paramètres catalogue et pays |
 
-À construire : offres/demandes, trois modes, zone/rayon via Geocoder, carte Leaflet avec fournisseur configurable, distance approximative, à distance, urgence, Top, tri, pagination, état vide, galerie et partage sans traceur. L'adresse exacte n'est jamais envoyée publiquement. Le rendu carte dépend uniquement de `public_map_enabled` et possède toujours une alternative liste complète.
+À construire : offres/demandes, trois modes d'échange et trois modes de réalisation (`in_person`, `remote`, `hybrid`), zone/rayon via Geocoder, carte Leaflet avec fournisseur configurable, distance approximative, urgence, Top, tri, pagination, état vide, galerie et partage sans traceur. L'adresse exacte n'est jamais envoyée publiquement. Sur le détail, seuls `in_person/hybrid` avec zone publique peuvent afficher une carte ; `remote` affiche un bloc national à distance sans marqueur ni distance. La carte globale conserve toutes les annonces filtrées : marqueurs approximatifs pour `in_person/hybrid`, groupe de cartes `remote` sans coordonnées, compteurs séparés et aucun doublon hybride. Le rendu cartographique dépend de `public_map_enabled` et possède toujours une alternative liste complète.
 
-Tests de sortie : combinaisons de filtres, pagination stable, coordonnées arrondies, annonce non publiée inaccessible, carte clavier/alternative liste, états flag on/off et métadonnées SEO sûres.
+Tests de sortie : combinaisons de filtres, pagination stable, coordonnées arrondies, annonce non publiée inaccessible, carte clavier/alternative liste, détail `remote` sans carte, détails `in_person/hybrid` éligibles, carte globale contenant tous les résultats dans le bon groupe, aucun faux marqueur/doublon, états flag on/off et métadonnées SEO sûres.
 
 ## F-014 — Publication et gestion de ses annonces
 
@@ -286,9 +286,9 @@ Tests de sortie : placement/ordre, plusieurs instances, reset, pages sans sépar
 |---|---|---|---|---|---|
 | Carte ou liste selon flag | Même état global | Même état global | Même état global | Consulte l'état seulement | Active, désactive et reset le flag |
 
-À construire : flag système `public_map_enabled` activé par défaut, écran d'impact, confirmation, changement atomique, invalidation des caches, audit et retour au défaut. Quand il est faux, ne rendre ni bouton, ni conteneur, ni script, ni SDK, ni tuile, ni cookie, ni appel réseau cartographique ; conserver liste, recherche, rayon et distance approximative.
+À construire : flag système `public_map_enabled` activé par défaut, écran d'impact, confirmation, changement atomique, invalidation des caches, audit et retour au défaut. Quand il est faux, ne rendre ni bouton, ni conteneur, ni script, ni SDK, ni tuile, ni cookie, ni appel réseau cartographique ; conserver liste et recherche. Le rayon et la distance approximative continuent de concerner uniquement `in_person/hybrid`; les annonces `remote` restent disponibles par leurs filtres non géographiques. Quand le flag est vrai, la policy serveur interdit toujours une carte individuelle `remote` et la carte globale conserve ce groupe sans marqueur.
 
-Tests de sortie : policy super-admin, admin refusé, double clic/concurrence, audit, cache multi-session, reset, flag on/off en RSpec système et assertion réseau démontrant l'absence totale du fournisseur lorsqu'il est coupé.
+Tests de sortie : policy super-admin, admin refusé, double clic/concurrence, audit, cache multi-session, reset, flag on/off en RSpec système, assertion réseau démontrant l'absence totale du fournisseur lorsqu'il est coupé, et matrice `in_person/remote/hybrid` sur détail et carte globale.
 
 ## F-017 — SEO des annonces, Schema.org et GEO
 
@@ -631,7 +631,7 @@ Recette finale obligatoire :
 11. super-admin → variante UI → preview → publication → reset exact vers `SEOS Default v1` ;
 12. modification/reset d'un titre, d'une description, d'une image et de son alt sur plusieurs pages ;
 13. séparateurs statique/animé puis reduced motion et reset ;
-14. carte activée puis désactivée sans aucun appel fournisseur, puis restaurée ;
+14. carte activée avec détails `in_person/hybrid`, détail `remote` sans carte et catalogue global complet, puis désactivée sans aucun appel fournisseur et restaurée ;
 15. annonce offre/demande → canonical → sitemap → JSON-LD sans donnée privée → retrait propre ;
 16. super-admin → nouveau barème PS/bonus → simulation → publication → historique inchangé ;
 17. chaîne dépassant dix maillons en mode illimité, puis règle limitée testée ;

@@ -51,7 +51,9 @@ Les priorités organisent la livraison, elles ne définissent pas ce qui sera ou
 | P0 | Publication en 4 étapes | Brouillon, validations par étape, aperçu et reprise |
 | P0 | Gestion de ses annonces | Modifier, mettre en pause, réactiver, clôturer, supprimer logiquement |
 | P0 | Confidentialité de localisation | Adresse exacte absente des réponses publiques |
-| P0 | Vue carte | Geocoder + Leaflet, tuiles configurables, marqueurs approximatifs et alternative liste |
+| P0 | Modes de réalisation | `in_person`, `remote`, `hybrid`, distincts de don/échange/PS et contrôlés côté serveur |
+| P0 | Carte d'une annonce | Seulement `in_person/hybrid` avec zone publique ; jamais de marqueur pour `remote` |
+| P0 | Vue carte globale complète | Toutes les annonces filtrées : marqueurs approximatifs physiques/hybrides + panneau distant sans faux marqueur + compteurs cohérents |
 | P0 | Interrupteur carte | Super-admin uniquement ; désactivation sans contrôle, script, tuile, cookie ni requête fournisseur |
 | P1 | Badge urgent | Critères, durée et modération définis |
 | P1 | Top annonce | Demande d'éligibilité et validation humaine |
@@ -320,6 +322,8 @@ Chaque tranche doit livrer une valeur testable de bout en bout :
 - Les fonctions P0 disposent de leur vue de consultation ou de modération dans le panneau admin.
 - Le Studio peut modifier puis réinitialiser thème, contenu, média et séparateur sans perdre la version précédente.
 - La carte peut être coupée/réactivée sans déploiement ; coupée, elle ne provoque aucun chargement fournisseur.
+- Une annonce `remote` n'affiche jamais de carte individuelle ni de distance ; `in_person/hybrid` exige une zone publique valide et utilise seulement un marqueur approximatif.
+- La carte globale conserve toutes les annonces filtrées : le total se répartit sans doublon entre marqueurs physiques/hybrides et résultats distants sans marqueur.
 - Mobile, clavier et contrastes sont validés.
 - `yarn build` produit JS/CSS ; toute la suite `bundle exec rspec`, les contrôles visuels, RuboCop et Brakeman passent.
 - Chaque annonce publique indexable possède canonical, sitemap et JSON-LD cohérent sans PII ; les pages filtrées ne créent pas de duplication.
@@ -382,9 +386,9 @@ Chaque tranche doit livrer une valeur testable de bout en bout :
 | Recherche texte, ville, catégorie et filtres rapides | 1 |
 | Filtres intention, mode, rayon, urgence et distance | 1 |
 | Tri pertinence, proximité, note et date | 1/3 |
-| Vues liste/carte, marqueurs et état vide | 1 |
+| Vues liste/carte, détail physique/hybride et panneau des annonces à distance | 1 |
 | Carte activable/désactivable par super-admin sans chargement tiers résiduel | 0/1/5 |
-| Carte annonce : favori, badge, personne, zone et mode | 1/3 |
+| Carte annonce : favori, badge, personne, zone, mode et éligibilité cartographique | 1/3 |
 | Galerie, informations pratiques et partage du détail | 1 |
 | Proposition, question préalable et estimation du solde | 2/4 |
 | Téléphone masqué puis partage contrôlé | 2/10, règle renforcée par rapport à la maquette |

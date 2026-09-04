@@ -286,6 +286,16 @@ Le reset recrée une version à partir de la référence système : il ne détru
 
 La vue carte reste un mode du catalogue, jamais l'unique moyen d'accéder aux annonces. Le super-admin contrôle le flag versionné `public_map_enabled`, activé par défaut. Lorsqu'il est désactivé, l'onglet carte, son conteneur, le script du fournisseur, les tuiles, cookies et requêtes réseau associées sont totalement absents ; liste, filtres géographiques et distances approximatives restent disponibles. L'administration ordinaire peut consulter l'état mais pas le changer.
 
+Le mode de réalisation est visible par un libellé et une icône, jamais par la couleur seule : `Sur place`, `À distance` ou `Hybride`.
+
+- Sur un détail d'annonce, le bloc carte n'existe que pour `Sur place` ou `Hybride`, avec une zone publique valide. `À distance` le remplace par un bloc « Disponible à distance partout en France ».
+- Une annonce hybride peut avoir un marqueur approximatif et le badge `À distance possible`.
+- La carte globale garde le catalogue complet : son rail de résultats contient toutes les annonces filtrées. Les annonces physiques/hybrides sont reliées à un marqueur ; les annonces 100 % à distance sont regroupées dans une section sticky/repliable « À distance », sans marqueur inventé.
+- L'en-tête annonce `N résultats · X sur place/hybrides · Y à distance`, avec `X + Y = N`. Un filtre peut masquer un groupe, sans modifier le total avant filtre.
+- Le survol ne constitue jamais l'unique interaction : carte et rail sont synchronisés au focus clavier, au clic et à la sélection tactile. Le panneau distant reste utilisable sans la carte.
+- Déplacer la carte peut proposer « Rechercher dans cette zone » uniquement pour les annonces physiques/hybrides ; les résultats distants restent présents selon les autres filtres et ne sont pas éliminés par le viewport.
+- Proximité et distance ne sont jamais calculées pour une annonce `remote`. Son tri utilise pertinence, disponibilité ou fraîcheur.
+
 ### SEO, Schema.org et GEO dans l'interface
 
 La fidélité visuelle ne doit pas produire un HTML décoratif incompréhensible. Chaque page conserve un `h1`, des sections nommées, de vrais liens, des listes sémantiques, des images avec alt et son contenu principal rendu côté serveur. Les titres visibles, descriptions, catégories, zones et dates doivent correspondre aux métadonnées et au JSON-LD généré.

@@ -124,7 +124,7 @@ bin/rails generate scaffold Category \
 bin/rails generate scaffold Listing \
   user:references category:references slug:string title:string description:text \
   intent:string exchange_mode:string estimated_points:integer status:string \
-  priority:string availability:text remote_available:boolean \
+  priority:string availability:text service_location_mode:string \
   address_line:string postal_code:string city:string country_code:string \
   latitude:decimal longitude:decimal published_at:datetime closed_at:datetime \
   removed_at:datetime indexing_status:string seo_lastmod_at:datetime lock_version:integer
@@ -298,7 +298,7 @@ Services attendus : `Seo::EvaluateIndexability`, `Seo::BuildStructuredData`, `Se
 | Facebook | OmniAuth derrière flag off | Ne pas activer avant validation Ruby 3.4/Rails 8 et maintenance du provider |
 | E-mail | Gmail API via client Ruby Google | Action Mailer adapter, OAuth/Workspace, secrets hors base, retries idempotents |
 | Géocodage | Gem `geocoder` | Adresse privée en entrée, résultat public arrondi/minimisé, cache et quotas |
-| Carte | Leaflet via Yarn/esbuild | Fournisseur de tuiles configurable ; respecter ses conditions et couper tout chargement avec le flag |
+| Carte | Leaflet via Yarn/esbuild | Fournisseur de tuiles configurable ; détail seulement pour `in_person/hybrid`, résultats globaux `remote` sans marqueur, coupure totale avec le flag |
 | Vidéo | Active Storage + lecteur HTML5 | Aucun tiers ni cookie par défaut |
 | Analytics | Compteurs agrégés internes | Aucun analytics tiers au lancement ; futur provider derrière consentement/flag |
 | Soutien | Stripe Checkout dormant | `financial_support_enabled = false`, don uniquement, aucun lien avec les PS |

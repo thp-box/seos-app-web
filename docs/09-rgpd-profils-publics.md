@@ -226,6 +226,8 @@ Rendre une page éditable ne permet pas d'y recopier des données personnelles s
 
 Le flag `public_map_enabled` est aussi un interrupteur de traitement côté client. Lorsqu'il est faux, SEOS n'affiche pas seulement une carte vide : il n'envoie aucun SDK, script, tuile, cookie ou requête au fournisseur. Lorsqu'il est vrai, la localisation reste approximative et les obligations de consentement/information dépendent du prestataire finalement choisi. Chaque changement du flag est audité.
 
+Le mode `remote` n'autorise jamais à géocoder l'adresse privée du membre pour « remplir » la carte. Sur une annonce individuelle, seuls `in_person` et `hybrid` peuvent produire une carte, à partir d'une zone publique minimisée. Sur la carte globale, les annonces à distance restent visibles dans un panneau de résultats dédié et dans le total, mais sans latitude/longitude, distance ou marqueur artificiel. Une annonce hybride n'apparaît qu'une fois dans le total : elle est rattachée à son marqueur et porte un badge indiquant la possibilité à distance.
+
 ## SEO, GEO et moteurs génératifs
 
 Une annonce publique est destinée à être trouvée. Le formulaire de publication doit l'indiquer clairement et montrer l'aperçu exact des informations indexables. Cette information ne vaut jamais consentement à publier une coordonnée privée.

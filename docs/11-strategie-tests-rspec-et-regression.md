@@ -278,7 +278,12 @@ Une baseline n'est jamais actualisée automatiquement. Sa modification exige : d
 
 - bouton Liste/Carte visible ;
 - carte accessible et alternative liste disponible ;
-- marqueurs approximatifs uniquement ;
+- détail `in_person` ou `hybrid` avec zone publique : carte autorisée et marqueur approximatif uniquement ;
+- détail `remote` : aucun conteneur, script, distance ou marqueur, mais bloc « À distance — France » ;
+- carte globale : toutes les annonces filtrées présentes, les `remote` dans un panneau sans marqueur et les `in_person/hybrid` reliées à leur marqueur ;
+- total global égal à `physiques/hybrides + distantes`, sans double comptage d'une annonce hybride ;
+- déplacement du viewport sans disparition des annonces distantes correspondant aux autres filtres ;
+- tri de proximité absent pour une annonce `remote` ;
 - prestataire chargé après consentement si nécessaire ;
 - erreurs réseau sans perte des résultats.
 
@@ -288,7 +293,8 @@ Une baseline n'est jamais actualisée automatiquement. Sa modification exige : d
 - aucun script, tuile, cookie ou appel réseau du prestataire ;
 - catalogue, recherche par zone/rayon et pagination toujours fonctionnels ;
 - liens partagés demandant la carte retombent vers la liste ;
-- seul le super-admin peut réactiver ; l'action est auditée.
+- seul le super-admin peut réactiver ; l'action est auditée ;
+- les résultats `in_person`, `hybrid` et `remote` restent tous consultables en liste.
 
 ## Couverture et seuils
 

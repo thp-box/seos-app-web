@@ -256,12 +256,14 @@ Clé : `public_map_enabled`, valeur par défaut `true` pour refléter la maquett
 
 ### Visiteur/membre/organisation
 
-- activée : bouton Liste/Carte, marqueurs approximatifs, alternative liste ;
+- activée : bouton Liste/Carte, marqueurs approximatifs `in_person/hybrid`, panneau `remote` sans marqueur et alternative liste complète ;
+- détail d'annonce : carte uniquement pour `in_person/hybrid` avec zone publique ; bloc « À distance — France » pour `remote` ;
+- carte globale : toutes les annonces filtrées restent comptées et consultables, sans attribuer une position artificielle aux annonces `remote` ni compter deux fois les hybrides ;
 - désactivée : aucune option carte mais tous les filtres et résultats restent utilisables ;
 - aucun script, cookie, tuile ou appel fournisseur n'est chargé quand elle est désactivée ;
 - une URL enregistrée en mode carte revient proprement vers la liste.
 
-Le flag n'efface ni latitude/longitude privées ni données de recherche. Il désactive uniquement l'expérience cartographique et le chargement du prestataire.
+Le flag n'efface ni latitude/longitude privées ni données de recherche. Il désactive uniquement l'expérience cartographique et le chargement du prestataire. L'éligibilité d'une annonce à un marqueur reste calculée côté serveur ; ni le Studio, ni l'auteur, ni un paramètre d'URL ne peuvent forcer une annonce `remote` sur la carte.
 
 ## Écran Studio du super-admin
 
@@ -305,6 +307,7 @@ Le paquet détaillé figure dans [`11-strategie-tests-rspec-et-regression.md`](.
 - visual specs du défaut et des pages modifiées ;
 - request/schema specs des meta, canonical, indexabilité et JSON-LD après publication/reset ;
 - deux états complets de la carte ;
+- matrice `in_person/remote/hybrid` pour le détail, le catalogue global, les compteurs, filtres, tris et l'absence de faux marqueur ;
 - chaque preset organique en statique/animé/reduced motion ;
 - concurrence de publication ;
 - rejet des entrées arbitraires et médias invalides ;
@@ -318,6 +321,8 @@ Le paquet détaillé figure dans [`11-strategie-tests-rspec-et-regression.md`](.
 - Une page peut utiliser plusieurs formes organiques différentes.
 - Une animation ne gêne pas reduced motion et ne provoque pas de CLS.
 - La carte se coupe sans laisser le moindre appel vers son fournisseur.
+- Une annonce `remote` ne possède jamais de carte individuelle ; elle reste présente dans le panneau distant de la carte globale.
+- Les compteurs globaux incluent toutes les annonces filtrées et ne doublonnent pas les annonces hybrides.
 - Aucun utilisateur non super-admin ne modifie thème global, flag carte ou reset global.
 - Aucun reset n'efface l'historique ou les données métier.
 - La version publiée peut être annulée en une opération auditée.

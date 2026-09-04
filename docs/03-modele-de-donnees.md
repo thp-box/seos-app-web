@@ -153,7 +153,7 @@ Une restriction peut bloquer une catégorie, une sous-catégorie ou un terme con
 | `status` | string | `draft`, `pending_review`, `published`, `paused`, `closed`, `removed` |
 | `priority` | string | `standard`, `urgent` |
 | `availability` | text | Disponibilités déclarées |
-| `remote_available` | boolean | Réalisable à distance |
+| `service_location_mode` | string | `in_person`, `remote` ou `hybrid` ; distinct du mode d'échange |
 | `address_line` | string chiffrée | Adresse exacte privée |
 | `postal_code`, `city`, `country_code` | string | Recherche et zone publique |
 | `latitude`, `longitude` | decimal | Recherche par rayon, jamais rendue avec précision publiquement |
@@ -162,7 +162,9 @@ Une restriction peut bloquer une catégorie, une sous-catégorie ou un terme con
 | `seo_lastmod_at` | datetime | Dernier changement public significatif pour sitemap |
 | `lock_version` | integer | Verrouillage optimiste recommandé |
 
-Contraintes : `estimated_points > 0` uniquement en mode `points` ; propriétaire différent du demandeur lors d'une demande ; statut et modes contrôlés. Photos et vidéo passent par Active Storage avec limites de taille, nombre et type MIME.
+Contraintes : `estimated_points > 0` uniquement en mode `points` ; propriétaire différent du demandeur lors d'une demande ; statut et modes contrôlés. Une annonce `in_person` ou `hybrid` doit posséder une zone publique géocodable avant d'être éligible à la carte. Une annonce `remote` ne reçoit jamais de coordonnées factices et ses coordonnées privées éventuelles ne servent pas à produire un marqueur. Photos et vidéo passent par Active Storage avec limites de taille, nombre et type MIME.
+
+L'éligibilité cartographique est une policy calculée et non un booléen librement modifiable : flag `public_map_enabled` actif, annonce publiée, `service_location_mode` dans `in_person/hybrid`, zone publique valide et aucune restriction de confidentialité/modération. Sur la carte globale, toutes les annonces du jeu de résultats sont conservées ; seules les annonces éligibles produisent des marqueurs. Les annonces `remote` sont renvoyées dans un groupe de résultats à distance avec un total dédié.
 
 Canonical, titre SEO, description, Open Graph et JSON-LD sont générés depuis l'annonce et la configuration SEO versionnée. Aucune colonne de JSON-LD libre n'est ajoutée à l'annonce.
 
@@ -512,7 +514,7 @@ Les paramètres sensibles au calcul, aux points ou à la conservation ne sont pa
 
 - Toutes les clés étrangères.
 - `users.email` unique après normalisation.
-- `listings.status`, `[status, published_at]`, `[category_id, status]`, `[city, status]` et coordonnées si recherche par rayon.
+- `listings.status`, `[status, published_at]`, `[category_id, status]`, `[service_location_mode, status]`, `[city, status]` et coordonnées si recherche par rayon.
 - `listings.slug` unique, `[indexing_status, seo_lastmod_at]` pour sitemap ; `category_restrictions` par statut/portée/période.
 - `service_requests` sur chaque participant et `[listing_id, status]`.
 - `messages` sur `[service_request_id, created_at]` et `[sender_id, read_at]`.
@@ -566,6 +568,7 @@ SQLite convient au lancement du squelette actuel. Pour une recherche géographiq
 - témoignage écrit/vidéo en attente et publié, bloc d'accueil planifié, deux versions d'une page légale ;
 - thème système immuable, thème brouillon/publié, page par défaut/personnalisée et reset page/thème/site ;
 - chaque preset de séparateur en statique/animé, plus le flag carte activé puis désactivé ;
+- annonces `in_person`, `remote` et `hybrid`, carte détaillée autorisée/interdite, carte globale avec marqueurs physiques et groupe distant ;
 - annonce offre/demande indexable, annonce `noindex`, canonical, sitemap et graphes Schema.org sans donnée privée ;
 - restriction de catégorie active/planifiée, version de valorisation PS, version de bonus/niveaux et version de conservation ;
 - demande Contact visiteur sans conversation d'annonce ; soutien Stripe dormant et événement webhook rejoué ;

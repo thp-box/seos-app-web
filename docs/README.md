@@ -25,7 +25,7 @@ Ce dossier transforme la maquette et les user stories existantes en une base de 
 - Un seul parrain principal peut terminer la quête de parrainage et recevoir `15 PS`, une seule fois, après qualification du nouveau membre.
 - Les profils, annonces, associations et partenaires possèdent des pages publiques dédiées ; aucune de ces pages ne rend les coordonnées privées visibles.
 - `SEOS Default v1` est le reflet exact et immuable de la maquette ; le super-admin peut publier des variantes UI/contenus puis réinitialiser chaque périmètre vers cette référence.
-- Le super-admin peut activer/désactiver la carte ; désactivée, elle ne charge aucune ressource ni requête du fournisseur.
+- Le super-admin peut activer/désactiver toute l'expérience cartographique ; désactivée, elle ne charge aucune ressource ni requête du fournisseur. Une carte sur le détail d'une annonce est réservée aux services `in_person` ou `hybrid`. La carte globale conserve toutes les annonces dans ses résultats, mais les annonces `remote` n'obtiennent jamais de faux marqueur.
 - RSpec est la suite canonique de toutes les features, y compris autorisations, concurrence, JavaScript et non-régression visuelle.
 - Une seule commande `yarn build` doit produire les sorties JavaScript et CSS de l'application.
 - Toutes les annonces actives et sûres alimentent le SEO/GEO via URL canonique, sitemap et JSON-LD Schema.org généré, sans donnée privée.

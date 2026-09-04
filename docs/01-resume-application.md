@@ -96,6 +96,8 @@ Le back-office est une tour de contrôle transverse : utilisateurs et profils pu
 
 Le super-administrateur est seul habilité à gérer les administrateurs, les permissions les plus sensibles, les versions de calcul du Trust Score et certains paramètres globaux. Il pilote aussi les barèmes Points/niveaux/chaînes, la carte publique, le SEO/GEO et un Studio versionné permettant de modifier puis réinitialiser le kit UI/UX, les textes, descriptions, CTA, images, SEO et séparateurs organiques de chaque page. Les admins habilités et le super-admin gèrent la blacklist des catégories. Les données personnelles sont masquées par défaut, même dans le back-office.
 
+La carte suit deux règles distinctes. Sur le détail d'une annonce, elle apparaît uniquement si le service comporte une intervention physique (`in_person` ou `hybrid`), possède une zone publique exploitable et si le flag global est actif. Une annonce `remote` affiche « À distance — France » sans carte ni coordonnées. Dans la vue cartographique globale du catalogue, toutes les annonces correspondant aux filtres restent présentes : les services physiques/hybrides portent des marqueurs approximatifs, tandis que les services 100 % à distance occupent un groupe ou panneau « À distance » sans faux point géographique. Le compteur total distingue ces deux ensembles.
+
 Chaque annonce active, autorisée et suffisamment complète possède une URL canonique indexable, un contenu serveur utile, des données Schema.org générées et une entrée de sitemap. Elle contribue ainsi au SEO et au GEO de SEOS sans exposer l'adresse exacte, les coordonnées ou les signaux privés de son auteur. Une annonce trop pauvre, blacklistée ou modérée reste hors index.
 
 ## Profil de service public
@@ -130,7 +132,7 @@ Les lots ci-dessous définissent un ordre de livraison et non une réduction du 
 
 ### MVP
 
-- pages publiques et catalogue en liste/carte, avec interrupteur super-admin ;
+- pages publiques et catalogue en liste/carte, avec interrupteur super-admin, marqueurs physiques et résultats à distance séparés ;
 - authentification, profils et autorisations ;
 - annonces et catégories ;
 - demandes de service, conversation et notifications ;

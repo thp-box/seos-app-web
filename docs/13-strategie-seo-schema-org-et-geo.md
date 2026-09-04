@@ -17,6 +17,7 @@ Google précise qu'aucune optimisation spéciale n'est nécessaire pour ses fonc
 - aucune coordonnée, adresse exacte, latitude/longitude précise, message, solde, signalement ou score de risque interne n'entre dans le HTML SEO, les métadonnées, les sitemaps ou le JSON-LD ;
 - le balisage Schema.org est produit par l'application depuis les données validées ; ni membre ni administrateur ne saisit du JSON-LD libre ;
 - la désactivation de la carte n'affecte pas l'indexation des annonces ni leurs localisations publiques approximatives ;
+- une annonce `remote` reste indexable comme service disponible à distance sans carte, distance ou coordonnées artificielles ; une annonce `in_person/hybrid` peut exposer seulement sa zone publique dans `areaServed` ;
 - aucune promesse de position, de rich result ou de citation par une IA n'est faite.
 
 ## Architecture des pages d'annonces
@@ -90,6 +91,7 @@ Le profil peut déclarer `ProfilePage` et une `Person` limitée à `display_name
 - Le catalogue principal et ses pages paginées possèdent une structure stable.
 - Les combinaisons libres de filtres, tris, rayons et vues liste/carte ne créent pas des milliers de pages indexables.
 - Les paramètres de tri, vue et carte pointent vers la canonique pertinente.
+- La carte globale contient toutes les annonces filtrées dans l'expérience utilisateur, mais ce regroupement ne crée pas une nouvelle URL indexable pour chaque viewport. Les annonces à distance restent des résultats sans marqueur et conservent leur URL canonique propre.
 - Une page catégorie/zone dédiée n'est indexée que si elle contient un inventaire réel, un texte utile et une valeur distincte ; aucune page « ville + service » vide ou quasi dupliquée n'est générée.
 - Le maillage relie les annonces aux catégories et zones réelles, sans bourrage de mots-clés.
 - Les résultats vides et recherches internes restent `noindex`.
@@ -198,6 +200,7 @@ Les métriques produit internes sont agrégées côté serveur. Aucun outil anal
 - transitions publiée/pause/clôture/suppression/fusion ;
 - blacklist empêchant publication et indexation ;
 - carte désactivée sans effet sur la page serveur indexable ;
+- détail `remote` sans carte ni donnée géographique inventée, et carte globale conservant ce résultat hors marqueurs ;
 - profil `noindex` mais accessible au visiteur ;
 - robots bloquant comptes, administration et previews ;
 - politiques `OAI-SearchBot` et `GPTBot` testées indépendamment ;

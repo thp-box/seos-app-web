@@ -99,6 +99,8 @@ Le parrainage de la maquette est enrichi par une décision produit : un nouveau 
 - Les resets peuvent viser un champ, bloc, média, séparateur, page, thème ou le site entier ; ils recréent une version depuis le défaut et n'effacent pas l'historique.
 - Plusieurs séparateurs organiques peuvent être placés entre les sections d'une page, en statique ou via des animations prédéfinies compatibles reduced motion.
 - Le super-admin peut activer/désactiver la carte. Lorsqu'elle est désactivée, aucun contrôle, SDK, script, tuile, cookie ni appel réseau du fournisseur cartographique n'est chargé ; le catalogue en liste reste complet.
+- Une carte sur la page d'une annonce est possible uniquement pour un service en présentiel ou hybride et avec une zone publique valide. Une annonce 100 % à distance ne reçoit aucune coordonnée ou marqueur artificiel.
+- La carte globale conserve néanmoins toutes les annonces filtrées dans l'expérience : marqueurs approximatifs pour le présentiel/hybride, panneau « À distance » pour les annonces distancielles et compteurs séparés dont la somme égale le total.
 - Aucun éditeur ne permet d'injecter du CSS, JavaScript, HTML ou SVG arbitraire depuis le back-office.
 - Les annonces actives, autorisées et suffisamment complètes alimentent le SEO via des URLs canoniques, sitemaps, contenu serveur et JSON-LD Schema.org, sans donnée privée ; les autres restent `noindex`.
 - Le GEO repose sur ce même contenu original et structuré ; aucune page ou fichier artificiel créé seulement pour les moteurs génératifs.
@@ -129,8 +131,10 @@ Le parrainage de la maquette est enrichi par une décision produit : un nouveau 
 - Une annonce appartient à un membre et à une catégorie.
 - Son intention est `offre` ou `demande`.
 - Son mode est exactement `don`, `échange libre` ou `points`.
+- Son mode de réalisation est exactement `in_person`, `remote` ou `hybrid` et ne doit pas être confondu avec son mode d'échange.
 - Une estimation en points est interdite pour les modes don et échange libre.
 - Une adresse exacte ne doit jamais être rendue dans le HTML public.
+- L'éligibilité à un marqueur est calculée côté serveur : `in_person`/`hybrid` + zone publique valide + carte globale active. Le membre ne peut pas forcer un marqueur.
 - Seul le propriétaire ou un rôle de modération peut modifier l'annonce.
 - Une suppression utilisateur doit être logique si l'annonce a déjà participé à un échange, un signalement ou une transaction.
 
@@ -218,5 +222,5 @@ Le parrainage de la maquette est enrichi par une décision produit : un nouveau 
 - Les specs RSpec couvrent chaque transition de statut, chaque rôle, chaque cas de double soumission et les parcours JavaScript critiques.
 - Le thème par défaut est comparé à la maquette aux largeurs `320`, `375`, `414`, `768`, `1024`, `1280` et `1440px` ; aucun changement de baseline n'est automatique.
 - Les éditions et resets Studio sont testés à chaque granularité, avec historique, cache, concurrence et permissions.
-- La carte est testée activée/désactivée, y compris l'absence de toute requête fournisseur lorsqu'elle est coupée.
+- La carte est testée activée/désactivée, y compris l'absence de toute requête fournisseur lorsqu'elle est coupée, l'absence de carte sur une annonce `remote`, le marqueur approximatif d'une annonce `in_person`/`hybrid` et la présence de toutes les annonces dans les résultats de la carte globale.
 - Toute annonce indexable possède canonical, sitemap et JSON-LD sans donnée privée ; les variantes de filtre ne créent pas de pages dupliquées.

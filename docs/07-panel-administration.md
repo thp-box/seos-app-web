@@ -218,6 +218,8 @@ Le détail complet du Studio figure dans [`12-studio-ui-contenus-carte-et-separa
 - paramètres non secrets et feature flags ;
 - flag système `public_map_enabled`, activé par défaut et modifiable uniquement par le super-admin ;
 - diagnostic garantissant qu'aucun script, tuile, cookie ou appel du fournisseur cartographique n'est chargé lorsque la carte est coupée ;
+- diagnostic des annonces `in_person/hybrid` sans zone publique, des annonces `remote` possédant un marqueur par erreur et des écarts entre total catalogue, marqueurs et groupe distant ;
+- preview de la carte globale complète : marqueurs approximatifs pour le présentiel/hybride et panneau sans marqueur pour le 100 % distant ;
 - files de jobs, échecs, relances idempotentes et e-mails ;
 - versions applicatives, migrations et état du stockage ;
 - journaux d'audit, sans donner accès aux secrets ou logs bruts contenant des données ;
@@ -346,6 +348,8 @@ Le panneau reprend le kit SEOS, avec une densité supérieure aux pages publique
 - Le thème par défaut passe la comparaison visuelle aux largeurs `320`, `375`, `414`, `768`, `1024`, `1280` et `1440px`.
 - Un reset Studio restaure exactement la référence ciblée, crée une version/audit et ne supprime aucun historique.
 - Carte coupée : aucun élément cartographique ni requête fournisseur ; carte réactivée : état public restauré sans redéploiement.
+- Une annonce `remote` ne peut pas recevoir de carte ou de distance par modification admin directe ; une annonce `in_person/hybrid` sans zone publique remonte une erreur corrigeable.
+- Le total de la carte globale égale marqueurs physiques/hybrides + annonces distantes sans marqueur, sans doublon pour les annonces hybrides.
 - Chaque annonce affiche son statut d'indexabilité et son graphe Schema.org validé, sans donnée privée.
 - Aucune version de barème/chaîne/conservation publiée ne se modifie en place ; simulation et rollback sont testés.
 - Le bouton de soutien et les routes publiques Stripe sont absents tant que le flag est désactivé.
