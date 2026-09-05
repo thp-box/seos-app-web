@@ -95,4 +95,6 @@ Les images passent par un contrôle MIME/taille, réencodage et retrait des mét
 
 ## Suite du chantier
 
+La [phase 3](docs/17-suivi-phase-3.md) ajoute le parrainage, le moteur Trust versionné, les recours humains et la revue interne des signaux. Entrées : `/compte/confiance`, `/confiance`, `/admin/confiance`. Les seeds préparent `v1.0` en brouillon : simulation, seconde approbation et calcul en ombre précèdent toute activation publique. Aucun point n’est crédité ; le registre appartient à la phase 4. Redémarrer `bin/dev` après migration pour recharger routes et filtres de paramètres. Les recalculs nécessitent les jobs ; `bin/rails runner 'TrustMaintenanceJob.perform_now'` permet un passage local explicite.
+
 Restent notamment Google OmniAuth, Gmail API avec réconciliation des envois, la vidéo, les outils admin avancés et les Studios complets F-008/F-009. Les compléments propres aux phases 1 et 2 sont détaillés dans leur suivi. L’inscription n’enregistre pas encore d’acceptation de CGU versionnées : les documents légaux et la politique d’âge restent à valider et intégrer. Cette tranche est destinée au développement, pas à une ouverture en production.

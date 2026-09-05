@@ -9,10 +9,11 @@ class ReviewSubmission
       review = request.reviews.create!(attributes.merge(author: actor, reviewee: request.other(actor), reveal_at: 14.days.from_now))
       criteria.each do |criterion|
         value = ratings.fetch(criterion.id.to_s)
-        review.review_ratings.create!(review_criterion: criterion, label_snapshot: criterion.label,
+        review.review_ratings.create!(review_criterion: criterion, label_snapshot: criterion.label, dimension_snapshot: criterion.key,
           not_applicable: value == "na", rating: value == "na" ? nil : Integer(value, exception: false))
       end
       request.reviews.update_all(reveal_at: Time.current) if request.reviews.count == 2
+      request.reviews.each { |item| TrustRecalculationJob.set(wait_until: item.reveal_at).perform_later(item.reviewee_id) }
       Notification.notify!(user: request.other(actor), key: "review:#{review.id}", title: "Un avis a été déposé pour votre échange", request: request)
       review
     end

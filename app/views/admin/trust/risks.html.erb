@@ -1,0 +1,5 @@
+<% content_for :title, "Revue humaine des signaux" %>
+<h1>Revue humaine des signaux</h1>
+<p>Ces indices ne constituent pas une preuve de fraude. Aucune note, aucun droit ni statut de compte ne change automatiquement. Un foyer ou une association peut expliquer une activité rapprochée.</p>
+<p>Les signaux expirent après 30 jours. Aucun appareil, adresse IP, contact ou contenu de conversation n’est collecté par ce détecteur.</p>
+<% @risks.each do |risk| %><article class="card"><h2>Membre n° <%= risk.user_id %></h2><p><%= human_value risk.signal %> · <%= risk.evidence_count %> observations · <%= human_value risk.status %></p><p>Expiration : <%= l risk.expires_at, format: :short %></p><p><%= risk.decision %></p><% if risk.status == "open" && current_user.permission?("trust.manage") %><%= render "decision", operation: "risk", record: risk, choices: [["Classer sans suite / faux positif", "dismissed"], ["Revue effectuée, instruire les faits séparément", "reviewed"]] %><% end %></article><% end %>

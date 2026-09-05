@@ -1,5 +1,9 @@
 module DiscoveryHelper
   LABELS = {
+    "provisional" => "Provisoire", "confirmed" => "Confirmé", "objected" => "Retiré après objection", "invalidated" => "Invalidé",
+    "investigating" => "En cours d’examen", "rejected" => "Maintenu après examen", "simulated" => "Simulé", "approved" => "Approuvé",
+    "shadow" => "Calcul en ombre", "active" => "Actif", "retired" => "Retiré", "open" => "Ouvert", "reviewed" => "Examiné", "dismissed" => "Classé sans suite",
+    "exchange_burst" => "Échanges rapprochés", "repeated_pair" => "Paire répétée", "referral_burst" => "Parrainages rapprochés", "referral_cycle" => "Cycle de parrainage",
     "created" => "Demande envoyée", "accept" => "Demande acceptée", "decline" => "Demande refusée", "propose" => "Accord proposé", "agree" => "Accord accepté", "confirm" => "Réalisation confirmée", "cancel" => "Annulation", "dispute" => "Ouverture d’un litige", "share" => "Coordonnées partagées", "revoke" => "Partage révoqué",
     "offer" => "Je propose", "request" => "Je cherche", "gift" => "Don", "barter" => "Échange", "points" => "Points Services",
     "in_person" => "Sur place", "remote" => "À distance", "hybrid" => "Sur place ou à distance", "standard" => "Normal", "urgent" => "Urgent",

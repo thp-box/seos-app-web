@@ -1,0 +1,41 @@
+<% content_for :title, "Confiance et parrainage" %>
+<h1>Confiance et parrainage</h1>
+<%= render "shared/trust_score", user: current_user %>
+<h2>Mes soutiens</h2>
+<p>Vous avez sept jours après la création du compte pour saisir jusqu’à dix codes. Aucun point ni droit supplémentaire n’est attribué au filleul. Les identités de vos parrains ne sont jamais publiées.</p>
+<% if current_user.created_at > 7.days.ago %>
+  <%= form_with url: account_trust_path, class: "card form-field" do |f| %>
+    <%= f.hidden_field :operation, value: "claim" %><%= f.label :referral_codes, "Codes de parrainage (un par ligne)" %><%= f.text_area :referral_codes, required: true, maxlength: 500, class: "control", autocomplete: "off" %><%= f.submit "Enregistrer mes codes", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+<% @referrals.each do |referral| %>
+  <div class="card"><p>Soutien <%= referral.position %> · <%= human_value referral.status %><%= " · parrain principal" if referral.primary_referrer? %></p>
+  <% if !referral.primary_referrer? && current_user.created_at > 7.days.ago && %w[provisional confirmed].include?(referral.status) %><%= button_to "Choisir comme parrain principal", account_trust_path, params: { operation: "primary", referral_id: referral.id }, class: "btn btn-outline" %><% end %>
+  <% if referral.invalidated_at %><p>Motif : <%= referral.invalidation_reason %></p>
+    <%= form_with url: account_trust_path, class: "form-field" do |f| %><%= f.hidden_field :operation, value: "appeal" %><%= f.hidden_field :referral_id, value: referral.id %><%= f.label :statement, "Contester le retrait du soutien", for: "referral-appeal-#{referral.id}" %><%= f.text_area :statement, id: "referral-appeal-#{referral.id}", required: true, maxlength: 3000, class: "control" %><%= f.submit "Demander une revue humaine", class: "btn btn-outline" %><% end %>
+  <% end %></div>
+<% end %>
+<h2>Parrainer un nouveau membre</h2>
+<p>Il faut un e-mail confirmé, 30 jours d’ancienneté et deux partenaires distincts, sauf exemption fondatrice auditée. Maximum cinq codes disponibles et cinq émissions par jour. Un code expire après sept jours et ne sert qu’une fois.</p>
+<% if @issued_code %><div class="card" role="status"><strong>Votre code, affiché une seule fois :</strong> <code class="trust-code"><%= @issued_code %></code><p>Conservez-le avant de quitter cette page.</p></div><% end %>
+<% if Referrals.eligible?(current_user) %><%= button_to "Générer un code", account_trust_path, params: { operation: "issue" }, class: "btn btn-primary" %><% end %>
+<% @codes.each do |code| %><p>Code émis le <%= l code.created_at, format: :short %> · <%= code.claimed_at ? "utilisé" : "expire le #{l code.expires_at, format: :short}" %></p><% end %>
+<% @sponsorships.each do |referral| %>
+  <div class="card"><p>Soutien émis n° <%= referral.id %> · <%= human_value referral.status %><%= " · qualifié, récompense en attente du registre Points Services" if referral.qualified_at %></p>
+  <% if referral.status == "provisional" && referral.objection_deadline_at > Time.current %>
+    <%= form_with url: account_trust_path, class: "form-field" do |f| %><%= f.hidden_field :operation, value: "object" %><%= f.hidden_field :referral_id, value: referral.id %><%= f.label :reason, "Motif de l’objection", for: "objection-#{referral.id}" %><%= f.text_area :reason, id: "objection-#{referral.id}", required: true, maxlength: 500, class: "control" %><%= f.submit "Signaler un usage non autorisé", class: "btn btn-outline" %><% end %>
+  <% end %></div>
+<% end %>
+<h2>Évolution et explication</h2>
+<% @snapshots.each do |snapshot| %>
+  <details class="card"><summary>Calcul du <%= l snapshot.calculated_at, format: :short %> · <%= snapshot.result["score"] || "sans note" %> · version <%= snapshot.result["version"] %></summary>
+    <p>Statut de la version : <%= human_value snapshot.trust_algorithm_version.status %>. Les calculs en ombre ne sont pas publiés.</p>
+    <% snapshot.result["dimensions"].each do |dimension, values| %><p><%= ReviewCriterion.find_by(key: dimension)&.label || dimension %> : <%= values["score"] %>/100</p><% end %>
+    <% snapshot.contributions.each do |contribution| %><p>Preuve n° <%= contribution["event_id"] %> : <%= contribution["excluded"] ? "exclue après correction ou invalidation de la source" : "poids #{number_with_precision(contribution['weight'], precision: 2)}, répétition × #{contribution['pair_factor']}, récence × #{number_with_precision(contribution['recency_factor'], precision: 2)}" %>.</p><% end %>
+    <%= form_with url: account_trust_path, class: "form-field" do |f| %><%= f.hidden_field :operation, value: "appeal" %><%= f.hidden_field :snapshot_id, value: snapshot.id %><%= f.label :statement, "Signaler une erreur sur ce calcul", for: "appeal-#{snapshot.id}" %><%= f.text_area :statement, id: "appeal-#{snapshot.id}", required: true, maxlength: 3000, class: "control" %><%= f.submit "Demander une revue humaine", class: "btn btn-outline" %><% end %>
+  </details>
+<% end %>
+<% if @snapshots.empty? %><p>Aucun calcul disponible pour le moment.</p><% end %>
+<% @events.each do |event| %><p>Preuve n° <%= event.id %> · <%= event.event_kind == "exchange" ? "Échange confirmé" : "Avis structuré" %> · <%= link_to "Voir l’échange", account_service_request_path(event.service_request_id) %></p><% end %>
+<h2>Mes recours</h2>
+<% @appeals.each do |appeal| %><article class="card"><p>Recours n° <%= appeal.id %> · <%= human_value appeal.status %> · réponse attendue avant le <%= l appeal.response_due_at, format: :short %></p><p><%= appeal.statement %></p><p><%= appeal.decision %></p></article><% end %>

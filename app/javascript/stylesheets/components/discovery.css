@@ -42,3 +42,4 @@ input[type=checkbox] { width:20px; height:20px; margin:12px; vertical-align:midd
 .advanced-filters summary { min-height:44px; padding-block:10px; font-weight:700; }
 .advanced-filters .filters { margin-top:18px; }
 .search-panel > .filters { margin-bottom:8px; }
+.trust-code { overflow-wrap: anywhere; }

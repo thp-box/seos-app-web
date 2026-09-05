@@ -1,0 +1,15 @@
+<% content_for :title, "Comprendre l’indice de confiance" %>
+<section class="container section prose">
+  <h1>Comprendre l’indice de confiance</h1>
+  <p>Le score décrit les expériences documentées dans SEOS. Il ne certifie ni l’identité civile, ni la sécurité, ni une qualité future.</p>
+  <h2>Des preuves, avec leurs limites</h2>
+  <p>Les échanges doublement confirmés et les notes structurées révélées alimentent cinq dimensions : fiabilité (30 %), qualité de la tâche (25 %), respect (20 %), communication (15 %) et ponctualité (10 %). Les textes libres, signalements en cours, Points Services et soutiens financiers ne changent pas la note.</p>
+  <p>Une note de 1 à 5 est ramenée entre 0 et 1. Le calcul part d’un a priori neutre de 2/2 : 100 × (2 + preuves positives pondérées) / (4 + poids des preuves). Les échanges récents pèsent davantage, avec une demi-vie de 548 jours. Les répétitions avec le même partenaire sont plafonnées.</p>
+  <h2>Nouveaux membres et parrainages</h2>
+  <p>Sans données suffisantes, aucune note n’est affichée. Jusqu’à dix parrains distincts peuvent apporter chacun 0,25 de preuve positive générale : 1, 3, 5 et 10 codes donnent initialement 53, 58, 62 et 69/100. Le score reste provisoire, avec des données limitées. Il ne crée aucune compétence par catégorie.</p>
+  <p>Un score établi demande au moins trois partenaires et un poids d’échange de 3. Une catégorie demande deux partenaires et un poids de 2. Sans preuve directe : pas encore assez d’échanges dans cette catégorie. Aucun héritage automatique entre catégories n’est utilisé.</p>
+  <h2>Explication et revue humaine</h2>
+  <p>Votre espace présente les calculs conservés, les preuves et leur pondération. Vous pouvez demander une revue humaine. L’équipe corrige une preuve avec un motif ; elle ne saisit jamais arbitrairement une note. Une alerte technique ne diminue pas le score.</p>
+  <% if @version %><p>Version active : <strong><%= @version.version %></strong>. <%= @version.explanation %></p><% else %><p>Le moteur est en préparation : aucune version n’est encore activée publiquement.</p><% end %>
+  <%= link_to "Mon score et mes recours", account_trust_path, class: "btn btn-primary" %>
+</section>

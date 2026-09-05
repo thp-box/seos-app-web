@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one :trust_profile, dependent: :restrict_with_exception
   has_one :profile, dependent: :restrict_with_exception
   has_many :listings, dependent: :restrict_with_exception
   has_many :notifications, dependent: :restrict_with_exception

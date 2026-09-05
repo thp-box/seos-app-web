@@ -1,0 +1,7 @@
+<% form_id = "#{operation}-#{record.id}" %>
+<%= form_with url: admin_trust_index_path, class: "form-field" do |f| %>
+  <%= f.hidden_field :operation, value: operation %><%= f.hidden_field :record_id, value: record.id %>
+  <% if defined?(choices) && choices %><%= f.label :decision, "Action", for: "decision-#{form_id}" %><%= f.select :decision, choices, {}, id: "decision-#{form_id}", class: "control" %><% end %>
+  <%= f.label :reason, "Motif de la décision", for: "reason-#{form_id}" %><%= f.text_area :reason, id: "reason-#{form_id}", required: true, maxlength: 500, class: "control" %>
+  <%= f.submit "Enregistrer la décision", class: "btn btn-outline" %>
+<% end %>

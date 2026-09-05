@@ -1,5 +1,7 @@
 # Dossier de conception SEOS
 
+État du chantier confiance et parrainage : [suivi de la phase 3](./17-suivi-phase-3.md).
+
 Ce dossier transforme la maquette et les user stories existantes en une base de travail exploitable pour construire l'application Rails. Il s'agit de la spécification établie le 4 septembre 2026. Le code a commencé depuis : voir le [suivi des phases 1 et 2](./15-suivi-phases-1-et-2.md) pour l’état actuel de livraison, et le [bilan initial du socle](./14-analyse-et-suivi-phase-0.md) pour son historique.
 
 ## Sources analysées

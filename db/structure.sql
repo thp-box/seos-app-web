@@ -193,7 +193,7 @@ FOREIGN KEY ("category_id")
 , CONSTRAINT review_criteria_evaluator_role_values CHECK (evaluator_role IN ('both','requester','provider')));
 CREATE INDEX "index_review_criteria_on_category_id" ON "review_criteria" ("category_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_review_criteria_on_key" ON "review_criteria" ("key") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "review_ratings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "review_id" integer NOT NULL, "review_criterion_id" integer NOT NULL, "label_snapshot" varchar NOT NULL, "rating" integer, "not_applicable" boolean DEFAULT FALSE NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f692c34694"
+CREATE TABLE IF NOT EXISTS "review_ratings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "review_id" integer NOT NULL, "review_criterion_id" integer NOT NULL, "label_snapshot" varchar NOT NULL, "rating" integer, "not_applicable" boolean DEFAULT FALSE NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "dimension_snapshot" varchar /*application='SeosFrance'*/, CONSTRAINT "fk_rails_f692c34694"
 FOREIGN KEY ("review_criterion_id")
   REFERENCES "review_criteria" ("id")
 , CONSTRAINT "fk_rails_8948e4ab9e"
@@ -224,10 +224,140 @@ CREATE TRIGGER request_events_no_update BEFORE UPDATE ON request_events BEGIN SE
 CREATE TRIGGER request_events_no_delete BEFORE DELETE ON request_events BEGIN SELECT RAISE(ABORT, 'request history is append-only'); END;
 CREATE TRIGGER published_content_no_update BEFORE UPDATE ON content_versions WHEN OLD.published_at IS NOT NULL BEGIN SELECT RAISE(ABORT, 'published content is immutable'); END;
 CREATE TRIGGER published_content_no_delete BEFORE DELETE ON content_versions WHEN OLD.published_at IS NOT NULL BEGIN SELECT RAISE(ABORT, 'published content is immutable'); END;
+CREATE TABLE IF NOT EXISTS "referral_exemptions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "granted_by_id" integer NOT NULL, "reason" text NOT NULL, "expires_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f52d65295b"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_1859fb3ba5"
+FOREIGN KEY ("granted_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE UNIQUE INDEX "index_referral_exemptions_on_user_id" ON "referral_exemptions" ("user_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_referral_exemptions_on_granted_by_id" ON "referral_exemptions" ("granted_by_id") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "referral_codes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "owner_id" integer NOT NULL, "code_digest" varchar NOT NULL, "expires_at" datetime(6) NOT NULL, "claimed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_271698188c"
+FOREIGN KEY ("owner_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_referral_codes_on_owner_id" ON "referral_codes" ("owner_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "index_referral_codes_on_code_digest" ON "referral_codes" ("code_digest") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "referrals" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "referral_code_id" integer NOT NULL, "referrer_id" integer NOT NULL, "referred_user_id" integer NOT NULL, "position" integer NOT NULL, "primary_referrer" boolean DEFAULT FALSE NOT NULL, "status" varchar DEFAULT 'provisional' NOT NULL, "claimed_at" datetime(6) NOT NULL, "objection_deadline_at" datetime(6) NOT NULL, "confirmed_at" datetime(6), "qualified_at" datetime(6), "invalidated_at" datetime(6), "invalidation_reason" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_c65f8d2b8d"
+FOREIGN KEY ("referred_user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2eb0614166"
+FOREIGN KEY ("referrer_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_857fbada99"
+FOREIGN KEY ("referral_code_id")
+  REFERENCES "referral_codes" ("id")
+, CONSTRAINT referral_position_range CHECK (position BETWEEN 1 AND 10), CONSTRAINT no_self_referral CHECK (referrer_id != referred_user_id), CONSTRAINT referral_status CHECK (status IN ('provisional', 'confirmed', 'objected', 'invalidated')));
+CREATE UNIQUE INDEX "index_referrals_on_referral_code_id" ON "referrals" ("referral_code_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_referrals_on_referrer_id" ON "referrals" ("referrer_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_referrals_on_referred_user_id" ON "referrals" ("referred_user_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "index_referrals_on_referrer_id_and_referred_user_id" ON "referrals" ("referrer_id", "referred_user_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "index_referrals_on_referred_user_id_and_position" ON "referrals" ("referred_user_id", "position") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "one_primary_referrer" ON "referrals" ("referred_user_id") WHERE primary_referrer = 1 /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "trust_algorithm_versions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "version" varchar NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "configuration" json DEFAULT '{}' NOT NULL, "explanation" text NOT NULL, "simulation" json DEFAULT '{}' NOT NULL, "created_by_id" integer NOT NULL, "approved_by_id" integer, "activated_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_cd3a97a171"
+FOREIGN KEY ("created_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_36d0e49a8b"
+FOREIGN KEY ("approved_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE UNIQUE INDEX "index_trust_algorithm_versions_on_version" ON "trust_algorithm_versions" ("version") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_algorithm_versions_on_created_by_id" ON "trust_algorithm_versions" ("created_by_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_algorithm_versions_on_approved_by_id" ON "trust_algorithm_versions" ("approved_by_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "one_active_trust_algorithm" ON "trust_algorithm_versions" ("status") WHERE status = 'active' /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "trust_events" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "subject_id" integer NOT NULL, "actor_id" integer, "service_request_id" integer, "category_id" integer, "source_type" varchar NOT NULL, "source_id" integer NOT NULL, "source_key" varchar NOT NULL, "dimension" varchar NOT NULL, "event_kind" varchar NOT NULL, "normalized_value" float NOT NULL, "occurred_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_8068f5fcaa"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+, CONSTRAINT "fk_rails_540b24e148"
+FOREIGN KEY ("service_request_id")
+  REFERENCES "service_requests" ("id")
+, CONSTRAINT "fk_rails_563c1bbabb"
+FOREIGN KEY ("actor_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_f6f4284964"
+FOREIGN KEY ("subject_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT trust_value_bounds CHECK (normalized_value >= 0 AND normalized_value <= 1));
+CREATE INDEX "index_trust_events_on_subject_id" ON "trust_events" ("subject_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_events_on_actor_id" ON "trust_events" ("actor_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_events_on_service_request_id" ON "trust_events" ("service_request_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_events_on_category_id" ON "trust_events" ("category_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_events_on_source" ON "trust_events" ("source_type", "source_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "index_trust_events_on_source_key" ON "trust_events" ("source_key") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "trust_event_corrections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "trust_event_id" integer NOT NULL, "actor_id" integer NOT NULL, "excluded" boolean NOT NULL, "reason" text NOT NULL, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_cd33d3c8fa"
+FOREIGN KEY ("trust_event_id")
+  REFERENCES "trust_events" ("id")
+, CONSTRAINT "fk_rails_e23dfaa826"
+FOREIGN KEY ("actor_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_trust_event_corrections_on_trust_event_id" ON "trust_event_corrections" ("trust_event_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_event_corrections_on_actor_id" ON "trust_event_corrections" ("actor_id") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "trust_score_snapshots" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "trust_algorithm_version_id" integer NOT NULL, "fingerprint" varchar NOT NULL, "result" json DEFAULT '{}' NOT NULL, "contributions" json DEFAULT '[]' NOT NULL, "calculated_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_4ad530ebed"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_96c72217b7"
+FOREIGN KEY ("trust_algorithm_version_id")
+  REFERENCES "trust_algorithm_versions" ("id")
+);
+CREATE INDEX "index_trust_score_snapshots_on_user_id" ON "trust_score_snapshots" ("user_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_score_snapshots_on_trust_algorithm_version_id" ON "trust_score_snapshots" ("trust_algorithm_version_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "unique_trust_calculation" ON "trust_score_snapshots" ("user_id", "trust_algorithm_version_id", "fingerprint") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "trust_profiles" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "trust_score_snapshot_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_501222d271"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_af4b21c92c"
+FOREIGN KEY ("trust_score_snapshot_id")
+  REFERENCES "trust_score_snapshots" ("id")
+);
+CREATE UNIQUE INDEX "index_trust_profiles_on_user_id" ON "trust_profiles" ("user_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_profiles_on_trust_score_snapshot_id" ON "trust_profiles" ("trust_score_snapshot_id") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "trust_risk_assessments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "reviewed_by_id" integer, "signal" varchar NOT NULL, "evidence_count" integer NOT NULL, "status" varchar DEFAULT 'open' NOT NULL, "decision" text, "expires_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_0d803a5542"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_e8b6e10ad1"
+FOREIGN KEY ("reviewed_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_trust_risk_assessments_on_user_id" ON "trust_risk_assessments" ("user_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_risk_assessments_on_reviewed_by_id" ON "trust_risk_assessments" ("reviewed_by_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "one_open_trust_signal" ON "trust_risk_assessments" ("user_id", "signal") WHERE status = 'open' /*application='SeosFrance'*/;
+CREATE TRIGGER trust_events_no_update BEFORE UPDATE ON trust_events BEGIN SELECT RAISE(ABORT, 'immutable trust history'); END;
+CREATE TRIGGER trust_events_no_delete BEFORE DELETE ON trust_events BEGIN SELECT RAISE(ABORT, 'immutable trust history'); END;
+CREATE TRIGGER trust_event_corrections_no_update BEFORE UPDATE ON trust_event_corrections BEGIN SELECT RAISE(ABORT, 'immutable trust history'); END;
+CREATE TRIGGER trust_event_corrections_no_delete BEFORE DELETE ON trust_event_corrections BEGIN SELECT RAISE(ABORT, 'immutable trust history'); END;
+CREATE TRIGGER trust_score_snapshots_no_update BEFORE UPDATE ON trust_score_snapshots BEGIN SELECT RAISE(ABORT, 'immutable trust history'); END;
+CREATE TRIGGER trust_score_snapshots_no_delete BEFORE DELETE ON trust_score_snapshots BEGIN SELECT RAISE(ABORT, 'immutable trust history'); END;
+CREATE TRIGGER trust_configuration_immutable BEFORE UPDATE ON trust_algorithm_versions
+WHEN NEW.configuration != OLD.configuration OR NEW.version != OLD.version OR NEW.explanation != OLD.explanation OR NEW.created_by_id != OLD.created_by_id
+BEGIN SELECT RAISE(ABORT, 'immutable trust configuration'); END;
+CREATE TABLE IF NOT EXISTS "trust_appeals" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "trust_score_snapshot_id" integer, "assigned_to_id" integer, "statement" text NOT NULL, "status" varchar DEFAULT 'open' NOT NULL, "decision" text, "decided_at" datetime(6), "response_due_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "referral_id" integer, CONSTRAINT "fk_rails_6dd7ade7f5"
+FOREIGN KEY ("referral_id")
+  REFERENCES "referrals" ("id")
+, CONSTRAINT "fk_rails_b7343a1b90"
+FOREIGN KEY ("assigned_to_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_7be91d2974"
+FOREIGN KEY ("trust_score_snapshot_id")
+  REFERENCES "trust_score_snapshots" ("id")
+, CONSTRAINT "fk_rails_cdf38be849"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT one_trust_appeal_source CHECK ((trust_score_snapshot_id IS NOT NULL AND referral_id IS NULL) OR (trust_score_snapshot_id IS NULL AND referral_id IS NOT NULL)));
+CREATE INDEX "index_trust_appeals_on_user_id" ON "trust_appeals" ("user_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_appeals_on_trust_score_snapshot_id" ON "trust_appeals" ("trust_score_snapshot_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_appeals_on_assigned_to_id" ON "trust_appeals" ("assigned_to_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "one_open_trust_appeal" ON "trust_appeals" ("user_id", "trust_score_snapshot_id") WHERE status IN ('open', 'investigating') /*application='SeosFrance'*/;
+CREATE INDEX "index_trust_appeals_on_referral_id" ON "trust_appeals" ("referral_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "one_open_referral_appeal" ON "trust_appeals" ("user_id", "referral_id") WHERE status IN ('open', 'investigating') /*application='SeosFrance'*/;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20260905123500'),
 ('20260905123456'),
 ('20260905123455'),
+('20260905102000'),
+('20260905101000'),
+('20260905100000'),
 ('20260905093000'),
 ('20260905092000'),
 ('20260905091000'),

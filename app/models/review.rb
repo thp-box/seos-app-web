@@ -1,4 +1,5 @@
 class Review < ApplicationRecord
+  after_commit -> { TrustRecalculationJob.perform_later(reviewee_id) }
   include PublicText
   belongs_to :service_request
   belongs_to :author, class_name: "User"

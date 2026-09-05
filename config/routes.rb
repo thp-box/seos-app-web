@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "pages#home"
+  get "confiance", to: "trust#show", as: :trust_explanation
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :listings, path: "annonces", param: :slug, only: [ :index, :show ]
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
   end
 
   namespace :account, path: "compte" do
+    resource :trust, path: "confiance", controller: "trust", only: [ :show, :create ]
     root "dashboard#show"
     resource :profile, path: "profil", only: [ :edit, :update ]
     resources :listings, path: "annonces", only: [ :index, :new, :create, :edit, :update ] do
@@ -46,6 +48,9 @@ Rails.application.routes.draw do
     resource :reauthentication, path: "verification", only: [ :new, :create ]
   end
   namespace :admin do
+    resources :trust, path: "confiance", only: [ :index, :create ] do
+      get :risks, on: :collection
+    end
     resources :workbench, path: "gestion/:kind", only: [ :index, :new, :create, :show, :update ] do
       post :reveal, on: :member
     end

@@ -2,5 +2,6 @@
 <% content_for :title, @profile.display_name %>
 <section class="container section"><div class="profile-heading card"><% if @profile.avatar.attached? %><%= image_tag media_path(@profile.avatar.attachment), alt: @profile.display_name, class: "avatar", width: 96, height: 96 %><% end %><div><span class="eyebrow">Membre SEOS · E-mail confirmé</span><h1><%= @profile.display_name %></h1><p><%= @profile.public_city %> · Membre depuis <%= l @profile.user.created_at.to_date, format: "%B %Y" %></p></div></div>
 <div class="prose"><%= plain_paragraphs @profile.bio %><p>Compétences : <%= @profile.skills.presence || "Non renseignées" %></p><p>Langues : <%= @profile.languages.presence || "Non renseignées" %></p></div><%= report_link @profile %>
+<%= render "shared/trust_score", user: @profile.user %>
 <h2>Les annonces de ce membre</h2><div class="card-grid"><%= render partial: "listings/card", collection: @listings, as: :listing %></div><% if @listings.empty? %><p>Aucune annonce active.</p><% end %>
 <h2>Avis après échange</h2><% @reviews.each do |review| %><%= render "shared/review", review: review %><% end %><% if @reviews.empty? %><p>Aucun avis publié pour le moment.</p><% end %></section>

@@ -6,6 +6,7 @@
     <h2>Disponibilités</h2><p><%= @listing.availability.presence || "À convenir ensemble" %></p><h2>Où se déroule le service ?</h2><p><%= @listing.location_label %></p>
     <% if @listing.map_eligible? %><%= render "listings/map", listings: [@listing] %><% end %>
   </article><aside class="card detail-aside"><h2>Faites connaissance</h2><p><%= link_to public_name(@listing.user), profile_path(@listing.user.profile) %></p><p>Les coordonnées exactes restent privées. Vous pourrez les partager après votre accord.</p>
+    <%= render "shared/trust_score", user: @listing.user %>
     <% if @listing.exchange_mode_points? %><p><strong><%= @listing.estimated_points %> PS estimés</strong></p><% end %>
     <% if current_user != @listing.user %><%= button_to "Demander ce service", account_service_requests_path(listing_slug: @listing.slug), class: "btn btn-primary" %><% else %><%= link_to "Gérer mon annonce", edit_account_listing_path(@listing), class: "btn btn-deep" %><% end %>
     <%= button_to "Ajouter aux favoris", account_favorites_path(listing_slug: @listing.slug), class: "btn btn-outline" %><%= report_link @listing %>

@@ -1,0 +1,15 @@
+<% result = user.trust_profile&.public_result %>
+<section class="card" aria-label="Indice de confiance SEOS">
+  <h2>Indice de confiance SEOS</h2>
+  <% if result && result["score"] %>
+    <p><strong><%= result["status"] == "provisional" ? "Score provisoire" : "Score documenté" %> : <%= result["score"] %>/100</strong> · <%= result["confidence_label"] %></p>
+    <p><%= result["exchange_count"] %> échanges confirmés avec <%= result["partners"] %> partenaires distincts.</p>
+    <% if result["referral_count"].positive? %><p>Parrainages valides : <%= result["referral_count"] %>, dont <%= result["confirmed_referrals"] %> confirmés. Les parrainages ne prouvent aucune compétence.</p><% end %>
+    <% result["categories"].each do |id, category| %><p><%= Category.find_by(id: id)&.name %> : <%= category["score"] %>/100 · échantillon limité aux échanges de cette catégorie.</p><% end %>
+    <p>Calcul du <%= result["calculated_on"] %> · version <%= result["version"] %>.</p>
+  <% else %>
+    <p>Nouveau profil — données insuffisantes pour afficher une note.</p>
+  <% end %>
+  <p>Une aide à la décision, sans garantie sur une collaboration future.</p>
+  <%= link_to "Comprendre ce score", trust_explanation_path %>
+</section>
