@@ -1,5 +1,7 @@
 # Analyse du dossier du 4 septembre et démarrage de la phase 0
 
+> Bilan historique du premier incrément. Les évolutions suivantes (médias, notifications, découverte et échanges) sont documentées dans le [suivi des phases 1 et 2](15-suivi-phases-1-et-2.md).
+
 Date : 5 septembre 2026. Références Git analysées : `2762831`, `14b4d4e`, `cb07029`.
 
 ## Conclusion de l’analyse

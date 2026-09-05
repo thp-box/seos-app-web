@@ -12,3 +12,9 @@ Rack::Attack.throttled_responder = lambda do |_request|
   [ 429, { "content-type" => "text/plain; charset=utf-8", "retry-after" => "300" },
     [ "Trop de tentatives. Réessayez dans quelques minutes." ] ]
 end
+Rack::Attack.throttle("contact/ip", limit: 5, period: 1.hour) do |request|
+  request.ip if request.post? && request.path == "/contact"
+end
+Rack::Attack.throttle("community/ip", limit: 40, period: 5.minutes) do |request|
+  request.ip if request.post? && request.path.match?(%r{\A/compte/(echanges|commentaires|signalements)})
+end

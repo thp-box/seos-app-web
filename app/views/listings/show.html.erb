@@ -1,0 +1,17 @@
+<% content_for :title, @listing.title %>
+<% content_for :structured_data do %><%= tag.script(json_escape(listing_schema(@listing).to_json).html_safe, type: "application/ld+json", nonce: content_security_policy_nonce) %><% end %>
+<section class="container section"><%= link_to "Toutes les annonces", listings_path %>
+  <div class="detail-grid"><article><span class="eyebrow"><%= @listing.category.name %> · <%= human_value(@listing.intent) %></span><h1><%= @listing.title %></h1><div class="actions"><span class="badge"><%= human_value(@listing.exchange_mode) %></span><span class="badge"><%= human_value(@listing.service_location_mode) %></span></div>
+    <% if @listing.organization %><p>Proposée par l’association <strong><%= @listing.organization.name %></strong>.</p><% end %><div class="prose"><%= plain_paragraphs @listing.description %></div><div class="gallery"><% @listing.photos.each do |photo| %><%= image_tag media_path(photo), alt: @listing.title, width: 800, height: 500 %><% end %></div>
+    <h2>Disponibilités</h2><p><%= @listing.availability.presence || "À convenir ensemble" %></p><h2>Où se déroule le service ?</h2><p><%= @listing.location_label %></p>
+    <% if @listing.map_eligible? %><%= render "listings/map", listings: [@listing] %><% end %>
+  </article><aside class="card detail-aside"><h2>Faites connaissance</h2><p><%= link_to public_name(@listing.user), profile_path(@listing.user.profile) %></p><p>Les coordonnées exactes restent privées. Vous pourrez les partager après votre accord.</p>
+    <% if @listing.exchange_mode_points? %><p><strong><%= @listing.estimated_points %> PS estimés</strong></p><% end %>
+    <% if current_user != @listing.user %><%= button_to "Demander ce service", account_service_requests_path(listing_slug: @listing.slug), class: "btn btn-primary" %><% else %><%= link_to "Gérer mon annonce", edit_account_listing_path(@listing), class: "btn btn-deep" %><% end %>
+    <%= button_to "Ajouter aux favoris", account_favorites_path(listing_slug: @listing.slug), class: "btn btn-outline" %><%= report_link @listing %>
+  </aside></div>
+  <section id="comments" class="discussion"><h2>Questions publiques</h2><p>Les commentaires sont visibles par tous. Gardez vos coordonnées pour la conversation privée.</p>
+    <% @comments.each do |comment| %><article class="card"><strong><%= public_name(comment.user) %></strong><%= plain_paragraphs comment.body %><%= report_link comment %><% if comment.user == current_user %><%= button_to "Retirer mon commentaire", account_comment_path(comment), method: :delete %><% end %></article><% end %>
+    <% if user_signed_in? %><%= form_with scope: :comment, url: account_comments_path(listing_slug: @listing.slug) do |f| %><%= input_field f, :body, "Votre question publique", type: :text_area, required: true, maxlength: 1500 %><%= f.submit "Publier la question", class: "btn btn-deep" %><% end %><% else %><%= link_to "Se connecter pour participer", new_user_session_path %><% end %>
+  </section>
+</section>

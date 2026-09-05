@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title><%= content_for?(:title) ? "#{yield(:title)} · SEOS" : "SEOS — L’entraide près de chez vous" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="SEOS, l’entraide locale en France : don, échange de compétences et Points Services.">
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="<%= @description.presence || "SEOS, l’entraide locale en France : don, échange de compétences et Points Services." %>">
+    <meta name="robots" content="<%= @indexable ? "index, follow" : "noindex, nofollow" %>">
+    <% if @canonical %><%= tag.link rel: "canonical", href: @canonical %><%= tag.meta property: "og:url", content: @canonical %><%= tag.meta property: "og:title", content: content_for(:title) %><% end %>
+    <%= yield :structured_data %>
     <%= favicon_link_tag "seos-logo.png", type: "image/png" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

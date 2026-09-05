@@ -1,7 +1,7 @@
 <header class="topbar">
   <nav class="container nav" aria-label="Navigation principale">
     <%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag "seos-logo.png", alt: "SEOS", width: 108, height: 38 %><% end %>
-    <div class="nav-links"><%= link_to "L’entraide", root_path(anchor: "modes") %><%= link_to "La confiance", root_path(anchor: "confiance") %></div>
+    <div class="nav-links"><%= link_to "Les annonces", listings_path %><%= link_to "Le journal", journal_path %></div>
     <div class="nav-actions">
       <% if user_signed_in? %>
         <details class="disclosure" data-controller="disclosure" data-action="keydown@window->disclosure#close click@window->disclosure#close">
@@ -20,7 +20,7 @@
       <details class="disclosure mobile-navigation" data-controller="disclosure" data-action="keydown@window->disclosure#close click@window->disclosure#close">
         <summary>Menu</summary>
         <div class="menu-panel">
-          <%= link_to "L’entraide", root_path(anchor: "modes") %><%= link_to "La confiance", root_path(anchor: "confiance") %>
+          <%= link_to "Les annonces", listings_path %><%= link_to "Le journal", journal_path %>
           <% unless user_signed_in? %><%= link_to "Connexion", new_user_session_path %><%= link_to "Créer un compte", new_user_registration_path %><% end %>
         </div>
       </details>

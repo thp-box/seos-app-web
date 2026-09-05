@@ -23,5 +23,6 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     driven_by :seos_chrome
     resize_viewport(1440)
+    page.driver.browser.logs.get(:browser) # Chaque exemple observe uniquement ses propres erreurs.
   end
 end

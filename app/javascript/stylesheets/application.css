@@ -2,3 +2,5 @@
 @import "./foundations/tokens.css";
 @import "./components/ui.css";
 @import "./layouts/shell.css";
+
+@import "./components/discovery.css";

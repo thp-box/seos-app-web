@@ -3,10 +3,11 @@
     <aside class="side-menu" aria-label="Administration">
       <nav>
         <%= navigation_link "Vue d’ensemble", admin_root_path %>
+        <% Admin::WorkbenchController::RESOURCES.each do |kind, (_, permission)| %><% if current_user.permission?(permission) %><%= navigation_link kind.humanize, admin_workbench_index_path(kind: kind) %><% end %><% end %>
         <% if policy(:administration).users? %><details open><summary>Communauté</summary><%= navigation_link "Membres", admin_users_path %></details><% end %>
         <% if policy(:administration).audit? %><details open><summary>Plateforme</summary><%= navigation_link "Journal d’audit", admin_audit_logs_path %></details><% end %>
         <% if policy(:administration).super_admin? %>
-          <details open><summary>Super-administration</summary><%= navigation_link "Vue d’ensemble", super_admin_root_path %><%= navigation_link "Administrateurs", super_admin_administrators_path %></details>
+          <details open><summary>Super-administration</summary><%= navigation_link "Carte publique", edit_super_admin_map_setting_path %><%= navigation_link "Vue d’ensemble", super_admin_root_path %><%= navigation_link "Administrateurs", super_admin_administrators_path %></details>
         <% end %>
       </nav>
     </aside>

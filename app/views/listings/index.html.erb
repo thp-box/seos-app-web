@@ -1,0 +1,27 @@
+<% content_for :structured_data do %><%= tag.script(json_escape(catalogue_schema(@listings).to_json).html_safe, type: "application/ld+json", nonce: content_security_policy_nonce) %><% end %>
+<% content_for :title, "Les annonces d’entraide" %>
+<section class="container section catalogue">
+  <div class="page-heading"><div><span class="eyebrow">Des savoir-faire, tout près de vous</span><h1>Un coup de main<br>change le quotidien.</h1><p>Proposez votre aide, partagez vos talents ou trouvez la bonne personne.</p></div><%= link_to "Publier une annonce", new_account_listing_path, class: "btn btn-primary" %></div>
+  <%= form_with url: listings_path, method: :get, class: "card search-panel" do |f| %>
+    <div class="filters">
+      <%= input_field f, :q, "Votre recherche", value: params[:q], placeholder: "Bricolage, jardinage, informatique…" %>
+      <%= input_field f, :city, "Commune", value: params[:city] %>
+      <%= select_field f, :category_id, "Catégorie", @categories.map { |c| [c.name,c.id] }, include_blank: "Toutes", selected: params[:category_id] %>
+      <%= f.submit "Rechercher", class: "btn btn-deep" %>
+    </div>
+    <details class="advanced-filters" <%= "open" if %i[radius intent exchange_mode service_location_mode sort priority].any? { |key| params[key].present? } %>>
+      <summary>Affiner la recherche</summary><div class="filters">
+      <%= select_field f, :radius, "Rayon autour de la commune", [["10 km",10],["25 km",25],["50 km",50],["100 km",100]], include_blank: "Commune uniquement", selected: params[:radius] %>
+      <%= select_field f, :intent, "Besoin", choices_for(Listing.intents.keys), include_blank: "Tous", selected: params[:intent] %>
+      <%= select_field f, :exchange_mode, "Mode d’échange", choices_for(Listing.exchange_modes.keys), include_blank: "Tous", selected: params[:exchange_mode] %>
+      <%= select_field f, :service_location_mode, "Réalisation", choices_for(Listing.service_location_modes.keys), include_blank: "Toutes", selected: params[:service_location_mode] %>
+      <%= select_field f, :priority, "Priorité", choices_for(%w[standard urgent]), include_blank: "Toutes", selected: params[:priority] %>
+      <%= select_field f, :sort, "Trier", [["Plus récentes", "recent"],["Plus anciennes", "oldest"]], selected: params[:sort] %>
+      <%= f.submit "Appliquer les filtres", class: "btn btn-outline" %></div>
+    </details>
+  <% end %>
+  <div class="actions results-heading"><p><strong><%= @results.size %></strong> annonce(s)</p><% if FeatureFlag.map_enabled? %><%= link_to @map ? "Vue liste" : "Vue carte", listings_path(request.query_parameters.merge(view: @map ? "list" : "map", page: nil)), class: "btn btn-outline" %><% end %></div>
+  <% if @map %><%= render "listings/map", listings: @results %><p><%= @results.count { |l| l.service_location_mode_remote? } %> annonce(s) à distance, sans marqueur · <%= @results.count { |l| l.public_coordinates.present? } %> zone(s) géolocalisée(s). Toutes les annonces restent dans la liste ci-dessous.</p><% end %>
+  <% if @listings.empty? %><div class="card empty-state"><h2>Aucun résultat pour le moment.</h2><p>Essayez une autre catégorie ou élargissez votre recherche.</p></div><% else %><div class="card-grid"><%= render partial: "listings/card", collection: @listings, as: :listing %></div><% end %>
+  <nav class="pagination" aria-label="Pagination"><% if @page > 1 %><%= link_to "Précédent", listings_path(request.query_parameters.merge(page: @page - 1)) %><% end %><span>Page <%= @page %></span><% if @results.size > @page * 12 %><%= link_to "Suivant", listings_path(request.query_parameters.merge(page: @page + 1)) %><% end %></nav>
+</section>

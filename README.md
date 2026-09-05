@@ -1,8 +1,8 @@
 # SEOS France
 
-Plateforme d’entraide locale en Rails 8.1. Le développement de la phase 0 a commencé : authentification, sessions, permissions, premiers écrans d’administration, interface et tests.
+Plateforme d’entraide locale en Rails 8.1. Le socle comprend désormais les premiers parcours des phases 1 et 2 : profils, annonces, demandes, conversations, accords, avis et modération.
 
-Le périmètre livré et le reste de la phase sont détaillés dans [l’analyse et le suivi](docs/14-analyse-et-suivi-phase-0.md). Le [dossier de conception](docs/README.md) reste la référence fonctionnelle.
+Le périmètre actuel et les compléments à construire figurent dans le [suivi des phases 1 et 2](docs/15-suivi-phases-1-et-2.md). Le [bilan initial du socle](docs/14-analyse-et-suivi-phase-0.md) reste historique. Le [dossier de conception](docs/README.md) reste la référence fonctionnelle.
 
 ## Démarrer
 
@@ -20,9 +20,12 @@ En développement, les e-mails sont écrits dans `tmp/mail/`, sans envoi externe
 ## Accès
 
 - `/auth/inscription`, `/auth/connexion` : création et connexion ; e-mail confirmé obligatoire.
-- `/compte` : compte personnel, identifiants et sessions révocables.
+- `/annonces` : catalogue, recherche, carte et détails publics.
+- `/compte` : compte personnel, profil, annonces, échanges, favoris et notifications.
+- `/journal`, `/decouvrir/:slug`, `/legal/:slug`, `/contact` : contenus publiés et contact équipe.
 - `/admin` : dashboard ; listes membres et audit selon permission.
-- `/super_admin` : gestion des administrateurs et permissions temporaires.
+- `/super_admin` : gestion des administrateurs, permissions temporaires et carte publique.
+- `/admin/gestion/:kind` : catégories, restrictions, annonces, profils, échanges, signalements, contenus et contacts, selon permission.
 - `/organisations/:slug/espace` : espace réservé aux memberships actifs d’une organisation vérifiée ; équipe réservée aux propriétaires/gestionnaires.
 
 ### Comptes de démonstration
@@ -43,7 +46,7 @@ Mot de passe initial des trois comptes : **`SeosDemo2026!`**. Ils sont actifs et
 
 L’association **Entraide solidaire — Démo** est vérifiée. Son responsable est un membre avec une adhésion propriétaire active ; son espace se trouve sur `/organisations/entraide-solidaire-demo/espace` et est accessible depuis `/compte`.
 
-Les seeds sont réservées au développement : elles ne créent aucun compte en test ou en production. Elles peuvent être relancées sans doublons et conservent les mots de passe, rôles, statuts et données déjà modifiés.
+Les identités de démonstration sont réservées au développement : aucun compte n’est créé en test ou en production. Les seeds ajoutent aussi les profils, quatre catégories, trois annonces et des pages explicatives en développement. Les critères d’avis et le flag carte sont des références chargées dans tous les environnements. Elles peuvent être relancées sans doublons et conservent les mots de passe, rôles, statuts et données déjà modifiés.
 
 ### Initialisation manuelle du super-admin
 
@@ -61,6 +64,7 @@ La commande refuse de s’exécuter si un super-admin existe déjà. Elle journa
 yarn build
 yarn build:check
 bundle exec rspec
+bin/check-exchange-concurrency
 bin/rubocop
 bin/brakeman --no-pager
 bin/bundler-audit
@@ -87,8 +91,8 @@ Le schéma canonique est `db/structure.sql` : il conserve aussi les triggers SQL
 
 Les sessions sont limitées à 30 minutes d’inactivité et 12 heures au maximum. L’administration exige une confirmation du mot de passe datant de moins de 15 minutes. Les mots de passe changés et les changements de rôle révoquent les sessions. Les jetons de session sont stockés sous forme de condensat ; les agents utilisateurs sont résumés sans conservation de l’IP.
 
-Les uploads Active Storage ne sont pas ouverts publiquement. Les routes seront ajoutées avec le traitement MIME/taille/réencodage de F-006. Aucun fournisseur cartographique, OAuth, analytics ou Stripe n’est chargé par ces écrans.
+Les images passent par un contrôle MIME/taille, réencodage et retrait des métadonnées, puis une route autorisée `/medias/:id`. Les routes génériques Active Storage restent fermées. La carte publique utilise Leaflet dans un bundle distinct, uniquement lorsque le flag est actif. `MAP_TILE_URL` remplace le fond OSM par défaut. Aucun OAuth, analytics ou Stripe n’est chargé.
 
-## Suite de la phase 0
+## Suite du chantier
 
-Restent notamment Google OmniAuth, Gmail API/Solid Queue et les reprises idempotentes, les médias sécurisés, les outils admin avancés et les Studios versionnés F-008/F-009. L’inscription n’enregistre pas encore d’acceptation de CGU versionnées : les documents légaux et la politique d’âge restent à valider et intégrer. Cette tranche est destinée au développement, pas à une ouverture en production.
+Restent notamment Google OmniAuth, Gmail API avec réconciliation des envois, la vidéo, les outils admin avancés et les Studios complets F-008/F-009. Les compléments propres aux phases 1 et 2 sont détaillés dans leur suivi. L’inscription n’enregistre pas encore d’acceptation de CGU versionnées : les documents légaux et la politique d’âge restent à valider et intégrer. Cette tranche est destinée au développement, pas à une ouverture en production.

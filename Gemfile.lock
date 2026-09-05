@@ -111,6 +111,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.7)
+    csv (3.3.6)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -147,6 +148,9 @@ GEM
     fugit (1.13.0)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
+    geocoder (1.8.6)
+      base64 (>= 0.1.0)
+      csv (>= 3.0.0)
     globalid (1.4.0)
       activesupport (>= 6.1)
     hashdiff (1.2.1)
@@ -455,6 +459,7 @@ DEPENDENCIES
   devise (~> 5.0)
   devise-i18n
   factory_bot_rails
+  geocoder (~> 1.8)
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails

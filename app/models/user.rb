@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  has_one :profile, dependent: :restrict_with_exception
+  has_many :listings, dependent: :restrict_with_exception
+  has_many :notifications, dependent: :restrict_with_exception
+  has_many :favorites, dependent: :restrict_with_exception
+
   devise :database_authenticatable, :registerable, :recoverable, :validatable,
     :confirmable, :lockable, :timeoutable
 

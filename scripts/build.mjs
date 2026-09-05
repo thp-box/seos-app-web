@@ -3,9 +3,9 @@ import { mkdir, writeFile } from "node:fs/promises"
 import { fingerprint, fileDigest } from "./build-fingerprint.mjs"
 
 const options = {
-  entryPoints: ["app/javascript/application.js"], bundle: true, sourcemap: true, metafile: true,
+  entryPoints: ["app/javascript/application.js", "app/javascript/map.js"], bundle: true, sourcemap: true, metafile: true,
   format: "esm", outdir: "app/assets/builds",
-  loader: { ".woff2": "file" }, assetNames: "fonts/[name]-[hash]",
+  loader: { ".woff2": "file", ".png": "file" }, assetNames: "fonts/[name]-[hash]",
   plugins: [{ name: "build-manifest", setup(build) {
     build.onEnd(async result => {
       if (result.errors.length) return

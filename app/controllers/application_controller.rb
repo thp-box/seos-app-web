@@ -6,7 +6,20 @@ class ApplicationController < ActionController::Base
   helper_method :current_login_session
   rescue_from Pundit::NotAuthorizedError, with: :forbidden
 
+  rescue_from Exchanges::Invalid, ActiveRecord::RecordInvalid, ActiveRecord::StaleObjectError, ActiveRecord::RecordNotUnique, with: :invalid_operation
+
   private
+
+  def invalid_operation(error)
+    @error_message = case error
+    when ActiveRecord::RecordInvalid then error.record.errors.full_messages.join(". ")
+    when ActiveRecord::StaleObjectError then "Ces informations ont changé. Rechargez la page avant de réessayer."
+    when ActiveRecord::RecordNotUnique then "Cet enregistrement existe déjà. Rechargez la page pour le retrouver."
+    else error.message
+    end
+    private_response
+    render "errors/invalid_operation", status: :unprocessable_entity
+  end
 
   def current_login_session
     @current_login_session ||= current_user&.login_sessions&.active&.find_by(

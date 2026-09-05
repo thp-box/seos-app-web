@@ -34,3 +34,5 @@ if Rails.env.development?
 else
   puts "Aucune donnée de démonstration créée hors développement."
 end
+
+load Rails.root.join("db/discovery_seeds.rb")

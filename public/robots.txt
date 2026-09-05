@@ -1,3 +1,0 @@
-# Socle en construction. Ouvrir les URLs publiques indexables avec F-017.
-User-agent: *
-Disallow: /

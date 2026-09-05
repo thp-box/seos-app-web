@@ -5,7 +5,7 @@
     <p>Un savoir-faire à partager, un service à demander. Ensemble, faisons circuler l’entraide, simplement.</p>
     <div class="actions">
       <%= link_to user_signed_in? ? "Accéder à mon compte" : "Rejoindre SEOS", user_signed_in? ? account_root_path : new_user_registration_path, class: "btn btn-primary" %>
-      <%= link_to "Découvrir les trois modes", "#modes", class: "btn btn-outline" %>
+      <%= link_to "Découvrir les annonces", listings_path, class: "btn btn-outline" %>
     </div>
   </div>
 </section>

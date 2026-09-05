@@ -53,6 +53,7 @@ jobs:
       - run: yarn build:check
       - run: bin/rails zeitwerk:check
       - run: bin/rails db:test:prepare
+      - run: bin/check-exchange-concurrency
       - run: bundle exec rspec --format progress --format RspecJunitFormatter --out tmp/rspec.xml
         env:
           CHROME_BIN: ${{ steps.chrome.outputs.chrome-path }}
