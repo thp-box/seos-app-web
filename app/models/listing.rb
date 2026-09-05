@@ -1,4 +1,5 @@
 class Listing < ApplicationRecord
+  after_commit -> { PointRewardsJob.perform_later(user_id) }, if: :published?
   include PublicText
   belongs_to :user
   belongs_to :organization, optional: true

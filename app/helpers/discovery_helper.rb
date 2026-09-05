@@ -15,7 +15,7 @@ module DiscoveryHelper
   def choices_for(values) = values.map { |value| [ human_value(value), value ] }
   def input_field(form, name, label, type: :text_field, **options)
     tag.div(class: "form-field") do
-      safe_join([ form.label(name, label), form.public_send(type, name, **options.merge(class: "control")) ])
+      safe_join([ form.label(name, label, **(options[:id] ? { for: options[:id] } : {})), form.public_send(type, name, **options.merge(class: "control")) ])
     end
   end
   def select_field(form, name, label, choices, **options)

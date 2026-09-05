@@ -1,5 +1,7 @@
 # Phase 3 — Parrainage, confiance et recours
 
+Suite livrée : [la phase 4](18-suivi-phase-4.md) apporte désormais le registre de Points Services et le crédit unique du parrain principal qualifié. Les mentions d’attente ci-dessous décrivent l’état historique de la livraison de phase 3.
+
 Livraison du 5 septembre 2026. Références : [plan F-030 à F-033](10-plan-construction-feature-par-feature.md), [formule de référence](08-systeme-trust-score.md). Le socle fonctionnel est implémenté ; l’activation publique reste une décision de gouvernance, après simulation et validation du dossier de lancement.
 
 ## Parcours disponibles

@@ -10,6 +10,9 @@
 #     schedule: at 5am every day
 
 production:
+  point_maintenance:
+    class: PointMaintenanceJob
+    schedule: every hour
   trust_maintenance:
     class: TrustMaintenanceJob
     schedule: every hour

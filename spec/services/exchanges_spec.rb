@@ -70,6 +70,7 @@ RSpec.describe Exchanges, :"F-020", :"F-021", :"F-022", type: :service do
   end
 
   it "valide les montants PS et la contrepartie du troc" do
+    point_rules
     listing.update!(exchange_mode: "points", estimated_points: 20)
     transition("accept")
     expect { propose(points: "0") }.to raise_error(Exchanges::Invalid)

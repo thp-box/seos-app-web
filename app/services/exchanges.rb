@@ -38,6 +38,12 @@ class Exchanges
         raise Invalid, "Cet échange ne prévoit pas de points" if !request.listing.exchange_mode_points? && terms[:points].present?
         raise Invalid, "Précisez les compétences échangées" if request.listing.exchange_mode_barter? && terms[:consideration].blank?
         request.agreement = { "scheduled_at" => date.iso8601, "location" => terms[:location].to_s.first(200), "mode" => mode, "points" => points, "consideration" => terms[:consideration].to_s.first(500) }
+        request.agreement["exchange_mode"] = request.listing.exchange_mode
+        if request.listing.exchange_mode_points?
+          valuation = PointRuleVersion.current("valuation") || raise(Invalid, "Un barème indicatif doit être publié avant un accord en points.")
+          payer, payee = request.listing.intent_offer? ? [ request.requester_id, request.provider_id ] : [ request.provider_id, request.requester_id ]
+          request.agreement.merge!("payer_id" => payer, "payee_id" => payee, "valuation_version_id" => valuation.id)
+        end
         request.agreement_version += 1
         request.proposed_by = actor
         request.requester_agreed_at = request.provider_agreed_at = nil
@@ -54,6 +60,9 @@ class Exchanges
         return request if request.completed? && request.public_send("#{side}_confirmed_at")
         require_status!(request, "scheduled", "awaiting_confirmation")
         raise Invalid, "L’accord doit être accepté par les deux participants" unless request.agreed?
+        if request.agreement["points"].present?
+          raise Invalid, "Relisez le montant et confirmez la version actuelle de l’accord." unless version.to_i == request.agreement_version && request.agreement["exchange_mode"] == "points"
+        end
         return request if request.public_send("#{side}_confirmed_at")
         request.public_send("#{side}_confirmed_at=", Time.current)
         request.status = "awaiting_confirmation"
@@ -74,6 +83,7 @@ class Exchanges
         raise Invalid, "Action inconnue"
       end
       request.save!
+      Points::Settlement.call!(request, actor: actor) if action == "confirm" && request.completed? && request.agreement["points"].present?
       details = action == "propose" ? request.agreement.to_json : reason
       record!(request, actor, action, details)
       if action == "dispute"

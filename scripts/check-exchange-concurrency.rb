@@ -71,3 +71,40 @@ TrustAlgorithmVersion.create!(version: "concurrency", status: "active", configur
 simultaneously(claimant, claimant) { |actor| TrustRecalculationJob.perform_now(actor.id) }
 raise "Duplicate trust snapshot" unless TrustScoreSnapshot.where(user: claimant).count == 1
 puts "SQLite concurrence : code à usage unique, dix soutiens maximum, un principal, snapshot idempotent."
+
+funding = Points::Ledger.post!(debit: PointAccount.system!, credit: PointAccount.for!(requester), amount: 30, key: "points-funding", kind: "admin_adjustment", source: requester, reason: "Provision de test")
+attempts = simultaneously(provider, admin) do |recipient|
+  Points::Ledger.post!(debit: PointAccount.for!(requester), credit: PointAccount.for!(recipient), amount: 20, key: "concurrent-spend:#{recipient.id}", kind: "service_transfer", source: request, reason: "Transfert concurrent")
+  :committed
+rescue Exchanges::Invalid
+  :rejected
+end
+raise "Concurrent overspend" unless attempts.sort == [ :committed, :rejected ] && PointAccount.for!(requester).balance == 10
+simultaneously(provider, provider) do |recipient|
+  Points::Ledger.post!(debit: PointAccount.system!, credit: PointAccount.for!(recipient), amount: 5, key: "same-reward", kind: "achievement_reward", source: recipient, reason: "Récompense unique")
+end
+raise "Duplicate reward" unless PointOperation.where(idempotency_key: "same-reward").count == 1
+raise "Unbalanced accounts" unless PointAccount.sum(:balance).zero?
+raise "Unbalanced entries" unless PointEntry.sum(:amount).zero?
+raise "Pending operation" if PointOperation.where(status: "pending").exists?
+versions = 2.times.map { |index| PointRuleVersion.create!(family: "engagement", name: "Concurrent #{index}", configuration: PointRuleVersion::DEFAULT_ENGAGEMENT, effective_at: 1.hour.from_now.change(usec: 0), created_by: admin) }
+versions.each { |version| Points::Rules.simulate!(version, actor: admin, reason: "Test simultané") }
+publications = simultaneously(*versions) do |version|
+  Points::Rules.publish!(version, actor: admin, reason: "Publication concurrente")
+  :published
+rescue ActiveRecord::RecordNotUnique
+  :rejected
+end
+raise "Two rules at the same effective date" unless publications.sort == [ :published, :rejected ]
+puts "SQLite Points Services : aucune double dépense, récompense unique, sommes nulles, publication unique à une date donnée."
+
+points_listing = Listing.create!(user: provider, category: category, title: "Service en points", description: "Service à distance", service_location_mode: :remote, exchange_mode: :points, estimated_points: 5, status: :published, published_at: Time.current)
+points_request = Exchanges.create!(listing: points_listing, actor: requester)
+Exchanges.transition!(request: points_request, actor: provider, action: "accept")
+Exchanges.transition!(request: points_request, actor: requester, action: "propose", terms: { scheduled_at: 1.day.from_now.iso8601, location: "Appel", mode: "remote", points: 5 })
+Exchanges.transition!(request: points_request, actor: provider, action: "agree", version: points_request.agreement_version)
+simultaneously(provider, requester) do |actor|
+  Exchanges.transition!(request: ServiceRequest.find(points_request.id), actor: actor, action: "confirm", version: points_request.agreement_version)
+end
+raise "Points confirmation race" unless points_request.reload.completed? && PointOperation.where(idempotency_key: "transfer:#{points_request.id}").count == 1 && PointAccount.for!(requester).balance == 5
+puts "SQLite Points Services : deux confirmations simultanées, un seul transfert de l’accord."

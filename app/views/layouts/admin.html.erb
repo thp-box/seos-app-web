@@ -3,6 +3,7 @@
     <aside class="side-menu" aria-label="Administration">
       <nav>
         <%= navigation_link "Vue d’ensemble", admin_root_path %>
+        <% if %w[points.read points.adjust points.rewards points.rules].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Points Services", admin_points_path %><% end %>
         <% if current_user.permission?("trust.read") || current_user.permission?("trust.manage") %><%= navigation_link "Confiance et recours", admin_trust_index_path %><% end %>
         <% if current_user.permission?("trust.risk") %><%= navigation_link "Revue des signaux", risks_admin_trust_index_path %><% end %>
         <% Admin::WorkbenchController::RESOURCES.each do |kind, (_, permission)| %><% if current_user.permission?(permission) %><%= navigation_link kind.humanize, admin_workbench_index_path(kind: kind) %><% end %><% end %>

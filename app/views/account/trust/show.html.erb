@@ -21,7 +21,7 @@
 <% if Referrals.eligible?(current_user) %><%= button_to "Générer un code", account_trust_path, params: { operation: "issue" }, class: "btn btn-primary" %><% end %>
 <% @codes.each do |code| %><p>Code émis le <%= l code.created_at, format: :short %> · <%= code.claimed_at ? "utilisé" : "expire le #{l code.expires_at, format: :short}" %></p><% end %>
 <% @sponsorships.each do |referral| %>
-  <div class="card"><p>Soutien émis n° <%= referral.id %> · <%= human_value referral.status %><%= " · qualifié, récompense en attente du registre Points Services" if referral.qualified_at %></p>
+  <div class="card"><p>Soutien émis n° <%= referral.id %> · <%= human_value referral.status %><%= " · qualifié — consultez la récompense dans votre portefeuille" if referral.qualified_at %></p>
   <% if referral.status == "provisional" && referral.objection_deadline_at > Time.current %>
     <%= form_with url: account_trust_path, class: "form-field" do |f| %><%= f.hidden_field :operation, value: "object" %><%= f.hidden_field :referral_id, value: referral.id %><%= f.label :reason, "Motif de l’objection", for: "objection-#{referral.id}" %><%= f.text_area :reason, id: "objection-#{referral.id}", required: true, maxlength: 500, class: "control" %><%= f.submit "Signaler un usage non autorisé", class: "btn btn-outline" %><% end %>
   <% end %></div>

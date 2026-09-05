@@ -69,8 +69,8 @@ class Referrals
         sponsors = Referral.where(referred_user: user).pluck(:referrer_id)
         if referral.status == "confirmed" && referral.primary_referrer? && referral.qualified_at.nil? && user.active? && user.confirmed? && user.created_at <= 30.days.ago && (partners(user) - sponsors).size >= 2
           referral.update!(qualified_at: Time.current)
-          # Eligibility only. Phase 4 will credit the sponsor's lifetime quest through its ledger.
-          Notification.notify!(user: referral.referrer, key: "referral:#{referral.id}:qualified", title: "Parrainage qualifié. La récompense attend l’ouverture du registre Points Services.")
+          # Eligibility only; the points job rechecks it and credits the sponsor's lifetime quest.
+          Notification.notify!(user: referral.referrer, key: "referral:#{referral.id}:qualified", title: "Parrainage qualifié. La récompense est examinée par le registre Points Services.")
         end
       end
     end

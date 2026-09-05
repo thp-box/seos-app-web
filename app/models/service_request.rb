@@ -2,6 +2,7 @@ class ServiceRequest < ApplicationRecord
   after_update_commit :schedule_trust_calculation
 
   def schedule_trust_calculation
+    [ requester_id, provider_id ].each { |id| PointRewardsJob.perform_later(id) } if saved_change_to_status?
     if saved_change_to_status? && completed?
       [ requester_id, provider_id ].each { |id| TrustRecalculationJob.perform_later(id) }
     end

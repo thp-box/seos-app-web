@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "pages#home"
+  get "points-services", to: "points#show", as: :points_explanation
   get "confiance", to: "trust#show", as: :trust_explanation
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
   end
 
   namespace :account, path: "compte" do
+    resource :points, path: "points", only: [ :show, :create ]
     resource :trust, path: "confiance", controller: "trust", only: [ :show, :create ]
     root "dashboard#show"
     resource :profile, path: "profil", only: [ :edit, :update ]
@@ -48,6 +50,7 @@ Rails.application.routes.draw do
     resource :reauthentication, path: "verification", only: [ :new, :create ]
   end
   namespace :admin do
+    resources :points, path: "points", only: [ :index, :create ]
     resources :trust, path: "confiance", only: [ :index, :create ] do
       get :risks, on: :collection
     end

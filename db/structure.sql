@@ -351,10 +351,140 @@ CREATE INDEX "index_trust_appeals_on_assigned_to_id" ON "trust_appeals" ("assign
 CREATE UNIQUE INDEX "one_open_trust_appeal" ON "trust_appeals" ("user_id", "trust_score_snapshot_id") WHERE status IN ('open', 'investigating') /*application='SeosFrance'*/;
 CREATE INDEX "index_trust_appeals_on_referral_id" ON "trust_appeals" ("referral_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "one_open_referral_appeal" ON "trust_appeals" ("user_id", "referral_id") WHERE status IN ('open', 'investigating') /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "point_rule_versions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "family" varchar NOT NULL, "name" varchar NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "configuration" json DEFAULT '{}' NOT NULL, "simulation" json DEFAULT '{}' NOT NULL, "created_by_id" integer, "effective_at" datetime(6) NOT NULL, "published_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_00c410a914"
+FOREIGN KEY ("created_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_point_rule_versions_on_created_by_id" ON "point_rule_versions" ("created_by_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "unique_point_rule_effective_date" ON "point_rule_versions" ("family", "effective_at") WHERE status = 'published' /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "point_accounts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "kind" varchar DEFAULT 'user' NOT NULL, "balance" bigint DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ecba00bfbc"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT point_account_owner_and_balance CHECK ((kind = 'user' AND user_id IS NOT NULL AND balance >= 0) OR (kind = 'system' AND user_id IS NULL)), CONSTRAINT point_balance_integer CHECK (typeof(balance) = 'integer' AND balance BETWEEN -9000000000000000 AND 9000000000000000));
+CREATE UNIQUE INDEX "index_point_accounts_on_user_id" ON "point_accounts" ("user_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "one_point_system_account" ON "point_accounts" ("kind") WHERE kind = 'system' /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "point_operations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "kind" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "idempotency_key" varchar NOT NULL, "initiator_id" integer, "source_type" varchar NOT NULL, "source_id" integer NOT NULL, "point_rule_version_id" integer, "reversed_operation_id" integer, "reason" text NOT NULL, "committed_at" datetime(6), "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d169594655"
+FOREIGN KEY ("initiator_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_91916a057e"
+FOREIGN KEY ("point_rule_version_id")
+  REFERENCES "point_rule_versions" ("id")
+, CONSTRAINT "fk_rails_210a2d5d94"
+FOREIGN KEY ("reversed_operation_id")
+  REFERENCES "point_operations" ("id")
+);
+CREATE UNIQUE INDEX "index_point_operations_on_idempotency_key" ON "point_operations" ("idempotency_key") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_operations_on_initiator_id" ON "point_operations" ("initiator_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_operations_on_source" ON "point_operations" ("source_type", "source_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_operations_on_point_rule_version_id" ON "point_operations" ("point_rule_version_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "index_point_operations_on_reversed_operation_id" ON "point_operations" ("reversed_operation_id") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "point_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "point_operation_id" integer NOT NULL, "point_account_id" integer NOT NULL, "amount" bigint NOT NULL, "balance_after" bigint NOT NULL, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_48c2628b67"
+FOREIGN KEY ("point_account_id")
+  REFERENCES "point_accounts" ("id")
+, CONSTRAINT "fk_rails_3ac7cde98a"
+FOREIGN KEY ("point_operation_id")
+  REFERENCES "point_operations" ("id")
+, CONSTRAINT point_entry_integer CHECK (typeof(amount) = 'integer' AND amount != 0 AND amount BETWEEN -999999 AND 999999));
+CREATE INDEX "index_point_entries_on_point_operation_id" ON "point_entries" ("point_operation_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_entries_on_point_account_id" ON "point_entries" ("point_account_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "one_entry_per_point_account" ON "point_entries" ("point_operation_id", "point_account_id") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "point_adjustments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "proposed_by_id" integer NOT NULL, "approved_by_id" integer, "amount" integer NOT NULL, "balance_before" bigint NOT NULL, "reason" text NOT NULL, "expires_at" datetime(6) NOT NULL, "point_operation_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_4b4d72a9aa"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_7c511c0c51"
+FOREIGN KEY ("proposed_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_2fd9acf4d5"
+FOREIGN KEY ("approved_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_515ea9ac1c"
+FOREIGN KEY ("point_operation_id")
+  REFERENCES "point_operations" ("id")
+);
+CREATE INDEX "index_point_adjustments_on_user_id" ON "point_adjustments" ("user_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_adjustments_on_proposed_by_id" ON "point_adjustments" ("proposed_by_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_adjustments_on_approved_by_id" ON "point_adjustments" ("approved_by_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_adjustments_on_point_operation_id" ON "point_adjustments" ("point_operation_id") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "point_reward_claims" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "point_rule_version_id" integer NOT NULL, "reviewed_by_id" integer, "kind" varchar NOT NULL, "period_key" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "evidence" text NOT NULL, "decision" text, "level" varchar DEFAULT 'bronze' NOT NULL, "amount" integer NOT NULL, "point_operation_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6204060139"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_ff01c6d643"
+FOREIGN KEY ("point_rule_version_id")
+  REFERENCES "point_rule_versions" ("id")
+, CONSTRAINT "fk_rails_5a88c24255"
+FOREIGN KEY ("reviewed_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_ea230849e8"
+FOREIGN KEY ("point_operation_id")
+  REFERENCES "point_operations" ("id")
+);
+CREATE INDEX "index_point_reward_claims_on_user_id" ON "point_reward_claims" ("user_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_reward_claims_on_point_rule_version_id" ON "point_reward_claims" ("point_rule_version_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_reward_claims_on_reviewed_by_id" ON "point_reward_claims" ("reviewed_by_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_reward_claims_on_point_operation_id" ON "point_reward_claims" ("point_operation_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "unique_point_reward_claim" ON "point_reward_claims" ("user_id", "kind", "period_key") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "point_cycle_progresses" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "point_rule_version_id" integer NOT NULL, "cycle_number" integer NOT NULL, "operation_ids" json DEFAULT '[]' NOT NULL, "point_operation_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_669415c165"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_495f903596"
+FOREIGN KEY ("point_rule_version_id")
+  REFERENCES "point_rule_versions" ("id")
+, CONSTRAINT "fk_rails_61535e2b0f"
+FOREIGN KEY ("point_operation_id")
+  REFERENCES "point_operations" ("id")
+);
+CREATE INDEX "index_point_cycle_progresses_on_user_id" ON "point_cycle_progresses" ("user_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_cycle_progresses_on_point_rule_version_id" ON "point_cycle_progresses" ("point_rule_version_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_point_cycle_progresses_on_point_operation_id" ON "point_cycle_progresses" ("point_operation_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "index_point_cycle_progresses_on_user_id_and_cycle_number" ON "point_cycle_progresses" ("user_id", "cycle_number") /*application='SeosFrance'*/;
+CREATE TRIGGER point_entry_insert_guard BEFORE INSERT ON point_entries BEGIN
+  SELECT CASE WHEN (SELECT status FROM point_operations WHERE id = NEW.point_operation_id) != 'pending'
+    THEN RAISE(ABORT, 'operation already committed') END;
+  SELECT CASE WHEN NEW.balance_after != (SELECT balance FROM point_accounts WHERE id = NEW.point_account_id) + NEW.amount
+    THEN RAISE(ABORT, 'incorrect resulting balance') END;
+END;
+CREATE TRIGGER point_entry_balance AFTER INSERT ON point_entries BEGIN
+  UPDATE point_accounts SET balance = NEW.balance_after WHERE id = NEW.point_account_id;
+END;
+CREATE TRIGGER point_balance_derived BEFORE UPDATE ON point_accounts
+WHEN NEW.user_id IS NOT OLD.user_id OR NEW.kind != OLD.kind OR NEW.balance != COALESCE((SELECT SUM(amount) FROM point_entries WHERE point_account_id = OLD.id), 0)
+BEGIN SELECT RAISE(ABORT, 'balance must follow ledger'); END;
+CREATE TRIGGER point_account_initial_zero BEFORE INSERT ON point_accounts
+WHEN NEW.balance != 0 BEGIN SELECT RAISE(ABORT, 'account must start at zero'); END;
+CREATE TRIGGER point_operation_commit BEFORE UPDATE ON point_operations BEGIN
+  SELECT CASE WHEN OLD.status != 'pending' OR NEW.status != 'committed' OR NEW.committed_at IS NULL
+    OR NEW.kind != OLD.kind OR NEW.idempotency_key != OLD.idempotency_key OR NEW.reason != OLD.reason
+    OR NEW.source_type != OLD.source_type OR NEW.source_id != OLD.source_id
+    OR NEW.initiator_id IS NOT OLD.initiator_id OR NEW.point_rule_version_id IS NOT OLD.point_rule_version_id
+    OR NEW.reversed_operation_id IS NOT OLD.reversed_operation_id OR NEW.created_at != OLD.created_at
+    THEN RAISE(ABORT, 'immutable point operation') END;
+  SELECT CASE WHEN (SELECT COUNT(*) FROM point_entries WHERE point_operation_id = OLD.id) != 2
+    OR (SELECT COALESCE(SUM(amount), 0) FROM point_entries WHERE point_operation_id = OLD.id) != 0
+    THEN RAISE(ABORT, 'unbalanced point operation') END;
+END;
+CREATE TRIGGER point_operation_starts_pending BEFORE INSERT ON point_operations WHEN NEW.status != 'pending' BEGIN SELECT RAISE(ABORT, 'operation must start pending'); END;
+CREATE TRIGGER point_entries_no_update BEFORE UPDATE ON point_entries BEGIN SELECT RAISE(ABORT, 'immutable point entries'); END;
+CREATE TRIGGER point_entries_no_delete BEFORE DELETE ON point_entries BEGIN SELECT RAISE(ABORT, 'immutable point entries'); END;
+CREATE TRIGGER point_operations_no_delete BEFORE DELETE ON point_operations BEGIN SELECT RAISE(ABORT, 'immutable point operation'); END;
+CREATE TRIGGER point_rules_no_update BEFORE UPDATE ON point_rule_versions WHEN OLD.status = 'published' BEGIN SELECT RAISE(ABORT, 'immutable published point rule'); END;
+CREATE TRIGGER point_rules_no_delete BEFORE DELETE ON point_rule_versions WHEN OLD.status = 'published' BEGIN SELECT RAISE(ABORT, 'immutable published point rule'); END;
+CREATE TRIGGER point_adjustment_inputs_immutable BEFORE UPDATE ON point_adjustments
+WHEN NEW.user_id != OLD.user_id OR NEW.proposed_by_id != OLD.proposed_by_id OR NEW.amount != OLD.amount
+  OR NEW.balance_before != OLD.balance_before OR NEW.reason != OLD.reason OR NEW.expires_at != OLD.expires_at
+  OR OLD.point_operation_id IS NOT NULL
+BEGIN SELECT RAISE(ABORT, 'immutable adjustment preview'); END;
+CREATE TRIGGER point_claim_inputs_immutable BEFORE UPDATE ON point_reward_claims
+WHEN NEW.user_id != OLD.user_id OR NEW.point_rule_version_id != OLD.point_rule_version_id OR NEW.kind != OLD.kind
+  OR NEW.period_key != OLD.period_key OR NEW.evidence != OLD.evidence OR NEW.amount != OLD.amount OR NEW.level != OLD.level
+  OR OLD.status != 'pending'
+BEGIN SELECT RAISE(ABORT, 'immutable reward evidence'); END;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20260905123500'),
 ('20260905123456'),
 ('20260905123455'),
+('20260905112000'),
+('20260905111000'),
+('20260905110000'),
 ('20260905102000'),
 ('20260905101000'),
 ('20260905100000'),

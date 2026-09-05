@@ -7,4 +7,5 @@ class Referral < ApplicationRecord
   validates :position, inclusion: { in: 1..10 }
   validates :status, inclusion: { in: %w[provisional confirmed objected invalidated] }
   after_commit -> { TrustRecalculationJob.perform_later(referred_user_id) }
+  after_commit -> { PointRewardsJob.perform_later(referrer_id) }, if: :qualified_at?
 end

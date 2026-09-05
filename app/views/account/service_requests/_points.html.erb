@@ -1,0 +1,6 @@
+<% if @request.agreement["points"].present? %>
+  <% balance = PointAccount.find_by(user: current_user)&.balance || 0; payer = @request.agreement["payer_id"] == current_user.id; amount = @request.agreement["points"].to_i %>
+  <section class="card"><h2>Transfert convenu</h2><p><%= amount %> PS · <%= payer ? "vous rétribuez le membre qui rend le service" : "vous recevez les points pour le service rendu" %>.</p><p>Votre solde : <%= balance %> PS.</p>
+    <% unless @request.completed? %><p>Solde prévisionnel après transfert : <%= balance + (payer ? -amount : amount) %> PS.</p><% if payer && balance < amount %><p>Votre solde est insuffisant. Les deux confirmations et le débit ne pourront pas être finalisés avant régularisation.</p><% end %><% else %><% operation = PointOperation.find_by(idempotency_key: "transfer:#{@request.id}") %><p><%= operation ? "Transfert enregistré dans le portefeuille." : "Aucun transfert enregistré pour cet échange historique." %></p><% end %><%= link_to "Voir mon portefeuille", account_points_path %>
+  </section>
+<% end %>

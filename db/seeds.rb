@@ -37,3 +37,4 @@ end
 
 load Rails.root.join("db/discovery_seeds.rb")
 load Rails.root.join("db/trust_seeds.rb")
+load Rails.root.join("db/point_seeds.rb")
