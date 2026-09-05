@@ -6,6 +6,7 @@ class Catalogue
     %w[intent exchange_mode service_location_mode category_id priority].each do |key|
       scope = scope.where(key => params[key]) if params[key].present?
     end
+    scope = scope.where("urgent_until > ?", Time.current) if params[:priority] == "urgent"
     records = scope.order(published_at: :desc, id: :desc).select(&:publicly_visible?)
     if params[:city].present? && params[:latitude].blank?
       city = params[:city].to_s.first(100).downcase
@@ -19,6 +20,7 @@ class Catalogue
         records = []
       end
     end
+    records.sort_by! { |listing| placement = listing.top_placement; [ placement ? 0 : 1, placement&.position || 0 ] } unless params[:sort] == "oldest"
     records.reverse! if params[:sort] == "oldest"
     records
   end

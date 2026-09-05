@@ -44,3 +44,7 @@ input[type=checkbox] { width:20px; height:20px; margin:12px; vertical-align:midd
 .search-panel > .filters { margin-bottom:8px; }
 .trust-code { overflow-wrap: anywhere; }
 .point-config { max-height: 24rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.community-page { min-width: 0; overflow-wrap: anywhere; }
+.community-page .control { max-width: 100%; min-width: 0; }
+.testimonial-video { width: 100%; max-width: 48rem; }

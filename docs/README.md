@@ -1,5 +1,7 @@
 # Dossier de conception SEOS
 
+Engagement, chaînes et soutien dormant : [suivi de la phase 5](./19-suivi-phase-5.md).
+
 Registre et barèmes Points Services : [suivi de la phase 4](./18-suivi-phase-4.md).
 
 État du chantier confiance et parrainage : [suivi de la phase 3](./17-suivi-phase-3.md).

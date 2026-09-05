@@ -1,8 +1,10 @@
 <% content_for :workspace do %>
   <div class="container dashboard">
     <aside class="side-menu" aria-label="Administration">
-      <nav>
+      <% workspace_navigation = capture do %><nav>
         <%= navigation_link "Vue d’ensemble", admin_root_path %>
+        <% if %w[community.read community.manage community.rules].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Engagement et chaînes", admin_community_index_path %><% end %>
+        <% if current_user.permission?("financial.read") || current_user.permission?("financial.manage") %><%= navigation_link "Soutien financier", admin_financial_support_index_path %><% end %>
         <% if %w[points.read points.adjust points.rewards points.rules].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Points Services", admin_points_path %><% end %>
         <% if current_user.permission?("trust.read") || current_user.permission?("trust.manage") %><%= navigation_link "Confiance et recours", admin_trust_index_path %><% end %>
         <% if current_user.permission?("trust.risk") %><%= navigation_link "Revue des signaux", risks_admin_trust_index_path %><% end %>
@@ -12,7 +14,9 @@
         <% if policy(:administration).super_admin? %>
           <details open><summary>Super-administration</summary><%= navigation_link "Carte publique", edit_super_admin_map_setting_path %><%= navigation_link "Vue d’ensemble", super_admin_root_path %><%= navigation_link "Administrateurs", super_admin_administrators_path %></details>
         <% end %>
-      </nav>
+      </nav><% end %>
+      <details class="mobile-workspace-navigation"><summary>Navigation de cet espace</summary><%= workspace_navigation %></details>
+      <div class="desktop-workspace-navigation"><%= workspace_navigation %></div>
     </aside>
     <main class="workspace" id="main-content" tabindex="-1"><%= yield %></main>
   </div>

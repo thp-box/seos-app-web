@@ -78,3 +78,5 @@ group :test do
 end
 
 gem "geocoder", "~> 1.8"
+
+gem "stripe", "~> 19.6"

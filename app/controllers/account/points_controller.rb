@@ -16,6 +16,7 @@ module Account
       when "welcome"
         Points::Rewards.welcome!(current_user)
       when "claim"
+        raise Exchanges::Invalid, "La récompense de chaîne suit maintenant la confirmation du bénéficiaire." if params[:kind] == "chain"
         Points::Rewards.submit!(user: current_user, kind: params[:kind], evidence: params[:evidence])
       else
         raise Exchanges::Invalid, "Action inconnue."

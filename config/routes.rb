@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   get "confiance", to: "trust#show", as: :trust_explanation
   get "up" => "rails/health#show", as: :rails_health_check
 
+  get "temoignages", to: "testimonials#index", as: :testimonials
+  get "chaines/invitation", to: "chain_invitations#show", as: :chain_invitation
+  post "chaines/invitation", to: "chain_invitations#create"
+  post "stripe/webhook", to: "payment_webhooks#create"
+
   resources :listings, path: "annonces", param: :slug, only: [ :index, :show ]
   get "membres/:public_slug", to: "profiles#show", as: :profile
   get "medias/:id", to: "media#show", as: :media
@@ -27,6 +32,11 @@ Rails.application.routes.draw do
   end
 
   namespace :account, path: "compte" do
+    resource :community, path: "engagement", controller: "community", only: [ :show, :create ]
+    resources :chains, path: "chaines", only: [ :index, :show, :create, :update ]
+    constraints ->(_request) { FeatureFlag.support_enabled? } do
+      resource :support, path: "soutien", controller: "support", only: [ :show, :create ]
+    end
     resource :points, path: "points", only: [ :show, :create ]
     resource :trust, path: "confiance", controller: "trust", only: [ :show, :create ]
     root "dashboard#show"
@@ -50,6 +60,8 @@ Rails.application.routes.draw do
     resource :reauthentication, path: "verification", only: [ :new, :create ]
   end
   namespace :admin do
+    resources :community, path: "engagement", only: [ :index, :create ]
+    resources :financial_support, path: "soutien", only: [ :index, :create ]
     resources :points, path: "points", only: [ :index, :create ]
     resources :trust, path: "confiance", only: [ :index, :create ] do
       get :risks, on: :collection

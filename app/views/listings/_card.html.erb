@@ -1,5 +1,6 @@
 <article class="card listing-card">
-  <div class="actions"><span class="badge"><%= human_value(listing.intent) %></span><span class="badge"><%= human_value(listing.exchange_mode) %></span><% if listing.priority == "urgent" %><span class="badge">Urgent</span><% end %></div>
+  <div class="actions"><span class="badge"><%= human_value(listing.intent) %></span><span class="badge"><%= human_value(listing.exchange_mode) %></span><% if listing.top_placement %><span class="badge">Top annonce</span><% end %>
+    <% if listing.urgent? %><span class="badge">Urgent</span><% end %></div>
   <% if listing.photos.attached? %><%= image_tag media_path(listing.photos.first), alt: listing.title, loading: "lazy", width: 480, height: 300, class: "listing-photo" %><% end %>
   <p class="eyebrow"><%= listing.category&.name %></p><h2><%= link_to listing.title, listing_path(listing) %></h2>
   <p><%= truncate(listing.description, length: 150) %></p><p><%= listing.location_label %> · <%= human_value(listing.service_location_mode) %></p>

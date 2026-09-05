@@ -68,3 +68,10 @@ footer p { font-size: .875rem; margin: 0; }
   .auth-tabs a { padding-inline: 8px; }
   .dashboard { padding-top: 24px; }
 }
+
+.mobile-workspace-navigation { display: none; }
+@media (max-width: 760px) {
+  .mobile-workspace-navigation { display: block; }
+  .mobile-workspace-navigation > summary { cursor: pointer; padding: .75rem; min-height: 44px; }
+  .desktop-workspace-navigation { display: none; }
+}

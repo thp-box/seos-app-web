@@ -108,3 +108,22 @@ simultaneously(provider, requester) do |actor|
 end
 raise "Points confirmation race" unless points_request.reload.completed? && PointOperation.where(idempotency_key: "transfer:#{points_request.id}").count == 1 && PointAccount.for!(requester).balance == 5
 puts "SQLite Points Services : deux confirmations simultanées, un seul transfert de l’accord."
+
+chain = Chains.create!(actor: provider, name: "Relais concurrent")
+service, = Chains.invite!(chain: chain, actor: provider, description: "Service de test")
+validations = simultaneously(requester, admin) do |actor|
+  Chains.confirm!(service: ChainService.find(service.id), actor: actor)
+  :confirmed
+rescue Exchanges::Invalid
+  :rejected
+end
+raise "Two chain beneficiaries" unless validations.sort == [ :confirmed, :rejected ] && service.reload.status == "confirmed"
+raise "Duplicate chain reward" unless ChainReward.where(chain_service: service).count == 1 && PointOperation.where(source: service, kind: "chain_reward").count == 1
+invitations = simultaneously(service.beneficiary, service.beneficiary) do |actor|
+  Chains.invite!(chain: HelpChain.find(chain.id), actor: actor, description: "Suite unique")
+  :invited
+rescue Exchanges::Invalid
+  :rejected
+end
+raise "Chain branch" unless invitations.sort == [ :invited, :rejected ] && chain.chain_services.where(status: "invited").count == 1
+puts "SQLite chaînes : un bénéficiaire et une récompense par validation, aucune branche concurrente."

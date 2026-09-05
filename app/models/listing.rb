@@ -6,6 +6,7 @@ class Listing < ApplicationRecord
   belongs_to :category, optional: true
   has_many_attached :photos
   has_many :service_requests, dependent: :restrict_with_exception
+  has_many :top_listing_requests, dependent: :restrict_with_exception
   has_many :comments, dependent: :restrict_with_exception
   encrypts :address_line
   enum :status, %w[draft pending_review published paused closed removed].index_with(&:itself), validate: true
@@ -20,6 +21,7 @@ class Listing < ApplicationRecord
   validates :priority, inclusion: { in: %w[standard urgent] }
   validates :estimated_points, numericality: { only_integer: true, greater_than: 0, less_than: 1_000_000 }, allow_nil: true
   before_validation do
+    self.urgent_until = priority == "urgent" ? CommunityPolicyVersion.current.urgent_days.days.from_now : nil if will_save_change_to_priority?
     self.slug ||= SecureRandom.hex(10)
     self.estimated_points = nil unless exchange_mode_points?
     self.latitude = self.longitude = nil if service_location_mode_remote? || will_save_change_to_city?
@@ -37,6 +39,8 @@ class Listing < ApplicationRecord
     return unless publicly_visible? && !service_location_mode_remote? && city.present? && latitude && longitude
     [ latitude.round(2), longitude.round(2) ]
   end
+  def urgent? = priority == "urgent" && urgent_until.present? && urgent_until > Time.current
+  def top_placement = top_listing_requests.effective.order(:position).detect(&:eligible?)
   def map_eligible? = FeatureFlag.map_enabled? && public_coordinates.present?
   def location_label = service_location_mode_remote? ? "À distance — France" : city
   def to_param = slug

@@ -1,0 +1,41 @@
+<h1>Mes quêtes et témoignages</h1>
+<p>Avancez à votre rythme. Les Points Services sont attribués une seule fois par objectif ou période, après les vérifications prévues.</p>
+<% if @rule %><p>Niveau actuel : <strong><%= community_level(Points::Rewards.level(current_user, @rule)) %></strong>. Barème : <%= @rule.name %>. Plafond mensuel : <%= @rule.configuration["monthly_cap"] %> PS.</p><% end %>
+<div class="card"><h2>Mes objectifs</h2>
+<% @achievements.each do |quest| %>
+  <article><h3><%= quest.name %></h3><p><%= quest.description %></p>
+  <p>Progression : <%= Achievements.progress(current_user, quest) %> / <%= quest.target_count %> · <%= { "once" => "Une fois", "monthly" => "Chaque mois", "cycle" => "Par série" }[quest.recurrence] %></p>
+  <% if quest.event_name == "manual" %>
+    <%= form_with url: account_community_path, multipart: true do |form| %>
+      <%= hidden_field_tag :operation, "quest", id: nil %><%= hidden_field_tag :achievement_id, quest.id, id: nil %>
+      <%= input_field form, :evidence, "Votre preuve pour #{quest.name}", type: :text_area, id: "quest-#{quest.id}-evidence", required: true, maxlength: 3000 %>
+      <%= input_field form, :proof, "Image justificative facultative", type: :file_field, id: "quest-#{quest.id}-proof", accept: "image/jpeg,image/png,image/webp" %>
+      <%= form.submit "Soumettre à la revue", class: "btn btn-primary" %>
+    <% end %>
+  <% end %></article>
+<% end %>
+<p><%= link_to "Accueil, partages et détail des récompenses", account_points_path %> · <%= link_to "Poursuivre une chaîne", account_chains_path %></p>
+</div>
+<% @records.each do |record| %><div class="card"><h2><%= record.achievement.name %> — <%= record.period_key %></h2><p><%= community_status(record.status) %> · <%= record.points %> PS selon <%= record.point_rule_version.name %></p><p><%= record.decision %></p><p><%= record.evidence %></p><% if record.proof.attached? %><%= link_to "Voir ma preuve", media_path(record.proof.attachment) %><% end %></div><% end %>
+<div class="card"><h2>Demander une mise en avant</h2><p>Réservée aux annonces publiques : niveau Argent ou Or, ou preuve de partage validée ce mois-ci. Une personne de l’équipe examine chaque demande. Aucun paiement n’intervient.</p>
+<%= form_with url: account_community_path do |form| %>
+  <%= hidden_field_tag :operation, "top", id: nil %>
+  <%= select_field form, :listing_id, "Annonce à proposer", @listings.map { |listing| [listing.title, listing.id] }, prompt: "Choisir une annonce" %>
+  <%= form.submit "Demander une mise en avant", class: "btn btn-primary" %>
+<% end %>
+<% @tops.each do |top| %><p><%= top.listing.title %> : <%= community_status(top.status) %><% if top.ends_at %>, jusqu’au <%= l(top.ends_at, format: :short) %><% end %>. <%= top.reason %></p><% if %w[pending approved].include?(top.status) %><%= button_to "Retirer la demande", account_community_path, params: { operation: "withdraw_top", record_id: top.id }, class: "btn btn-outline" %><% end %><% end %>
+</div>
+<div class="card"><h2>Partager mon expérience</h2><p>Un témoignage écrit ou une vidéo avec transcription, publié après revue. Utilisez un pseudonyme si vous préférez. La récompense éventuelle fait l’objet d’une revue distincte.</p>
+<%= form_with url: account_community_path, multipart: true do |form| %>
+  <%= hidden_field_tag :operation, "testimonial", id: nil %>
+  <div class="form-field"><%= form.label :kind, "Format" %><%= form.select :kind, [["Écrit", "written"], ["Vidéo", "video"]], {}, class: "control" %></div>
+  <%= input_field form, :quote, "Votre témoignage public", type: :text_area, required: true, maxlength: 3000 %>
+  <%= input_field form, :display_name_snapshot, "Nom ou pseudonyme à afficher", required: true, maxlength: 100 %>
+  <%= input_field form, :public_location_snapshot, "Ville à afficher (facultative)", maxlength: 100 %>
+  <%= input_field form, :video, "Vidéo MP4 (25 Mo, 3 minutes maximum)", type: :file_field, accept: "video/mp4" %>
+  <%= input_field form, :transcript, "Transcription accessible de la vidéo", type: :text_area, maxlength: 3000 %>
+  <div class="form-field"><%= form.check_box :consent, required: true %><%= form.label :consent, "J’autorise la publication de ce témoignage et de son nom affiché sur SEOS France. Je peux retirer cet accord à tout moment depuis cette page." %></div>
+  <%= form.submit "Proposer mon témoignage", class: "btn btn-primary" %>
+<% end %>
+<% @testimonials.each do |record| %><article><h3><%= record.display_name_snapshot %> · <%= community_status(record.status) %></h3><p><%= record.quote %></p><p><%= record.decision %></p><% unless record.status == "removed" %><%= button_to "Retirer mon consentement", account_community_path, params: { operation: "withdraw_testimonial", record_id: record.id }, class: "btn btn-outline" %><% end %></article><% end %>
+<p><%= link_to "Lire les témoignages publiés", testimonials_path %></p></div>
