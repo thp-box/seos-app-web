@@ -16,6 +16,11 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+gem "devise", "~> 5.0"
+gem "devise-i18n"
+gem "rails-i18n", "~> 8.0"
+gem "pundit", "~> 2.5"
+gem "rack-attack"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -41,6 +46,8 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 group :development, :test do
+  gem "rspec-rails", "~> 8.0"
+  gem "factory_bot_rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
@@ -60,6 +67,11 @@ group :development do
 end
 
 group :test do
+  gem "simplecov", require: false
+  gem "rspec_junit_formatter"
+  gem "webmock"
+  gem "chunky_png"
+  gem "axe-core-rspec"
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"

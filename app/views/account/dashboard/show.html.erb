@@ -1,0 +1,4 @@
+<% content_for :title, "Mon compte" %>
+<h1>Mon compte</h1>
+<div class="card"><h2>Bienvenue dans votre espace</h2><p>Votre adresse e-mail est confirmée. Retrouvez ici vos identifiants et les appareils connectés.</p><div class="actions"><%= link_to "Mes sessions", account_login_sessions_path, class: "btn btn-deep" %><%= link_to "Mes identifiants", edit_user_registration_path, class: "btn btn-outline" %></div></div>
+<% if @organizations.any? %><div class="card"><h2>Mes organisations</h2><ul><% @organizations.each do |organization| %><li><%= link_to organization.name, organization_dashboard_path(organization_slug: organization.slug) %></li><% end %></ul></div><% end %>

@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
-    <title><%= content_for(:title) || "Seos France" %></title>
+    <meta charset="utf-8">
+    <title><%= content_for?(:title) ? "#{yield(:title)} · SEOS" : "SEOS — L’entraide près de chez vous" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Seos France">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="SEOS, l’entraide locale en France : don, échange de compétences et Points Services.">
+    <meta name="robots" content="noindex, nofollow">
+    <%= favicon_link_tag "seos-logo.png", type: "image/png" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
-
   <body>
-    <%= yield %>
+    <a class="skip-link" href="#main-content" data-turbo="false">Aller au contenu</a>
+    <%= render "shared/header" %>
+    <%= render "shared/flash" %>
+    <% if content_for?(:workspace) %>
+      <%= yield :workspace %>
+    <% else %>
+      <main id="main-content" tabindex="-1"><%= yield %></main>
+    <% end %>
+    <%= render "shared/footer" %>
   </body>
 </html>

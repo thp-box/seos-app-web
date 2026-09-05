@@ -1,0 +1,9 @@
+<% errors = form.object.errors.full_messages_for(attribute) %>
+<% error_id = "#{form.object_name}_#{attribute}_errors" %>
+<% help_id = "#{form.object_name}_#{attribute}_help" %>
+<div class="form-field">
+  <%= form.label attribute, label %>
+  <%= form.public_send(kind, attribute, **options.merge(class: "control", aria: { invalid: errors.any?, describedby: [ (error_id if errors.any?), (help_id if local_assigns[:help]) ].compact.join(" ").presence })) %>
+  <% if local_assigns[:help] %><span class="help" id="<%= help_id %>"><%= help %></span><% end %>
+  <% if errors.any? %><span class="field-error" id="<%= error_id %>"><%= errors.join(". ") %></span><% end %>
+</div>

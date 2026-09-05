@@ -1,0 +1,8 @@
+:root {
+  /* SEOS Default v1 — référence versionnée, issue de docs/05-kit-ui-ux.md. */
+  --deep: #004961; --seos: #0092C5; --turq: #21A2AF; --gold: #CDAE4F;
+  --cream: #FBFAF4; --mist: #EEF7F9; --ink: #173947; --muted: #64767D;
+  --line: #D9E4E6; --white: #FFFFFF; --danger: #DC674F; --ok: #2E956D;
+  --footer: #002F40; --radius: 26px; --shadow: 0 18px 50px rgba(0,73,97,.10);
+  --font-body: "DM Sans", sans-serif; --font-heading: "Playfair Display", serif;
+}

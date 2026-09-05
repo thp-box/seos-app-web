@@ -1,0 +1,7 @@
+<% content_for :title, "Journal d’audit" %>
+<h1>Journal d’audit</h1><p>Les événements sont conservés sans modification ni suppression.</p>
+<%= form_with url: admin_audit_logs_path, method: :get, class: "filters" do |form| %><div class="form-field"><%= form.label :event, "Action" %><%= form.select :event, [["Changement de rôle", "user.role_changed"], ["Permission attribuée", "permission.granted"], ["Permission révoquée", "permission.revoked"]], { include_blank: "Toutes", selected: params[:event] }, class: "control" %></div><%= form.submit "Filtrer", class: "btn btn-deep" %><% end %>
+<div class="card table-scroll" tabindex="0" role="region" aria-label="Événements d’audit"><table><caption><%= @total %> événements</caption><thead><tr><th>Date</th><th>Acteur</th><th>Action</th><th>Cible</th><th>Motif</th></tr></thead><tbody>
+<% @logs.each do |log| %><tr><td><%= l log.created_at, format: :short %></td><td>#<%= log.actor_id %></td><td><%= t("audit_actions.#{log.action}") %></td><td>#<%= log.target_id %></td><td><%= log.reason %></td></tr><% end %>
+</tbody></table><% if @total.zero? %><p class="empty-state">Aucun événement enregistré.</p><% end %></div>
+<%= render "shared/pagination", page: @page, total: @total %>

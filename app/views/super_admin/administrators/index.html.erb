@@ -1,0 +1,27 @@
+<% content_for :title, "Administrateurs" %>
+<h1>Administrateurs</h1>
+<%= form_with url: super_admin_administrators_path, method: :get, class: "filters" do |form| %><div class="form-field"><%= form.label :user_id, "Identifiant du membre" %><%= form.number_field :user_id, value: params[:user_id], min: 1, class: "control", required: true %></div><%= form.submit "Rechercher", class: "btn btn-deep" %><% end %>
+<% if params[:user_id].present? && !@selected %><p class="notice" role="status">Membre introuvable.</p><% end %>
+<% if @selected %>
+  <div class="card"><h2>Membre #<%= @selected.id %></h2><p><%= @selected.masked_email %> · <%= t("roles.#{@selected.role}") %></p>
+  <% unless @selected.super_admin? %>
+    <%= form_with url: super_admin_administrator_path(@selected), method: :patch do |form| %>
+      <div class="form-field"><%= form.label :role, "Rôle" %><%= form.select :role, [["Membre", "member"], ["Administrateur", "admin"]], { selected: @selected.role }, class: "control" %></div>
+      <div class="form-field"><%= form.label :reason, "Motif (sans donnée personnelle)" %><%= form.text_field :reason, class: "control", required: true, maxlength: 500 %></div>
+      <p class="help">Changer le rôle révoque les sessions et les anciennes permissions de ce compte.</p>
+      <%= form.submit "Confirmer le rôle", class: "btn btn-deep" %>
+    <% end %>
+  <% end %></div>
+  <% if @selected.admin? %>
+    <div class="card"><h2>Attribuer une permission</h2>
+    <%= form_with url: super_admin_administrator_permission_grants_path(@selected) do |form| %>
+      <div class="form-field"><%= form.label :permission, "Permission" %><%= form.select :permission, AdminPermissionGrant::PERMISSIONS, {}, class: "control" %></div>
+      <div class="form-field"><%= form.label :expires_at, "Expiration (heure de Paris)" %><%= form.datetime_local_field :expires_at, class: "control", required: true %></div>
+      <div class="form-field"><%= form.label :reason, "Motif (sans donnée personnelle)" %><%= form.text_field :reason, class: "control", required: true, maxlength: 500 %></div>
+      <%= form.submit "Attribuer la permission", class: "btn btn-deep" %>
+    <% end %></div>
+    <% @selected.admin_permission_grants.effective.each do |grant| %><div class="card"><h2><%= grant.permission %></h2><p>Expiration : <%= grant.expires_at ? l(grant.expires_at, format: :short) : "Non définie" %></p>
+    <%= form_with url: super_admin_administrator_permission_grant_path(@selected, grant), method: :delete do |form| %><div class="form-field"><%= form.label :reason, "Motif de révocation", for: "reason_#{grant.id}" %><%= form.text_field :reason, id: "reason_#{grant.id}", class: "control", required: true, maxlength: 500 %></div><%= form.submit "Révoquer la permission", class: "btn btn-danger" %><% end %></div><% end %>
+  <% end %>
+<% end %>
+<div class="card"><h2>Administrateurs actuels</h2><% if @users.empty? %><p>Aucun administrateur.</p><% else %><ul><% @users.each do |user| %><li><%= link_to "Membre ##{user.id} · #{user.masked_email}", super_admin_administrators_path(user_id: user.id) %></li><% end %></ul><% end %></div>

@@ -1,0 +1,1 @@
+<% if resource.errors.any? %><div class="notice notice-error" role="alert"><p>Vérifiez les informations saisies.</p><ul><% resource.errors.full_messages.each do |message| %><li><%= message %></li><% end %></ul></div><% end %>

@@ -1,0 +1,6 @@
+<% content_for :title, "Administration" %>
+<h1>Administration</h1><p>Les sections accessibles correspondent aux permissions qui vous ont été attribuées.</p>
+<div class="card"><h2>Votre espace de travail</h2><div class="actions">
+<% if policy(:administration).users? %><%= link_to "Consulter les membres", admin_users_path, class: "btn btn-deep" %><% end %>
+<% if policy(:administration).audit? %><%= link_to "Consulter l’audit", admin_audit_logs_path, class: "btn btn-outline" %><% end %>
+</div><% unless policy(:administration).users? || policy(:administration).audit? %><div class="empty-state"><p>Aucune section ne vous est encore attribuée.</p></div><% end %></div>

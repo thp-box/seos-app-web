@@ -1,0 +1,13 @@
+<% content_for :workspace do %>
+  <div class="container dashboard">
+    <aside class="side-menu" aria-label="Espace personnel">
+      <nav>
+        <%= navigation_link "Mon compte", account_root_path %>
+        <%= navigation_link "Mes sessions", account_login_sessions_path %>
+        <%= navigation_link "Mes identifiants", edit_user_registration_path %>
+      </nav>
+    </aside>
+    <main class="workspace" id="main-content" tabindex="-1"><%= yield %></main>
+  </div>
+<% end %>
+<%= render template: "layouts/application" %>

@@ -1,0 +1,31 @@
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">L’entraide près de chez vous</span>
+    <h1>Un petit coup de main.<br>De <em>grands liens.</em></h1>
+    <p>Un savoir-faire à partager, un service à demander. Ensemble, faisons circuler l’entraide, simplement.</p>
+    <div class="actions">
+      <%= link_to user_signed_in? ? "Accéder à mon compte" : "Rejoindre SEOS", user_signed_in? ? account_root_path : new_user_registration_path, class: "btn btn-primary" %>
+      <%= link_to "Découvrir les trois modes", "#modes", class: "btn btn-outline" %>
+    </div>
+  </div>
+</section>
+<section class="section" id="modes" aria-labelledby="modes-title">
+  <div class="container">
+    <div class="section-heading"><span class="eyebrow">Chacun sa façon d’aider</span><h2 id="modes-title">Trois façons de faire du lien.</h2><p>Le temps et les compétences de chacun ont de la valeur.</p></div>
+    <div class="card-grid">
+      <article class="card"><span class="badge">01 · Don</span><h3>Donner un coup de main</h3><p>Offrir un service, simplement, sans attendre de contrepartie.</p></article>
+      <article class="card"><span class="badge">02 · Échange</span><h3>Partager ses compétences</h3><p>Échanger un savoir-faire contre un autre, selon un accord entre membres.</p></article>
+      <article class="card"><span class="badge">03 · Points Services</span><h3>Faire circuler l’entraide</h3><p>Des points internes pour reconnaître un service. Ils ne sont ni achetables, ni vendables, ni convertibles en euros.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section mist-section" id="confiance" aria-labelledby="trust-title">
+  <div class="container" data-controller="dialog">
+    <div class="section-heading"><span class="eyebrow">La confiance se construit</span><h2 id="trust-title">Vos coordonnées vous appartiennent.</h2><p>Votre e-mail, votre téléphone et votre adresse exacte restent privés. Vous choisissez ce que vous partagez.</p></div>
+    <button type="button" class="btn btn-deep" data-dialog-target="trigger" data-action="dialog#open">Comprendre la confidentialité</button>
+    <dialog class="dialog" aria-labelledby="privacy-title" data-dialog-target="panel" data-action="close->dialog#restoreFocus">
+      <h2 id="privacy-title">Vos informations personnelles</h2><p>Les coordonnées privées ne figurent pas sur les pages publiques. La vérification d’un e-mail confirme l’accès à une boîte mail ; elle ne certifie pas l’identité civile.</p>
+      <button type="button" class="btn btn-deep" data-action="dialog#close">Fermer</button>
+    </dialog>
+  </div>
+</section>

@@ -1,24 +1,94 @@
-# README
+# SEOS France
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Plateforme d’entraide locale en Rails 8.1. Le développement de la phase 0 a commencé : authentification, sessions, permissions, premiers écrans d’administration, interface et tests.
 
-Things you may want to cover:
+Le périmètre livré et le reste de la phase sont détaillés dans [l’analyse et le suivi](docs/14-analyse-et-suivi-phase-0.md). Le [dossier de conception](docs/README.md) reste la référence fonctionnelle.
 
-* Ruby version
+## Démarrer
 
-* System dependencies
+Prérequis : Ruby **3.4.7**, Bundler **2.7.2**, Node **24.8.0**, Yarn Classic **1.22.22**, SQLite 3 et libvips.
 
-* Configuration
+```bash
+bin/setup --skip-server
+bin/dev
+```
 
-* Database creation
+Ouvrir <http://localhost:3000>. `bin/dev` lance Rails et esbuild en watch. `yarn build` reconstruit ensemble le JS, le CSS et les polices locales. Les sorties sont servies et fingerprintées par Propshaft.
 
-* Database initialization
+En développement, les e-mails sont écrits dans `tmp/mail/`, sans envoi externe. Après inscription, ouvrir le lien de confirmation contenu dans le fichier. Ce répertoire contient des liens privés et reste ignoré par Git. `bin/setup` nettoie `tmp/`, puis reconstruit les assets.
 
-* How to run the test suite
+## Accès
 
-* Services (job queues, cache servers, search engines, etc.)
+- `/auth/inscription`, `/auth/connexion` : création et connexion ; e-mail confirmé obligatoire.
+- `/compte` : compte personnel, identifiants et sessions révocables.
+- `/admin` : dashboard ; listes membres et audit selon permission.
+- `/super_admin` : gestion des administrateurs et permissions temporaires.
+- `/organisations/:slug/espace` : espace réservé aux memberships actifs d’une organisation vérifiée ; équipe réservée aux propriétaires/gestionnaires.
 
-* Deployment instructions
+### Comptes de démonstration
 
-* ...
+En développement, `bin/setup` crée les données de démonstration lors de l’initialisation d’une base vide. Pour les ajouter à une base existante ou relancer les seeds :
+
+```bash
+bin/rails db:seed
+```
+
+| Compte | E-mail | Accès |
+| --- | --- | --- |
+| Membre | `membre@seos.test` | Compte personnel |
+| Super-admin | `superadmin@seos.test` | Administration et gestion des permissions |
+| Responsable d’association | `association@seos.test` | Compte personnel, espace et équipe de l’association |
+
+Mot de passe initial des trois comptes : **`SeosDemo2026!`**. Ils sont actifs et déjà confirmés ; connexion sur `/auth/connexion`, sans e-mail à valider.
+
+L’association **Entraide solidaire — Démo** est vérifiée. Son responsable est un membre avec une adhésion propriétaire active ; son espace se trouve sur `/organisations/entraide-solidaire-demo/espace` et est accessible depuis `/compte`.
+
+Les seeds sont réservées au développement : elles ne créent aucun compte en test ou en production. Elles peuvent être relancées sans doublons et conservent les mots de passe, rôles, statuts et données déjà modifiés.
+
+### Initialisation manuelle du super-admin
+
+Dans un environnement sans compte de démonstration, pour initialiser le premier super-admin, créer et confirmer un compte puis exécuter :
+
+```bash
+EMAIL=adresse-du-compte@example.test bin/rails seos:bootstrap_super_admin
+```
+
+La commande refuse de s’exécuter si un super-admin existe déjà. Elle journalise l’initialisation et révoque les sessions du compte. Reconnectez-vous ensuite. Un changement de rôle ultérieur passe par le panneau super-admin et un motif obligatoire.
+
+## Vérifier
+
+```bash
+yarn build
+yarn build:check
+bundle exec rspec
+bin/rubocop
+bin/brakeman --no-pager
+bin/bundler-audit
+yarn audit
+```
+
+`bin/ci` regroupe setup, assets, autoload, analyses et RSpec. La suite couvre les requêtes HTTP, les modèles, les services, les policies, les parcours Chrome, les captures et l’accessibilité. Un build absent, périmé ou altéré fait échouer RSpec. Les générateurs produisent des fichiers `spec/`, pas de suite Minitest.
+
+Chrome for Testing **151.0.7922.77** est verrouillé dans `.chrome-version`. Selenium peut l’installer ; pour utiliser une installation existante, définir `CHROME_BIN` et `CHROMEDRIVER_BIN`. Les captures visuelles supposent Linux et le navigateur verrouillé. La CI installe explicitement Chrome et son driver. Elle archive couverture, captures/diffs et rapport JUnit.
+
+La couverture de la suite complète exige **95 % de lignes et 90 % de branches**. Pour travailler sur une seule spec : `COVERAGE=0 bundle exec rspec spec/requests/authentication_spec.rb` ; ce réglage ne remplace pas la validation complète.
+
+Les références PNG initiales du **socle** sont dans `spec/fixtures/visual/foundations`. Elles couvrent accueil et connexion aux sept largeurs prévues. Elles ne constituent pas encore une comparaison exhaustive à la maquette. Aucune référence existante n’est remplacée par les tests. Pour produire des candidats à examiner :
+
+```bash
+COVERAGE=0 CAPTURE_VISUAL_CANDIDATES=1 bundle exec rspec --tag visual
+```
+
+Les candidats restent dans `tmp/screenshots/`. Leur adoption demande une revue explicite du rendu et du diff ; le mode capture est interdit en CI.
+
+## Base et sécurité
+
+Le schéma canonique est `db/structure.sql` : il conserve aussi les triggers SQLite qui interdisent de modifier/supprimer l’audit. Les migrations ajoutent clés étrangères, unicités et contraintes de rôles/statuts. Les données de développement restent dans `storage/`.
+
+Les sessions sont limitées à 30 minutes d’inactivité et 12 heures au maximum. L’administration exige une confirmation du mot de passe datant de moins de 15 minutes. Les mots de passe changés et les changements de rôle révoquent les sessions. Les jetons de session sont stockés sous forme de condensat ; les agents utilisateurs sont résumés sans conservation de l’IP.
+
+Les uploads Active Storage ne sont pas ouverts publiquement. Les routes seront ajoutées avec le traitement MIME/taille/réencodage de F-006. Aucun fournisseur cartographique, OAuth, analytics ou Stripe n’est chargé par ces écrans.
+
+## Suite de la phase 0
+
+Restent notamment Google OmniAuth, Gmail API/Solid Queue et les reprises idempotentes, les médias sécurisés, les outils admin avancés et les Studios versionnés F-008/F-009. L’inscription n’enregistre pas encore d’acceptation de CGU versionnées : les documents légaux et la politique d’âge restent à valider et intégrer. Cette tranche est destinée au développement, pas à une ouverture en production.

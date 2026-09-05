@@ -1,0 +1,8 @@
+<% content_for :title, "Nouveau mot de passe" %>
+<%= render "devise/shared/shell_start" %><h1>Nouveau mot de passe</h1><%= render "devise/shared/error_messages", resource: resource %>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |form| %>
+  <%= form.hidden_field :reset_password_token %>
+  <%= render "shared/form_field", form: form, attribute: :password, label: "Nouveau mot de passe", kind: :password_field, options: { autocomplete: "new-password", minlength: 12, required: true }, help: "Au moins 12 caractères." %>
+  <%= render "shared/form_field", form: form, attribute: :password_confirmation, label: "Confirmer le mot de passe", kind: :password_field, options: { autocomplete: "new-password", required: true } %>
+  <%= form.submit "Enregistrer le mot de passe", class: "btn btn-deep btn-block" %>
+<% end %><%= render "devise/shared/links" %><%= render "devise/shared/shell_end" %>

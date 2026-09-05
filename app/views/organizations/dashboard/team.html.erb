@@ -1,0 +1,1 @@
+<% content_for :title, "Équipe" %><h1>Équipe de <%= @organization.name %></h1><div class="card"><ul><% @memberships.each do |membership| %><li>Membre #<%= membership.user_id %> · <%= t("membership_roles.#{membership.role}") %></li><% end %></ul></div>

@@ -1,0 +1,13 @@
+<% content_for :title, "Membres" %>
+<h1>Membres</h1><p>Les coordonnées personnelles sont masquées.</p>
+<%= form_with url: admin_users_path, method: :get, class: "filters" do |form| %>
+  <div class="form-field"><%= form.label :q, "Identifiant du membre" %><%= form.search_field :q, value: params[:q], class: "control" %></div>
+  <div class="form-field"><%= form.label :role, "Rôle" %><%= form.select :role, User.roles.keys.map { |role| [ t("roles.#{role}"), role ] }, { include_blank: "Tous", selected: params[:role] }, class: "control" %></div>
+  <div class="form-field"><%= form.label :status, "Statut" %><%= form.select :status, User.statuses.keys.map { |status| [ t("statuses.#{status}"), status ] }, { include_blank: "Tous", selected: params[:status] }, class: "control" %></div>
+  <%= form.submit "Filtrer", class: "btn btn-deep" %>
+<% end %>
+<div class="card table-scroll" tabindex="0" role="region" aria-label="Liste des membres">
+<table><caption><%= @total %> membres</caption><thead><tr><th>Identifiant</th><th>E-mail masqué</th><th>Rôle</th><th>Statut</th></tr></thead><tbody>
+<% @users.each do |user| %><tr><td>#<%= user.id %></td><td><%= user.masked_email %></td><td><%= t("roles.#{user.role}") %></td><td><%= t("statuses.#{user.status}") %></td></tr><% end %>
+</tbody></table><% if @total.zero? %><p class="empty-state">Aucun membre ne correspond à ces filtres.</p><% end %></div>
+<%= render "shared/pagination", page: @page, total: @total %>

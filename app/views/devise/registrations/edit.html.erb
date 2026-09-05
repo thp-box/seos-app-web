@@ -1,0 +1,13 @@
+<% content_for :title, "Mes identifiants" %>
+<div class="container section"><div class="auth-card">
+<h1>Mes identifiants</h1><p>Un changement vous déconnectera de tous vos appareils.</p>
+<%= render "devise/shared/error_messages", resource: resource %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |form| %>
+  <%= render "shared/form_field", form: form, attribute: :email, label: "E-mail", kind: :email_field, options: { autocomplete: "email", required: true } %>
+  <%= render "shared/form_field", form: form, attribute: :password, label: "Nouveau mot de passe", kind: :password_field, help: "Laissez vide pour conserver le mot de passe actuel.", options: { autocomplete: "new-password", minlength: 12 } %>
+  <%= render "shared/form_field", form: form, attribute: :password_confirmation, label: "Confirmer le nouveau mot de passe", kind: :password_field, options: { autocomplete: "new-password" } %>
+  <%= render "shared/form_field", form: form, attribute: :current_password, label: "Mot de passe actuel", kind: :password_field, options: { autocomplete: "current-password", required: true } %>
+  <%= form.submit "Enregistrer", class: "btn btn-deep" %>
+<% end %>
+<%= link_to "Retour à mon compte", account_root_path %>
+</div></div>

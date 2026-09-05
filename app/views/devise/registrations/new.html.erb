@@ -1,0 +1,15 @@
+<% content_for :title, "Créer un compte" %>
+<%= render "devise/shared/shell_start" %>
+<nav class="auth-tabs" aria-label="Authentification"><%= link_to "Connexion", new_user_session_path %><%= link_to "Créer un compte", new_user_registration_path, aria: { current: "page" } %></nav>
+<h1>Bienvenue chez SEOS</h1>
+<p>Un e-mail suffit pour commencer. Vos coordonnées restent privées.</p>
+<%= render "devise/shared/error_messages", resource: resource %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |form| %>
+  <div class="honeypot" aria-hidden="true"><label for="user_website">Laisser ce champ vide</label><input type="text" name="user[website]" id="user_website" tabindex="-1" autocomplete="off"></div>
+  <%= render "shared/form_field", form: form, attribute: :email, label: "E-mail", kind: :email_field, options: { autocomplete: "email", required: true } %>
+  <%= render "shared/form_field", form: form, attribute: :password, label: "Mot de passe", kind: :password_field, help: "Au moins 12 caractères.", options: { autocomplete: "new-password", minlength: 12, required: true } %>
+  <%= render "shared/form_field", form: form, attribute: :password_confirmation, label: "Confirmer le mot de passe", kind: :password_field, options: { autocomplete: "new-password", required: true } %>
+  <%= form.submit "Créer mon compte", class: "btn btn-deep btn-block", data: { turbo_submits_with: "Création…" } %>
+<% end %>
+<%= render "devise/shared/links" %>
+<%= render "devise/shared/shell_end" %>

@@ -1,14 +1,35 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  root "pages#home"
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  devise_for :users, path: "auth", skip: :registrations, controllers: { sessions: "users/sessions", confirmations: "users/confirmations" },
+    path_names: { sign_in: "connexion", sign_out: "deconnexion", password: "mot-de-passe", confirmation: "confirmation" }
+  devise_scope :user do
+    get "auth/inscription", to: "users/registrations#new", as: :new_user_registration
+    post "auth/inscription", to: "users/registrations#create", as: :user_registration
+    get "compte/identifiants", to: "users/registrations#edit", as: :edit_user_registration
+    patch "auth/inscription", to: "users/registrations#update"
+    put "auth/inscription", to: "users/registrations#update"
+  end
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  namespace :account, path: "compte" do
+    root "dashboard#show"
+    resources :login_sessions, path: "sessions", only: [ :index, :destroy ]
+    resource :reauthentication, path: "verification", only: [ :new, :create ]
+  end
+  namespace :admin do
+    root "dashboard#show"
+    resources :users, path: "membres", only: :index
+    resources :audit_logs, path: "audit", only: :index
+  end
+  namespace :super_admin do
+    root "dashboard#show"
+    resources :administrators, path: "administrateurs", only: [ :index, :update ] do
+      resources :permission_grants, path: "permissions", only: [ :create, :destroy ]
+    end
+  end
+  scope "organisations/:organization_slug/espace", module: :organizations, as: :organization do
+    get "/", to: "dashboard#show", as: :dashboard
+    get "/equipe", to: "dashboard#team", as: :team
+  end
 end

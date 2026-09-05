@@ -1,1 +1,3 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+# Socle en construction. Ouvrir les URLs publiques indexables avec F-017.
+User-agent: *
+Disallow: /

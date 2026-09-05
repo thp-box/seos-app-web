@@ -1,6 +1,6 @@
 # Dossier de conception SEOS
 
-Ce dossier transforme la maquette et les user stories existantes en une base de travail exploitable pour construire l'application Rails. Il s'agit d'une spécification : aucun modèle, contrôleur, scaffold ou composant n'a encore été généré.
+Ce dossier transforme la maquette et les user stories existantes en une base de travail exploitable pour construire l'application Rails. Il s'agit de la spécification établie le 4 septembre 2026. Le code a commencé depuis : voir [l’analyse et le suivi de la phase 0](./14-analyse-et-suivi-phase-0.md) pour l’état réel de livraison.
 
 ## Sources analysées
 
@@ -29,7 +29,7 @@ Ce dossier transforme la maquette et les user stories existantes en une base de 
 - RSpec est la suite canonique de toutes les features, y compris autorisations, concurrence, JavaScript et non-régression visuelle.
 - Une seule commande `yarn build` doit produire les sorties JavaScript et CSS de l'application.
 - Toutes les annonces actives et sûres alimentent le SEO/GEO via URL canonique, sitemap et JSON-LD Schema.org généré, sans donnée privée.
-- Lancement France/français ; Devise, Gmail API, Google OmniAuth, Geocoder/Leaflet, vidéo interne et analytics tiers désactivés.
+- Lancement France/français ; Devise, Gmail API, Google OmniAuth, Geocoder/Leaflet et vidéo interne retenus ; analytics tiers désactivés.
 - Valorisation PS, bonus/niveaux et chaînes sont versionnés par le super-admin ; chaîne illimitée par défaut.
 - Le visiteur contacte uniquement l'équipe ; la blacklist catégories est administrable ; Stripe reste dormant et totalement séparé des PS.
 - Aucune conservation globale de données personnelles « à vie » : une politique par finalité doit être juridiquement validée.
@@ -58,7 +58,7 @@ Les documents utilisent trois niveaux pour ne pas confondre démonstration et d�
 - **Inclus par la maquette** : présent dans le prototype et donc à prendre en compte, avec une règle métier encore à préciser si nécessaire.
 - **Recommandé / à arbitrer** : proposition de conception à confirmer avant développement.
 
-## Photo technique actuelle
+## Photo technique au 4 septembre 2026 (avant implémentation)
 
 | Élément | État constaté |
 |---|---|

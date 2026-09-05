@@ -1,0 +1,11 @@
+<% content_for :title, "Connexion" %>
+<%= render "devise/shared/shell_start" %>
+<nav class="auth-tabs" aria-label="Authentification"><%= link_to "Connexion", new_user_session_path, aria: { current: "page" } %><%= link_to "Créer un compte", new_user_registration_path %></nav>
+<h1>Heureux de vous revoir</h1>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
+  <%= render "shared/form_field", form: form, attribute: :email, label: "E-mail", kind: :email_field, options: { autocomplete: "email", required: true } %>
+  <%= render "shared/form_field", form: form, attribute: :password, label: "Mot de passe", kind: :password_field, options: { autocomplete: "current-password", required: true } %>
+  <%= form.submit "Se connecter", class: "btn btn-deep btn-block", data: { turbo_submits_with: "Connexion…" } %>
+<% end %>
+<%= render "devise/shared/links" %>
+<%= render "devise/shared/shell_end" %>
