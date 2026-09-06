@@ -163,3 +163,26 @@ invitation = OrganizationInvitation.find_by!(token_digest: Digest::SHA256.hexdig
 simultaneously(admin, admin) { |actor| OrganizationWorkflow.accept!(invitation: OrganizationInvitation.find(invitation.id), actor: actor) }
 raise "Duplicate organization invitation acceptance" unless organization.organization_memberships.where(user: admin).count == 1 && AuditLog.where(target: invitation, action: "organization.join").count == 1
 puts "SQLite organisations : invitation acceptée une seule fois."
+second_admin = User.create!(email: "second-admin@concurrency.test", password: "DisposableTestPassword!42", role: :super_admin, confirmed_at: Time.current, status: :active)
+bulk_target = User.create!(email: "bulk-target@concurrency.test", password: "DisposableTestPassword!42", confirmed_at: Time.current, status: :active)
+operation = Operations.preview!(actor: admin, ids: [ bulk_target.id ], reason: "Recette de concurrence")
+simultaneously(second_admin, second_admin) { |actor| Operations.execute!(operation: BulkOperation.find(operation.id), actor: actor) }
+raise "Duplicate bulk suspension" unless bulk_target.reload.suspended? && AuditLog.where(target: bulk_target, action: "operations.suspend").count == 1
+puts "SQLite phase 7 : suspension groupée appliquée et auditée une seule fois."
+Dir.mktmpdir("seos-restoration-") do |directory|
+  storage = File.join(directory, "storage")
+  FileUtils.mkdir_p(storage)
+  snapshot = File.join(directory, "snapshot")
+  restored = File.join(directory, "restored")
+  SeosBackup.create!(database: ActiveRecord::Base.connection_db_config.database, storage: storage, destination: snapshot)
+  SeosBackup.restore!(source: snapshot, destination: restored)
+  database = SQLite3::Database.new(File.join(restored, "primary.sqlite3"), readonly: true)
+  begin
+    raise "Users lost in restoration" unless database.get_first_value("SELECT COUNT(*) FROM users") == User.count
+    raise "Ledger lost in restoration" unless database.get_first_value("SELECT COUNT(*) FROM point_operations") == PointOperation.count
+    raise "Unbalanced restored ledger" unless database.get_first_value("SELECT COALESCE(SUM(amount), 0) FROM point_entries") == 0
+  ensure
+    database.close
+  end
+end
+puts "SQLite phase 7 : sauvegarde applicative restaurée, membres et registre PS conservés, écritures équilibrées."

@@ -18,3 +18,9 @@ end
 Rack::Attack.throttle("community/ip", limit: 40, period: 5.minutes) do |request|
   request.ip if request.post? && request.path.match?(%r{\A/compte/(echanges|commentaires|signalements)})
 end
+Rack::Attack.throttle("public-catalogue/ip", limit: 120, period: 1.minute) do |request|
+  request.ip if request.get? && request.path.start_with?("/annonces", "/membres")
+end
+Rack::Attack.throttle("privacy/ip", limit: 20, period: 1.hour) do |request|
+  request.ip if request.post? && request.path == "/compte/confidentialite"
+end

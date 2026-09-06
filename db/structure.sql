@@ -679,7 +679,98 @@ CREATE TRIGGER organization_last_owner_delete BEFORE DELETE ON organization_memb
 CREATE TRIGGER mission_messages_no_update BEFORE UPDATE ON mission_messages BEGIN SELECT RAISE(ABORT, 'immutable mission message'); END;
 CREATE TRIGGER mission_messages_no_delete BEFORE DELETE ON mission_messages BEGIN SELECT RAISE(ABORT, 'immutable mission message'); END;
 CREATE TRIGGER mission_application_contract BEFORE UPDATE ON mission_applications WHEN NEW.volunteer_mission_id != OLD.volunteer_mission_id OR NEW.user_id != OLD.user_id OR NEW.message != OLD.message OR NEW.starts_on != OLD.starts_on OR NEW.ends_on != OLD.ends_on BEGIN SELECT RAISE(ABORT, 'immutable mission application'); END;
+CREATE TABLE IF NOT EXISTS "cookie_consents" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "visitor_digest" varchar NOT NULL, "version" varchar NOT NULL, "analytics" boolean DEFAULT FALSE NOT NULL, "external_media" boolean DEFAULT FALSE NOT NULL, "expires_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL);
+CREATE INDEX "index_cookie_consents_on_visitor_digest_and_created_at" ON "cookie_consents" ("visitor_digest", "created_at");
+CREATE TABLE IF NOT EXISTS "data_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "kind" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "details" text, "response" text, "verified_at" datetime(6), "completed_at" datetime(6), "export_expires_at" datetime(6), "response_due_at" datetime(6) NOT NULL, "reviewed_by_id" integer, "approved_by_id" integer, "preview" json DEFAULT '{}' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_45595fed14"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_566ccb794a"
+FOREIGN KEY ("reviewed_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_36b75e1979"
+FOREIGN KEY ("approved_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_data_requests_on_user_id" ON "data_requests" ("user_id");
+CREATE INDEX "index_data_requests_on_reviewed_by_id" ON "data_requests" ("reviewed_by_id");
+CREATE INDEX "index_data_requests_on_approved_by_id" ON "data_requests" ("approved_by_id");
+CREATE UNIQUE INDEX "unique_open_data_request" ON "data_requests" ("user_id", "kind") WHERE status IN ('pending','reviewed','executing');
+CREATE TABLE IF NOT EXISTS "retention_policy_versions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "rules" json DEFAULT '{}' NOT NULL, "effective_at" datetime(6), "expires_at" datetime(6), "legal_reviewed_at" datetime(6), "published_at" datetime(6), "created_by_id" integer, "approved_by_id" integer, "simulation" json DEFAULT '{}' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_23abce424d"
+FOREIGN KEY ("created_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_378846b337"
+FOREIGN KEY ("approved_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_retention_policy_versions_on_created_by_id" ON "retention_policy_versions" ("created_by_id");
+CREATE INDEX "index_retention_policy_versions_on_approved_by_id" ON "retention_policy_versions" ("approved_by_id");
+CREATE TABLE IF NOT EXISTS "privacy_runs" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "retention_policy_version_id" integer NOT NULL, "actor_id" integer NOT NULL, "approved_by_id" integer, "status" varchar DEFAULT 'preview' NOT NULL, "targets" json DEFAULT '{}' NOT NULL, "expires_at" datetime(6) NOT NULL, "executed_at" datetime(6), "reason" text NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d5428989c5"
+FOREIGN KEY ("retention_policy_version_id")
+  REFERENCES "retention_policy_versions" ("id")
+, CONSTRAINT "fk_rails_9bc2e8c32d"
+FOREIGN KEY ("actor_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_9a25098ff3"
+FOREIGN KEY ("approved_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_privacy_runs_on_retention_policy_version_id" ON "privacy_runs" ("retention_policy_version_id");
+CREATE INDEX "index_privacy_runs_on_actor_id" ON "privacy_runs" ("actor_id");
+CREATE INDEX "index_privacy_runs_on_approved_by_id" ON "privacy_runs" ("approved_by_id");
+CREATE TABLE IF NOT EXISTS "provider_erasure_tasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "data_request_id" integer NOT NULL, "provider" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "response" text, "completed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_3eb8ce4f84"
+FOREIGN KEY ("data_request_id")
+  REFERENCES "data_requests" ("id")
+);
+CREATE INDEX "index_provider_erasure_tasks_on_data_request_id" ON "provider_erasure_tasks" ("data_request_id");
+CREATE UNIQUE INDEX "index_provider_erasure_tasks_on_data_request_id_and_provider" ON "provider_erasure_tasks" ("data_request_id", "provider");
+CREATE TABLE IF NOT EXISTS "studio_versions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "settings" json DEFAULT '{}' NOT NULL, "author_id" integer NOT NULL, "validated_digest" varchar, "published_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_bf7557ebda"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_studio_versions_on_author_id" ON "studio_versions" ("author_id");
+CREATE TABLE IF NOT EXISTS "bulk_operations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "actor_id" integer NOT NULL, "approved_by_id" integer, "targets" json DEFAULT '{}' NOT NULL, "reason" text NOT NULL, "expires_at" datetime(6) NOT NULL, "executed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_18c0fbc2c2"
+FOREIGN KEY ("actor_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_c836a61ec6"
+FOREIGN KEY ("approved_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_bulk_operations_on_actor_id" ON "bulk_operations" ("actor_id");
+CREATE INDEX "index_bulk_operations_on_approved_by_id" ON "bulk_operations" ("approved_by_id");
+CREATE TABLE IF NOT EXISTS "login_blocks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email_digest" varchar NOT NULL, "actor_id" integer NOT NULL, "reason" text NOT NULL, "expires_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_5e40938bcc"
+FOREIGN KEY ("actor_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_login_blocks_on_actor_id" ON "login_blocks" ("actor_id");
+CREATE INDEX "index_login_blocks_on_email_digest" ON "login_blocks" ("email_digest");
+CREATE TABLE IF NOT EXISTS "google_identities" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "uid" varchar NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_21846cb8d2"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_google_identities_on_user_id" ON "google_identities" ("user_id");
+CREATE UNIQUE INDEX "index_google_identities_on_uid" ON "google_identities" ("uid");
+CREATE UNIQUE INDEX "one_google_identity_per_user" ON "google_identities" ("user_id");
+CREATE TRIGGER studio_versions_no_update BEFORE UPDATE ON studio_versions WHEN OLD.status = 'published' BEGIN SELECT RAISE(ABORT, 'published version immutable'); END;
+CREATE TRIGGER studio_versions_no_delete BEFORE DELETE ON studio_versions WHEN OLD.status = 'published' BEGIN SELECT RAISE(ABORT, 'published version immutable'); END;
+CREATE TRIGGER retention_policy_versions_no_update BEFORE UPDATE ON retention_policy_versions WHEN OLD.status = 'published' BEGIN SELECT RAISE(ABORT, 'published version immutable'); END;
+CREATE TRIGGER retention_policy_versions_no_delete BEFORE DELETE ON retention_policy_versions WHEN OLD.status = 'published' BEGIN SELECT RAISE(ABORT, 'published version immutable'); END;
+CREATE TABLE IF NOT EXISTS "mail_deliveries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "message_id" varchar NOT NULL, "status" varchar DEFAULT 'uncertain' NOT NULL, "provider_id" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL);
+CREATE UNIQUE INDEX "index_mail_deliveries_on_message_id" ON "mail_deliveries" ("message_id");
+CREATE TABLE IF NOT EXISTS "studio_assets" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "author_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_9cc0d6c5cb"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_studio_assets_on_author_id" ON "studio_assets" ("author_id");
+CREATE TABLE IF NOT EXISTS "crawler_policies" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "author_id" integer NOT NULL, "search_enabled" boolean DEFAULT TRUE NOT NULL, "training_enabled" boolean DEFAULT FALSE NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f3291aebcd"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_crawler_policies_on_author_id" ON "crawler_policies" ("author_id");
 INSERT INTO "schema_migrations" (version) VALUES
+('20260906093000'),
+('20260906092000'),
+('20260906091000'),
+('20260906090000'),
 ('20260905201000'),
 ('20260905200000'),
 ('20260905125000'),

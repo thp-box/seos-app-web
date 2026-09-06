@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root "pages#home"
+  get "preferences-confidentialite/recu", to: "privacy_preferences#receipt", as: :privacy_receipt
+  resource :privacy_preferences, path: "preferences-confidentialite", only: [ :show, :create ]
   resources :associations, param: :slug, only: [ :index, :show ]
   resources :volunteer_missions, path: "voyage-solidaire", param: :slug, only: [ :index, :show ]
   resources :partnerships, path: "partenaires", param: :slug, only: [ :index, :show ]
@@ -26,7 +28,7 @@ Rails.application.routes.draw do
   get "sitemap.xml", to: "seo#sitemap", defaults: { format: "xml" }, as: :sitemap
   get "robots.txt", to: "seo#robots", defaults: { format: "text" }
 
-  devise_for :users, path: "auth", skip: :registrations, controllers: { sessions: "users/sessions", confirmations: "users/confirmations" },
+  devise_for :users, path: "auth", skip: :registrations, controllers: { sessions: "users/sessions", confirmations: "users/confirmations", omniauth_callbacks: "users/omniauth_callbacks" },
     path_names: { sign_in: "connexion", sign_out: "deconnexion", password: "mot-de-passe", confirmation: "confirmation" }
   devise_scope :user do
     get "auth/inscription", to: "users/registrations#new", as: :new_user_registration
@@ -37,6 +39,9 @@ Rails.application.routes.draw do
   end
 
   namespace :account, path: "compte" do
+    resource :privacy, path: "confidentialite", controller: "privacy", only: [ :show, :create ] do
+      get :download
+    end
     resources :organizations, path: "organisations", param: :slug, only: [ :index, :show, :create, :update ]
     resources :mission_applications, path: "candidatures", only: [ :index, :show, :create, :update ]
     resource :community, path: "engagement", controller: "community", only: [ :show, :create ]
@@ -67,6 +72,13 @@ Rails.application.routes.draw do
     resource :reauthentication, path: "verification", only: [ :new, :create ]
   end
   namespace :admin do
+    resources :operations, only: [ :index, :create ] do
+      match :user, via: [ :get, :post ], on: :member
+    end
+    resources :studio, only: [ :index, :create ] do
+      get :preview, on: :member
+    end
+    resources :privacy, path: "confidentialite", only: [ :index, :create ]
     resources :network, path: "organisations", only: [ :index, :create ]
     resources :community, path: "engagement", only: [ :index, :create ]
     resources :financial_support, path: "soutien", only: [ :index, :create ]

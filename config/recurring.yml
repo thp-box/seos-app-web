@@ -10,6 +10,9 @@
 #     schedule: at 5am every day
 
 production:
+  privacy_maintenance:
+    class: PrivacyMaintenanceJob
+    schedule: every hour
   point_maintenance:
     class: PointMaintenanceJob
     schedule: every hour

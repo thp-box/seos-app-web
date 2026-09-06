@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     else error.message
     end
     private_response
-    render "errors/invalid_operation", status: :unprocessable_entity
+    render "errors/invalid_operation", formats: [ :html ], status: :unprocessable_entity
   end
 
   def current_login_session
@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
 
   def forbidden
     private_response
-    render "errors/forbidden", status: :forbidden
+    render "errors/forbidden", formats: [ :html ], status: :forbidden
   end
 
   def after_sign_in_path_for(_resource)

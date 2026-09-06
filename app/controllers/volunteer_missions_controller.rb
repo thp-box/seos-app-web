@@ -1,4 +1,8 @@
 class VolunteerMissionsController < ApplicationController
+  before_action do
+    @indexable = CrawlerPolicy.current&.search_enabled != false
+    @canonical = request.base_url + request.path
+  end
   before_action { raise ActiveRecord::RecordNotFound unless FeatureFlag.voyage_enabled? }
   def index
     scope = VolunteerMission.where(status: "published").where("ends_on >= ?", Date.current).joins(:organization).where(organizations: { status: "verified", kind: "association" }).includes(:organization).order(:starts_on)

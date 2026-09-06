@@ -1,11 +1,13 @@
 # Les identifiants de démonstration sont réservés au développement.
-# Les références immuables du Studio seront ajoutées avec F-008/F-009.
+# SEOS Default v1 reste la référence de code, sans variante publiée par les seeds.
 if Rails.env.development?
   ApplicationRecord.transaction do
     {
       "membre@seos.test" => :member,
       "superadmin@seos.test" => :super_admin,
-      "association@seos.test" => :member
+      "association@seos.test" => :member,
+      "admin@seos.test" => :admin,
+      "partenaire@seos.test" => :member
     }.each do |email, role|
       User.find_or_create_by!(email: email) do |user|
         user.role = role
@@ -30,7 +32,7 @@ if Rails.env.development?
     end
   end
 
-  puts "Jeu de démonstration disponible : 3 comptes et une association (identifiants dans README.md)."
+  puts "Jeu de démonstration disponible : 5 comptes et une association (identifiants dans README.md)."
 else
   puts "Aucune donnée de démonstration créée hors développement."
 end
@@ -42,3 +44,5 @@ load Rails.root.join("db/point_seeds.rb")
 load Rails.root.join("db/community_seeds.rb")
 
 load Rails.root.join("db/network_seeds.rb")
+
+load Rails.root.join("db/launch_seeds.rb")

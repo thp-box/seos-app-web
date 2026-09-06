@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require "bundler/setup"
+require_relative "../lib/seos_backup"
+action = ARGV.shift
+case action
+when "create"
+  abort "Arrêtez les écritures puis fournissez SEOS_WRITERS_STOPPED=1" unless ENV["SEOS_WRITERS_STOPPED"] == "1"
+  database, storage, destination = ARGV
+  abort "Usage: bin/backup create DATABASE STORAGE DESTINATION" unless destination
+  SeosBackup.create!(database: database, storage: storage, destination: destination)
+when "restore"
+  source, destination = ARGV
+  abort "Usage: bin/backup restore SOURCE NEW_DESTINATION" unless destination
+  SeosBackup.restore!(source: source, destination: destination)
+when "verify"
+  abort "Usage: bin/backup verify DIRECTORY" unless ARGV.first
+  SeosBackup.verify!(ARGV.first)
+else abort "Actions : create, verify, restore"
+end
+puts "Sauvegarde vérifiée."

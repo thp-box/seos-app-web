@@ -3,7 +3,10 @@
     <aside class="side-menu" aria-label="Administration">
       <% workspace_navigation = capture do %><nav>
         <% if %w[organizations.read organizations.manage organizations.legal missions.manage partnerships.manage].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Organisations et Voyage", admin_network_index_path %><% end %>
+        <% if current_user.permission?("content.manage") || current_user.permission?("studio.preview") %><%= link_to "Studio UI et contenus", admin_studio_index_path %><% end %>
+<% if current_user.permission?("privacy.manage") || current_user.permission?("privacy.rules") %><%= navigation_link "Confidentialité et conservation", admin_privacy_index_path %><% end %>
         <%= navigation_link "Vue d’ensemble", admin_root_path %>
+        <%= navigation_link "Pilotage et registres", admin_operations_path %>
         <% if %w[community.read community.manage community.rules].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Engagement et chaînes", admin_community_index_path %><% end %>
         <% if current_user.permission?("financial.read") || current_user.permission?("financial.manage") %><%= navigation_link "Soutien financier", admin_financial_support_index_path %><% end %>
         <% if %w[points.read points.adjust points.rewards points.rules].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Points Services", admin_points_path %><% end %>

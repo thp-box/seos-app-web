@@ -104,3 +104,11 @@ Restent notamment Google OmniAuth, Gmail API avec réconciliation des envois, le
 La [phase 5 — Engagement communautaire](docs/19-suivi-phase-5.md) ajoute les quêtes, Top annonces, témoignages écrits/vidéo et chaînes d’entraide : `/compte/engagement`, `/compte/chaines`, `/temoignages`, `/admin/engagement`. Le module Stripe de `/admin/soutien` reste désactivé par défaut. FFmpeg et FFprobe sont nécessaires au traitement vidéo et sont inclus dans le Dockerfile.
 
 La [phase 6 — Organisations, Voyage et partenariats](docs/20-suivi-phase-6.md) ajoute `/compte/organisations`, `/compte/candidatures`, `/associations`, `/voyage-solidaire`, `/partenaires` et `/admin/organisations`. Les seeds préparent une mission et un partenariat en brouillon pour l’association de démonstration. Les annonces monde restent publiées exclusivement par le super-admin.
+
+### Phase 7 : confidentialité et pilotage
+
+Après `bundle install`, `bin/rails db:migrate`, `bin/rails db:seed` et `yarn build`, redémarrer l’application et les workers. Nouveaux espaces : `/compte/confidentialite`, `/admin/confidentialite`, `/admin/operations`, `/admin/studio` et `/preferences-confidentialite`.
+
+Les comptes locaux `admin@seos.test` et `partenaire@seos.test` complètent les trois comptes existants, avec `SeosDemo2026!`. L’admin reçoit des droits de démonstration limités à 30 jours ; le partenaire possède une organisation en attente de revue. Aucun de ces comptes n’est créé en production.
+
+Voir [le suivi de phase 7](docs/21-suivi-phase-7.md) et [le guide d’exploitation](docs/22-exploitation-et-recette.md) pour Google/Gmail, sauvegardes, recette et limites de lancement. Le logiciel livré ne vaut pas validation juridique des durées de conservation ou de l’ouverture au public.

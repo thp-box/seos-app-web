@@ -1,4 +1,5 @@
 Devise.setup do |config|
+  config.omniauth :google_oauth2, ENV.fetch("GOOGLE_CLIENT_ID", "unconfigured"), ENV.fetch("GOOGLE_CLIENT_SECRET", "unconfigured"), scope: "email", access_type: "online", prompt: "select_account", overridable_authorize_options: [], provider_ignores_state: false
   config.mailer_sender = ENV.fetch("SEOS_MAIL_FROM", "SEOS <noreply@example.test>")
   require "devise/orm/active_record"
   config.case_insensitive_keys = [ :email ]

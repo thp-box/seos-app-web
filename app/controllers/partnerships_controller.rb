@@ -1,4 +1,8 @@
 class PartnershipsController < ApplicationController
+  before_action do
+    @indexable = CrawlerPolicy.current&.search_enabled != false
+    @canonical = request.base_url + request.path
+  end
   before_action { raise ActiveRecord::RecordNotFound unless FeatureFlag.partnerships_enabled? }
   def index
     @partnerships = Partnership.where(status: "published").where("starts_on <= ? AND ends_on >= ?", Date.current, Date.current).joins(:organization).where(organizations: { status: "verified" }).includes(:organization).order(:position, :id).limit(100).select(&:publicly_visible?)

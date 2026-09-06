@@ -3,6 +3,7 @@ class MediaController < ApplicationController
     attachment = ActiveStorage::Attachment.find(params[:id])
     record = attachment.record
     allowed = case record
+    when StudioAsset then record.publicly_visible? || current_user&.permission?("content.manage") || current_user&.permission?("studio.preview")
     when Listing then record.publicly_visible? || ListingPolicy.new(current_user, record).update?
     when Profile then Profile.visible.exists?(id: record.id) || record.user == current_user
     when Organization then record.publicly_visible? || OrganizationPolicy.new(current_user, record).workspace? || current_user&.permission?("organizations.manage")

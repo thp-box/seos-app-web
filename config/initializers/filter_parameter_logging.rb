@@ -9,3 +9,5 @@ Rails.application.config.filter_parameters += [
   :referral_codes, :statement, :decision,
   :passw, :email, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn, :cvv, :cvc, :phone, :address, :latitude, :longitude, :reason, :user_agent, :message, :body, :details, :agreement, :location, :bio, :ratings
 ]
+
+Rails.application.config.filter_parameters += [ :code, :id_token, :access_token, :refresh_token, :client_secret, :credential, :receipt_token ]

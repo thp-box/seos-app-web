@@ -5,13 +5,16 @@
     <title><%= content_for?(:title) ? "#{yield(:title)} · SEOS" : "SEOS — L’entraide près de chez vous" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<%= @description.presence || "SEOS, l’entraide locale en France : don, échange de compétences et Points Services." %>">
-    <meta name="robots" content="<%= @indexable ? "index, follow" : "noindex, nofollow" %>">
+    <meta name="robots" content="<%= @indexable && CrawlerPolicy.current&.search_enabled != false ? "index, follow" : "noindex, nofollow" %>">
     <% if @canonical %><%= tag.link rel: "canonical", href: @canonical %><%= tag.meta property: "og:url", content: @canonical %><%= tag.meta property: "og:title", content: content_for(:title) %><% end %>
     <%= yield :structured_data %>
     <%= favicon_link_tag "seos-logo.png", type: "image/png" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <% studio = @studio_version || StudioVersion.current %>
+    <%= tag.meta name: "seos-theme", content: studio&.id || "default", data: { turbo_track: "reload" } %>
+    <% if studio %><%= tag.style studio.css, nonce: content_security_policy_nonce %><% end %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
   <body>
