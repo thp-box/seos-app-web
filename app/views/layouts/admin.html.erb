@@ -2,6 +2,7 @@
   <div class="container dashboard">
     <aside class="side-menu" aria-label="Administration">
       <% workspace_navigation = capture do %><nav>
+        <% if %w[organizations.read organizations.manage organizations.legal missions.manage partnerships.manage].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Organisations et Voyage", admin_network_index_path %><% end %>
         <%= navigation_link "Vue d’ensemble", admin_root_path %>
         <% if %w[community.read community.manage community.rules].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Engagement et chaînes", admin_community_index_path %><% end %>
         <% if current_user.permission?("financial.read") || current_user.permission?("financial.manage") %><%= navigation_link "Soutien financier", admin_financial_support_index_path %><% end %>

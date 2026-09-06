@@ -1,5 +1,5 @@
 class AdminPermissionGrant < ApplicationRecord
-  PERMISSIONS = %w[users.read audit.read content.manage studio.read studio.preview categories.manage listings.moderate exchanges.support reports.manage trust.read trust.manage trust.risk points.read points.adjust points.rewards points.rules community.read community.manage community.rules financial.read financial.manage].freeze
+  PERMISSIONS = %w[users.read audit.read content.manage studio.read studio.preview categories.manage listings.moderate exchanges.support reports.manage trust.read trust.manage trust.risk points.read points.adjust points.rewards points.rules community.read community.manage community.rules financial.read financial.manage organizations.read organizations.manage organizations.legal missions.manage partnerships.manage].freeze
   belongs_to :user
   belongs_to :granted_by, class_name: "User"
   belongs_to :revoked_by, class_name: "User", optional: true

@@ -39,8 +39,6 @@ CREATE INDEX "index_admin_permission_grants_on_user_id" ON "admin_permission_gra
 CREATE INDEX "index_admin_permission_grants_on_granted_by_id" ON "admin_permission_grants" ("granted_by_id") /*application='SeosFrance'*/;
 CREATE INDEX "index_admin_permission_grants_on_revoked_by_id" ON "admin_permission_grants" ("revoked_by_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "unique_unrevoked_permission" ON "admin_permission_grants" ("user_id", "permission") WHERE revoked_at IS NULL /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "organizations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "slug" varchar NOT NULL, "kind" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT organizations_kind CHECK (kind IN ('association', 'company', 'institution', 'collective')), CONSTRAINT organizations_status CHECK (status IN ('pending', 'verified', 'rejected', 'suspended')));
-CREATE UNIQUE INDEX "index_organizations_on_slug" ON "organizations" ("slug") /*application='SeosFrance'*/;
 CREATE TABLE IF NOT EXISTS "organization_memberships" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "organization_id" integer NOT NULL, "user_id" integer NOT NULL, "role" varchar NOT NULL, "status" varchar DEFAULT 'active' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_715ab7f4fe"
 FOREIGN KEY ("organization_id")
   REFERENCES "organizations" ("id")
@@ -607,8 +605,6 @@ CREATE TRIGGER chain_contract_immutable BEFORE UPDATE ON help_chains WHEN NEW.ch
 CREATE TRIGGER financial_inputs_immutable BEFORE UPDATE ON financial_contributions WHEN NEW.user_id != OLD.user_id OR NEW.request_key != OLD.request_key OR NEW.amount_cents != OLD.amount_cents OR NEW.currency != OLD.currency BEGIN SELECT RAISE(ABORT, 'immutable financial inputs'); END;
 CREATE TRIGGER achievement_inputs_immutable BEFORE UPDATE ON user_achievements WHEN OLD.status = 'approved' OR NEW.user_id != OLD.user_id OR NEW.achievement_id != OLD.achievement_id OR NEW.point_rule_version_id != OLD.point_rule_version_id OR NEW.points != OLD.points OR NEW.period_key != OLD.period_key OR NEW.evidence != OLD.evidence BEGIN SELECT RAISE(ABORT, 'immutable achievement inputs'); END;
 CREATE TRIGGER chain_services_no_delete BEFORE DELETE ON chain_services BEGIN SELECT RAISE(ABORT, 'immutable chain history'); END;
-CREATE TABLE IF NOT EXISTS "feature_flags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "enabled" boolean DEFAULT TRUE NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT feature_flags_key_values CHECK (key IN ('public_map_enabled', 'financial_support_enabled')));
-CREATE UNIQUE INDEX "index_feature_flags_on_key" ON "feature_flags" ("key");
 CREATE TABLE IF NOT EXISTS "community_policy_versions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "urgent_days" integer DEFAULT 7 NOT NULL, "top_max_days" integer DEFAULT 30 NOT NULL, "created_by_id" integer, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d348b0f6e6"
 FOREIGN KEY ("created_by_id")
   REFERENCES "users" ("id")
@@ -616,7 +612,76 @@ FOREIGN KEY ("created_by_id")
 CREATE INDEX "index_community_policy_versions_on_created_by_id" ON "community_policy_versions" ("created_by_id");
 CREATE TRIGGER community_policy_no_update BEFORE UPDATE ON community_policy_versions BEGIN SELECT RAISE(ABORT, 'immutable community policy'); END;
 CREATE TRIGGER community_policy_no_delete BEFORE DELETE ON community_policy_versions BEGIN SELECT RAISE(ABORT, 'immutable community policy'); END;
+CREATE TABLE IF NOT EXISTS "organizations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "slug" varchar NOT NULL, "kind" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "description" text, "public_location" varchar, "legal_name" text, "registration_number" text, "legal_email" text, "published_at" datetime(6), "verified_at" datetime(6), "verified_by_id" integer, "lock_version" integer DEFAULT 0 NOT NULL, CONSTRAINT "fk_rails_ae6c29827f"
+FOREIGN KEY ("verified_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT organizations_kind CHECK (kind IN ('association', 'company', 'institution', 'collective')), CONSTRAINT organizations_status CHECK (status IN ('pending', 'verified', 'rejected', 'suspended')));
+CREATE UNIQUE INDEX "index_organizations_on_slug" ON "organizations" ("slug");
+CREATE INDEX "index_organizations_on_verified_by_id" ON "organizations" ("verified_by_id");
+CREATE TABLE IF NOT EXISTS "organization_invitations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "organization_id" integer NOT NULL, "invited_by_id" integer NOT NULL, "accepted_by_id" integer, "email" text NOT NULL, "role" varchar NOT NULL, "token_digest" varchar NOT NULL, "expires_at" datetime(6) NOT NULL, "accepted_at" datetime(6), "revoked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_3046f3efef"
+FOREIGN KEY ("organization_id")
+  REFERENCES "organizations" ("id")
+, CONSTRAINT "fk_rails_0e31b7cc90"
+FOREIGN KEY ("invited_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_687f362a1e"
+FOREIGN KEY ("accepted_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_organization_invitations_on_organization_id" ON "organization_invitations" ("organization_id");
+CREATE INDEX "index_organization_invitations_on_invited_by_id" ON "organization_invitations" ("invited_by_id");
+CREATE INDEX "index_organization_invitations_on_accepted_by_id" ON "organization_invitations" ("accepted_by_id");
+CREATE UNIQUE INDEX "index_organization_invitations_on_token_digest" ON "organization_invitations" ("token_digest");
+CREATE TABLE IF NOT EXISTS "volunteer_missions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "organization_id" integer NOT NULL, "slug" varchar NOT NULL, "title" varchar NOT NULL, "description" text, "private_address" text, "accommodation" text, "meals" text, "country_code" varchar, "region" varchar, "public_location" varchar, "languages" varchar, "starts_on" date, "ends_on" date, "minimum_stay_days" integer DEFAULT 1 NOT NULL, "help_hours_per_day" integer DEFAULT 4 NOT NULL, "days_off_per_week" integer DEFAULT 2 NOT NULL, "daily_contribution_cents" integer DEFAULT 0 NOT NULL, "volunteer_capacity" integer DEFAULT 1 NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "published_at" datetime(6), "published_by_id" integer, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_14b84d8711"
+FOREIGN KEY ("published_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_c23ee83819"
+FOREIGN KEY ("organization_id")
+  REFERENCES "organizations" ("id")
+, CONSTRAINT mission_bounds CHECK (daily_contribution_cents BETWEEN 0 AND 1500 AND volunteer_capacity BETWEEN 1 AND 100 AND minimum_stay_days >= 1 AND help_hours_per_day BETWEEN 1 AND 8 AND days_off_per_week BETWEEN 1 AND 6));
+CREATE INDEX "index_volunteer_missions_on_organization_id" ON "volunteer_missions" ("organization_id");
+CREATE UNIQUE INDEX "index_volunteer_missions_on_slug" ON "volunteer_missions" ("slug");
+CREATE INDEX "index_volunteer_missions_on_published_by_id" ON "volunteer_missions" ("published_by_id");
+CREATE TABLE IF NOT EXISTS "mission_applications" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "volunteer_mission_id" integer NOT NULL, "user_id" integer NOT NULL, "message" text NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "starts_on" date NOT NULL, "ends_on" date NOT NULL, "decided_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_af5a48c5df"
+FOREIGN KEY ("volunteer_mission_id")
+  REFERENCES "volunteer_missions" ("id")
+, CONSTRAINT "fk_rails_54bcd83f0d"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_mission_applications_on_volunteer_mission_id" ON "mission_applications" ("volunteer_mission_id");
+CREATE INDEX "index_mission_applications_on_user_id" ON "mission_applications" ("user_id");
+CREATE UNIQUE INDEX "index_mission_applications_on_volunteer_mission_id_and_user_id" ON "mission_applications" ("volunteer_mission_id", "user_id");
+CREATE TABLE IF NOT EXISTS "mission_messages" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "mission_application_id" integer NOT NULL, "user_id" integer NOT NULL, "body" text NOT NULL, "delivery_key" varchar NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_c0bea86b04"
+FOREIGN KEY ("mission_application_id")
+  REFERENCES "mission_applications" ("id")
+, CONSTRAINT "fk_rails_729edd934f"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_mission_messages_on_mission_application_id" ON "mission_messages" ("mission_application_id");
+CREATE INDEX "index_mission_messages_on_user_id" ON "mission_messages" ("user_id");
+CREATE UNIQUE INDEX "unique_mission_message" ON "mission_messages" ("mission_application_id", "user_id", "delivery_key");
+CREATE TABLE IF NOT EXISTS "partnerships" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "organization_id" integer NOT NULL, "slug" varchar NOT NULL, "kind" varchar DEFAULT 'operational' NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "public_title" varchar, "cta_label" varchar, "cta_url" varchar, "public_description" text, "starts_on" date, "ends_on" date, "position" integer DEFAULT 0 NOT NULL, "approved_by_id" integer, "approved_at" datetime(6), "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ea88a3f869"
+FOREIGN KEY ("organization_id")
+  REFERENCES "organizations" ("id")
+, CONSTRAINT "fk_rails_56c00cf67e"
+FOREIGN KEY ("approved_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_partnerships_on_organization_id" ON "partnerships" ("organization_id");
+CREATE UNIQUE INDEX "index_partnerships_on_slug" ON "partnerships" ("slug");
+CREATE INDEX "index_partnerships_on_approved_by_id" ON "partnerships" ("approved_by_id");
+CREATE TABLE IF NOT EXISTS "feature_flags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "enabled" boolean DEFAULT TRUE NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT feature_flags_key_values CHECK (key IN ('public_map_enabled','financial_support_enabled','voyage_enabled','partnerships_enabled')));
+CREATE UNIQUE INDEX "index_feature_flags_on_key" ON "feature_flags" ("key");
+CREATE TRIGGER organization_last_owner_update BEFORE UPDATE ON organization_memberships WHEN OLD.role = 'owner' AND OLD.status = 'active' AND (NEW.status != 'active' OR NEW.role != 'owner' OR NEW.organization_id != OLD.organization_id) AND NOT EXISTS (SELECT 1 FROM organization_memberships WHERE organization_id = OLD.organization_id AND id != OLD.id AND role = 'owner' AND status = 'active') BEGIN SELECT RAISE(ABORT, 'last organization owner'); END;
+CREATE TRIGGER organization_last_owner_delete BEFORE DELETE ON organization_memberships WHEN OLD.role = 'owner' AND OLD.status = 'active'  AND NOT EXISTS (SELECT 1 FROM organization_memberships WHERE organization_id = OLD.organization_id AND id != OLD.id AND role = 'owner' AND status = 'active') BEGIN SELECT RAISE(ABORT, 'last organization owner'); END;
+CREATE TRIGGER mission_messages_no_update BEFORE UPDATE ON mission_messages BEGIN SELECT RAISE(ABORT, 'immutable mission message'); END;
+CREATE TRIGGER mission_messages_no_delete BEFORE DELETE ON mission_messages BEGIN SELECT RAISE(ABORT, 'immutable mission message'); END;
+CREATE TRIGGER mission_application_contract BEFORE UPDATE ON mission_applications WHEN NEW.volunteer_mission_id != OLD.volunteer_mission_id OR NEW.user_id != OLD.user_id OR NEW.message != OLD.message OR NEW.starts_on != OLD.starts_on OR NEW.ends_on != OLD.ends_on BEGIN SELECT RAISE(ABORT, 'immutable mission application'); END;
 INSERT INTO "schema_migrations" (version) VALUES
+('20260905201000'),
+('20260905200000'),
 ('20260905125000'),
 ('20260905124000'),
 ('20260905123500'),

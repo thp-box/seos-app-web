@@ -1,5 +1,7 @@
 # Dossier de conception SEOS
 
+Organisations, missions et partenaires : [suivi de la phase 6](./20-suivi-phase-6.md).
+
 Engagement, chaînes et soutien dormant : [suivi de la phase 5](./19-suivi-phase-5.md).
 
 Registre et barèmes Points Services : [suivi de la phase 4](./18-suivi-phase-4.md).

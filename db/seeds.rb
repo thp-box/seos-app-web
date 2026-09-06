@@ -40,3 +40,5 @@ load Rails.root.join("db/trust_seeds.rb")
 load Rails.root.join("db/point_seeds.rb")
 
 load Rails.root.join("db/community_seeds.rb")
+
+load Rails.root.join("db/network_seeds.rb")

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   root "pages#home"
+  resources :associations, param: :slug, only: [ :index, :show ]
+  resources :volunteer_missions, path: "voyage-solidaire", param: :slug, only: [ :index, :show ]
+  resources :partnerships, path: "partenaires", param: :slug, only: [ :index, :show ]
+  get "organisations/invitation", to: "organization_invitations#show", as: :organization_invitation
+  post "organisations/invitation", to: "organization_invitations#create"
   get "points-services", to: "points#show", as: :points_explanation
   get "confiance", to: "trust#show", as: :trust_explanation
   get "up" => "rails/health#show", as: :rails_health_check
@@ -32,6 +37,8 @@ Rails.application.routes.draw do
   end
 
   namespace :account, path: "compte" do
+    resources :organizations, path: "organisations", param: :slug, only: [ :index, :show, :create, :update ]
+    resources :mission_applications, path: "candidatures", only: [ :index, :show, :create, :update ]
     resource :community, path: "engagement", controller: "community", only: [ :show, :create ]
     resources :chains, path: "chaines", only: [ :index, :show, :create, :update ]
     constraints ->(_request) { FeatureFlag.support_enabled? } do
@@ -60,6 +67,7 @@ Rails.application.routes.draw do
     resource :reauthentication, path: "verification", only: [ :new, :create ]
   end
   namespace :admin do
+    resources :network, path: "organisations", only: [ :index, :create ]
     resources :community, path: "engagement", only: [ :index, :create ]
     resources :financial_support, path: "soutien", only: [ :index, :create ]
     resources :points, path: "points", only: [ :index, :create ]

@@ -1,3 +1,5 @@
 <% content_for :title, @organization.name %><h1><%= @organization.name %></h1><div class="card"><h2>Espace de l’organisation</h2><p>Votre accès est limité à cette organisation.</p><% if policy(@organization).team? %><%= link_to "Voir l’équipe", organization_team_path(organization_slug: @organization.slug), class: "btn btn-deep" %><% end %></div>
 
 <% if @organization.association? %><p><%= link_to "Publier une annonce pour l’association", new_account_listing_path(organization_slug: @organization.slug), class: "btn btn-primary" %></p><% end %>
+
+<p><%= link_to "Gérer le profil, les missions et les partenariats", account_organization_path(@organization), class: "btn btn-outline" %></p>

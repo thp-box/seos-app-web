@@ -14,6 +14,7 @@ RSpec.describe OrganizationPolicy, :"F-004", type: :policy do
       expect(policy.show?).to be(true)
       expect(policy.team?).to eq(role != :editor)
       expect(described_class.new(membership.user, create(:organization)).show?).to be(false)
+      create(:organization_membership, organization: organization, role: :owner) if role == :owner
       membership.update!(status: :revoked)
       expect(described_class.new(membership.user, organization).show?).to be(false)
     end

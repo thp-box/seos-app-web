@@ -52,5 +52,8 @@ class ApplicationController < ActionController::Base
     render "errors/forbidden", status: :forbidden
   end
 
-  def after_sign_in_path_for(_resource) = session[:chain_invitation_id] ? chain_invitation_path : account_root_path
+  def after_sign_in_path_for(_resource)
+    return organization_invitation_path if session[:organization_invitation_id]
+    session[:chain_invitation_id] ? chain_invitation_path : account_root_path
+  end
 end
