@@ -1,0 +1,12 @@
+<nav class="admin-navigation" aria-label="Rubriques de l’administration">
+  <%= link_to "Vue d’ensemble", admin_root_path, class: "admin-overview", aria: { current: ("page" if %w[admin/dashboard super_admin/dashboard].include?(controller_path)) } %>
+  <% admin_navigation_groups.each do |group| %>
+    <% active = group[:links].any? { |link| link[:active] } %>
+    <%= tag.details class: "admin-nav-group", name: accordion_name, open: active || (group[:label] == "Personnalisation" && %w[admin/dashboard super_admin/dashboard].include?(controller_path)) do %>
+      <summary><span><%= group[:label] %></span><span class="admin-nav-chevron" aria-hidden="true"></span></summary>
+      <div class="admin-nav-links">
+        <% group[:links].each do |link| %><%= link_to link[:label], link[:path], aria: { current: ("page" if link[:active]) } %><% end %>
+      </div>
+    <% end %>
+  <% end %>
+</nav>

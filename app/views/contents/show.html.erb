@@ -1,4 +1,10 @@
+<% if @content.kind == "page" && (composed_page = site_version&.site&.dig("pages", @content.slug)) %>
+<% content_for :title, composed_page["title"] %><%= render "site/page", page: composed_page, slug: @content.slug %>
+<% else %>
+<% if @content.kind == "page" %><%= render "site/edit_link", slug: @content.slug %><% end %>
 <% studio_page = (@studio_version || StudioVersion.current)&.page(@content.slug) || {} %>
 <% content_for :title, @content.title %><article class="container section prose"><span class="eyebrow"><%= @content.kind == "legal" ? "Documents SEOS" : "Découvrir SEOS" %></span><h1><%= studio_page["title"] || @content.title %></h1><p><%= studio_page["description"] || @content.summary %></p><%= plain_paragraphs @content.body %><% @content.decorations.each do |preset| %><div class="section-decoration <%= preset %>" aria-hidden="true"></div><% end %><p>Version <%= @content.version %> · Publiée le <%= l @content.published_at.to_date %></p></article>
 
 <%= render "shared/studio_media", fields: studio_page %>
+
+<% end %>

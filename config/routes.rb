@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "pages#home"
+  get "pages/:slug", to: "site#show", as: :site_page
   get "preferences-confidentialite/recu", to: "privacy_preferences#receipt", as: :privacy_receipt
   resource :privacy_preferences, path: "preferences-confidentialite", only: [ :show, :create ]
   resources :associations, param: :slug, only: [ :index, :show ]
@@ -74,6 +75,12 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :operations, only: [ :index, :create ] do
       match :user, via: [ :get, :post ], on: :member
+    end
+    resources :site, only: [ :index, :create, :edit, :update ] do
+      get :kit, on: :member
+      get :new_page, on: :collection
+      get :review, on: :member
+      post :publish, on: :member
     end
     resources :studio, only: [ :index, :create ] do
       get :preview, on: :member

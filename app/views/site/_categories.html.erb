@@ -1,0 +1,2 @@
+<% categories = Category.available.select(&:publishable?) %><% if categories.empty? %><p>Les catégories seront bientôt disponibles.</p><% end %>
+<% categories.each do |category| %><%= link_to listings_path(category_id: category.id), class: "support-card" do %><h3><%= category.name %></h3><span>Explorer les annonces</span><% end %><% end %>

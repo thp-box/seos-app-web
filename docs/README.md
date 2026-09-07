@@ -1,5 +1,11 @@
 # Dossier de conception SEOS
 
+**Édition autonome du site : [guide Mon site et kit de la maquette](./24-studio-mon-site-et-kit-maquette.md).**
+
+**Reste à faire consolidé après la phase 7 : [checklist des réalisations et vérifications](./23-reste-a-faire-et-verifier.md).**
+
+Confidentialité, Studio et exploitation : [suivi de phase 7](./21-suivi-phase-7.md) · [guide de recette et exploitation](./22-exploitation-et-recette.md).
+
 Organisations, missions et partenaires : [suivi de la phase 6](./20-suivi-phase-6.md).
 
 Engagement, chaînes et soutien dormant : [suivi de la phase 5](./19-suivi-phase-5.md).

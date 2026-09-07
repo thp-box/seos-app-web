@@ -1,3 +1,4 @@
+<% if current_user.super_admin? %><p><%= link_to "Mon site — Éditeur de pages et kit UI/UX", admin_site_index_path, class: "btn btn-deep" %></p><% end %>
 <% content_for :title, "Studio UI et contenus" %>
 <h1>Studio UI et contenus</h1><p>Le défaut <strong>SEOS Default v1</strong> reste immuable. Chaque reset crée une proposition ; la publication conserve les versions précédentes.</p>
 <%= form_with url: admin_studio_index_path, class: "card" do |f| %>

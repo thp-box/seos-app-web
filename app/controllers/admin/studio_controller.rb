@@ -20,7 +20,8 @@ module Admin
       else
         Studio.transition!(version: StudioVersion.find(params[:record_id]), actor: current_user, action: params[:operation], reason: params[:reason])
       end
-      redirect_to admin_studio_index_path, notice: "Version enregistrée.", status: :see_other
+      destination = params[:return_site_id].present? ? edit_admin_site_path(StudioVersion.find(params[:return_site_id]), area: params[:operation] == "upload" ? "images" : (params[:return_site_area] == "kit" ? "kit" : "pages")) : admin_studio_index_path
+      redirect_to destination, notice: "Version enregistrée.", status: :see_other
     end
     content_security_policy only: :preview do |policy|
       policy.frame_ancestors :self
@@ -29,10 +30,13 @@ module Admin
       @studio_version = StudioVersion.find(params[:id])
       @preview_width = [ 375, 768, 1440 ].include?(params[:width].to_i) ? params[:width].to_i : 1440
       @preview_page = params[:page].presence || "home"
-      raise ActiveRecord::RecordNotFound unless StudioVersion::PAGES.include?(@preview_page)
+      raise ActiveRecord::RecordNotFound unless (StudioVersion::PAGES + @studio_version.site.fetch("pages", {}).keys).include?(@preview_page)
       if params[:canvas] == "1"
         @preview_width = nil
-        if @preview_page == "home"
+        if (@page = @studio_version.site.dig("pages", @preview_page))
+          @slug = @preview_page
+          render "site/show", layout: "application"
+        elsif @preview_page == "home"
           render "pages/home", layout: "application"
         else
           @content = ContentVersion.where(id: @studio_version.settings.fetch("editorial_resets", []), slug: @preview_page).first || ContentVersion.current("page", @preview_page)

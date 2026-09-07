@@ -1,0 +1,2021 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html lang="fr" data-source-sha256="83338c404d00e98d13c5722b1cd8fc17f1b234a14cd1d58eaab9954d68c436ce">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Maquette SEOS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --deep:#004961;--seos:#0092c5;--turq:#21a2af;--gold:#cdae4f;
+      --cream:#fbfaf4;--mist:#eef7f9;--ink:#173947;--muted:#64767d;
+      --line:#d9e4e6;--white:#fff;--danger:#dc674f;--ok:#2e956d;
+      --radius:26px;--shadow:0 18px 50px rgba(0,73,97,.10);
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif}button,input,select,textarea{font:inherit}button,a{cursor:pointer}img{width:100%;height:100%;object-fit:cover;display:block}a{text-decoration:none;color:inherit}
+    .container{width:min(1240px,calc(100% - 40px));margin:auto}.page{display:none;min-height:100vh}.page.active{display:block}.section{padding:92px 0}.section.soft{background:var(--mist)}.section.dark{background:var(--deep);color:#fff}.section-head{display:flex;align-items:end;justify-content:space-between;gap:36px;margin-bottom:36px}.section-head p{max-width:510px}.eyebrow{display:block;color:var(--seos);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}.eyebrow::before{content:"";display:inline-block;width:32px;height:2px;background:var(--gold);vertical-align:middle;margin-right:10px}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:"Playfair Display",serif;color:var(--ink)}h1{font-size:clamp(3rem,6.2vw,6.2rem);line-height:.97;letter-spacing:-.045em}h2{font-size:clamp(2.1rem,4vw,4rem);line-height:1.04;letter-spacing:-.035em}h3{font-size:1.35rem}p{line-height:1.7;color:var(--muted)}.accent{color:var(--seos);font-style:italic}.tiny{font-size:.76rem;color:var(--muted)}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+    .btn{border:0;border-radius:999px;padding:13px 21px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.2s}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--gold);color:#173f55}.btn-blue{background:var(--seos);color:#fff}.btn-deep{background:var(--deep);color:#fff}.btn-light{background:#fff;color:var(--deep)}.btn-outline{background:transparent;border:2px solid currentColor;color:var(--deep)}.btn-danger{background:#fff0ed;color:#a94030}.btn:disabled{opacity:.42;cursor:not-allowed;transform:none}.btn-block{width:100%}.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center}
+    .topbar{position:relative;z-index:50;background:var(--deep);color:#fff}.home-mode .topbar{position:absolute;top:0;left:0;right:0;background:linear-gradient(180deg,rgba(0,52,69,.78),transparent)}.nav{min-height:86px;display:flex;align-items:center;gap:34px}.brand{display:flex;align-items:center;gap:10px;font-size:1.55rem;font-weight:900;letter-spacing:.03em}.brand-mark{width:42px;height:25px;position:relative}.brand-mark::before,.brand-mark::after{content:"";position:absolute;width:25px;height:16px;border:3px solid #fff;border-radius:6px}.brand-mark::before{left:0;top:0}.brand-mark::after{right:0;bottom:0}.nav-links{display:flex;align-items:center;justify-content:center;gap:28px;flex:1}.nav-link{position:relative;padding:32px 0;font-size:.9rem;font-weight:700}.nav-link.active::after{content:"";position:absolute;height:3px;border-radius:99px;background:var(--gold);left:0;right:0;bottom:20px}.nav-actions{display:flex;align-items:center;gap:10px}.balance-pill{display:none;align-items:center;gap:8px;background:#fff8df;color:var(--deep);border:1px solid #e9db9e;border-radius:999px;padding:9px 13px;font-weight:900}.balance-pill i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--gold);font-style:normal}.connected .balance-pill,.connected .message-button,.connected .profile-button{display:flex}.connected .auth-button{display:none}.message-button,.profile-button{display:none}.mobile-menu{display:none}
+    .hero{min-height:850px;position:relative;overflow:hidden;background:var(--deep);color:#fff}.hero-media{position:absolute;inset:0}.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s}.hero-slide.active{opacity:1}.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,48,64,.94) 0%,rgba(0,48,64,.64) 48%,rgba(0,48,64,.18) 100%)}.hero-wave{position:absolute;z-index:2;left:-2%;right:-2%;bottom:-2px;height:135px;background:var(--cream);border-radius:50% 50% 0 0/40% 40% 0 0}.hero-content{position:relative;z-index:3;padding:190px 0 220px;max-width:760px}.hero h1{color:#fff}.hero p{color:#d9edf1;font-size:1.1rem;max-width:650px}.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(0,73,97,.55);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px 12px;font-size:.78rem;font-weight:800}.live-dot{width:8px;height:8px;border-radius:50%;background:#83e2c6;box-shadow:0 0 0 5px rgba(131,226,198,.17)}.hero-search-wrap{position:absolute;z-index:5;left:0;right:0;bottom:68px}.search-bar{background:#fff;border-radius:999px;display:grid;grid-template-columns:1.4fr 1fr auto;align-items:center;padding:10px 11px 10px 25px;box-shadow:var(--shadow);color:var(--ink)}.search-field{display:flex;align-items:center;gap:10px;padding:4px 18px}.search-field+ .search-field{border-left:1px solid var(--line)}.search-field input{border:0;outline:0;width:100%;background:transparent}.hero-quick{display:flex;gap:12px;margin-top:18px}
+    .exchange-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.exchange-card{min-height:355px;border-radius:38px;padding:34px;position:relative;overflow:hidden;border:1px solid #d3e3e6;background:#edf4f4}.exchange-card:nth-child(2){background:#fff}.exchange-card:nth-child(3){background:#e5eff1}.exchange-photo{width:74px;height:74px;border-radius:50%;border:5px solid #fff;box-shadow:0 8px 20px rgba(0,73,97,.15);overflow:hidden}.exchange-num{position:absolute;right:28px;top:24px;font-family:"Playfair Display";font-size:1.35rem;color:#9daeb2}.exchange-card h3{font-size:2rem;margin:34px 0 14px}.text-link{display:inline-flex;align-items:center;gap:8px;font-weight:900;color:var(--deep);margin-top:14px}.text-link::after{content:"→";color:var(--seos)}
+    .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.category{height:200px;border-radius:24px;overflow:hidden;position:relative;border:0;padding:0;text-align:left}.category::after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,rgba(0,30,40,.8))}.category span{position:absolute;z-index:2;left:18px;bottom:16px;color:#fff;font-weight:800;font-size:1rem}.category:hover img{transform:scale(1.05)}.category img{transition:.35s}
+    .ad-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}.ad-card{display:grid;grid-template-columns:38% 1fr;min-height:290px;background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 10px 30px rgba(0,73,97,.07);position:relative}.ad-card:hover{box-shadow:var(--shadow)}.ad-image{position:relative}.ad-badge{position:absolute;z-index:2;left:14px;top:14px;background:#fff;border-radius:999px;padding:6px 10px;font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.ad-badge.urgent{background:var(--danger);color:#fff}.ad-badge.top{background:var(--gold);color:var(--deep)}.ad-fav{position:absolute;z-index:2;right:14px;top:14px}.ad-body{padding:25px;display:flex;flex-direction:column}.ad-category{font-size:.7rem;color:var(--turq);font-weight:900;letter-spacing:.11em;text-transform:uppercase}.ad-body h3{margin:8px 0;font-size:1.45rem}.provider{display:flex;align-items:center;gap:10px;margin-top:12px}.avatar-letter{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#dff2f5;color:var(--deep);font-weight:900}.provider small{display:block;color:var(--muted)}.fact-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.fact{padding:6px 9px;border-radius:9px;background:#f2f6f7;font-size:.72rem;font-weight:700}.ad-foot{border-top:1px solid var(--line);margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:end}.ad-price small{display:block;color:var(--muted)}.ad-price strong{font-size:1.1rem}.verified{color:var(--turq)}
+    .chain-home{display:grid;grid-template-columns:.8fr 1.2fr;gap:58px;align-items:center}.chain-flow{display:flex;align-items:stretch;overflow:auto;padding:20px 2px}.chain-person{min-width:150px;border:2px solid var(--line);background:#fff;border-radius:24px;padding:18px;text-align:center;position:relative}.chain-person.gold{border-color:var(--gold)}.chain-person small{display:block;color:var(--muted);line-height:1.4}.chain-link{min-width:34px;align-self:center;height:3px;background:#b8e3ea}.coin{display:inline-flex;gap:6px;align-items:center;border-radius:999px;background:#fff8df;color:#846d1c;padding:6px 9px;font-weight:900;font-size:.75rem;margin-top:10px}.coin::before{content:"pt";width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--deep);font-family:serif}
+    .testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.testimonial{background:#fff;border-radius:28px;padding:32px;box-shadow:0 12px 30px rgba(0,73,97,.07)}.quote{font-family:"Playfair Display";font-size:4rem;color:#e4d79d;line-height:.5}.video-testimonial{position:relative;height:280px;border-radius:28px;overflow:hidden;background:var(--deep)}.video-testimonial video{width:100%;height:100%;object-fit:cover}.play{position:absolute;inset:0;margin:auto;width:68px;height:68px;border-radius:50%;border:0;background:rgba(0,73,97,.85);color:#fff;font-size:1.3rem}.video-testimonial .caption{position:absolute;left:18px;bottom:16px;color:#fff;font-weight:800;text-shadow:0 2px 8px #000;pointer-events:none}.info-hero{display:grid;grid-template-columns:1fr 1fr;min-height:520px;background:var(--deep)}.info-hero-copy{padding:90px max(30px,8vw);align-self:center}.info-hero-copy h1{color:#fff;font-size:clamp(3rem,5vw,5rem)}.info-hero-copy p{color:#d4e8ec}.info-hero-photo{min-height:420px}.info-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.info-step{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px}.info-step b{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--gold);color:var(--deep);margin-bottom:18px}.association-only{display:none}.association-active .association-only{display:block}.recipient-card{max-width:760px;margin:auto;background:#fff;border:1px solid var(--line);border-radius:30px;padding:34px;box-shadow:var(--shadow)}
+    .security-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:center}.security-orb{aspect-ratio:1;border-radius:58% 42% 46% 54%;background:linear-gradient(145deg,#8fd4e1,#55a9bc);display:grid;place-items:center;color:#fff;text-align:center;font-family:"Playfair Display";font-size:2rem;box-shadow:0 0 0 28px #edf8fa}.security-items{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.security-item{background:#f0f8fa;border-radius:22px;padding:22px}.security-item h3{font-family:"DM Sans";font-size:1rem;margin-bottom:7px}.security-item p{font-size:.86rem;margin:0}.guarantee{grid-column:1/-1;background:#fff8df;border:1px solid #eadb9f}
+    .francophone{background:linear-gradient(120deg,var(--deep),#08738d);color:#fff}.country-row{display:flex;gap:10px;flex-wrap:wrap}.country{padding:11px 15px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.08);border-radius:999px;font-weight:800}.support-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:42px;align-items:center}.support-actions{display:grid;grid-template-columns:1fr 1fr;gap:14px}.support-card{background:#fff;border-radius:24px;padding:24px}.support-card.gold{background:var(--deep);color:#fff}.support-card.gold h3,.support-card.gold p{color:#fff}.join-panel{display:grid;grid-template-columns:1.15fr .85fr;border-radius:40px;overflow:hidden;background:var(--deep);color:#fff}.join-copy{padding:70px}.join-copy h2{color:#fff}.join-art{min-height:470px;background:var(--cream);position:relative;overflow:hidden}.join-art::before,.join-art::after{content:"";position:absolute;border:1px solid #a9bec3;border-radius:50%;width:390px;height:540px;left:15%;top:-30px;transform:rotate(16deg)}.join-art::after{transform:rotate(-18deg);left:28%}.join-bubble{position:absolute;width:120px;height:120px;border-radius:50%;overflow:hidden;border:6px solid #fff;box-shadow:var(--shadow)}.join-bubble:nth-child(1){left:18%;top:12%}.join-bubble:nth-child(2){right:12%;top:38%}.join-bubble:nth-child(3){left:32%;bottom:10%}
+    footer{background:#002f40;color:#d5e9ed;padding:62px 0 28px;position:relative;overflow:hidden}footer::before{content:"";position:absolute;width:420px;height:420px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:-170px;top:-230px}.footer-grid{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:32px}.footer-grid strong{display:block;color:#fff;margin-bottom:14px}.footer-grid a{display:block;margin:9px 0;font-size:.85rem}.footer-bottom{border-top:1px solid rgba(255,255,255,.13);margin-top:40px;padding-top:22px;font-size:.75rem}
+  </style>
+  <style>
+    .subhero{background:var(--deep);color:#fff;padding:70px 0 64px;position:relative;overflow:hidden}.subhero::after{content:"";position:absolute;width:380px;height:380px;border-radius:50%;border:1px solid rgba(255,255,255,.15);right:-100px;top:-220px}.subhero h1{font-size:clamp(2.8rem,5vw,5rem);color:#fff;margin-bottom:14px}.subhero p{color:#cfe5ea;max-width:700px}.content{padding:48px 0 90px}.notice{padding:13px 16px;border-radius:14px;background:#fff8df;border:1px solid #eadb9f;color:#6b5a1e;font-size:.82rem}.demo-notice{margin-bottom:24px}.pill-row{display:flex;gap:10px;flex-wrap:wrap}.pill{border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);padding:10px 16px;font-weight:800}.pill.active{background:var(--seos);border-color:var(--seos);color:#fff}.listing-search{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow);margin-top:-32px;position:relative;z-index:3}.listing-layout{display:grid;grid-template-columns:300px 1fr;gap:28px;margin-top:28px}.filters{background:linear-gradient(160deg,var(--deep),#075d75);color:#fff;border-radius:26px;padding:24px;height:max-content;position:sticky;top:20px}.filters h3{color:#fff}.filter-group{padding:17px 0;border-top:1px solid rgba(255,255,255,.16)}.filter-label{display:block;font-size:.76rem;font-weight:900;margin-bottom:9px}.control{width:100%;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);outline:0}.filters input[type=range]{width:100%;accent-color:var(--gold)}.check-list{display:grid;gap:8px;font-size:.82rem}.category-tree details{background:rgba(255,255,255,.08);border-radius:10px;padding:10px;margin:7px 0}.category-tree summary{font-weight:800;cursor:pointer}.category-tree label{display:block;padding:7px 0 0 12px;color:#d9edf1;font-size:.78rem}.range-values{display:flex;justify-content:space-between;font-size:.7rem;color:#cfe5ea}.results-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}.results-tools{display:flex;gap:8px;align-items:center}.map-panel{height:650px;border-radius:26px;background:#dceff2;position:relative;overflow:hidden;display:none}.map-panel.active{display:block}.map-panel::before{content:"";position:absolute;inset:0;background:linear-gradient(25deg,transparent 46%,rgba(255,255,255,.6) 47%,rgba(255,255,255,.6) 50%,transparent 51%),linear-gradient(115deg,transparent 44%,rgba(255,255,255,.55) 45%,rgba(255,255,255,.55) 48%,transparent 49%);background-size:180px 180px}.map-marker{position:absolute;width:42px;height:42px;border:4px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--seos);color:#fff;display:grid;place-items:center;box-shadow:0 8px 20px rgba(0,73,97,.25)}.map-marker span{transform:rotate(45deg);font-weight:900}.map-popup{position:absolute;width:230px;background:#fff;border-radius:18px;padding:14px;box-shadow:var(--shadow);display:none;z-index:4}.map-popup.active{display:block}.empty-state{text-align:center;background:#fff;border:1px dashed #b9ced3;border-radius:26px;padding:70px 20px;display:none}
+    .detail-layout{display:grid;grid-template-columns:1.35fr .65fr;gap:34px;align-items:start}.gallery-main{height:470px;border-radius:28px;overflow:hidden;position:relative}.gallery-video{position:absolute;inset:0;background:rgba(0,48,64,.32);display:grid;place-items:center}.thumb-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}.thumb{height:92px;border:3px solid transparent;border-radius:14px;overflow:hidden;padding:0;background:#fff}.thumb.active{border-color:var(--seos)}.detail-copy{background:#fff;border-radius:26px;padding:30px;margin-top:20px}.detail-copy h1{font-size:2.6rem}.detail-side{position:sticky;top:18px}.exchange-panel{background:var(--deep);color:#fff;border-radius:30px;padding:28px}.exchange-panel h2,.exchange-panel p{color:#fff}.estimate{font-size:3.4rem;color:var(--gold);font-family:"Playfair Display"}.estimate small{font-family:"DM Sans";font-size:1rem;color:#d7e8eb}.balance-math{border-top:1px solid rgba(255,255,255,.2);border-bottom:1px solid rgba(255,255,255,.2);padding:17px 0;margin:17px 0;display:grid;gap:10px}.math-row{display:flex;justify-content:space-between}.math-row.total{font-weight:900;font-size:1.05rem}.exchange-panel .btn-outline{color:#fff}.owner-card{background:#fff;border-radius:24px;padding:22px;margin-top:14px}.share-buttons{display:flex;gap:8px;flex-wrap:wrap}.review-grid{display:grid;grid-template-columns:260px 1fr;gap:30px}.rating-big{background:var(--mist);border-radius:24px;padding:28px;text-align:center}.rating-big b{font-family:"Playfair Display";font-size:4rem}.review{border-top:1px solid var(--line);padding:18px 0}
+    .wizard{max-width:940px;margin:auto}.stepper{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:28px}.step-dot{text-align:center;position:relative;color:var(--muted);font-size:.78rem}.step-dot::before{content:attr(data-n);width:42px;height:42px;border:3px solid #ced8da;background:var(--cream);border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;font-weight:900;position:relative;z-index:2}.step-dot::after{content:"";height:3px;background:#d6dedf;position:absolute;top:20px;left:-50%;right:50%}.step-dot:first-child::after{display:none}.step-dot.active::before,.step-dot.done::before{background:var(--seos);border-color:var(--seos);color:#fff}.step-dot.done::after,.step-dot.active::after{background:var(--seos)}.wizard-card{background:#fff;border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:var(--shadow)}.wizard-head{padding:30px 34px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.step-character{width:74px;height:74px;border-radius:50% 45% 55% 50%;display:grid;place-items:center;background:#dff3f6;font-size:2rem}.wizard-step{display:none;padding:34px}.wizard-step.active{display:block}.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.choice{min-height:190px;border:2px solid var(--line);border-radius:24px;padding:24px;text-align:left;background:#fff}.choice.selected{border-color:var(--seos);background:#eff8fa}.choice b{display:block;font-size:1.1rem;margin:18px 0 7px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.form-field label{display:block;font-size:.75rem;font-weight:900;margin-bottom:7px}.form-field.full{grid-column:1/-1}.form-field textarea{min-height:130px;resize:vertical}.upload-box{border:2px dashed #b8cdd1;border-radius:20px;padding:32px;text-align:center;background:#f9fcfc}.wizard-foot{display:flex;justify-content:space-between;padding:22px 34px;border-top:1px solid var(--line)}.preview-ad{border:1px solid var(--line);border-radius:20px;padding:20px;background:#f8fbfb}.terms{display:flex;gap:10px;align-items:flex-start}.points-explain{background:#eff8fa;border-left:5px solid var(--turq);border-radius:14px;padding:15px;font-size:.83rem;color:#365b67}
+    .auth-shell{min-height:calc(100vh - 86px);display:grid;grid-template-columns:1fr 1fr}.auth-visual{position:relative;min-height:660px}.auth-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,58,78,.82),rgba(0,58,78,.05))}.auth-quote{position:absolute;z-index:2;left:9%;right:9%;bottom:9%;color:#fff}.auth-quote h2{color:#fff}.auth-form{padding:70px clamp(28px,7vw,100px);background:#fff}.auth-card{max-width:480px;margin:auto}.auth-tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:25px}.auth-tabs button{flex:1;border:0;background:transparent;padding:13px;font-weight:900}.auth-tabs button.active{color:var(--seos);border-bottom:3px solid var(--seos)}.social-login{display:grid;grid-template-columns:1fr 1fr;gap:10px}.social-login button{border:1px solid var(--line);border-radius:999px;background:#fff;padding:12px;font-weight:800}.divider{text-align:center;color:var(--muted);position:relative;margin:22px 0}.divider::before,.divider::after{content:"";position:absolute;top:50%;width:42%;height:1px;background:var(--line)}.divider::before{left:0}.divider::after{right:0}.captcha{border:1px solid var(--line);background:#f7f8f8;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin:14px 0}
+    .dashboard{display:grid;grid-template-columns:250px 1fr;gap:30px}.side-menu{background:var(--deep);color:#fff;border-radius:26px;padding:16px;height:max-content;position:sticky;top:18px}.side-menu button{width:100%;border:0;background:transparent;color:#d5e9ed;text-align:left;border-radius:13px;padding:12px;font-weight:800}.side-menu button.active,.side-menu button:hover{background:rgba(255,255,255,.12);color:#fff}.side-menu .count{float:right;background:var(--gold);color:var(--deep);border-radius:99px;padding:2px 7px}.dash-panel{display:none}.dash-panel.active{display:block}.dash-head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px}.dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.dash-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:23px;box-shadow:0 10px 28px rgba(0,73,97,.06)}.dash-card.wallet{background:linear-gradient(145deg,var(--deep),#08778f);color:#fff}.dash-card.wallet h3,.dash-card.wallet p{color:#fff}.wallet-total{font-family:"Playfair Display";font-size:3rem;color:var(--gold)}.progress{height:9px;border-radius:99px;background:#e3ecee;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--seos),var(--gold))}.quest-list{display:grid;gap:11px}.quest{display:grid;grid-template-columns:48px 1fr auto;gap:13px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:17px;background:#fff}.quest.done{background:#f1faf5}.quest-icon{width:48px;height:48px;border-radius:14px;background:var(--mist);display:grid;place-items:center}.reward{color:#927821;font-weight:900}.transaction{display:grid;grid-template-columns:1fr auto;gap:10px;border-top:1px solid var(--line);padding:13px 0}.transaction.plus b{color:var(--ok)}.transaction.minus b{color:var(--danger)}.message-layout{display:grid;grid-template-columns:270px 1fr;min-height:480px;border:1px solid var(--line);border-radius:24px;overflow:hidden}.thread-list{background:#f3f8f9}.thread{padding:15px;border-bottom:1px solid var(--line);cursor:pointer}.thread.active{background:#fff;border-left:4px solid var(--seos)}.conversation{padding:22px;background:#fff}.bubble{max-width:70%;border-radius:18px;padding:12px 15px;background:var(--mist);margin:12px 0}.bubble.me{margin-left:auto;background:#dff2f5}.chain-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;margin-bottom:16px}.admin-table{width:100%;border-collapse:collapse;background:#fff;border-radius:20px;overflow:hidden}.admin-table th,.admin-table td{text-align:left;padding:14px;border-bottom:1px solid var(--line);font-size:.82rem}.switch{width:52px;height:29px;border-radius:99px;background:#ccd8da;border:0;padding:3px}.switch i{display:block;width:23px;height:23px;border-radius:50%;background:#fff;transition:.2s}.switch.on{background:var(--ok)}.switch.on i{transform:translateX(23px)}
+    .travel-hero{display:grid;grid-template-columns:1fr 1fr;min-height:570px;background:var(--deep);color:#fff}.travel-copy{padding:90px max(36px,8vw)}.travel-copy h1{color:#fff}.travel-photo{min-height:500px}.travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.travel-card{background:#fff;border-radius:24px;overflow:hidden;border:1px solid var(--line)}.travel-card .photo{height:210px}.travel-card .body{padding:20px}.role-lock{padding:35px;border:2px dashed #bdd0d4;border-radius:24px;text-align:center;background:#fff}
+    .modal-backdrop{position:fixed;z-index:100;inset:0;background:rgba(0,39,53,.68);display:none;place-items:center;padding:20px}.modal-backdrop.open{display:grid}.modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:28px;padding:28px}.modal-top{display:flex;align-items:center;justify-content:space-between;gap:15px}.toast{position:fixed;z-index:200;right:22px;bottom:22px;background:var(--deep);color:#fff;border-radius:14px;padding:13px 17px;box-shadow:var(--shadow);opacity:0;transform:translateY(20px);pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:none}
+    @media(max-width:1040px){.nav-links{display:none}.mobile-menu{display:grid}.nav-actions .btn-primary{display:none}.listing-layout,.dashboard{grid-template-columns:1fr}.filters,.side-menu{position:static}.side-menu{display:flex;overflow:auto}.side-menu button{white-space:nowrap}.detail-layout,.security-grid,.support-grid,.chain-home,.join-panel{grid-template-columns:1fr}.detail-side{position:static}.category-grid{grid-template-columns:repeat(2,1fr)}.travel-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:720px){.container{width:min(100% - 24px,1240px)}.section{padding:66px 0}.hero{min-height:780px}.hero-content{padding-top:150px}.search-bar{border-radius:24px;grid-template-columns:1fr}.search-field+.search-field{border:0;border-top:1px solid var(--line)}.hero-search-wrap{bottom:45px}.hero-quick{flex-wrap:wrap}.exchange-grid,.ad-grid,.testimonial-grid,.security-items,.dash-grid,.travel-grid,.auth-shell,.info-hero,.info-steps{grid-template-columns:1fr}.ad-card{grid-template-columns:1fr}.ad-image{height:220px}.section-head{display:block}.category-grid{grid-template-columns:1fr 1fr}.category{height:150px}.footer-grid{grid-template-columns:1fr 1fr}.detail-layout{display:block}.gallery-main{height:330px}.review-grid,.message-layout{grid-template-columns:1fr}.stepper{overflow:auto}.step-dot{min-width:100px}.choice-grid,.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}.auth-visual{display:none}.travel-hero{grid-template-columns:1fr}.travel-photo{min-height:320px}.results-top{align-items:flex-start;flex-direction:column}.listing-layout{display:block}.filters{margin-bottom:24px}.nav{min-height:72px}.footer-grid{gap:24px}}
+  </style>
+  <style id="organic-direction">
+    /* Direction organique inspirée de la référence yoga de la cliente */
+    body{overflow-x:hidden;background:linear-gradient(180deg,#fbfaf4 0%,#f7fbfa 48%,#fbfaf4 100%)}
+    .btn{position:relative;overflow:hidden;isolation:isolate;box-shadow:0 9px 22px rgba(0,73,97,.09)}
+    .btn-primary{background:linear-gradient(135deg,#e1c969 0%,var(--gold) 52%,#b99638 100%)}
+    .btn-blue{background:linear-gradient(135deg,#28b8c1 0%,var(--seos) 60%,#08728f 100%)}
+    .btn-deep{background:linear-gradient(135deg,#086a82 0%,var(--deep) 72%)}
+    .btn-outline{background:rgba(255,255,255,.42);backdrop-filter:blur(8px)}
+    .topbar{background:linear-gradient(90deg,rgba(0,73,97,.96),rgba(0,47,64,.91));border-bottom:1px solid rgba(255,255,255,.13);backdrop-filter:blur(16px)}
+    .home-mode .topbar{background:linear-gradient(180deg,rgba(0,47,64,.84),rgba(0,47,64,.23) 76%,transparent);border-bottom:0;backdrop-filter:blur(8px)}
+    .hero{background:radial-gradient(circle at 14% 28%,#08788e 0,transparent 32%),linear-gradient(135deg,#003b50 0%,var(--deep) 58%,#075f74 100%)}
+    .hero::before{content:"";position:absolute;z-index:1;width:520px;height:520px;left:-260px;top:80px;border:1px solid rgba(162,225,231,.35);border-radius:58% 42% 65% 35%/42% 61% 39% 58%;transform:rotate(21deg)}
+    .hero::after{content:"";position:absolute;z-index:1;width:170px;height:170px;left:42%;top:115px;background:linear-gradient(145deg,rgba(33,162,175,.34),rgba(205,174,79,.15));border:1px solid rgba(255,255,255,.18);border-radius:63% 37% 45% 55%/39% 62% 38% 61%;filter:blur(.2px);animation:organicFloat 8s ease-in-out infinite}
+    .hero-media{inset:68px -5% 104px 42%;border-radius:46% 0 0 54%/55% 0 0 45%;overflow:hidden;box-shadow:-28px 30px 80px rgba(0,35,48,.38);transform:rotate(-1.2deg)}
+    .hero-media::after{background:linear-gradient(90deg,rgba(0,48,64,.76) 0%,rgba(0,48,64,.18) 45%,rgba(0,48,64,.04) 100%)}
+    .hero-slide img{transform:scale(1.04) rotate(1.2deg)}
+    .hero-content{max-width:680px}
+    .hero-label{background:rgba(0,73,97,.34);backdrop-filter:blur(12px);border-color:rgba(255,255,255,.42);box-shadow:0 12px 36px rgba(0,35,48,.18)}
+    .hero-wave{left:-8%;right:-8%;bottom:-58px;height:190px;border-radius:50% 44% 0 0/58% 52% 0 0;transform:rotate(-1deg);box-shadow:0 -1px 0 rgba(255,255,255,.42)}
+    #homePage>.section{position:relative;overflow:hidden}
+    #homePage>.section>.container{position:relative;z-index:2}
+    #homePage>.section:nth-of-type(3)::before,#homePage>.section:nth-of-type(6)::before{content:"";position:absolute;width:420px;height:420px;right:-260px;top:-180px;border-radius:58% 42% 37% 63%/44% 62% 38% 56%;background:linear-gradient(145deg,rgba(33,162,175,.11),rgba(0,146,197,.03));transform:rotate(18deg)}
+    #homePage>.section:nth-of-type(5)::after,#homePage>.section:nth-of-type(9)::after{content:"";position:absolute;width:360px;height:360px;left:-240px;bottom:-190px;border:1px solid rgba(0,146,197,.2);border-radius:38% 62% 57% 43%/62% 38% 61% 39%;transform:rotate(-24deg)}
+    .exchange-card{border-radius:42% 58% 38px 38px/20% 24% 38px 38px;transition:transform .28s ease,box-shadow .28s ease}
+    .exchange-card:nth-child(1){border-radius:62px 32px 76px 38px}.exchange-card:nth-child(2){border-radius:34px 82px 38px 70px;transform:translateY(20px)}.exchange-card:nth-child(3){border-radius:78px 38px 64px 32px}
+    .exchange-card:hover{transform:translateY(-7px) rotate(-.4deg);box-shadow:0 25px 60px rgba(0,73,97,.15)}.exchange-card:nth-child(2):hover{transform:translateY(13px) rotate(.4deg)}
+    .exchange-photo{border-radius:63% 37% 56% 44%/42% 63% 37% 58%;width:86px;height:78px}
+    .category{border-radius:36% 64% 24px 24px/28% 35% 24px 24px;box-shadow:0 14px 34px rgba(0,73,97,.1)}
+    .category:nth-child(3n+2){border-radius:24px 46% 30px 54%/24px 35% 30px 42%}.category:nth-child(3n){border-radius:48% 28px 42% 28px/38% 28px 32% 28px}
+    .ad-card{border-radius:32px 58px 30px 48px}.ad-card:nth-child(even){border-radius:58px 30px 52px 28px}
+    .chain-person{border-radius:46% 54% 24px 24px/28% 34% 24px 24px}.chain-person:nth-child(4n+1){transform:translateY(-7px)}
+    .testimonial{border-radius:60px 28px 52px 34px}.testimonial:nth-child(2){border-radius:30px 62px 34px 58px;transform:translateY(18px)}
+    .video-testimonial{border-radius:62px 32px 58px 28px}
+    .security-orb{border-radius:58% 42% 46% 54%/41% 61% 39% 59%;animation:organicBreathe 9s ease-in-out infinite}
+    .security-item{border-radius:34px 18px 32px 20px}.security-item:nth-child(even){border-radius:18px 36px 20px 34px}
+    .join-panel{border-radius:74px 34px 82px 38px}.join-art::before{border-radius:63% 37% 56% 44%/42% 61% 39% 58%}.join-art::after{border-radius:38% 62% 44% 56%/64% 38% 62% 36%}
+    .support-card{border-radius:42px 22px 38px 26px}.support-card.gold{border-radius:24px 46px 26px 42px;background:linear-gradient(145deg,var(--deep),#08768b)}
+    .subhero{padding-bottom:100px}.subhero::before{content:"";position:absolute;z-index:1;left:-7%;right:-7%;bottom:-78px;height:128px;background:var(--cream);border-radius:52% 48% 0 0/62% 56% 0 0;transform:rotate(-.7deg)}.subhero>.container{position:relative;z-index:2}
+    .info-hero,.travel-hero{position:relative;overflow:hidden}.info-hero::after,.travel-hero::after{content:"";position:absolute;width:220px;height:220px;border:1px solid rgba(255,255,255,.21);border-radius:58% 42% 62% 38%/42% 64% 36% 58%;left:43%;top:-95px;transform:rotate(18deg)}
+    .info-hero-photo,.travel-photo{border-radius:0 0 0 48%/0 0 0 30%;overflow:hidden}
+    .info-step{border-radius:44px 22px 38px 26px}.info-step:nth-child(2){border-radius:24px 46px 28px 42px;transform:translateY(16px)}
+    footer{border-radius:52% 48% 0 0/72px 72px 0 0;margin-top:-32px;padding-top:104px;background:radial-gradient(circle at 85% 20%,#075b70 0,transparent 29%),#002f40}
+    @keyframes organicFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(16px) rotate(7deg)}}
+    @keyframes organicBreathe{0%,100%{border-radius:58% 42% 46% 54%/41% 61% 39% 59%}50%{border-radius:43% 57% 59% 41%/58% 43% 57% 42%}}
+    @media(max-width:1040px){.hero-media{left:50%;opacity:.68}.hero-content{max-width:610px}.exchange-card:nth-child(2),.testimonial:nth-child(2){transform:none}}
+    @media(max-width:720px){.hero-media{inset:0;opacity:.5;border-radius:0;transform:none}.hero-slide img{transform:none}.hero::after{left:auto;right:-50px;top:120px}.hero-wave{height:140px;bottom:-42px}.exchange-card,.exchange-card:nth-child(n),.category,.category:nth-child(n),.ad-card,.ad-card:nth-child(n){border-radius:36px 22px 40px 24px}.info-hero-photo,.travel-photo{border-radius:0 0 0 72px}.subhero{padding-bottom:82px}footer{border-radius:36% 64% 0 0/48px 48px 0 0;padding-top:84px}}
+    @media(prefers-reduced-motion:reduce){.hero::after,.security-orb{animation:none}}
+  </style>
+  <style id="organic-section-separators">
+    /* Séparations organiques visibles entre toutes les sections de l'accueil */
+    #homePage>.section{padding-top:158px;padding-bottom:126px}
+    #homePage>.section:nth-of-type(n+3)::before{content:"";display:block;position:absolute;z-index:1;top:-2px;left:-8%;width:116%;height:112px;transform:rotate(-1.1deg);border-radius:0 0 46% 54%/0 0 78% 62%;box-shadow:0 10px 24px rgba(0,73,97,.035)}
+    #homePage>.section:nth-of-type(2n+4)::before{transform:rotate(1deg);border-radius:0 0 58% 42%/0 0 60% 82%}
+    #homePage>.section:nth-of-type(3)::before{background:var(--cream)}
+    #homePage>.section:nth-of-type(4)::before{background:var(--mist)}
+    #homePage>.section:nth-of-type(5)::before{background:var(--cream)}
+    #homePage>.section:nth-of-type(6)::before{background:var(--mist)}
+    #homePage>.section:nth-of-type(7)::before{background:var(--cream)}
+    #homePage>.section:nth-of-type(8)::before{background:var(--mist)}
+    #homePage>.section:nth-of-type(9)::before{background:var(--cream)}
+    #homePage>.section:nth-of-type(10)::before{background:linear-gradient(120deg,var(--deep),#08738d)}
+    #homePage>.section:nth-of-type(11)::before{background:var(--cream)}
+    #homePage>.section:nth-of-type(3)::after,#homePage>.section:nth-of-type(7)::after,#homePage>.section:nth-of-type(11)::after{content:"";position:absolute;z-index:1;top:58px;right:-42px;width:138px;height:74px;background:rgba(0,146,197,.07);border-radius:61% 39% 54% 46%/45% 68% 32% 55%;transform:rotate(18deg)}
+    #homePage>.section:nth-of-type(4)::after,#homePage>.section:nth-of-type(8)::after{content:"";position:absolute;z-index:1;top:48px;left:-34px;width:126px;height:82px;background:rgba(33,162,175,.09);border-radius:38% 62% 43% 57%/65% 39% 61% 35%;transform:rotate(-14deg)}
+    #homePage>.section.francophone{padding-top:165px;padding-bottom:135px}
+    #homePage>.section.francophone::after{content:"";position:absolute;right:8%;bottom:-86px;width:250px;height:190px;border:1px solid rgba(255,255,255,.16);border-radius:57% 43% 61% 39%/42% 65% 35% 58%;transform:rotate(21deg)}
+    #homePage>.section:nth-of-type(10){padding-top:170px}
+    @media(max-width:720px){#homePage>.section{padding-top:128px;padding-bottom:92px}#homePage>.section:nth-of-type(n+3)::before{height:82px;left:-15%;width:130%;border-radius:0 0 48% 52%/0 0 64% 82%}#homePage>.section:nth-of-type(2n+4)::before{border-radius:0 0 62% 38%/0 0 78% 58%}#homePage>.section.francophone,#homePage>.section:nth-of-type(10){padding-top:134px}}
+  </style>
+  <style id="yoga-reference-separators">
+    /* Courbes pleine largeur reprises du principe visuel de la page Yoga */
+    .hero-wave{display:none}
+    #homePage>.section{padding-top:105px;padding-bottom:105px;overflow:hidden}
+    #homePage>.section:nth-of-type(n+3)::before{display:none}
+    #homePage>.section:nth-of-type(3)::after,#homePage>.section:nth-of-type(4)::after,#homePage>.section:nth-of-type(7)::after,#homePage>.section:nth-of-type(8)::after,#homePage>.section:nth-of-type(11)::after{display:none}
+    #homePage>.section.francophone,#homePage>.section:nth-of-type(10){padding-top:112px;padding-bottom:112px}
+    .yoga-separator{position:relative;z-index:4;width:100%;height:156px;margin:-2px 0;overflow:hidden;line-height:0;pointer-events:none}
+    .yoga-separator svg{display:block;width:100%;height:100%;filter:drop-shadow(0 8px 12px rgba(0,73,97,.025))}
+    .yoga-separator .yoga-soft-layer{opacity:.2}
+    .yoga-separator.deep-transition .yoga-soft-layer{opacity:.12}
+    .yoga-separator .wave-melt-outer{opacity:.16}
+    .yoga-separator .wave-melt-inner{opacity:.28}
+    .yoga-separator.deep-transition .wave-melt-outer{opacity:.2}
+    .yoga-separator.deep-transition .wave-melt-inner{opacity:.32}
+    @media(max-width:720px){#homePage>.section{padding-top:78px;padding-bottom:78px}#homePage>.section.francophone,#homePage>.section:nth-of-type(10){padding-top:84px;padding-bottom:84px}.yoga-separator{height:94px}.hero{min-height:760px}}
+  </style>
+  <style id="hero-yoga-cut">
+    /* La première courbe remonte dans le hero, comme le grand aplat blanc du modèle Yoga */
+    #homePage>.hero{min-height:870px}
+    #homePage>.hero+.yoga-separator{z-index:8;height:250px;margin-top:-202px;margin-bottom:-2px;filter:drop-shadow(0 -10px 24px rgba(0,73,97,.035))}
+    #homePage>.hero+.yoga-separator svg{height:250px;transform:scaleX(1.025);transform-origin:center bottom}
+    #homePage>.hero+.yoga-separator .yoga-soft-layer{opacity:.34}
+    #homePage>.hero~.section:nth-of-type(2){padding-top:88px}
+    @media(max-width:1040px){#homePage>.hero+.yoga-separator{height:220px;margin-top:-174px}#homePage>.hero+.yoga-separator svg{height:220px}}
+    @media(max-width:720px){#homePage>.hero{min-height:790px}#homePage>.hero+.yoga-separator{height:142px;margin-top:-105px}#homePage>.hero+.yoga-separator svg{height:142px}#homePage>.hero~.section:nth-of-type(2){padding-top:68px}}
+  </style>
+  <style id="hero-integrated-organic-cut">
+    /* Double vague intégrée : surcouche or puis vague claire principale. */
+    #homePage>.hero+.yoga-separator{display:none!important}
+    .hero-organic-cut{position:absolute;z-index:4;left:0;right:0;bottom:-1px;height:286px;line-height:0;pointer-events:none;overflow:hidden}
+    .hero-organic-cut svg{display:block;width:100%;height:100%}
+    .hero-organic-cut .cut-gold{opacity:.76}
+    @media(max-width:1040px){.hero-organic-cut{height:238px}}
+    @media(max-width:720px){.hero-organic-cut{height:164px}.hero-organic-cut .cut-gold{opacity:.64}}
+  </style>
+  <style id="hero-search-spacing">
+    /* Espace de respiration entre le contenu interactif et la découpe organique */
+    #homePage>.hero{min-height:1050px}
+    #homePage .hero-content{padding-top:190px;padding-bottom:430px}
+    #homePage .hero-search-wrap{bottom:290px}
+    #homePage .hero-media{bottom:148px}
+    #homePage .hero-quick{margin-top:20px}
+    @media(max-width:1040px){#homePage>.hero{min-height:1010px}#homePage .hero-search-wrap{bottom:250px}#homePage .hero-content{padding-bottom:410px}}
+    @media(max-width:720px){#homePage>.hero{min-height:1010px}#homePage .hero-content{padding-top:142px;padding-bottom:500px}#homePage .hero-search-wrap{bottom:176px}#homePage .hero-media{bottom:0}#homePage .hero-quick{margin-top:14px}}
+  </style>
+  <style id="francophone-organic-balance">
+    /* Section francophone : une seule forme calme, sans chevauchement décoratif */
+    #homePage>.section.francophone{padding:92px 0;overflow:hidden;isolation:isolate}
+    #homePage>.section.francophone::before,#homePage>.section.francophone::after{display:none!important}
+    #homePage>.section.francophone .section-head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);align-items:center;gap:72px;margin:0}
+    #homePage>.section.francophone .section-head>div:first-child{max-width:680px}
+    #homePage>.section.francophone .section-head h2{margin-bottom:18px}
+    #homePage>.section.francophone .section-head p{margin-bottom:0;max-width:590px}
+    #homePage>.section.francophone .country-row{justify-content:center;align-content:center;max-width:440px;min-height:176px;padding:30px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.17);border-radius:58px 28px 52px 34px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+    #homePage>.section.francophone .country{background:rgba(255,255,255,.09);backdrop-filter:blur(6px)}
+    #homePage>.yoga-separator:has(+.francophone),#homePage>.francophone+.yoga-separator{height:112px}
+    #homePage>.yoga-separator:has(+.francophone) svg,#homePage>.francophone+.yoga-separator svg{height:112px}
+    @media(max-width:900px){#homePage>.section.francophone .section-head{grid-template-columns:1fr;gap:34px}#homePage>.section.francophone .country-row{justify-content:flex-start;max-width:100%;min-height:0}}
+    @media(max-width:720px){#homePage>.section.francophone{padding:72px 0}#homePage>.section.francophone .country-row{padding:22px;border-radius:36px 20px 34px 24px}#homePage>.yoga-separator:has(+.francophone),#homePage>.francophone+.yoga-separator{height:76px}#homePage>.yoga-separator:has(+.francophone) svg,#homePage>.francophone+.yoga-separator svg{height:76px}}
+  </style>
+  <style id="francophone-seamless-waves">
+    /* Même bleu au contact des SVG : suppression des lignes horizontales visibles */
+    #homePage>.section.francophone{background:linear-gradient(180deg,#004961 0%,#005970 15%,#08738d 48%,#076a80 72%,#004961 100%)}
+    #homePage>.yoga-separator:has(+.francophone) svg,#homePage>.francophone+.yoga-separator svg{filter:none}
+    #homePage>.yoga-separator:has(+.francophone),#homePage>.francophone+.yoga-separator{margin-top:-3px;margin-bottom:-3px}
+  </style>
+  <style id="footer-integrated-organic-cut">
+    footer{--footer-source:#fbfaf4;border-radius:0;margin-top:0;padding-top:184px;background:#002f40}
+    .home-mode footer{--footer-source:#eef7f9}
+    footer>.container{position:relative;z-index:2}
+    .footer-organic-cut{position:absolute;z-index:1;top:-2px;left:0;right:0;height:158px;line-height:0;pointer-events:none;overflow:hidden}
+    .footer-organic-cut svg{display:block;width:100%;height:100%}
+    .footer-organic-cut .footer-soft{opacity:.22}
+    @media(max-width:720px){footer{padding-top:132px}.footer-organic-cut{height:108px}}
+  </style>
+  <style id="navbar-profile-menu">
+    .profile-menu-wrap{display:none;position:relative}
+    .connected .profile-menu-wrap{display:block}
+    .profile-menu-wrap .profile-button{display:flex!important;align-items:center;gap:9px;padding:7px 12px 7px 8px;box-shadow:none}
+    .profile-mini-avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--turq),var(--seos));color:#fff;font-weight:900}
+    .profile-hamburger{display:grid;gap:3px;margin-left:2px}.profile-hamburger i{display:block;width:15px;height:2px;border-radius:4px;background:var(--deep)}
+    .profile-dropdown{position:absolute;z-index:80;right:0;top:calc(100% + 14px);width:290px;padding:12px;background:rgba(255,255,255,.98);color:var(--ink);border:1px solid rgba(0,73,97,.13);border-radius:24px 14px 22px 18px;box-shadow:0 24px 60px rgba(0,47,64,.24);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top right;transition:.2s}
+    .profile-menu-wrap.open .profile-dropdown{opacity:1;visibility:visible;transform:none}
+    .profile-dropdown-head{display:flex;align-items:center;gap:12px;padding:10px 10px 14px;border-bottom:1px solid var(--line);margin-bottom:7px}.profile-dropdown-head .profile-mini-avatar{width:42px;height:42px}.profile-dropdown-head small{display:block;color:var(--muted)}
+    .profile-menu-item{width:100%;display:flex;align-items:center;gap:11px;border:0;background:transparent;color:var(--ink);padding:10px 11px;border-radius:12px;text-align:left;font-weight:750}.profile-menu-item:hover{background:var(--mist);color:var(--deep)}
+    .profile-menu-item .menu-icon{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#e9f5f7;color:var(--deep)}
+    .profile-menu-item .menu-count{margin-left:auto;min-width:23px;height:23px;padding:0 6px;border-radius:99px;display:grid;place-items:center;background:var(--gold);color:var(--deep);font-size:.7rem;font-weight:900}
+    .profile-menu-separator{height:1px;background:var(--line);margin:7px 4px}
+    .profile-menu-item.logout{color:#a94030}.profile-menu-item.logout .menu-icon{background:#fff0ed;color:#a94030}
+    @media(max-width:720px){.profile-menu-wrap .profile-name{display:none}.profile-menu-wrap .profile-button{padding-right:9px}.profile-dropdown{position:fixed;top:78px;right:12px;width:min(300px,calc(100vw - 24px))}}
+  </style>
+  <style id="real-seos-logo">
+    .brand{font-size:0;min-width:110px;gap:0}
+    .brand-mark{width:108px;height:38px;flex:0 0 108px;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKYAAAAzCAYAAAAdI3OHAAARl0lEQVR4nO2cB3hU1bbH16kzZ3qSSTKTyaRDKEkghN6FAFIDAgJPqliACwgIiqAIStFHURCRq2Io3odYuCCEewVFihV5SBNeuEASSCPJZDK9nHa/M5kJkxBMri9RwPP7vmQmc87e58w+/6y991prbwARERERERGR+xjkj76BPwORY+epaVJK0aRUTUsVBgRQgnLbbqhc1pL8j9ZX/dH3dy8iCrMJ0I95RkGTEimLERQtVegZnIpgKErHSyg9K5UZACdUgBFKwEk1YDgFKE4BzzGY121S3crbbV7/9PtNcR8PEqIwG4FhxFMUR0gwj1SuYAiJkiOkIYxUbmBJSsdJZNGcRBrBE6QGcEIJGC4DFJMAguKAoASgKF5TEe/7xQHPc9Wtj6DA8ZzcXHzUsWLcvGZ7yvchojDvgiprhtETGqXitNGDOAml5yWUjiMkoT7xCYLDcapGbMHiCyYgwEYQdv3cKtPG2Xt+01N8AKm/Qf/kyIc9nWht2TkLjEmTATCylpUDBK1+8Qsv8FofgkX0WU4EBRRBa1lKlmOAY72BUy3G5BkAIArTj2gx60D2n5jq7dBvACS1WwgeV2WjrJ5gMQWx+QQsWE+OQVjGhbhc5ajTno86rFdIc9l3RFV5Pk87Ebdaq3Gn9/krkJRWGGv6qmAYV+zPX2TlffhaaYPX+xMgWswgNF2H6S2xyXKIbzsb3M6KO1qL5zkEeBbhOAZYjkY42o563OWI01mEepyFhLXiNO503CKsJnNZzpYqoZcPqNobPFlq09tWwbJz6M6ZW4GQqIHjGB5HcbdCEwcAojBFYdbGLVNqeGOrycAy7uDPMXtVLmExnUYdjhu4y36DcFtv4JYqK067vUWHt7lqyjfSGpRcOmGXGxLsXEXpcVSmiENcziKCdpVI7FX5jazigUe0mH70HTIVZWEGOai1GcJM2fchgqDSiuKvQy+eXFy89y1HUza848j2a1E4/mrxP953BCxqk16gAdo9Nl+pklEqFcZzOVvXlMA9hihMPx6ckHHhUWG+2bZ/XIl5XOVh+WdfK2piUQYIiPL3JGLEDM1D3TMmDO+Q/LxWrYzEUQR9dEjfy0cOn8j6cPOqArhHEIXphyMlGMhULap9jdUQdvPFop2ri+AeJfLh6WplaAiqJDDi5x2vlzV0vjLzsdgpw/osfLp/l9kmu5O/ml/4M46jVGK0PuV6YsxYAFgH9wiiMP3QKC7jpbLo202DoFKXNbex48bfE/3oWYpO7dLGDkhLmtVSF9aWIgnC9tQYV/7N4u9Onz73fPa6ZefqlonoOFDTum1rzdS+HWefzysseiSzd813HTp1noKQUkq4hxCF6YfDSdwXOhTcPsLsm+MYwmn/3SYjuswpSo9MIZeivL1k3xZ7feeoH5pgaNk2WbF8/OAf+7SKU3sYFoqsLmBYFvQhCmXXRMOggZ3TBnVon/r3ORNHPRJc1oPg8oyWsY+SBAE7937RLfhYzvY3hevVe80/ClGYtUCJ5m5w3bDpSkwToUDV6thQlTw6PkzVUqtWJsWFqlrGhypaICxDH0nUDc5ev+xCcLmwfhO0bdu31b4+afjPcdoQ5NCp87n7vjg2/H82rvqXcDxr2lxl917dNg7unjFtSPf2o/hdez+ZO+mRsTXfjKVZEgUS4XlIb9PqyX0Ay+q7v8j+k9R2XbSWlsgVjEwZx0koHUjlMUBKIwAQLKz0+oemdxYebe52EoUZDIJg1ZGdxocS65I+8TmtjERxKeOyfbVz4x2Tm9KD22ybc47/2D1e35rAEJBiCADHgdvtAavDxRXcsp31up21Mo4MnQZTKmM0v2T0wJMRCjnywb4jK5bOmb48+Jz92Zts+7M3PZ778rpPZ48dmjO0R/qYS0tW99q6eslJ4bj5zJHSq9f77HZ7uyycNKTnS9L3dmtPfPvjc35rWYPZaYvxxqWMB338aN8kUAgeBGL8AGDSaDvIl+0+4nhlwiJoRkRh+kF8Dc+zt0UpvG8cun7jlboWLbQje2SsaR8fNUhNSeRuL+MZltk7Z/7k0ePrnp8YIjdSCAs5x09vLikr/6bSZDlvtdvKPntvg6m++qtIRdT0Xh0WpRgjlHu//Da7riiD+eLw0a9jY4zvzxjc44nMPt12bF0NCYFjn6598UzHROOGh3t1WjBuUM+ZHVOTp3ZMT1159sz5jft3VP8TobSbARSXA4qRQHvtgvO/9hUQ1KE1Dla/sMNsWTNlNTQT1XFfkWph8kFiRFCCRzFpQ02j756l0CUlapaOG/TdxJ7txpFeJ1tYUPC/vNvhaZNgeHjqnMXxdcs4PB5nUYXZsfCpSXPWv7hgT/YbKy7fTZS61J5Kx7efXBvVOfXpvOJy5tsfzjz3a/dT9P0h19EzF1a6vAwYI7RCJKkWi2dMefb93fv6/3gxNzc6XENNGtp31ZQJWRemL3i5rf+LA7C0tfotggKGkT6RBnIEBHies2ujhxifXNmuuaQjCjMAzQKwjCPgLuIRAEZK6RpqQJqUSEb3zFjbId6g2/bxgceH9O+rnTR6RLch/Xprd318IGP7W6/l1S3joVkXzyP8qKlzFQ3V70JI1Zhl6wbpwzRwKb/oqz3vrr8zVFqH42+vLKi0u4AicSRr2rw7ZtubVy45Om5IZqu/frh35C/Ft8wd2yTFZw3JPCIcwxjGG2gHxOupwsymC5jp1g/AMa7qfIBqWEKisYUZBkAzIXblfiQ8Y3MxtI3zZQtVWwuaUiY11IAVxz42pa5YkJlfWuFas3hudvCxDzetulZfGZrjGQxFcY6rPVzQDZ+pxAicKdr7Vk2Yk8Uw0qjTPSQowlJpOdvQ/Rja96bYxBQcxTBgGQZYlq3TFd9mw8sL9294GUJ3Hj6R36NlbOy0uUsSszetvqaPjn/be+XcNsJq8aAuO8d4nERVQmujt/vQD3xJzv7hjlOl7ZI8di6V+8mmmvttKkRhBnA4gLdbc2v+5nmOIWWGRjUiimIRYSHUuJmL9Xveea3B8B7HMl6ZWiVhW7V/qvvSzaUGjSLOoNWktAjXpGtITHE0ITxrm98XiQDHYRgm5XkeeI4PzgWpFzdGytsadZF6FQUXC8vdB3feFnl9hHV+WHviwpU3OicY3gyLDO8MANdKDr57h/so1GMnzfqY1/lWXTcA7a6qbh8qkpHK1IJhhyZGFKYfgqU9qNOWx4Iw2K/usmhKGaebua5faQPukavFJT+1j9MNWPbsU8XGuPgn1z3/60slrAy4jCEK5M0J/d9USQkg0epUTYvLA9dLTG40KPxEMl5HpbnyHI5jEKYNEYTzq3ilGvngjNTlQq97Pvfq/uBjyY8tDMn92zpzrQKaCIjShnbhAQGz1VWvhReQedwOx7Xzlz1J6dbb0TJpKC1VRDZHRpQoTD+3zn9tIZPSHCzLegAj5IJSOAyTVMS2ma+evsYOtqoiWq4IZWUKIy2VG/VleZ8X7apOfpg3Lmtg0pfHbrVNio2Y9ejA93p0+X7Nka+++a8try7yjduCieo3Vk47HaVemoEzl6/nFpSUniwpMX1pMldeqjRV5h3YvqmWpTJdOFlx+pf0jyodrg+S4w39Jz+zrMXOja/4fJd10fZ8JKxrr66Jwzu2GZNXVsnPn/xojUfAkN6XStJpYtaf/On6R8dPz7tcWHaKl0rUA1ISp47u1HbCtYLCsm2vLzl1N6EU/usHBxmmQ8FuuQqqkFbAsl5hxu4mJCHQDIjCDII0ldhpe9VlXh3ROTCOYihlrCWl29vAeK3VSypIFYIgqLPanVRjGYdl9o1cu3XH+p4ZKfPT4/Xa5IkjDqe0TPh01qTRNU5uAZ5hEaFii90Be/Ye6vbZ++trW7B6OL9rk+to1qCTw7um9RrSv8dnTtdz/T59979rTYIMQ56g2qclpz6T1e8gjqGwJ+fYY8HHi34+5mrTIaMgTEaoXxw/cLvVwwCOIqAiMbh6s7Tq4wNf9m7oPlDaw4DD8n+gDksBYL2Cj5OVyIPCuE2HKMwgFBXFFe4bV95j2ut7AhPkvxNWNuKE3Pfel3nEc0iwa8nPohlTnp0069kNGentl/bokj6zf7f0Mavf3r5qyV+mLg2cw7MM4qQ5m9DVyqWESvBpN+ZB7T+QMzg6XFPQOS05VUJRZ3Qx0YtumiyXnB6OkUVGdG6XFD1qeFpiFoWj8FHO14s2LJ2zu24dR7atr4oOCUlPb5PwTIha2ZpmGNuNwpKcsxdyt+3bvrHBkCTG816g3WW+5SL+tuDR5omWicIMovSXb2watfa6RR93kNfFjfA5mP0PIHiJBS/MqEmy3i5s15b1RbsAZj2+fN2hmWOGHuiU1nouANQIUxg+cjzPYSgG2H/grTu0Y4tDSUlThg8ekJPRpkWHVnFRH9ncXnAzPKuWEpgER+H6zWLTkePfT35jxfOH7lZP9roXz2UDPA6/AZRnGKA9tfytvOCMbwZEYdah6rt9JeE4vqKqx2iaNsQOr/HdBcRJeyyIh3XjLtevzr4/WL7wYN+una4lh2tqIi/VcOD1uEwEiYM5PLpXwrSX0MgQRZRWKY8OD1G1jApRtfaYKk+vXfD4hrp17tm6oXTP1g0Zs5e82iu5Vcu/REWEdxQ+P3er7FTulbx3N6964Rg0K5wQPq3lGeB9YdymRxRmPZSf+NQc5bQttxvTNtH62O7CCkfcVpVLmCsKKz9/o0yYMwcP8IbNX9nu4Bsv1qSaqbtlGRLatIXoMLXR5vY4az1I4FGaZqwykoDnRvXdSeAYEiaTgpTAAEUQcNMMfHPuShvBzXi3h7Z59UtC/NsXA39QEYV5F4pPf+EA4aeBJbWhvR6J6N4pdeWTX53I+Oz4T9O+K/ea04zajGl90l9Pigght+09vLRWgzO018tybifDAo4AUl5ptVy8mp+fV1Cy71ZF+albJaWn9jUiuvNHQGMSGQgbOwSBMv7wZRMjCvP/SeXJvWXuCSN+ad89bViH5Ph/Or0MqEgcHC4PHDh5+u8r5j9ZKyu86NRh1+ZTh1/NPz1nXUPO73sNViojQapMCh5voyxta45ricJsAl6ZNXUxu25LYauEuMcIHJObLNbcS7lX33l75Qt3dczfb6IUYFUhEtBoO9WsIuU4mnTbb0AzIAqziVi1cNZmYfgHDyiqXqOMtphkGVByHTDVwkQ5xiVx2ZplTZQozPscw8iZFENKSZqkFKyEClU7rcU3dq+tN4Xut6AbOVNpR3CtMzImlk9IWxKcn0k4LFfymmmxnijM+5iIjgM0JeGxrfjEtKW84NbCSTVnKhR8mP9RAq8ua6aSlsgltFSmZklSwUrkBk5CRbIkpS+TyGM4ktQApYgFglTeFiaCqswlR8qb6buJwryPYZ0unBN2n1OFtgaadgohQoc2Jitu0gvZ+f44foCIrBkamqSkXolczkhlIRyljBO2TuSl8pgyqTzG957w7d8p80W6aghKEA5sBCGEfpzWPEVZgShMkTshPV4PWMqdvoQKAY5jOJyQF6T0yUYWJf0DnLZrIFMmAqWIL/NtIEuqgZSGAUrIfWt5UL/YhI29gqNbQWvr61v/hADHaK6eXZH3t9rx+qZE3O3tPofsNjLVO3LmepArY2oEKlg5DJcCEiS0gPD8u8v9OgErKWyz6N8+EQFAOARF3baCkEs/LqjYufx27mozIHbl9zkqm7m4Mv/iWi6lxzuA+C2fICiWrhVxqo2wb2fQn4EyPM8iLOtFWI5GaXcFwnqrEI/HhLqchbit6hLhsRead758+ffw/ovCvM+puHjcpFGEXrSrwncwhsQJtTaIDR4fCgifc6wHYRgXwtJ2zO0qRRhvFep1l6FOex7mcpbgTttNwms34Q4bXfzP9373vZUCiF35A0JE3/Eae3LHDp7oFk+wMmW80AWjXq8FdTuLUberFPM6CjCP4yZqdxTjDnsJ5nW6yz/f2KiUuz8CUZgPGLq+E5W0KkwCGAG4y0njXoe36OiO+y7KJCIiIiIiIiIiIiIiIiIiIiIiIiIC9zj/BjpBbz3ZqiqtAAAAAElFTkSuQmCC");background-repeat:no-repeat;background-position:center;background-size:contain}
+    .brand-mark::before,.brand-mark::after{display:none}
+    footer .brand{width:max-content}
+    @media(max-width:720px){.brand{min-width:92px}.brand-mark{width:92px;height:33px;flex-basis:92px}}
+  </style>
+  <style id="profile-notification-badge">
+    [data-profile-toggle] .profile-mini-avatar{position:relative;overflow:visible}
+    [data-profile-toggle] .profile-mini-avatar::after{content:"3";position:absolute;right:-6px;top:-7px;min-width:18px;height:18px;padding:0 4px;border-radius:99px;display:grid;place-items:center;background:#ef654f;color:#fff;border:2px solid #fff;font-family:"DM Sans",sans-serif;font-size:.62rem;line-height:1;font-weight:900;box-shadow:0 4px 10px rgba(130,36,25,.3)}
+    .home-mode [data-profile-toggle] .profile-mini-avatar::after{border-color:rgba(255,255,255,.95)}
+  </style>
+  <style id="compact-profile-navbar">
+    /* Le CTA reste principal ; l’avatar seul termine la navigation à droite. */
+    .nav-actions>.balance-pill{order:1}
+    .nav-actions>.auth-button,.nav-actions>.btn-primary{order:2}
+    .nav-actions>.profile-menu-wrap{order:3}
+    .nav-actions>.mobile-menu{order:4}
+    .profile-menu-wrap .profile-button{width:48px;height:48px;padding:4px!important;border:2px solid rgba(255,255,255,.9);border-radius:50%;background:transparent;box-shadow:0 7px 18px rgba(0,34,46,.18);overflow:visible!important}
+    .profile-menu-wrap .profile-button:hover{transform:translateY(-1px);background:rgba(255,255,255,.1)}
+    .profile-menu-wrap .profile-button .profile-mini-avatar{width:36px;height:36px;flex:0 0 36px;font-size:1rem}
+    [data-profile-toggle] .profile-mini-avatar::after{z-index:5;right:-7px;top:-8px}
+    .profile-menu-wrap .profile-name,.profile-menu-wrap .profile-hamburger{display:none}
+    @media(max-width:720px){.profile-menu-wrap .profile-button{width:44px;height:44px;padding:3px!important}.profile-menu-wrap .profile-button .profile-mini-avatar{width:34px;height:34px;flex-basis:34px}}
+  </style>
+  <style id="profile-menu-balance-only">
+    .connected .nav-actions>.balance-pill{display:none!important}
+    .profile-dropdown-head small{display:inline-flex;align-items:center;width:max-content;margin-top:6px;padding:7px 11px;border:1px solid #b99735;border-radius:999px;background:var(--gold);color:var(--deep);font-size:.76rem;font-weight:950;letter-spacing:.01em;box-shadow:0 6px 15px rgba(163,130,31,.25)}
+    .profile-menu-item[data-profile-dash="wallet"] .menu-icon{background:var(--gold);color:var(--deep)}
+    .profile-menu-item[data-profile-dash="wallet"]{margin:5px 0;background:rgba(205,174,79,.13);border:1px solid rgba(205,174,79,.34)}
+    .profile-menu-item[data-profile-dash="wallet"]:hover{background:rgba(205,174,79,.24)}
+  </style>
+  <style id="classic-category-cards">
+    #homePage .category,#homePage .category:nth-child(n){border-radius:24px;box-shadow:none}
+  </style>
+  <style id="shared-page-organic-frames">
+    /* Même signature organique au début de toutes les pages */
+    .page:not(#homePage)>.subhero,.page:not(#homePage)>.info-hero,.page:not(#homePage)>.travel-hero{position:relative;overflow:hidden}
+    .page:not(#homePage)>.subhero{padding-bottom:154px}
+    .page:not(#homePage)>.subhero::before{display:none!important}
+    .page:not(#homePage)>.info-hero,.page:not(#homePage)>.travel-hero{min-height:620px}
+    .page-hero-organic-cut{position:absolute;z-index:3;left:0;right:0;bottom:-1px;height:150px;line-height:0;pointer-events:none;overflow:hidden}
+    .page-hero-organic-cut svg{display:block;width:100%;height:100%}
+    .page-hero-organic-cut .page-cut-soft{opacity:.26}
+    .page:not(#homePage)>.subhero>.container,.page:not(#homePage)>.info-hero>.info-hero-copy,.page:not(#homePage)>.travel-hero>.travel-copy{position:relative;z-index:4}
+    @media(max-width:720px){.page:not(#homePage)>.subhero{padding-bottom:112px}.page:not(#homePage)>.info-hero,.page:not(#homePage)>.travel-hero{min-height:570px}.page-hero-organic-cut{height:102px}.page-hero-organic-cut .page-cut-soft{opacity:.2}}
+  </style>
+  <style id="shared-organic-material">
+    /* Matière commune : même rendu translucide et ocre que la bulle du hero. */
+    .hero::before,
+    .hero::after,
+    .subhero::after,
+    .info-hero::after,
+    .travel-hero::after{
+      background:
+        radial-gradient(circle at 28% 22%,rgba(255,255,255,.22) 0,rgba(255,255,255,.07) 23%,transparent 48%),
+        linear-gradient(145deg,rgba(33,162,175,.34),rgba(205,174,79,.15));
+      border:1px solid rgba(255,255,255,.2);
+      box-shadow:inset 18px 18px 34px rgba(255,255,255,.035),inset -18px -18px 38px rgba(0,73,97,.12),0 18px 44px rgba(0,35,48,.12);
+      filter:blur(.2px);
+    }
+    .hero::before{border-color:rgba(255,255,255,.2)}
+    .subhero::after{border-radius:63% 37% 45% 55%/39% 62% 38% 61%;transform:rotate(18deg)}
+    .page-hero-organic-cut .page-cut-soft{fill:#cdae4f;opacity:.76}
+    @media(max-width:720px){.page-hero-organic-cut .page-cut-soft{opacity:.64}}
+  </style>
+  <style id="organic-overlap-safety">
+    /* Les vagues restent décoratives et ne traversent jamais le contenu interactif. */
+    .page:not(#homePage)>.subhero,
+    .page:not(#homePage)>.info-hero,
+    .page:not(#homePage)>.travel-hero{isolation:isolate}
+    .page-hero-organic-cut{z-index:2}
+    .page:not(#homePage)>.subhero>.container,
+    .page:not(#homePage)>.info-hero>.info-hero-copy,
+    .page:not(#homePage)>.travel-hero>.travel-copy{z-index:4}
+
+    /* Zone de respiration stable entre la fin organique du hero et la page. */
+    .page:not(#homePage)>.subhero+.content{padding-top:72px}
+    .page:not(#homePage)>.info-hero+.section,
+    .page:not(#homePage)>.travel-hero+.section{padding-top:92px}
+
+    /* Annonces : la recherche ne remonte plus dans la vague du hero. */
+    #listingsPage>.subhero+.container{position:relative;z-index:4;padding-top:58px;padding-bottom:96px}
+    #listingsPage .listing-search{margin-top:0;z-index:4}
+
+    @media(max-width:720px){
+      .page:not(#homePage)>.subhero+.content{padding-top:48px}
+      .page:not(#homePage)>.info-hero+.section,
+      .page:not(#homePage)>.travel-hero+.section{padding-top:64px}
+      #listingsPage>.subhero+.container{padding-top:34px;padding-bottom:70px}
+      #listingsPage .listing-search{padding:14px;border-radius:20px}
+      #listingsPage .listing-search .search-bar{gap:0;padding:8px;border-radius:16px!important}
+      #listingsPage .listing-search .pill-row{gap:8px}
+    }
+  </style>
+  <style id="home-hero-text-hierarchy">
+    #homePage .hero-content{display:flex;flex-direction:column;align-items:flex-start;width:min(1240px,calc(100% - 40px));max-width:none;margin-left:auto;margin-right:auto}
+    #homePage .hero-content>.hero-label{max-width:100%;margin:0 0 24px;line-height:1.35;flex-wrap:wrap}
+    #homePage .hero-content>.eyebrow{margin:0 0 16px!important}
+    #homePage .hero-content>h1{max-width:760px;margin:0 0 24px}
+    #homePage .hero-content>p{margin:0;max-width:650px}
+    @media(max-width:720px){
+      #homePage .hero-content{width:min(100% - 24px,1240px)}
+      #homePage .hero-content>.hero-label{margin-bottom:20px;font-size:.72rem}
+      #homePage .hero-content>.eyebrow{margin-bottom:13px!important}
+      #homePage .hero-content>h1{margin-bottom:18px}
+      #homePage .hero-content>p{font-size:1rem;line-height:1.6}
+    }
+  </style>
+  <style id="gold-listings-nav-link">
+    .nav-links .nav-link[data-go="listings"]{color:var(--gold);font-weight:900}
+    .nav-links .nav-link[data-go="listings"]:hover{color:#ead98f}
+  </style>
+  <style id="francophone-centered-flag-illustration">
+    #homePage>.section.francophone{padding:124px 0 140px}
+    #homePage>.section.francophone .section-head{width:min(1240px,calc(100% - 96px));display:grid!important;grid-template-columns:minmax(350px,.78fr) minmax(590px,1.22fr);align-items:center;gap:76px;margin:0 auto!important;text-align:left}
+    #homePage>.section.francophone .section-head>div:first-child{max-width:470px;margin:0;justify-self:start}
+    #homePage>.section.francophone .section-head h2{max-width:480px;margin:0 0 22px;font-size:clamp(2.8rem,4.3vw,4.7rem)}
+    #homePage>.section.francophone .section-head p{max-width:440px;margin:0;font-size:1.02rem}
+    .francophone-visual{position:relative;width:100%;height:500px;margin:0;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(8,1fr);gap:10px;padding:10px;border:1px solid rgba(255,255,255,.2);border-radius:38px 18px 38px 18px;background:rgba(0,47,64,.38);box-shadow:0 30px 76px rgba(0,35,48,.3);overflow:hidden}
+    .francophone-visual::before{content:"4 pays · 1 communauté";position:absolute;z-index:5;top:26px;left:26px;padding:9px 14px;border-radius:999px;background:rgba(0,47,64,.82);border:1px solid rgba(255,255,255,.34);color:#fff;font-size:.7rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(10px);box-shadow:0 8px 20px rgba(0,35,48,.16)}
+    .francophone-flag-photo{position:relative;min-width:0;min-height:0;overflow:hidden;border:1px solid rgba(255,255,255,.16)}
+    .francophone-flag-photo:nth-child(1){grid-column:1/7;grid-row:1/9;border-radius:29px 8px 8px 11px}
+    .francophone-flag-photo:nth-child(2){grid-column:7/13;grid-row:1/5;border-radius:8px 9px 8px 8px}
+    .francophone-flag-photo:nth-child(3){grid-column:7/10;grid-row:5/9;border-radius:8px}
+    .francophone-flag-photo:nth-child(4){grid-column:10/13;grid-row:5/9;border-radius:8px 8px 29px 8px}
+    .francophone-flag-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.04);transition:transform .45s ease}
+    .francophone-flag-photo:nth-child(1) img{object-position:58% center}.francophone-flag-photo:nth-child(2) img{object-position:center 42%}.francophone-flag-photo:nth-child(3) img{object-position:54% center}.francophone-flag-photo:nth-child(4) img{object-position:center}
+    .francophone-flag-photo:hover img{transform:scale(1.045)}
+    .francophone-flag-photo::before{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(180deg,rgba(0,73,97,.08),rgba(0,47,64,.16));pointer-events:none}
+    .francophone-flag-photo::after{content:"";position:absolute;z-index:1;inset:48% 0 0;background:linear-gradient(transparent,rgba(0,35,48,.88));pointer-events:none}
+    .francophone-flag-photo span{position:absolute;z-index:2;left:16px;bottom:15px;width:max-content;padding:8px 12px;border-radius:999px;background:rgba(0,47,64,.84);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:.72rem;font-weight:900;backdrop-filter:blur(8px);box-shadow:0 8px 18px rgba(0,35,48,.15)}
+    @media(max-width:1150px){#homePage>.section.francophone .section-head{grid-template-columns:1fr;gap:44px}#homePage>.section.francophone .section-head>div:first-child{max-width:720px;justify-self:start}.francophone-visual{height:430px}}
+    @media(max-width:720px){
+      #homePage>.section.francophone{padding:92px 0 102px}
+      #homePage>.section.francophone .section-head{width:min(100% - 32px,1320px);gap:32px}
+      #homePage>.section.francophone .section-head>div:first-child{max-width:100%}
+      .francophone-visual{height:500px;grid-template-columns:1fr 1fr;grid-template-rows:1.15fr .85fr;gap:8px;padding:8px;border-radius:30px 16px 30px 16px}
+      .francophone-flag-photo:nth-child(1),.francophone-flag-photo:nth-child(2),.francophone-flag-photo:nth-child(3),.francophone-flag-photo:nth-child(4){grid-column:auto;grid-row:auto;border-radius:8px}
+      .francophone-flag-photo:nth-child(1){border-radius:22px 8px 8px 8px}.francophone-flag-photo:nth-child(2){border-radius:8px 8px 8px 8px}.francophone-flag-photo:nth-child(3){border-radius:8px}.francophone-flag-photo:nth-child(4){border-radius:8px 8px 22px 8px}
+      .francophone-visual::before{top:14px;left:14px;padding:7px 10px;font-size:.62rem}
+      .francophone-flag-photo span{left:10px;bottom:10px;padding:6px 9px;font-size:.67rem}
+    }
+  </style>
+  <style id="home-section-color-rhythm">
+    /* Palette cliente : dominantes bleu SEOS / bleu profond, turquoise et or par touches. */
+    #homePage>.section[data-section-tone="cream"]{background:#fbfaf4}
+    #homePage>.section[data-section-tone="seos"]{background:#0092c5;color:#fff}
+    #homePage>.section[data-section-tone="deep"]{background:#004961}
+    #homePage>.section[data-section-tone="seos"]>.container>.section-head h2,
+    #homePage>.section[data-section-tone="deep"]>.container>.section-head h2,
+    #homePage>.section[data-section-tone="deep"] .chain-home>div:first-child h2,
+    #homePage>.section[data-section-tone="seos"] .support-grid>div:first-child h2{color:#fff}
+    #homePage>.section[data-section-tone="seos"]>.container>.section-head p,
+    #homePage>.section[data-section-tone="deep"] .chain-home>div:first-child p,
+    #homePage>.section[data-section-tone="seos"] .support-grid>div:first-child p{color:rgba(255,255,255,.86)}
+    #homePage>.section[data-section-tone="seos"] .eyebrow,
+    #homePage>.section[data-section-tone="deep"] .eyebrow{color:#fff}
+    #homePage>.section[data-section-tone="seos"]>.container>.section-head>.btn-outline{color:#fff}
+    #homePage>.section[data-section-tone="deep"] .chain-home .btn-deep{background:#cdae4f;color:#004961}
+    .home-mode footer{--footer-source:#0092c5}
+  </style>
+  <style id="wave-edge-continuity">
+    body{overflow-x:hidden}
+    #homePage>.yoga-separator{left:-2.5%;width:105%;margin-top:-4px;margin-bottom:-4px;overflow:visible}
+    #homePage>.yoga-separator svg{width:100.5%;margin-left:-.25%;transform:scaleX(1.015);transform-origin:center;overflow:visible}
+    #homePage>.yoga-separator+section{position:relative;z-index:2}
+    @media(max-width:720px){
+      #homePage>.yoga-separator{left:-5%;width:110%;margin-top:-3px;margin-bottom:-3px}
+      #homePage>.yoga-separator svg{transform:scaleX(1.025)}
+    }
+  </style>
+  <style id="client-feedback-two">
+    /* Les liens d'action des cartes reprennent les boutons arrondis de la DA SEOS. */
+    .exchange-card .text-link{border:0;border-radius:999px;background:linear-gradient(135deg,#086a82 0%,var(--deep) 72%);color:#fff;padding:12px 18px;box-shadow:0 9px 22px rgba(0,73,97,.12);transition:.2s}
+    .exchange-card .text-link:hover{transform:translateY(-2px)}
+    .exchange-card .text-link::after{color:var(--gold)}
+
+    /* Annonces plus compactes : priorité au service, au lieu et au mode d'échange. */
+    .ad-grid{gap:18px}
+    .ad-card{grid-template-columns:34% 1fr;min-height:238px;border-radius:26px 42px 25px 36px}
+    .ad-card:nth-child(even){border-radius:42px 25px 38px 24px}
+    .ad-body{padding:18px 20px}
+    .ad-body h3{font-size:1.28rem;margin:6px 0}
+    .ad-body>p{font-size:.82rem;line-height:1.5;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .ad-card .provider{margin-top:5px}.ad-card .avatar-letter{width:34px;height:34px;font-size:.8rem}
+    .ad-card .provider-rating{display:inline-flex;align-items:center;margin-left:7px;padding:3px 7px;border-radius:999px;background:rgba(205,174,79,.14);color:#846d1c;font-size:.7rem;font-weight:900;white-space:nowrap}
+    .ad-card .fact-row{margin:9px 0}.ad-card .fact{padding:5px 8px;font-size:.68rem}
+    .ad-card .ad-foot{padding-top:10px}.ad-card .ad-foot .btn{padding:10px 15px;font-size:.78rem}
+
+    /* Aperçu compact d'une chaîne active dans le tableau de bord. */
+    .dashboard-chain-preview{margin-top:18px;padding:26px;background:linear-gradient(135deg,#004961,#08738d);color:#fff;border:0;overflow:hidden;position:relative}
+    .dashboard-chain-preview::after{content:"";position:absolute;right:-52px;top:-72px;width:190px;height:190px;border-radius:63% 37% 45% 55%/39% 62% 38% 61%;background:linear-gradient(145deg,rgba(33,162,175,.34),rgba(205,174,79,.15));border:1px solid rgba(255,255,255,.2)}
+    .dashboard-chain-preview h3,.dashboard-chain-preview p{color:#fff}.dashboard-chain-preview>.dash-head{position:relative;z-index:2}
+    .dashboard-chain-flow{position:relative;z-index:2;display:flex;align-items:center;gap:10px;margin:20px 0 16px;overflow:auto;padding-bottom:3px}
+    .dashboard-chain-member{flex:0 0 auto;display:flex;align-items:center;gap:9px;padding:9px 12px 9px 9px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);border-radius:999px;backdrop-filter:blur(8px)}
+    .dashboard-chain-member i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--deep);font-style:normal;font-weight:900}
+    .dashboard-chain-link{flex:0 0 25px;height:2px;background:rgba(255,255,255,.42)}
+    .dashboard-chain-progress{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.dashboard-chain-progress .progress{background:rgba(255,255,255,.18)}
+
+    /* Quêtes en cartes illustrées, colorées et immédiatement lisibles. */
+    .quest-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .quest{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0;border:1px solid rgba(0,73,97,.13);border-radius:28px 16px 26px 18px;background:#fff;overflow:hidden;box-shadow:0 14px 34px rgba(0,73,97,.08);min-width:0}
+    .quest:nth-child(2n){border-radius:17px 29px 19px 27px}.quest.done{background:#fff}
+    .quest-visual{height:138px;position:relative;overflow:hidden;background:var(--mist)}
+    .quest-visual img{transition:transform .35s;filter:saturate(.88)}.quest:hover .quest-visual img{transform:scale(1.04)}
+    .quest-visual::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(0,47,64,.58))}
+    .quest-status{position:absolute;z-index:2;left:13px;top:13px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.9);color:var(--deep);font-size:.66rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+    .quest.done .quest-status{background:var(--gold)}
+    .quest-points{position:absolute;z-index:2;right:13px;bottom:12px;padding:6px 9px;border-radius:999px;background:var(--deep);color:#fff;font-size:.72rem;font-weight:900}
+    .quest-content{display:flex;flex-direction:column;flex:1;padding:18px}.quest-content strong{font-size:1rem}.quest-content small{display:block;color:var(--muted);line-height:1.45;margin:7px 0 15px}
+    .quest:nth-child(3n+1) .quest-content{background:#fbfaf4}.quest:nth-child(3n+2) .quest-content{background:#eef7f9}.quest:nth-child(3n) .quest-content{background:rgba(205,174,79,.09)}
+    .quest-content .progress{margin-top:auto;margin-bottom:9px}.quest-content .quest-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.7rem;color:var(--muted)}
+    .quest-content .quest-action{width:100%;margin-top:13px;padding:9px 12px;font-size:.76rem}
+
+    /* Photo de profil et adresse enregistrée. */
+    .profile-photo-field{display:flex;align-items:center;gap:18px;padding:18px;border:1px solid var(--line);border-radius:22px;background:var(--mist)}
+    .profile-photo-preview{width:92px;height:92px;flex:0 0 92px;border-radius:58% 42% 48% 52%/45% 58% 42% 55%;overflow:hidden;display:grid;place-items:center;background:linear-gradient(145deg,var(--turq),var(--seos));color:#fff;font-size:2rem;font-weight:900;border:4px solid #fff;box-shadow:0 10px 24px rgba(0,73,97,.14)}
+    .profile-photo-preview img,.profile-mini-avatar img{width:100%;height:100%;object-fit:cover}.profile-mini-avatar img{border-radius:50%}
+    .profile-photo-copy{flex:1}.profile-photo-copy p{margin:4px 0 10px;font-size:.78rem}
+    .profile-photo-copy input{max-width:100%}
+    @media(max-width:1040px){.quest-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:720px){.ad-grid{grid-template-columns:1fr}.ad-card{grid-template-columns:112px 1fr;min-height:220px}.quest-list{grid-template-columns:1fr}.quest-visual{height:170px}.dashboard-chain-preview{padding:20px}.profile-photo-field{align-items:flex-start;flex-direction:column}}
+  </style>
+  <style id="legal-compliance-ui">
+    .legal-shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:34px;align-items:start}
+    .legal-nav{position:sticky;top:118px;padding:18px;border:1px solid var(--line);border-radius:26px;background:#fff;box-shadow:0 14px 34px rgba(0,73,97,.08)}
+    .legal-nav button{display:block;width:100%;padding:12px 14px;border:0;border-radius:14px;background:transparent;color:var(--deep);font:inherit;font-weight:800;text-align:left;cursor:pointer}
+    .legal-nav button:hover,.legal-nav button.active{background:var(--mist);color:var(--seos)}
+    .legal-docs{display:grid;gap:22px}.legal-doc{scroll-margin-top:120px;padding:34px;border:1px solid var(--line);border-radius:34px 20px 34px 20px;background:#fff;box-shadow:0 18px 46px rgba(0,73,97,.07)}
+    .legal-doc h2{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 8px}.legal-doc h3{margin:26px 0 8px;color:var(--deep)}.legal-doc p,.legal-doc li{color:var(--muted);line-height:1.75}
+    .legal-doc ul{padding-left:20px}.legal-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}.legal-placeholder{display:inline-block;padding:2px 7px;border-radius:7px;background:rgba(205,174,79,.18);color:#715d18;font-weight:800}
+    .privacy-note{margin-top:12px;padding:13px 15px;border-left:3px solid var(--gold);border-radius:0 12px 12px 0;background:#fbfaf4;color:var(--muted);font-size:.78rem;line-height:1.55}.privacy-note button,.inline-legal{padding:0;border:0;background:none;color:var(--seos);font:inherit;font-weight:900;text-decoration:underline;cursor:pointer}
+    .data-actions{grid-column:1/-1;margin-top:6px;padding:22px;border:1px solid var(--line);border-radius:22px;background:var(--mist)}.data-actions h3{margin-top:0}.data-action-grid{display:flex;flex-wrap:wrap;gap:10px}
+    .cookie-banner{position:fixed;z-index:1200;left:22px;right:22px;bottom:22px;display:none;max-width:1120px;margin:auto;padding:24px;border:1px solid rgba(255,255,255,.22);border-radius:28px;background:rgba(0,47,64,.97);color:#fff;box-shadow:0 26px 80px rgba(0,20,28,.38);backdrop-filter:blur(16px)}
+    .cookie-banner.active{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}.cookie-banner h2{margin:0 0 7px;color:#fff;font-size:1.45rem}.cookie-banner p{margin:0;color:#cfe2e6;font-size:.86rem;line-height:1.55}.cookie-actions{display:flex;flex-wrap:wrap;gap:9px}.cookie-actions .btn{min-width:132px}.cookie-actions .btn-outline{border-color:#fff;color:#fff;background:transparent}
+    .cookie-panel{display:none;margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);grid-column:1/-1}.cookie-panel.active{display:grid;gap:10px}.cookie-row{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.08)}.cookie-row strong{display:block}.cookie-row small{color:#cfe2e6}.cookie-row input{width:22px;height:22px;accent-color:var(--gold)}
+    @media(max-width:820px){.legal-shell{grid-template-columns:1fr}.legal-nav{position:static;display:flex;gap:6px;overflow:auto}.legal-nav button{white-space:nowrap}.legal-doc{padding:24px}.cookie-banner.active{grid-template-columns:1fr}.cookie-actions .btn{flex:1}.cookie-banner{left:10px;right:10px;bottom:10px;padding:18px}}
+  </style>
+  <style id="rgpd-audit-remediation">
+    .legal-table-wrap{margin:18px 0;overflow:auto;border:1px solid var(--line);border-radius:18px}.legal-table{width:100%;min-width:680px;border-collapse:collapse;background:#fff}.legal-table th,.legal-table td{padding:13px 15px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:.78rem;line-height:1.5}.legal-table th{background:var(--mist);color:var(--deep)}.legal-table tr:last-child td{border-bottom:0}.legal-status{display:inline-flex;padding:4px 8px;border-radius:999px;background:#fff3ce;color:#745e18;font-size:.66rem;font-weight:900}.legal-status.ready{background:#e5f6ee;color:#176847}
+    .compliance-checklist{display:grid;gap:10px;margin-top:18px}.compliance-item{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:13px;border-radius:14px;background:var(--mist)}.compliance-item i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--deep);font-style:normal;font-weight:900}.compliance-item.pending i{background:#ffe2dc;color:#a94030}
+    .cookie-actions>[data-cookie-reject],.cookie-actions>[data-cookie-accept]{min-width:142px;border:2px solid #fff!important;background:#fff!important;color:var(--deep)!important;box-shadow:none!important}.cookie-actions>[data-cookie-reject]:hover,.cookie-actions>[data-cookie-accept]:hover{background:var(--gold)!important;border-color:var(--gold)!important}
+    .privacy-note.contextual{margin:12px 0 0}.public-location-note{display:inline-flex;align-items:center;gap:7px;color:#176847;font-weight:800}.public-location-note::before{content:"●";font-size:.65rem}
+  </style>
+</head>
+<body class="home-mode connected">
+  <header class="topbar" id="topbar"><div class="container nav">
+<a class="brand" data-go="home"><span class="brand-mark"></span>SEOS</a><nav class="nav-links"><a class="nav-link active" data-go="home">Découvrir</a><a class="nav-link " data-go="listings">Annonces</a><a class="nav-link" data-scroll-home="support">L’association</a><a class="nav-link " data-go="travel">Voyage solidaire</a></nav><div class="nav-actions">
+<span class="balance-pill"><i>pt</i><b data-balance="">128</b></span><div class="profile-menu-wrap">
+<button class="btn btn-light profile-button" type="button" data-profile-toggle="" aria-haspopup="menu" aria-expanded="false"><span class="profile-mini-avatar">C</span><span class="profile-name">Camille</span><span class="profile-hamburger" aria-hidden="true"><i></i><i></i><i></i></span></button><div class="profile-dropdown" role="menu">
+<div class="profile-dropdown-head">
+<span class="profile-mini-avatar">C</span><div>
+<strong>Camille Martin</strong><small>128 Points Services</small>
+</div>
+</div>
+<button class="profile-menu-item" data-profile-dash="overview"><span class="menu-icon">⌂</span>Tableau de bord</button><button class="profile-menu-item" data-profile-dash="messages"><span class="menu-icon">◯</span>Messagerie <span class="menu-count">3</span></button><button class="profile-menu-item" data-profile-dash="quests"><span class="menu-icon">✓</span>Mes quêtes <span class="menu-count">4</span></button><button class="profile-menu-item" data-profile-dash="wallet"><span class="menu-icon">pt</span>Mon portefeuille</button><button class="profile-menu-item" data-profile-dash="favorites"><span class="menu-icon">♡</span>Mes favoris</button><button class="profile-menu-item" data-profile-dash="profile"><span class="menu-icon">⚙</span>Profil et paramètres</button><div class="profile-menu-separator"></div>
+<button class="profile-menu-item logout" data-profile-logout=""><span class="menu-icon">↪</span>Se déconnecter</button>
+</div>
+</div>
+<button class="btn btn-light auth-button" data-go="auth">Connexion</button><button class="btn btn-primary" data-go="publish">＋ Publier une annonce</button><button class="icon-btn mobile-menu">☰</button>
+</div>
+</div></header>
+  <div id="app">
+    <main class="page active" id="homePage" data-page="home">
+      <section class="hero">
+        <div class="hero-media" id="heroMedia">
+          <div class="hero-slide active"><img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&amp;fit=crop&amp;w=1800&amp;q=88" alt="Entraide à domicile"></div>
+          <div class="hero-slide"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=1800&amp;q=88" alt="Partage de compétences"></div>
+          <div class="hero-slide"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&amp;fit=crop&amp;w=1800&amp;q=88" alt="Entraide au jardin"></div>
+        </div>
+        <div class="container hero-content">
+<span class="hero-label"><i class="live-dot"></i><span id="heroServiceLabel">Aide à la personne</span> · la communauté en action</span><span class="eyebrow" style="color:#8edee7;margin-top:24px">Bienvenue sur SEOS</span><h1>Faites circuler<br><span class="accent">l’entraide.</span>
+</h1>
+<p>Proposez un savoir-faire, trouvez un coup de main et créez des liens dans toute la communauté francophone.</p>
+</div>
+        <div class="container hero-search-wrap">
+<div class="search-bar">
+<label class="search-field">⌕ <input id="homeKeyword" placeholder="Bricolage, informatique, cours…"></label><label class="search-field">⌖ <input id="homeLocation" placeholder="Ville ou code postal"></label><button class="btn btn-deep" data-go="listings">Chercher</button>
+</div>
+<div class="hero-quick">
+<button class="btn btn-primary" data-go="publish">＋ Publier une annonce</button><button class="btn btn-light" data-scroll="presentation">▶ Comprendre en 2 minutes</button>
+</div>
+</div>
+<div class="hero-wave"></div>
+      <div class="hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="cut-gold" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section>
+
+      <section class="section" data-section-tone="cream"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">À chacun sa façon d’aider</span><h2>Trois manières de faire circuler <span class="accent">l’entraide</span>
+</h2>
+</div>
+<p>Choisissez librement la forme d’échange qui correspond à votre situation. Chaque option possède ses propres règles, expliquées simplement.</p>
+</div>
+<div class="exchange-grid">
+        <article class="exchange-card"><div class="exchange-photo"><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&amp;fit=crop&amp;w=300&amp;q=85" alt="Don"></div>
+<span class="exchange-num">01</span><h3>Le don</h3>
+<p>Offrez votre aide librement, sans contrepartie. Un geste simple peut changer une journée.</p>
+<button class="text-link" data-go="don">Comprendre le don</button></article>
+        <article class="exchange-card"><div class="exchange-photo"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&amp;fit=crop&amp;w=300&amp;q=85" alt="Échange"></div>
+<span class="exchange-num">02</span><h3>L’échange</h3>
+<p>Échangez directement vos compétences. Les modalités sont libres et décidées ensemble.</p>
+<button class="text-link" data-go="exchange">Découvrir l’échange</button></article>
+        <article class="exchange-card"><div class="exchange-photo"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&amp;fit=crop&amp;w=300&amp;q=85" alt="Points Services"></div>
+<span class="exchange-num">03</span><h3>Les Points Services</h3>
+<p>Aidez aujourd’hui, utilisez vos points plus tard auprès d’un autre membre de la communauté.</p>
+<button class="text-link" data-go="points">Voir comment ça marche</button></article>
+      </div>
+</div></section>
+
+      <div class="yoga-separator" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#fbfaf4"></rect><path class="wave-melt-outer" d="M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60" fill="none" stroke="#21a2af" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60" fill="none" stroke="#0092c5" stroke-width="14" stroke-linecap="round"></path><path fill="#0092c5" d="M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section soft" data-section-tone="seos"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">Explorer</span><h2>Parcourez les catégories</h2>
+</div>
+<p>Des besoins du quotidien aux savoir-faire créatifs, trouvez rapidement les personnes qui peuvent vous aider.</p>
+</div>
+<div class="category-grid" id="categoryGrid">
+<button class="category" data-cat="0"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Aide à la personne"><span>Aide à la personne</span></button><button class="category" data-cat="1"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Habitation &amp; bricolage"><span>Habitation &amp; bricolage</span></button><button class="category" data-cat="2"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Informatique"><span>Informatique</span></button><button class="category" data-cat="3"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Jardinage"><span>Jardinage</span></button><button class="category" data-cat="4"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Cours &amp; formations"><span>Cours &amp; formations</span></button><button class="category" data-cat="5"><img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Services créatifs"><span>Services créatifs</span></button><button class="category" data-cat="6"><img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Bien-être"><span>Bien-être</span></button><button class="category" data-cat="7"><img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Transport"><span>Transport</span></button>
+</div>
+</div></section>
+
+      <div class="yoga-separator" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#0092c5"></rect><path class="wave-melt-outer" d="M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74" fill="none" stroke="#21a2af" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74" fill="none" stroke="#fbfaf4" stroke-width="14" stroke-linecap="round"></path><path fill="#fbfaf4" d="M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section" data-section-tone="cream"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">Près de chez vous</span><h2>Annonces à la une</h2>
+</div>
+<button class="btn btn-outline" data-go="listings">Voir toutes les annonces →</button>
+</div>
+<div class="ad-grid" id="homeAds">
+<article class="ad-card" data-ad="0"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Cours d’anglais pour débutant"><span class="ad-badge top">Top annonce</span><button class="icon-btn ad-fav" data-favorite="0" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Cours &amp; formations</span><h3>Cours d’anglais pour débutant</h3>
+<p>Des séances conviviales et progressives, adaptées à votre niveau.</p>
+<div class="provider">
+<span class="avatar-letter">C</span><strong>Camille <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,8 sur 5">★ 4,8</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Rennes · 1.8 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>25 PS</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="0">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="1"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Aide pour monter un meuble"><span class="ad-badge">Offre</span><button class="icon-btn ad-fav" data-favorite="1" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Habitation &amp; bricolage</span><h3>Aide pour monter un meuble</h3>
+<p>Un coup de main soigneux pour assembler votre mobilier.</p>
+<div class="provider">
+<span class="avatar-letter">T</span><strong>Thomas <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,6 sur 5">★ 4,6</span></strong>
+</div>
+<div class="fact-row"><span class="fact">⌖ Nantes · 3.4 km</span></div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>Échange libre</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="1">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="2"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Besoin urgent : courses samedi"><span class="ad-badge urgent">Besoin urgent</span><button class="icon-btn ad-fav" data-favorite="2" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Aide à la personne</span><h3>Besoin urgent : courses samedi</h3>
+<p>Je recherche une personne pour m’accompagner faire les courses.</p>
+<div class="provider">
+<span class="avatar-letter">M</span><strong>Marie <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,9 sur 5">★ 4,9</span></strong>
+</div>
+<div class="fact-row"><span class="fact">⌖ Rennes · 2.2 km</span></div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>Don</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="2">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="3"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Cours de guitare"><span class="ad-badge">Offre</span><button class="icon-btn ad-fav" data-favorite="3" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Services créatifs</span><h3>Cours de guitare</h3>
+<p>Apprenez les bases à votre rythme dans une ambiance détendue.</p>
+<div class="provider">
+<span class="avatar-letter">S</span><strong>Sophie <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,7 sur 5">★ 4,7</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Rennes · 5.6 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>20 PS</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="3">Voir l’offre →</button>
+</div>
+</div></article>
+</div>
+</div></section>
+
+      <div class="yoga-separator deep-transition" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#fbfaf4"></rect><path class="wave-melt-outer" d="M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96" fill="none" stroke="#21a2af" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96" fill="none" stroke="#004961" stroke-width="14" stroke-linecap="round"></path><path fill="#004961" d="M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section soft" data-section-tone="deep"><div class="container chain-home">
+<div>
+<span class="eyebrow">Le cœur du modèle</span><h2>Votre coup de main déclenche une <span class="accent">chaîne</span>
+</h2>
+<p>La chaîne d’entraide est distincte des annonces : vous pouvez aider une personne de votre entourage, même si elle n’est pas encore membre. Elle valide le service grâce à votre lien, puis aide quelqu’un à son tour.</p>
+<p><strong>Chaque validation rapporte 10 PS aux dix derniers membres, dans la limite de 100 PS par personne.</strong></p>
+<button class="btn btn-deep" data-go="chain">Comprendre la chaîne d’entraide →</button>
+</div>
+<div>
+<div class="chain-flow">
+<div class="chain-person gold">
+<span class="avatar-letter">MD</span><strong>Marc</strong><small>répare le vélo d’Amina</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">
+<span class="avatar-letter">AB</span><strong>Amina</strong><small>donne un cours à Fatou</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">
+<span class="avatar-letter">FN</span><strong>Fatou</strong><small>garde les enfants de Lucie</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">
+<span class="avatar-letter">LP</span><strong>Lucie</strong><small>emmène Paul en voiture</small><span class="coin">10</span>
+</div>
+</div>
+<div class="notice">4 services validés · 40 Points Services en circulation · 0 €</div>
+</div>
+</div></section>
+
+      <div class="yoga-separator deep-transition" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#004961"></rect><path class="wave-melt-outer" d="M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116" fill="none" stroke="#21a2af" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116" fill="none" stroke="#fbfaf4" stroke-width="14" stroke-linecap="round"></path><path fill="#fbfaf4" d="M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section" id="presentation" data-section-tone="cream"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">Comprendre en 2 minutes</span><h2>Du besoin à la rencontre,<br><span class="accent">en toute simplicité.</span>
+</h2>
+</div>
+<p>Une courte présentation explique la publication, la messagerie et la manière de définir ensemble les modalités de l’échange.</p>
+</div>
+<div class="video-testimonial" style="height:500px">
+<video controls="" preload="metadata" poster="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=1500&amp;q=85" aria-label="Présentation vidéo de SEOS"></video><span class="caption">Emplacement vidéo prêt · média final à fournir</span>
+</div>
+</div></section>
+
+      <div class="yoga-separator" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#fbfaf4"></rect><path class="wave-melt-outer" d="M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120" fill="none" stroke="#21a2af" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120" fill="none" stroke="#0092c5" stroke-width="14" stroke-linecap="round"></path><path fill="#0092c5" d="M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section soft" data-section-tone="seos"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">Ils l’ont vécu</span><h2>Ce que ça change, concrètement</h2>
+</div>
+<button class="btn btn-outline" data-open="testimonial">Partager mon témoignage</button>
+</div>
+<div class="testimonial-grid">
+<article class="testimonial"><div class="quote">“</div>
+<p>Je suis arrivée à Roubaix sans connaître personne. Aujourd’hui j’ai des voisins, pas juste une adresse.</p>
+<div class="provider">
+<span class="avatar-letter">AB</span><div>
+<strong>Amina B.</strong><small>Roubaix · membre depuis 2024</small>
+</div>
+</div></article><article class="testimonial"><div class="quote">“</div>
+<p>À la retraite, on te fait vite sentir que tu ne sers plus. Ici, mes quinze ans d’atelier valent quelque chose.</p>
+<div class="provider">
+<span class="avatar-letter">MD</span><div>
+<strong>Marc D.</strong><small>Lyon · 63 échanges</small>
+</div>
+</div></article><div class="video-testimonial">
+<video controls="" preload="metadata" poster="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=700&amp;q=85" aria-label="Témoignage vidéo de Lucie"></video><span class="caption">Témoignage de Lucie · média final à fournir</span>
+</div>
+</div>
+</div></section>
+
+      <div class="yoga-separator" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#0092c5"></rect><path class="wave-melt-outer" d="M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62" fill="none" stroke="#21a2af" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62" fill="none" stroke="#fbfaf4" stroke-width="14" stroke-linecap="round"></path><path fill="#fbfaf4" d="M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section" data-section-tone="cream"><div class="container security-grid">
+<div class="security-orb">⌾<br>Se rencontrer<br>en confiance</div>
+<div>
+<span class="eyebrow">Sécurité</span><h2>Un cadre clair, parce que l’entraide ne s’improvise pas</h2>
+<p>SEOS met des inconnus en relation : la prudence et la transparence font partie du service.</p>
+<div class="security-items">
+<article class="security-item"><h3>✓ Profils vérifiés</h3>
+<p>E-mail et téléphone confirmés. Pièce d’identité demandée pour les services auprès de publics vulnérables.</p></article><article class="security-item"><h3>☆ Avis après échange</h3>
+<p>Seuls les membres ayant réellement échangé peuvent publier un avis.</p></article><article class="security-item"><h3>◯ Messagerie interne</h3>
+<p>Vos coordonnées restent privées jusqu’à ce que vous décidiez de les transmettre.</p></article><article class="security-item"><h3>⚑ Signalement en un clic</h3>
+<p>Chaque signalement est examiné par l’équipe sous 48 heures ouvrées.</p></article>
+</div>
+</div>
+</div></section>
+
+      <div class="yoga-separator deep-transition" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#fbfaf4"></rect><path class="wave-melt-outer" d="M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60" fill="none" stroke="#cdae4f" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60" fill="none" stroke="#004961" stroke-width="14" stroke-linecap="round"></path><path fill="#004961" d="M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section francophone" data-section-tone="deep"><div class="container section-head" style="margin:0">
+<div>
+<span class="eyebrow" style="color:#9de0e7">Une communauté francophone</span><h2 style="color:#fff">L’entraide dépasse les frontières.</h2>
+<p style="color:#cde4e9">SEOS s’adresse aux membres francophones de quatre pays.</p>
+</div>
+<figure class="francophone-visual" role="img" aria-label="Photographies des drapeaux de la France, de la Belgique, de la Suisse et du Luxembourg"><div class="francophone-flag-photo">
+<img src="https://images.unsplash.com/photo-1571175475562-83600102a315?auto=format&amp;fit=crop&amp;w=900&amp;q=82" alt="Drapeau français flottant sur un bâtiment à Paris"><span>🇫🇷 France</span>
+</div>
+<div class="francophone-flag-photo">
+<img src="https://images.unsplash.com/photo-1663697697070-13f1502bd6f1?auto=format&amp;fit=crop&amp;w=900&amp;q=82" alt="Drapeau belge flottant dans le ciel"><span>🇧🇪 Belgique</span>
+</div>
+<div class="francophone-flag-photo">
+<img src="https://images.unsplash.com/photo-1742716569164-644f62dff230?auto=format&amp;fit=crop&amp;w=900&amp;q=82" alt="Drapeau suisse devant les montagnes"><span>🇨🇭 Suisse</span>
+</div>
+<div class="francophone-flag-photo">
+<img src="https://editor.luxtoday.lu/uploads/li_jia_L7_KHB_115_W6w_unsplash_634ffdeca4.jpg" alt="Drapeau luxembourgeois flottant dans le ciel"><span>🇱🇺 Luxembourg</span>
+</div></figure>
+</div></section>
+
+      <div class="yoga-separator deep-transition" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#004961"></rect><path class="wave-melt-outer" d="M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74" fill="none" stroke="#21a2af" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74" fill="none" stroke="#fbfaf4" stroke-width="14" stroke-linecap="round"></path><path fill="#fbfaf4" d="M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section" data-section-tone="cream"><div class="container join-panel">
+<div class="join-copy">
+<span class="eyebrow" style="color:#9de0e7">Faites le premier pas</span><h2>Et si votre savoir-faire était exactement ce qu’il <span class="accent">manquait à quelqu’un ?</span>
+</h2>
+<p style="color:#d3e7eb">L’inscription est gratuite. Commencez par découvrir les besoins autour de vous.</p>
+<div class="hero-quick">
+<button class="btn btn-light" data-go="auth">Créer mon compte →</button><button class="btn btn-outline" style="color:#fff" data-go="listings">Explorer sans s’inscrire</button>
+</div>
+</div>
+<div class="join-art">
+<div class="join-bubble"><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&amp;fit=crop&amp;w=300&amp;q=80" alt="Don"></div>
+<div class="join-bubble"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&amp;fit=crop&amp;w=300&amp;q=80" alt="Échange"></div>
+<div class="join-bubble"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&amp;fit=crop&amp;w=300&amp;q=80" alt="Communauté"></div>
+</div>
+</div></section>
+      <div class="yoga-separator" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none" overflow="visible"><rect width="1440" height="170" fill="#fbfaf4"></rect><path class="wave-melt-outer" d="M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96" fill="none" stroke="#21a2af" stroke-width="28" stroke-linecap="round"></path><path class="wave-melt-inner" d="M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96" fill="none" stroke="#0092c5" stroke-width="14" stroke-linecap="round"></path><path fill="#0092c5" d="M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96 L1440 170 L0 170 Z"></path></svg></div>
+<section class="section soft" data-section-tone="seos"><div class="container support-grid">
+<div>
+<span class="eyebrow">Soutenir SEOS</span><h2>Tu as envie d’être utile et de participer à ta façon ?</h2>
+<p><strong>SEOS a fait le choix d’être gratuit pour tous afin d’être accessible à ceux qui en ont le plus besoin.</strong></p>
+<p>Parlez du projet autour de vous, invitez de nouveaux membres ou contribuez à son développement.</p>
+<p><strong>Tu aides SEOS → SEOS aide la communauté → La communauté s’entraide</strong></p>
+</div>
+<div class="support-actions">
+<article class="support-card"><h3>Faire connaître SEOS</h3>
+<p>Partagez le projet et gagnez 10 PS une fois par mois.</p>
+<div class="share-buttons">
+<button class="icon-btn" data-share="">◎</button><button class="icon-btn" data-share="">f</button><button class="icon-btn" data-share="">in</button>
+</div></article><article class="support-card gold"><h3>Participer autrement</h3>
+<p>Un soutien matériel nous aide à maintenir SEOS accessible.</p>
+<button class="btn btn-light">Soutenir SEOS</button></article>
+</div>
+</div></section>
+    </main>
+
+    <main class="page" id="donPage" data-page="don"><section class="info-hero"><div class="info-hero-copy">
+<span class="eyebrow" style="color:#8edee7">Choisir son échange</span><h1>Le don,<br><span class="accent">sans contrepartie.</span>
+</h1>
+<p>Vous donnez librement un peu de temps, un savoir-faire ou un objet. Aucun point n’est demandé et aucune dette n’est créée.</p>
+<button class="btn btn-primary" data-go="publish">Publier un don</button>
+</div>
+<div class="info-hero-photo"><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&amp;fit=crop&amp;w=1300&amp;q=88" alt="Personnes qui partagent un don"></div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="section"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">Le parcours</span><h2>Un geste simple,<br>des règles claires.</h2>
+</div>
+<button class="btn btn-outline" data-go="home">← Retour à l’accueil</button>
+</div>
+<div class="info-steps">
+<article class="info-step"><b>1</b><h3>Publiez</h3>
+<p>Décrivez précisément ce que vous proposez ou recherchez et indiquez vos disponibilités.</p></article><article class="info-step"><b>2</b><h3>Échangez</h3>
+<p>La messagerie interne permet de convenir du lieu, de la date et des conditions.</p></article><article class="info-step"><b>3</b><h3>Validez</h3>
+<p>Après la rencontre, les deux membres peuvent confirmer l’échange et laisser un avis.</p></article>
+</div>
+<div class="notice" style="margin-top:24px">Le don est volontaire : aucune compensation financière ni aucun Point Service ne peut être imposé.</div>
+</div></section></main>
+
+    <main class="page" id="exchangePage" data-page="exchange"><section class="info-hero"><div class="info-hero-copy">
+<span class="eyebrow" style="color:#8edee7">Choisir son échange</span><h1>L’échange,<br><span class="accent">compétence contre compétence.</span>
+</h1>
+<p>Deux membres s’entendent librement : un cours contre un dépannage, une aide au jardin contre du transport, ou toute autre combinaison acceptée.</p>
+<button class="btn btn-primary" data-go="publish">Proposer un échange</button>
+</div>
+<div class="info-hero-photo"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&amp;fit=crop&amp;w=1300&amp;q=88" alt="Membres préparant un échange de services"></div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="section"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">Le parcours</span><h2>Vous décidez<br>ensemble.</h2>
+</div>
+<button class="btn btn-outline" data-go="home">← Retour à l’accueil</button>
+</div>
+<div class="info-steps">
+<article class="info-step"><b>1</b><h3>Proposez</h3>
+<p>Indiquez le service offert et celui que vous aimeriez recevoir en retour.</p></article><article class="info-step"><b>2</b><h3>Négociez</h3>
+<p>Les membres précisent la durée, le matériel, les déplacements et les disponibilités.</p></article><article class="info-step"><b>3</b><h3>Confirmez</h3>
+<p>Les modalités restent visibles dans la messagerie et sont validées après le service.</p></article>
+</div>
+<div class="notice" style="margin-top:24px">Les deux services peuvent avoir des durées différentes : l’essentiel est que les deux membres acceptent les modalités.</div>
+</div></section></main>
+
+    <main class="page" id="pointsPage" data-page="points"><section class="info-hero"><div class="info-hero-copy">
+<span class="eyebrow" style="color:#8edee7">Choisir son échange</span><h1>Les Points Services,<br><span class="accent">aider maintenant, recevoir plus tard.</span>
+</h1>
+<p>Les Points Services circulent uniquement dans SEOS. Ils servent à remercier un membre et ne sont pas convertibles en euros.</p>
+<button class="btn btn-primary" data-go="publish">Publier avec des points</button>
+</div>
+<div class="info-hero-photo"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&amp;fit=crop&amp;w=1300&amp;q=88" alt="Communauté utilisant les Points Services"></div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="section"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">Le parcours</span><h2>Une estimation,<br>puis un accord.</h2>
+</div>
+<button class="btn btn-outline" data-go="home">← Retour à l’accueil</button>
+</div>
+<div class="info-steps">
+<article class="info-step"><b>1</b><h3>Estimez</h3>
+<p>10 PS correspondent à une valeur comprise entre 0 et 20 €, et 50 PS à une valeur comprise entre 80 et 100 €.</p></article><article class="info-step"><b>2</b><h3>Discutez</h3>
+<p>Le montant affiché reste approximatif et peut être modifié après discussion.</p></article><article class="info-step"><b>3</b><h3>Rétribuez</h3>
+<p>Le bouton apparaît seulement si votre solde couvre le montant final accepté.</p></article>
+</div>
+<div class="notice" style="margin-top:24px">30 PS sont offerts à l’inscription. Tous les cinq échanges réalisés en Points Services rapportent 20 PS supplémentaires.</div>
+</div></section></main>
+
+    <main class="page" id="listingsPage" data-page="listings">
+      <section class="subhero"><div class="container">
+<span class="eyebrow" style="color:#8edee7">Annonces</span><h1>Trouvez le coup de main<br>qu’il vous faut.</h1>
+<p>Offres et demandes locales, à distance ou près de chez vous.</p>
+</div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section>
+      <div class="container">
+<div class="listing-search">
+<div class="search-bar" style="box-shadow:none;border:1px solid var(--line)">
+<label class="search-field">⌕ <input id="listingKeyword" value="Cours d’anglais"></label><label class="search-field">⌖ <input id="listingLocation" value="Rennes, 35000"></label><button class="btn btn-deep" id="searchAds">Chercher</button>
+</div>
+<div class="pill-row" style="margin-top:15px">
+<button class="pill active" data-quick="all">Tous</button><button class="pill" data-quick="remote">⌁ À distance</button><button class="pill" data-quick="near">⌖ Près de chez moi</button><button class="pill" data-quick="offers">Offres</button><button class="pill" data-quick="requests">Demandes</button>
+</div>
+</div>
+        <div class="listing-layout">
+<aside class="filters"><div style="display:flex;justify-content:space-between">
+<h3>Filtres</h3>
+<button class="btn btn-light" id="resetFilters" style="padding:8px 11px">Effacer</button>
+</div>
+          <div class="filter-group">
+<label class="filter-label">Catégories et sous-catégories</label><div class="category-tree">
+<details open=""><summary>Aide à la personne</summary><label><input type="checkbox"> Courses et accompagnement</label><label><input type="checkbox"> Garde et présence</label></details><details><summary>Maison &amp; extérieur</summary><label><input type="checkbox"> Bricolage</label><label><input type="checkbox"> Jardinage</label><label><input type="checkbox"> Ménage</label></details><details><summary>Savoirs &amp; numérique</summary><label><input type="checkbox" checked> Cours &amp; formations</label><label><input type="checkbox"> Informatique</label></details><details><summary>Créatif &amp; bien-être</summary><label><input type="checkbox"> Services créatifs</label><label><input type="checkbox"> Bien-être</label></details>
+</div>
+</div>
+          <div class="filter-group">
+<label class="filter-label">Localité</label><input class="control" placeholder="Adresse, ville ou département" value="Rennes"><label class="filter-label" style="margin-top:12px">Rayon : <b id="radiusValue">25 km</b></label><input type="range" id="radiusRange" min="5" max="100" value="25"><div class="range-values">
+<span>5 km</span><span>100 km</span>
+</div>
+</div>
+          <div class="filter-group">
+<label class="filter-label">Mode d’échange</label><div class="check-list">
+<label><input type="checkbox" checked> Don</label><label><input type="checkbox" checked> Échange de services</label><label><input type="checkbox" checked> Points Services</label>
+</div>
+</div>
+          <div class="filter-group">
+<label class="filter-label">Maximum : <b id="pointsMaxValue">60 PS</b></label><input type="range" id="pointsMax" min="0" max="200" value="60"><div class="range-values">
+<span>0 PS</span><span>200 PS</span>
+</div>
+</div>
+          <button class="btn btn-primary btn-block" id="applyFilters">Afficher les résultats</button>
+        </aside><section><div class="results-top">
+<div>
+<span class="eyebrow">Catalogue</span><h2 style="font-size:2.35rem;margin:0">Offres et demandes</h2>
+<span class="tiny" id="resultCount">6 annonces trouvées</span>
+</div>
+<div class="results-tools">
+<select class="control" id="sortAds"><option>Plus pertinentes</option>
+<option>Plus proches</option>
+<option>Mieux notées</option>
+<option>Plus récentes</option></select><button class="pill active" id="listView">☷ Liste</button><button class="pill" id="mapView">⌖ Carte</button>
+</div>
+</div>
+<div class="ad-grid" id="listingAds" style="display: grid;">
+<article class="ad-card" data-ad="0"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Cours d’anglais pour débutant"><span class="ad-badge top">Top annonce</span><button class="icon-btn ad-fav" data-favorite="0" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Cours &amp; formations</span><h3>Cours d’anglais pour débutant</h3>
+<p>Des séances conviviales et progressives, adaptées à votre niveau.</p>
+<div class="provider">
+<span class="avatar-letter">C</span><strong>Camille <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,8 sur 5">★ 4,8</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Rennes · 1.8 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>25 PS</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="0">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="1"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Aide pour monter un meuble"><span class="ad-badge">Offre</span><button class="icon-btn ad-fav" data-favorite="1" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Habitation &amp; bricolage</span><h3>Aide pour monter un meuble</h3>
+<p>Un coup de main soigneux pour assembler votre mobilier.</p>
+<div class="provider">
+<span class="avatar-letter">T</span><strong>Thomas <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,6 sur 5">★ 4,6</span></strong>
+</div>
+<div class="fact-row"><span class="fact">⌖ Nantes · 3.4 km</span></div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>Échange libre</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="1">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="2"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Besoin urgent : courses samedi"><span class="ad-badge urgent">Besoin urgent</span><button class="icon-btn ad-fav" data-favorite="2" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Aide à la personne</span><h3>Besoin urgent : courses samedi</h3>
+<p>Je recherche une personne pour m’accompagner faire les courses.</p>
+<div class="provider">
+<span class="avatar-letter">M</span><strong>Marie <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,9 sur 5">★ 4,9</span></strong>
+</div>
+<div class="fact-row"><span class="fact">⌖ Rennes · 2.2 km</span></div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>Don</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="2">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="3"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Cours de guitare"><span class="ad-badge">Offre</span><button class="icon-btn ad-fav" data-favorite="3" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Services créatifs</span><h3>Cours de guitare</h3>
+<p>Apprenez les bases à votre rythme dans une ambiance détendue.</p>
+<div class="provider">
+<span class="avatar-letter">S</span><strong>Sophie <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,7 sur 5">★ 4,7</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Rennes · 5.6 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>20 PS</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="3">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="4"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Création complète d’un site associatif"><span class="ad-badge">Offre</span><button class="icon-btn ad-fav" data-favorite="4" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Informatique</span><h3>Création complète d’un site associatif</h3>
+<p>Conception et accompagnement pour votre site vitrine.</p>
+<div class="provider">
+<span class="avatar-letter">M</span><strong>Marc <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,9 sur 5">★ 4,9</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Brest · 78 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>180 PS</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="4">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="5"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Recherche conversation française"><span class="ad-badge">Demande</span><button class="icon-btn ad-fav" data-favorite="5" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Cours &amp; formations</span><h3>Recherche conversation française</h3>
+<p>Je souhaite pratiquer le français autour de discussions simples.</p>
+<div class="provider">
+<span class="avatar-letter">N</span><strong>Nora <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,8 sur 5">★ 4,8</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Rennes · 4.1 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>Échange libre</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="5">Voir l’offre →</button>
+</div>
+</div></article>
+</div>
+<div class="empty-state" id="emptyAds" style="display: none;">
+<h3>Aucune annonce ne correspond</h3>
+<p>Élargissez le rayon ou retirez un filtre pour découvrir des services proches.</p>
+<button class="btn btn-deep" id="emptyReset">Réinitialiser les filtres</button>
+</div>
+<div class="map-panel" id="mapPanel">
+<button class="map-marker" style="left:24%;top:38%" data-map-ad="0"><span>25</span></button><button class="map-marker" style="left:52%;top:25%;background:var(--gold)" data-map-ad="1"><span>↔</span></button><button class="map-marker" style="left:67%;top:62%;background:var(--danger)" data-map-ad="2"><span>!</span></button><button class="map-marker" style="left:39%;top:70%" data-map-ad="3"><span>20</span></button><div class="map-popup" id="mapPopup"></div>
+</div></section>
+</div>
+      </div>
+    </main>
+
+    <main class="page" id="detailPage" data-page="detail">
+      <section class="subhero"><div class="container"><button class="btn btn-light" data-go="listings">← Retour aux annonces</button></div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section>
+      <section class="content"><div class="container detail-layout">
+<div>
+<div class="gallery-main">
+<img id="galleryImage" src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&amp;fit=crop&amp;w=1300&amp;q=86" alt="Cours d’anglais"><div class="gallery-video" id="galleryVideo" style="display:none"><button class="play" data-video="ad">▶</button></div>
+</div>
+<div class="thumb-row">
+<button class="thumb active" data-gallery="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&amp;fit=crop&amp;w=1300&amp;q=86"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Cours en groupe"></button><button class="thumb" data-gallery="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&amp;fit=crop&amp;w=1300&amp;q=86"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Cours individuel"></button><button class="thumb" data-gallery="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&amp;fit=crop&amp;w=1300&amp;q=86"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&amp;fit=crop&amp;w=400&amp;q=80" alt="Conversation"></button><button class="thumb" data-gallery-video=""><span style="display:grid;place-items:center;height:100%;background:var(--deep);color:#fff">▶ Vidéo</span></button>
+</div>
+          <article class="detail-copy"><div class="pill-row">
+<span class="ad-badge" style="position:static;background:var(--gold)">TOP ANNONCE</span><span class="ad-badge" style="position:static">OFFRE</span>
+</div>
+<span class="eyebrow" style="margin-top:20px">Cours &amp; formations</span><h1 id="detailTitle">Cours d’anglais pour débutant</h1>
+<p>Des séances conviviales et progressives, adaptées à votre niveau et à vos objectifs. Supports inclus et rythme défini ensemble.</p>
+<h3>Description</h3>
+<p>Nous travaillons la conversation, le vocabulaire utile et la confiance à l’oral. Les séances peuvent se dérouler à domicile, dans un lieu public ou à distance.</p>
+<h3>Informations pratiques</h3>
+<div class="fact-row">
+<span class="fact">⌖ Rennes · 1,8 km</span><span class="fact">◷ Soirs &amp; week-end</span><span class="fact">⌁ À distance possible</span>
+</div>
+<h3>Partager l’annonce</h3>
+<div class="share-buttons">
+<button class="btn btn-outline" data-social="Facebook">f Facebook</button><button class="btn btn-outline" data-social="LinkedIn">in LinkedIn</button><button class="btn btn-outline" data-social="copy">⧉ Copier le lien</button>
+</div></article>
+          <section class="detail-copy"><div class="section-head">
+<div>
+<span class="eyebrow">Avis vérifiés</span><h2 style="font-size:2.2rem">Ce que pensent les membres</h2>
+</div>
+<button class="btn btn-outline" id="rateProfile">Noter Camille</button>
+</div>
+<div class="review-grid">
+<div class="rating-big">
+<b>4,8</b><div>★★★★★</div>
+<small>32 échanges vérifiés</small>
+</div>
+<div>
+<article class="review"><strong>Amina · 5/5</strong><p>Camille explique clairement et met immédiatement à l’aise.</p></article><article class="review"><strong>Luc · 4,7/5</strong><p>Très bon échange, ponctuelle et pédagogue.</p></article>
+</div>
+</div></section>
+        </div>
+<aside class="detail-side"><div class="exchange-panel">
+<span class="eyebrow" style="color:#9de0e7">Répondre à cette offre</span><h2>Une valeur à définir ensemble</h2>
+<div class="estimate" id="detailPrice">25 <small>Points Services estimés</small>
+</div>
+<div class="balance-math">
+<div class="math-row">
+<span>Votre solde actuel</span><strong id="balanceBefore">128 PS</strong>
+</div>
+<div class="math-row">
+<span>Coût estimé</span><strong id="exchangeCost">− 25 PS</strong>
+</div>
+<div class="math-row total">
+<span>Solde après échange</span><strong id="balanceAfter" style="color:var(--gold)">103 PS</strong>
+</div>
+</div>
+<p class="tiny" style="color:#d3e5e8">Aucun point n’est débité avant que les deux membres aient validé le montant final après le service.</p>
+<button class="btn btn-primary btn-block" id="proposeExchange">➤ Proposer un échange</button><button class="btn btn-outline btn-block" id="askQuestion" style="margin-top:10px">◯ Poser une question d’abord</button><button class="btn btn-light btn-block" id="rewardPoints" style="margin-top:10px">Rétribuer en Points Services</button><p class="tiny" id="insufficientNote" style="color:#ffcabf;display:none">Solde insuffisant : le bouton de rétribution est désactivé.</p>
+</div>
+<article class="owner-card"><div class="provider">
+<span class="avatar-letter">C</span><div>
+<strong>Camille <span class="verified">✓</span></strong><small>Membre Argent · répond sous 3 h</small>
+</div>
+</div>
+<p>📍 Rennes · ★ 4,8 · 32 échanges</p>
+<div class="notice" id="phonePrivacy">Le téléphone est facultatif et réservé aux membres connectés.</div>
+<button class="btn btn-outline btn-block" id="showPhone" style="margin-top:12px">Afficher le téléphone</button><button class="btn btn-danger btn-block" id="reportAd" style="margin-top:8px">⚑ Signaler cette annonce</button></article></aside>
+</div></section>
+    </main>
+
+    <main class="page" id="publishPage" data-page="publish"><section class="subhero"><div class="container">
+<span class="eyebrow" style="color:#8edee7">Publier une annonce</span><h1>Partagez un savoir-faire,<br><span class="accent">créez une rencontre.</span>
+</h1>
+<p>Cette maquette n’envoie aucune donnée. Le parcours est entièrement simulé.</p>
+</div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="content"><div class="container wizard">
+<div class="stepper" id="stepper">
+<div class="step-dot active" data-n="1">Intention</div>
+<div class="step-dot" data-n="2">Échange</div>
+<div class="step-dot" data-n="3">Détails</div>
+<div class="step-dot" data-n="4">Aperçu</div>
+</div>
+<form class="wizard-card" id="publishWizard">
+<div class="wizard-head">
+<div>
+<span class="eyebrow" id="wizardLabel">Étape 1 sur 4</span><h2 id="wizardTitle" style="font-size:2rem;margin:0">Que souhaitez-vous faire ?</h2>
+</div>
+<div class="step-character" id="stepCharacter">🤝</div>
+</div>
+        <div class="wizard-step active" data-step="1"><div class="choice-grid">
+<button type="button" class="choice selected" data-intention="offer">♡<b>Je propose mon aide</b><span>Je partage une compétence ou un peu de mon temps.</span></button><button type="button" class="choice" data-intention="request">⌕<b>Je recherche de l’aide</b><span>J’explique mon besoin à la communauté.</span></button>
+</div></div>
+        <div class="wizard-step" data-step="2">
+<div class="choice-grid">
+<button type="button" class="choice selected" data-mode="don">♡<b>Don</b><span>Sans contrepartie.</span></button><button type="button" class="choice" data-mode="exchange">⇄<b>Échange</b><span>Compétence contre compétence.</span></button><button type="button" class="choice" data-mode="points">pt<b>Points Services</b><span>Une estimation négociable.</span></button>
+</div>
+<div class="form-field full" id="wizardPoints" style="display:none;margin-top:18px">
+<label>Estimation en Points Services</label><input class="control" type="number" min="10" step="10" value="20"><div class="points-explain" style="margin-top:10px">Les Points Services se calculent à partir de la valeur en euros, par tranches de 20 €. Ainsi, 10 PS correspondent à 0–20 €, et 50 PS à 80–100 €. Si plusieurs prestations ont des valeurs différentes, indiquez une estimation que vous pourrez modifier après négociation.</div>
+</div>
+</div>
+        <div class="wizard-step" data-step="3"><div class="form-grid">
+<div class="form-field full">
+<label>Titre</label><input class="control" id="pubTitle" value="Cours de guitare pour débutant">
+</div>
+<div class="form-field">
+<label>Catégorie</label><select class="control"><option>Cours &amp; formations › Musique</option>
+<option>Maison › Bricolage</option>
+<option>Aide à la personne › Accompagnement</option></select>
+</div>
+<div class="form-field">
+<label>Adresse du service</label><input class="control" id="pubAddress" autocomplete="street-address" value="12 rue de la Monnaie, 35000 Rennes"><small>Préremplie depuis votre profil, modifiable pour chaque annonce.</small>
+</div>
+<div class="form-field full">
+<label>Description</label><textarea class="control">Je propose des cours conviviaux adaptés aux débutants.</textarea>
+</div>
+<div class="form-field">
+<label>Priorité</label><select class="control"><option>Annonce classique</option>
+<option>Besoin urgent</option></select>
+</div>
+<div class="form-field">
+<label>Disponibilités</label><input class="control" value="Mercredi et samedi">
+</div>
+<div class="form-field full"><div class="upload-box">＋ Ajouter 2 ou 3 photos ou une vidéo<br><small>JPG, PNG ou MP4 · démonstration</small><input type="file" accept="image/*,video/*" multiple style="margin-top:12px">
+</div></div>
+</div></div>
+        <div class="wizard-step" data-step="4">
+<div class="preview-ad">
+<span class="ad-category">Cours &amp; formations</span><h3 id="previewTitle">Cours de guitare pour débutant</h3>
+<p>Je propose des cours conviviaux adaptés aux débutants.</p>
+<div class="fact-row">
+<span class="fact" id="previewAddress"><span class="public-location-note">Rennes · adresse exacte masquée</span></span><span class="fact">Échange sélectionné</span>
+</div>
+</div>
+<label class="terms" style="margin-top:20px"><input type="checkbox" id="acceptTerms"><span>J’accepte les <button type="button" class="inline-legal" data-legal-target="cgu">CGU</button> et les règles de la communauté SEOS.</span></label><div class="privacy-note">Les informations de l’annonce sont traitées pour sa publication et la mise en relation. <button type="button" data-legal-target="privacy">Voir les informations RGPD</button>.</div>
+</div>
+        <div class="wizard-foot">
+<button type="button" class="btn btn-outline" id="wizardPrev" disabled>← Précédent</button><button type="button" class="btn btn-blue" id="wizardNext">Continuer →</button>
+</div>
+</form>
+</div></section></main>
+
+    <main class="page" id="authPage" data-page="auth"><section class="auth-shell"><div class="auth-visual">
+<img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&amp;fit=crop&amp;w=1300&amp;q=88" alt="Communauté SEOS"><div class="auth-quote">
+<span class="eyebrow" style="color:#8edee7">Bienvenue</span><h2>Rejoignez celles et ceux qui font circuler l’entraide.</h2>
+</div>
+</div>
+<div class="auth-form"><div class="auth-card">
+<div class="auth-tabs">
+<button class="active" data-auth-tab="login">Connexion</button><button data-auth-tab="signup">Créer un compte</button>
+</div>
+<div id="loginForm">
+<h2 style="font-size:2.2rem">Heureux de vous revoir</h2>
+<div class="social-login">
+<button>G Continuer avec Google</button><button>f Continuer avec Facebook</button>
+</div>
+<div class="divider">ou</div>
+<div class="form-field">
+<label>E-mail</label><input class="control" type="email" value="camille@exemple.fr">
+</div>
+<div class="form-field" style="margin-top:12px">
+<label>Mot de passe</label><input class="control" type="password" value="motdepasse">
+</div>
+<button class="btn btn-deep btn-block" id="loginSubmit" style="margin-top:18px">Se connecter</button><p style="text-align:center;margin-top:18px"><strong>Pas encore de compte ?</strong> <a href="#" data-switch-signup="" style="color:var(--seos);font-weight:900">Créer un compte ici</a></p>
+</div>
+<div id="signupForm" style="display:none">
+<h2 style="font-size:2.2rem">Créer votre compte</h2>
+<div class="social-login">
+<button>G S’inscrire avec Google</button><button>f S’inscrire avec Facebook</button>
+</div>
+<div class="divider">ou</div>
+<div class="form-grid">
+<div class="form-field">
+<label>Prénom</label><input class="control" value="Camille">
+</div>
+<div class="form-field">
+<label>Nom</label><input class="control" value="Martin">
+</div>
+<div class="form-field full">
+<label>E-mail</label><input class="control" type="email" value="camille@exemple.fr">
+</div>
+<div class="form-field full">
+<label>Mot de passe</label><input class="control" type="password" value="motdepasse">
+</div>
+<div class="form-field full">
+<label>Téléphone facultatif</label><input class="control" placeholder="Visible uniquement si vous le décidez">
+</div>
+</div>
+<label class="captcha"><span><input type="checkbox" id="captchaCheck"> Je ne suis pas un robot</span><strong>CAPTCHA</strong></label><label class="terms"><input type="checkbox" id="signupTerms"><span>J’accepte les <button type="button" class="inline-legal" data-legal-target="cgu">conditions générales d’utilisation</button>.</span></label><label class="terms"><input type="checkbox" id="signupNewsletter"><span>Je souhaite recevoir les nouvelles de SEOS par e-mail (facultatif).</span></label><div class="privacy-note">Vos données servent à créer et gérer votre compte. Consultez la <button type="button" data-legal-target="privacy">politique de confidentialité</button> pour connaître vos droits.</div>
+<button class="btn btn-primary btn-block" id="signupSubmit" style="margin-top:18px">Créer mon compte et recevoir 30 PS</button>
+</div>
+</div></div></section></main>
+
+    <main class="page" id="dashboardPage" data-page="dashboard"><section class="subhero"><div class="container">
+<span class="eyebrow" style="color:#8edee7">Espace utilisateur</span><h1>Bonjour Camille.</h1>
+<p>Gérez vos annonces, vos échanges et toutes vos chaînes d’entraide au même endroit.</p>
+</div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="content"><div class="container dashboard">
+<aside class="side-menu"><button class="dash-nav active" data-dash="overview">Aperçu</button><button class="dash-nav" data-dash="ads">Mes annonces</button><button class="dash-nav" data-dash="quests">Quêtes <span class="count">4</span></button><button class="dash-nav" data-dash="wallet">Portefeuille</button><button class="dash-nav" data-dash="chains">Mes chaînes</button><button class="dash-nav" data-dash="favorites">Favoris</button><button class="dash-nav" data-dash="messages">Messagerie <span class="count">3</span></button><button class="dash-nav" data-dash="reviews">Avis reçus</button><button class="dash-nav" data-dash="profile">Profil &amp; paramètres</button><button class="dash-nav association-only" data-dash="volunteer">Voyage solidaire</button><button class="dash-nav" data-go="admin">Back-office démo</button></aside><div>
+        <section class="dash-panel active" id="dash-overview"><div class="dash-head">
+<div>
+<span class="eyebrow">Tableau de bord</span><h2 style="font-size:2.5rem">Votre activité</h2>
+</div>
+<button class="btn btn-primary" data-go="publish">＋ Publier une annonce</button>
+</div>
+<div class="dash-grid">
+<article class="dash-card wallet"><small>Mon portefeuille</small><div class="wallet-total">
+<span data-balance="">128</span> PS</div>
+<p>30 PS offerts à l’inscription</p>
+<button class="btn btn-light" data-dash-target="quests">Gagner des points</button></article><article class="dash-card"><small>Votre niveau</small><h3>Membre Argent</h3>
+<div class="progress"><i style="width:72%"></i></div>
+<p>72 % vers le niveau Gold</p>
+<small>Les niveaux modulent certaines récompenses et donnent accès aux Top annonces.</small></article><article class="dash-card"><small>On aurait besoin de vous</small><h3>Aide au jardin à 2 km</h3>
+<p>Marie cherche un coup de main samedi matin.</p>
+<button class="btn btn-outline" data-go="detail">Voir le besoin</button></article>
+</div>
+<article class="dash-card dashboard-chain-preview" data-chain-preview=""><div class="dash-head">
+<div>
+<small>Chaîne commencée</small><h3>Les voisins de Rennes</h3>
+<p>Votre coup de main circule déjà entre quatre membres.</p>
+</div>
+<button class="btn btn-light" data-dash-target="chains">Voir la chaîne complète →</button>
+</div>
+<div class="dashboard-chain-flow">
+<span class="dashboard-chain-member"><i>CM</i>Vous</span><b class="dashboard-chain-link"></b><span class="dashboard-chain-member"><i>LU</i>Luc</span><b class="dashboard-chain-link"></b><span class="dashboard-chain-member"><i>IN</i>Inès</span><b class="dashboard-chain-link"></b><span class="dashboard-chain-member"><i>SA</i>Sam</span>
+</div>
+<div class="dashboard-chain-progress">
+<div class="progress"><i style="width:64%"></i></div>
+<strong>4 services · 30 PS</strong>
+</div></article><div class="dash-card" style="margin-top:18px">
+<div class="dash-head">
+<h3>Activité récente</h3>
+<button class="btn btn-outline" data-dash-target="ads">Mes annonces</button>
+</div>
+<div class="transaction plus">
+<span>Quête : annonce publiée</span><b>+10 PS</b>
+</div>
+<div class="transaction minus">
+<span>Cours de guitare avec Sophie</span><b>−20 PS</b>
+</div>
+</div></section>
+        <section class="dash-panel" id="dash-ads"><div class="dash-head">
+<div>
+<span class="eyebrow">Gestion</span><h2 style="font-size:2.5rem">Mes annonces</h2>
+</div>
+<button class="btn btn-primary" data-go="publish">Nouvelle annonce</button>
+</div>
+<div class="ad-grid" id="myAds">
+<article class="ad-card" data-ad="0"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Cours d’anglais pour débutant"><span class="ad-badge top">Top annonce</span><button class="icon-btn ad-fav" data-favorite="0" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Cours &amp; formations</span><h3>Cours d’anglais pour débutant</h3>
+<p>Des séances conviviales et progressives, adaptées à votre niveau.</p>
+<div class="provider">
+<span class="avatar-letter">C</span><strong>Camille <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,8 sur 5">★ 4,8</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Rennes · 1.8 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>25 PS</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="0">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="3"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Cours de guitare"><span class="ad-badge">Offre</span><button class="icon-btn ad-fav" data-favorite="3" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Services créatifs</span><h3>Cours de guitare</h3>
+<p>Apprenez les bases à votre rythme dans une ambiance détendue.</p>
+<div class="provider">
+<span class="avatar-letter">S</span><strong>Sophie <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,7 sur 5">★ 4,7</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Rennes · 5.6 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>20 PS</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="3">Voir l’offre →</button>
+</div>
+</div></article>
+</div>
+<table class="admin-table" style="margin-top:18px">
+<thead><tr>
+<th>Annonce</th>
+<th>Statut</th>
+<th>Vues</th>
+<th>Actions</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Cours d’anglais</td>
+<td>Publiée</td>
+<td>128</td>
+<td>
+<button class="btn btn-outline edit-ad">Modifier</button> <button class="btn btn-outline top-request">Demander Top annonce</button>
+</td>
+</tr>
+<tr>
+<td>Cours de guitare</td>
+<td>En pause</td>
+<td>42</td>
+<td>
+<button class="btn btn-outline edit-ad">Modifier</button> <button class="btn btn-outline">Réactiver</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="notice" style="margin-top:18px">Les membres Argent et ceux ayant partagé SEOS peuvent demander une mise en avant « Top annonce ». La validation appartient à l’administration.</div></section>
+        <section class="dash-panel" id="dash-quests"><div class="dash-head">
+<div>
+<span class="eyebrow">Gagner des Points Services</span><h2 style="font-size:2.5rem">Mes quêtes</h2>
+</div>
+<span class="pill active">40 PS gagnés ce mois</span>
+</div>
+<div class="quest-list" id="questList">
+          <article class="quest done"><div class="quest-visual">
+<img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Annonce publiée"><span class="quest-status">Terminée</span><span class="quest-points">+10 PS</span>
+</div>
+<div class="quest-content">
+<strong>Publier une annonce</strong><small>Chaque nouvelle annonce complète un cycle.</small><div class="progress"><i style="width:100%"></i></div>
+<div class="quest-meta">
+<span>4 sur 4</span><b>Cycle terminé</b>
+</div>
+</div></article>
+          <article class="quest"><div class="quest-visual">
+<img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Écriture d’un témoignage"><span class="quest-status">À commencer</span><span class="quest-points">+15 PS</span>
+</div>
+<div class="quest-content">
+<strong>Faire un témoignage écrit</strong><small>Racontez un échange utile à la communauté.</small><div class="progress"><i style="width:0%"></i></div>
+<div class="quest-meta">
+<span>0 sur 1</span><span>Bonus Argent</span>
+</div>
+<button class="btn btn-deep quest-action" data-quest="written" data-reward="15">Commencer</button>
+</div></article>
+          <article class="quest"><div class="quest-visual">
+<img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Témoignage filmé"><span class="quest-status">À commencer</span><span class="quest-points">+25 PS</span>
+</div>
+<div class="quest-content">
+<strong>Faire un témoignage vidéo</strong><small>Partagez votre expérience dans une courte vidéo.</small><div class="progress"><i style="width:0%"></i></div>
+<div class="quest-meta">
+<span>0 sur 1</span><span>Bonus Argent</span>
+</div>
+<button class="btn btn-deep quest-action" data-quest="video" data-reward="25">Commencer</button>
+</div></article>
+          <article class="quest"><div class="quest-visual">
+<img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Partage sur les réseaux"><span class="quest-status">Mensuelle</span><span class="quest-points">+10 PS</span>
+</div>
+<div class="quest-content">
+<strong>Partager SEOS</strong><small>Publiez SEOS sur un réseau et ajoutez votre capture.</small><div class="progress"><i style="width:0%"></i></div>
+<div class="quest-meta">
+<span>0 sur 1</span><span>Ce mois-ci</span>
+</div>
+<button class="btn btn-deep quest-action" data-quest="share" data-reward="10">Partager</button>
+</div></article>
+          <article class="quest"><div class="quest-visual">
+<img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Réponses aux annonces"><span class="quest-status">En cours</span><span class="quest-points">+10 PS</span>
+</div>
+<div class="quest-content">
+<strong>Répondre à trois annonces</strong><small>Échangez avec des membres qui ont besoin de vous.</small><div class="progress"><i style="width:67%"></i></div>
+<div class="quest-meta">
+<span>2 sur 3</span><b>67 %</b>
+</div>
+</div></article>
+          <article class="quest"><div class="quest-visual">
+<img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Parrainage d’un membre"><span class="quest-status">À commencer</span><span class="quest-points">+15 PS</span>
+</div>
+<div class="quest-content">
+<strong>Parrainer une personne</strong><small>La récompense est accordée après son inscription.</small><div class="progress"><i style="width:0%"></i></div>
+<div class="quest-meta">
+<span>0 sur 1</span><span>Bonus Argent</span>
+</div>
+<button class="btn btn-deep quest-action" data-quest="referral" data-reward="15">Inviter</button>
+</div></article>
+          <article class="quest"><div class="quest-visual">
+<img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&amp;fit=crop&amp;w=700&amp;q=82" alt="Échanges entre membres"><span class="quest-status">En cours</span><span class="quest-points">+25 PS</span>
+</div>
+<div class="quest-content">
+<strong>Faire cinq échanges en PS</strong><small>Complétez une série d’échanges en Points Services.</small><div class="progress"><i style="width:60%"></i></div>
+<div class="quest-meta">
+<span>3 sur 5</span><b>60 %</b>
+</div>
+</div></article>
+        </div>
+<div class="dash-card" style="margin-top:18px">
+<div class="dash-head">
+<div>
+<h3>Niveaux et récompenses</h3>
+<p class="tiny">Le montant affiché dans les quêtes correspond au niveau actuel : Argent.</p>
+</div>
+<span class="pill active">Argent</span>
+</div>
+<table class="admin-table">
+<thead><tr>
+<th>Quête</th>
+<th>Bronze</th>
+<th>Argent</th>
+<th>Gold</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Témoignage écrit</td>
+<td>10 PS</td>
+<td><strong>15 PS</strong></td>
+<td>20 PS</td>
+</tr>
+<tr>
+<td>Témoignage vidéo</td>
+<td>20 PS</td>
+<td><strong>25 PS</strong></td>
+<td>30 PS</td>
+</tr>
+<tr>
+<td>Parrainage validé</td>
+<td>10 PS</td>
+<td><strong>15 PS</strong></td>
+<td>20 PS</td>
+</tr>
+<tr>
+<td>Chaque série de 5 échanges</td>
+<td>20 PS</td>
+<td><strong>25 PS</strong></td>
+<td>30 PS</td>
+</tr>
+</tbody>
+</table>
+<div class="notice" style="margin-top:14px">Le partage mensuel et la publication d’une annonce conservent leur récompense de base de 10 PS.</div>
+</div></section>
+        <section class="dash-panel" id="dash-wallet"><div class="dash-head">
+<div>
+<span class="eyebrow">Cagnotte personnelle</span><h2 style="font-size:2.5rem">Mon portefeuille</h2>
+</div>
+<div class="wallet-total">
+<span data-balance="">128</span> PS</div>
+</div>
+<div class="dash-card">
+<h3>Historique</h3>
+<div class="transaction plus">
+<span>Bonus d’inscription</span><b>+30 PS</b>
+</div>
+<div class="transaction plus">
+<span>Quête : annonce publiée</span><b>+10 PS</b>
+</div>
+<div class="transaction plus">
+<span>5 échanges réalisés</span><b>+20 PS</b>
+</div>
+<div class="transaction minus">
+<span>Cours de guitare</span><b>−20 PS</b>
+</div>
+<div class="transaction plus">
+<span>Chaîne « Voisins Rennes »</span><b>+10 PS</b>
+</div>
+</div>
+<div class="notice" style="margin-top:16px">Un bouton « Rétribuer » n’apparaît que si votre solde couvre le montant final convenu.</div></section>
+        <section class="dash-panel" id="dash-chains"><div class="dash-head">
+<div>
+<span class="eyebrow">Distinctes des annonces</span><h2 style="font-size:2.5rem">Mes chaînes d’entraide</h2>
+</div>
+<button class="btn btn-primary" data-go="chain">Démarrer une chaîne</button>
+</div>
+<article class="chain-card"><div class="dash-head">
+<div>
+<h3>Les voisins de Rennes</h3>
+<small>8 services validés · 6 membres · 30 PS gagnés</small>
+</div>
+<button class="btn btn-outline" data-copy-chain="">Copier mon lien</button>
+</div>
+<div class="chain-flow">
+<div class="chain-person gold">Vous<small>Courses pour Luc</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">Luc<small>Jardinage pour Inès</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">Inès<small>Cours pour Sam</small><span class="coin">10</span>
+</div>
+</div></article></section>
+        <section class="dash-panel" id="dash-favorites"><div class="dash-head"><h2 style="font-size:2.5rem">Mes favoris</h2></div>
+<div class="ad-grid" id="favoriteAds">
+<article class="ad-card" data-ad="1"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Aide pour monter un meuble"><span class="ad-badge">Offre</span><button class="icon-btn ad-fav" data-favorite="1" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Habitation &amp; bricolage</span><h3>Aide pour monter un meuble</h3>
+<p>Un coup de main soigneux pour assembler votre mobilier.</p>
+<div class="provider">
+<span class="avatar-letter">T</span><strong>Thomas <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,6 sur 5">★ 4,6</span></strong>
+</div>
+<div class="fact-row"><span class="fact">⌖ Nantes · 3.4 km</span></div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>Échange libre</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="1">Voir l’offre →</button>
+</div>
+</div></article><article class="ad-card" data-ad="4"><div class="ad-image">
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;w=900&amp;q=84" alt="Création complète d’un site associatif"><span class="ad-badge">Offre</span><button class="icon-btn ad-fav" data-favorite="4" aria-label="Favori">♡</button>
+</div>
+<div class="ad-body">
+<span class="ad-category">Informatique</span><h3>Création complète d’un site associatif</h3>
+<p>Conception et accompagnement pour votre site vitrine.</p>
+<div class="provider">
+<span class="avatar-letter">M</span><strong>Marc <span class="verified">✓</span><span class="provider-rating" aria-label="Note 4,9 sur 5">★ 4,9</span></strong>
+</div>
+<div class="fact-row">
+<span class="fact">⌖ Brest · 78 km</span><span class="fact">⌁ À distance</span>
+</div>
+<div class="ad-foot">
+<div class="ad-price">
+<small>Mode d’échange</small><strong>180 PS</strong>
+</div>
+<button class="btn btn-deep" data-open-ad="4">Voir l’offre →</button>
+</div>
+</div></article>
+</div></section>
+        <section class="dash-panel" id="dash-messages"><div class="dash-head">
+<h2 style="font-size:2.5rem">Messagerie interne</h2>
+<span class="pill active">3 non lus</span>
+</div>
+<div class="message-layout">
+<div class="thread-list">
+<div class="thread active">
+<strong>Thomas</strong><small>Le meuble est prêt…</small>
+</div>
+<div class="thread">
+<strong>Marie</strong><small>Merci pour votre réponse !</small>
+</div>
+<div class="thread">
+<strong>Sophie</strong><small>Mercredi me convient.</small>
+</div>
+</div>
+<div class="conversation">
+<h3>Thomas · Montage de meuble</h3>
+<div class="bubble">Bonjour Camille, samedi vous conviendrait ?</div>
+<div class="bubble me">Oui, vers 10 h. On confirme après le service.</div>
+<div class="bubble">Parfait, merci !</div>
+<div class="form-field">
+<label>Votre message</label><textarea class="control" id="messageText" placeholder="Écrivez votre message…"></textarea>
+</div>
+<button class="btn btn-deep" id="sendInternal">Envoyer</button><div class="privacy-note contextual">Les messages sont accessibles uniquement aux membres concernés et aux personnes habilitées en cas de signalement. <button type="button" data-legal-target="privacy">En savoir plus</button>.</div>
+</div>
+</div></section>
+        <section class="dash-panel" id="dash-reviews"><div class="dash-head">
+<h2 style="font-size:2.5rem">Avis reçus</h2>
+<span class="pill active">4,8 / 5</span>
+</div>
+<div class="dash-card">
+<article class="review"><strong>Amina · échange vérifié · 5/5</strong><p>Camille explique clairement et met à l’aise.</p></article><article class="review"><strong>Luc · échange vérifié · 4,7/5</strong><p>Très bon échange, je recommande.</p></article>
+</div></section>
+        <section class="dash-panel" id="dash-profile"><div class="dash-head"><h2 style="font-size:2.5rem">Profil et paramètres</h2></div>
+<div class="dash-card form-grid">
+<div class="form-field full">
+<label>Photo de profil</label><div class="profile-photo-field">
+<div class="profile-photo-preview" id="profilePhotoPreview">C</div>
+<div class="profile-photo-copy">
+<strong>Personnalisez votre avatar</strong><p>JPG ou PNG · la photo sera affichée dans votre profil et la navigation.</p>
+<input id="profilePhotoInput" type="file" accept="image/jpeg,image/png"><div class="privacy-note contextual">La photo est facultative. Évitez tout document ou information sensible dans l’image. <button type="button" data-legal-target="privacy">En savoir plus</button>.</div>
+</div>
+</div>
+</div>
+<div class="form-field">
+<label>Prénom</label><input class="control" value="Camille">
+</div>
+<div class="form-field">
+<label>Nom</label><input class="control" value="Martin">
+</div>
+<div class="form-field">
+<label>E-mail</label><input class="control" value="camille@exemple.fr">
+</div>
+<div class="form-field">
+<label>Téléphone facultatif</label><input class="control" value="06 12 34 56 78">
+</div>
+<div class="form-field full">
+<label>Adresse enregistrée</label><input class="control" id="profileAddress" autocomplete="street-address" value="12 rue de la Monnaie, 35000 Rennes"><small>Elle préremplit automatiquement l’adresse lors de la publication d’une annonce.</small>
+</div>
+<div class="form-field full">
+<label>Bio</label><textarea class="control">Passionnée d’anglais et de pédagogie.</textarea>
+</div>
+<div class="form-field">
+<label>Nouveau mot de passe</label><input class="control" type="password">
+</div>
+<div class="form-field">
+<label>Visibilité du téléphone</label><select class="control"><option>Seulement après mon accord</option>
+<option>Membres connectés</option>
+<option>Personne</option></select>
+</div>
+<button class="btn btn-deep" id="saveProfile">Enregistrer</button><section class="data-actions"><span class="eyebrow">Vos données</span><h3>Confidentialité et droits RGPD</h3>
+<p>Accédez à vos informations, corrigez-les ou formulez une demande concernant votre compte.</p>
+<div class="data-action-grid">
+<button class="btn btn-outline" type="button" data-data-action="export">Télécharger mes données</button><button class="btn btn-outline" type="button" data-data-action="rectify">Demander une rectification</button><button class="btn btn-outline" type="button" data-data-action="erase">Demander l’effacement</button><button class="btn btn-deep" type="button" data-cookie-manage="">Gérer mes cookies</button><button class="btn btn-outline" type="button" data-data-action="limit">Limiter un traitement</button><button class="btn btn-outline" type="button" data-data-action="object">M’opposer à un traitement</button><button class="btn btn-outline" type="button" data-data-action="withdraw">Retirer un consentement</button>
+</div></section>
+</div></section>
+        <section class="dash-panel" id="dash-volunteer"><div class="dash-head">
+<div>
+<span class="eyebrow">Compte Association</span><h2 style="font-size:2.5rem">Créer une mission solidaire</h2>
+</div>
+<span class="pill active">Accès accordé</span>
+</div>
+<div class="dash-card form-grid">
+<div class="form-field full">
+<label>Titre de la mission</label><input class="control" value="Éco-lieu cherche bénévoles pour l’été">
+</div>
+<div class="form-field">
+<label>Pays et région</label><input class="control" value="France · Ardèche">
+</div>
+<div class="form-field">
+<label>Adresse et accès</label><input class="control" value="À 20 min de Privas · bus puis navette">
+</div>
+<div class="form-field">
+<label>Dates et durée minimale</label><input class="control" value="Juin à septembre · minimum 2 semaines">
+</div>
+<div class="form-field">
+<label>Heures d’aide et jours libres</label><input class="control" value="5 h/jour · 2 jours libres/semaine">
+</div>
+<div class="form-field">
+<label>Langues parlées</label><input class="control" value="Français, anglais">
+</div>
+<div class="form-field">
+<label>Contribution demandée par jour</label><input class="control" id="dailyContribution" type="number" max="15" value="10">
+</div>
+<div class="form-field">
+<label>Nombre de bénévoles recherchés</label><input class="control" type="number" value="4">
+</div>
+<div class="form-field full">
+<label>Mission et compétences utiles</label><textarea class="control">Jardinage, cuisine collective, accueil des visiteurs. Débutants acceptés et accompagnés.</textarea>
+</div>
+<div class="form-field full">
+<label>Hébergement, repas et conditions</label><textarea class="control">Chambre partagée, trois repas inclus, accès internet et espaces communs.</textarea>
+</div>
+<div class="form-field full">
+<label>Photos de la mission et de l’hébergement</label><div class="upload-box">＋ Ajouter des photos<input type="file" accept="image/*" multiple style="margin-top:10px">
+</div>
+</div>
+<div class="notice full">Les associations ne peuvent pas demander plus de 15 € par jour. Ces annonces restent actives jusqu’à leur suppression par l’association ou l’administration.</div>
+<button class="btn btn-primary" id="publishTravel">Publier la mission</button><div class="privacy-note contextual">Les informations de mission sont utilisées pour publier et modérer l’annonce. L’adresse précise doit rester limitée aux personnes qui en ont besoin. <button type="button" data-legal-target="privacy">En savoir plus</button>.</div>
+</div></section>
+      </div>
+</div></section></main>
+
+    <main class="page" id="chainPage" data-page="chain"><section class="subhero"><div class="container">
+<span class="eyebrow" style="color:#8edee7">Chaîne d’entraide</span><h1>Un service rendu<br>en libère un autre.</h1>
+<p>La personne aidée peut ne pas encore appartenir à SEOS : votre lien lui permet de s’inscrire ou se connecter, puis de valider simplement le service.</p>
+</div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="content"><div class="container">
+<div class="chain-home">
+<div>
+<span class="eyebrow">Comment ça fonctionne</span><h2>De A vers B,<br>puis de B vers C.</h2>
+<ol>
+<li>A rend un service à B et renseigne sa nature.</li>
+<li>A partage son lien personnel à B.</li>
+<li>B s’inscrit ou se connecte, puis valide le service reçu.</li>
+<li>A gagne 10 PS. B aide ensuite C avec son propre lien.</li>
+<li>À chaque validation, seuls les dix derniers membres gagnent 10 PS, avec un maximum de 100 PS chacun.</li>
+</ol>
+</div>
+<div class="dash-card">
+<h3>Démarrer une nouvelle chaîne</h3>
+<div class="form-field">
+<label>Nature du service rendu</label><input class="control" id="chainService" value="Aide pour faire les courses">
+</div>
+<div class="form-field" style="margin-top:14px">
+<label>E-mail ou téléphone du bénéficiaire</label><input class="control" id="chainRecipient" placeholder="La personne pourra s’inscrire via le lien">
+</div>
+<label class="terms" style="margin:15px 0"><input type="checkbox" id="chainConfirm"><span>Je confirme avoir réellement rendu ce service.</span></label><button class="btn btn-primary btn-block" id="createChain">Créer mon lien de validation</button><div class="notice" id="chainLinkResult" style="display:none;margin-top:14px">Lien créé : <strong>seos.fr/chaine/CM-2048</strong><br><button class="text-link" data-copy-chain="">Copier le lien</button>
+</div>
+<div class="privacy-note contextual">La coordonnée du bénéficiaire sert uniquement à lui transmettre le lien. Comme elle est fournie par un tiers, la personne sera informée dès le premier contact. <button type="button" data-legal-target="privacy">En savoir plus</button>.</div>
+</div>
+</div>
+<div class="section" style="padding-bottom:0">
+<div class="section-head">
+<div>
+<span class="eyebrow">La plus grande chaîne du site</span><h2>Chaque maillon raconte un service.</h2>
+</div>
+<p>Les membres voient l’avancement de toutes leurs chaînes dans leur espace utilisateur.</p>
+</div>
+<div class="chain-flow">
+<div class="chain-person gold">Marc<small>répare le vélo d’Amina</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">Amina<small>cours de maths à Fatou</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">Fatou<small>garde les enfants de Lucie</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">Lucie<small>transporte Paul</small><span class="coin">10</span>
+</div>
+<i class="chain-link"></i><div class="chain-person">Paul<small>taille la haie de Marc</small><span class="coin">10</span>
+</div>
+</div>
+<div class="notice">5 services rendus · 50 PS distribués · les dix derniers maillons restent récompensés.</div>
+</div>
+</div></section></main>
+
+    <main class="page" id="travelPage" data-page="travel"><section class="travel-hero"><div class="travel-copy">
+<span class="eyebrow" style="color:#8edee7">Voyage solidaire</span><h1>Voyager,<br><span class="accent">aider, rencontrer.</span>
+</h1>
+<p style="color:#d2e7eb">Des missions publiées exclusivement par des associations vérifiées par SEOS.</p>
+<div class="notice">Contribution autorisée : 15 € maximum par jour.</div>
+</div>
+<div class="travel-photo"><img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&amp;fit=crop&amp;w=1300&amp;q=88" alt="Voyage solidaire"></div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="section"><div class="container">
+<div class="section-head">
+<div>
+<span class="eyebrow">Missions ouvertes</span><h2>Donnez un peu de temps,<br>vivez beaucoup.</h2>
+</div>
+<p>Ces annonces ne sont pas supprimées automatiquement. Seules l’association concernée ou l’administration peuvent les retirer.</p>
+</div>
+<div class="travel-grid">
+<article class="travel-card"><div class="photo"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Éco-lieu"></div>
+<div class="body">
+<span class="ad-category">Association vérifiée · Ardèche</span><h3>Participer à un éco-lieu</h3>
+<p>Jardinage, cuisine collective et accueil.</p>
+<strong>10 €/jour · Chambre et repas inclus</strong>
+</div></article><article class="travel-card"><div class="photo"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Projet éducatif"></div>
+<div class="body">
+<span class="ad-category">Association vérifiée · Belgique</span><h3>Soutien à un projet éducatif</h3>
+<p>Animation et aide aux devoirs.</p>
+<strong>0 €/jour · Repas inclus</strong>
+</div></article><article class="travel-card"><div class="photo"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Refuge"></div>
+<div class="body">
+<span class="ad-category">Association vérifiée · Suisse</span><h3>Aider dans un refuge</h3>
+<p>Accueil, entretien et cuisine.</p>
+<strong>15 €/jour · Hébergement inclus</strong>
+</div></article>
+</div>
+</div></section></main>
+
+    <main class="page" id="adminPage" data-page="admin"><section class="subhero"><div class="container">
+<span class="eyebrow" style="color:#8edee7">Back-office · démonstration</span><h1>Administration SEOS</h1>
+<p>Activation des rubriques, comptes Association, mises en avant et modération.</p>
+</div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="content"><div class="container">
+<div class="dash-grid">
+<article class="dash-card"><small>Voyage solidaire</small><h3>Afficher dans la navigation</h3>
+<p>5 annonces sont disponibles.</p>
+<button class="switch on" id="travelToggle" aria-label="Activer Voyage solidaire"><i></i></button></article><article class="dash-card"><small>Demandes</small><h3>Top annonces</h3>
+<div class="wallet-total" style="font-size:2.5rem">3</div>
+<p>En attente de validation</p></article><article class="dash-card"><small>Modération</small><h3>Signalements</h3>
+<div class="wallet-total" style="font-size:2.5rem">2</div>
+<p>À traiter sous 48 h</p></article>
+</div>
+<div class="section" style="padding-bottom:20px">
+<div class="dash-head">
+<h2 style="font-size:2.5rem">Comptes Association</h2>
+<button class="btn btn-primary" id="grantAssociation">Accorder l’accès à Camille</button>
+</div>
+<table class="admin-table">
+<thead><tr>
+<th>Organisation</th>
+<th>Pays</th>
+<th>Statut</th>
+<th>Action</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Les Jardins solidaires</td>
+<td>France</td>
+<td>Vérifiée</td>
+<td><button class="btn btn-outline">Gérer</button></td>
+</tr>
+<tr>
+<td>Maison des jeunes</td>
+<td>Belgique</td>
+<td>À vérifier</td>
+<td><button class="btn btn-deep">Valider</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" style="padding:20px 0">
+<div class="dash-head"><h2 style="font-size:2.5rem">Demandes « Top annonce »</h2></div>
+<table class="admin-table">
+<thead><tr>
+<th>Annonce</th>
+<th>Membre</th>
+<th>Éligibilité</th>
+<th>Action</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Cours d’anglais</td>
+<td>Camille · Argent</td>
+<td>Niveau Argent</td>
+<td><button class="btn btn-primary admin-action">Approuver</button></td>
+</tr>
+<tr>
+<td>Aide au déménagement</td>
+<td>Luc · Bronze</td>
+<td>Partage SEOS validé</td>
+<td><button class="btn btn-primary admin-action">Approuver</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" style="padding:20px 0">
+<div class="dash-head"><h2 style="font-size:2.5rem">Signalements</h2></div>
+<table class="admin-table">
+<thead><tr>
+<th>Annonce</th>
+<th>Motif</th>
+<th>Délai</th>
+<th>Action</th>
+</tr></thead>
+<tbody><tr>
+<td>Transport longue distance</td>
+<td>Informations incomplètes</td>
+<td>22 h restantes</td>
+<td><button class="btn btn-danger admin-action">Examiner</button></td>
+</tr></tbody>
+</table>
+</div>
+</div></section></main>
+    <main class="page" id="chainValidationPage" data-page="chain-validation"><section class="subhero"><div class="container">
+<span class="eyebrow" style="color:#8edee7">Lien reçu</span><h1>Validez le service<br>rendu par Camille.</h1>
+<p>Vous pouvez créer un compte ou vous connecter avant de confirmer la nature du service.</p>
+</div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="content"><div class="container"><div class="recipient-card">
+<span class="eyebrow">Étape bénéficiaire</span><h2 style="font-size:2.4rem">Aide pour faire les courses</h2>
+<p><strong>Camille Martin</strong> indique vous avoir rendu ce service aujourd’hui.</p>
+<div class="social-login">
+<button data-recipient-auth="">G Continuer avec Google</button><button data-recipient-auth="">f Continuer avec Facebook</button>
+</div>
+<div class="divider">ou</div>
+<button class="btn btn-outline btn-block" data-recipient-auth="">Créer un compte / se connecter par e-mail</button><label class="terms" style="margin:22px 0"><input type="checkbox" id="recipientConfirm"><span>Je confirme avoir reçu ce service et que sa nature est correctement décrite.</span></label><button class="btn btn-primary btn-block" id="validateChainService">Valider le service reçu</button><div class="notice" id="recipientSuccess" style="display:none;margin-top:18px">
+<strong>Service validé.</strong> Camille reçoit immédiatement 10 PS et la chaîne est mise à jour dans vos deux espaces.</div>
+<button class="text-link" data-go="chain" style="margin-top:18px">Retour à la chaîne</button><div class="privacy-note contextual">Les données de validation servent à prouver le service et à attribuer les Points Services. <button type="button" data-legal-target="privacy">En savoir plus</button>.</div>
+</div></div></section></main>
+
+    <main class="page" id="legalPage" data-page="legal"><section class="subhero"><div class="container">
+<span class="eyebrow" style="color:#8edee7">Transparence &amp; confiance</span><h1>Le centre légal<br>de SEOS.</h1>
+<p>Retrouvez les règles du service, la gestion de vos données et vos choix de confidentialité.</p>
+</div>
+<div class="page-hero-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 286" preserveaspectratio="none"><path class="page-cut-soft" fill="#cdae4f" d="M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z"></path><path fill="#fbfaf4" d="M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z"></path></svg></div></section><section class="content"><div class="container">
+<div class="notice" style="margin-bottom:28px">
+<strong>Maquette à finaliser avant mise en ligne :</strong> les éléments surlignés « à compléter » doivent être renseignés puis validés par le responsable juridique de SEOS.</div>
+<div class="legal-shell">
+<nav class="legal-nav" aria-label="Documents juridiques"><button data-legal-scroll="cgu">Conditions d’utilisation</button><button data-legal-scroll="privacy">Confidentialité &amp; RGPD</button><button data-legal-scroll="cookies">Cookies</button><button data-legal-scroll="mentions">Mentions légales</button></nav><div class="legal-docs">
+      <article class="legal-doc" id="legal-cgu"><span class="eyebrow">CGU</span><h2>Conditions générales d’utilisation</h2>
+<div class="legal-meta">
+<span class="pill active">Version de travail</span><span class="pill">Mise à jour : 28 août 2026</span>
+</div>
+<p>Les présentes conditions encadrent l’accès à SEOS et l’utilisation des services d’entraide, de don, d’échange et de Points Services.</p>
+<h3>Compte et accès</h3>
+<p>Chaque membre fournit des informations exactes, protège ses identifiants et reste responsable de son compte. L’âge minimum, le territoire couvert et les modalités propres aux comptes Association devront être confirmés.</p>
+<h3>Échanges et Points Services</h3>
+<p>SEOS facilite la mise en relation. Les membres conviennent ensemble des modalités du service. Les Points Services sont une unité interne, sans valeur monétaire et non convertible en euros.</p>
+<h3>Comportements interdits</h3>
+<ul>
+<li>Contenus trompeurs, discriminatoires, dangereux ou contraires à la loi.</li>
+<li>Vente dissimulée, sollicitation abusive ou contournement des mesures de sécurité.</li>
+<li>Faux avis, fausses validations de services ou manipulation des récompenses.</li>
+</ul>
+<h3>Modération, responsabilité et fermeture</h3>
+<p>SEOS peut modérer, suspendre ou retirer un contenu ou un compte en cas de manquement. Les règles de preuve, de contestation, de responsabilité et de résiliation devront être validées dans la version définitive.</p></article>
+      <article class="legal-doc" id="legal-privacy"><span class="eyebrow">RGPD</span><h2>Politique de confidentialité</h2>
+<div class="legal-meta"><span class="pill active">Information des personnes</span></div>
+<p>Responsable du traitement : <span class="legal-placeholder">[nom et coordonnées à compléter]</span>. Contact données personnelles / DPO : <span class="legal-placeholder">[contact à compléter]</span>.</p>
+<h3>Données, finalités et bases juridiques</h3>
+<ul>
+<li>
+<strong>Compte et authentification :</strong> identité, e-mail et sécurité du compte — exécution du service.</li>
+<li>
+<strong>Annonces et échanges :</strong> contenus, localisation choisie, messages et validations — exécution du service.</li>
+<li>
+<strong>Sécurité et modération :</strong> signalements et journaux techniques — intérêt légitime et obligations légales selon les cas.</li>
+<li>
+<strong>Actualités SEOS :</strong> e-mail — consentement facultatif, retirable à tout moment.</li>
+</ul>
+<h3>Destinataires et conservation</h3>
+<p>Les équipes habilitées de SEOS et ses prestataires strictement nécessaires peuvent recevoir les données. Les durées précises par catégorie et les éventuels transferts hors Union européenne doivent être documentés avant publication.</p>
+<h3>Vos droits</h3>
+<p>Vous pouvez demander l’accès, la rectification, l’effacement, la limitation, l’opposition et, lorsque applicable, la portabilité de vos données. Vous pouvez retirer votre consentement à tout moment et saisir la CNIL.</p>
+<h3>Contact</h3>
+<p>Adressez votre demande à <span class="legal-placeholder">[adresse RGPD à compléter]</span>. Une vérification d’identité proportionnée pourra être demandée.</p>
+<section id="rgpdTreatmentMatrix"><h3>Registre public simplifié des traitements</h3>
+<p>Cette synthèse rend les principaux traitements compréhensibles. Le registre interne complet reste obligatoire.</p>
+<div class="legal-table-wrap"><table class="legal-table">
+<thead><tr>
+<th>Traitement</th>
+<th>Base envisagée</th>
+<th>Données principales</th>
+<th>Conservation proposée</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Compte et authentification</td>
+<td>Exécution des CGU</td>
+<td>Identité, e-mail, sécurité</td>
+<td>Vie du compte, puis archivage limité pour les litiges <span class="legal-status">à valider</span>
+</td>
+</tr>
+<tr>
+<td>Annonces, messages et échanges</td>
+<td>Exécution du service</td>
+<td>Contenus, zone géographique, messages</td>
+<td>Durée utile à l’échange, puis suppression ou archivage limité <span class="legal-status">à valider</span>
+</td>
+</tr>
+<tr>
+<td>Modération et prévention de la fraude</td>
+<td>Intérêt légitime documenté</td>
+<td>Signalements, preuves et journaux</td>
+<td>Durée proportionnée au risque et aux contestations <span class="legal-status">à valider</span>
+</td>
+</tr>
+<tr>
+<td>Newsletter</td>
+<td>Consentement</td>
+<td>E-mail, preuve du choix</td>
+<td>Jusqu’au retrait, avec renouvellement périodique <span class="legal-status">à valider</span>
+</td>
+</tr>
+<tr>
+<td>Pièce d’identité, si nécessaire</td>
+<td>Base à confirmer selon le dispositif</td>
+<td>Document et résultat de vérification</td>
+<td>Document supprimé après vérification ; résultat strictement limité <span class="legal-status">à valider</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Localisation et minimisation</h3>
+<p>L’adresse complète reste privée dans le compte. Les annonces publiques n’affichent que la commune ou une zone approximative. L’adresse exacte n’est transmise qu’après accord du membre lorsque la rencontre l’exige.</p>
+<h3>Niveaux, notes et récompenses</h3>
+<p>Les niveaux et Points Services reposent sur des règles déterminées : échanges validés, quêtes réalisées et avis reçus. Ils n’entraînent pas de décision produisant un effet juridique. Les mises en avant « Top annonce » restent soumises à une validation humaine et peuvent être contestées.</p>
+<h3>Mineurs</h3>
+<p><span class="legal-placeholder">Règle produit à valider avant lancement</span> : définir un âge minimal, un parcours parental si des mineurs sont admis et une information rédigée dans un langage adapté.</p>
+<h3>Prestataires et transferts</h3>
+<div class="legal-table-wrap"><table class="legal-table">
+<thead><tr>
+<th>Service</th>
+<th>Usage</th>
+<th>Statut avant production</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Hébergeur et base de données</td>
+<td>Fonctionnement du service</td>
+<td><span class="legal-status">prestataire à renseigner</span></td>
+</tr>
+<tr>
+<td>Messagerie et e-mails</td>
+<td>Notifications et échanges</td>
+<td><span class="legal-status">contrat art. 28 à vérifier</span></td>
+</tr>
+<tr>
+<td>Google / Facebook</td>
+<td>Connexion sociale facultative</td>
+<td><span class="legal-status">transferts et garanties à documenter</span></td>
+</tr>
+<tr>
+<td>Médias de démonstration</td>
+<td>Photographies et vidéos</td>
+<td><span class="legal-status">à auto-héberger ou encadrer</span></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Checklist avant mise en ligne</h3>
+<div class="compliance-checklist">
+<div class="compliance-item pending">
+<i>!</i><div>
+<strong>Identité juridique et contact RGPD</strong><br>Remplacer tous les champs « à compléter ».</div>
+</div>
+<div class="compliance-item pending">
+<i>!</i><div>
+<strong>Registre, contrats et AIPD</strong><br>Documenter les traitements, sous-traitants et risques avant déploiement.</div>
+</div>
+<div class="compliance-item pending">
+<i>!</i><div>
+<strong>Sécurité et violations</strong><br>HTTPS, mots de passe hachés, contrôle d’accès, sauvegardes et procédure d’incident.</div>
+</div>
+<div class="compliance-item ready">
+<i>✓</i><div>
+<strong>Interface par niveaux</strong><br>Mentions courtes dans les formulaires et politique détaillée accessible.</div>
+</div>
+</div></section></article>
+      <article class="legal-doc" id="legal-cookies"><span class="eyebrow">Préférences</span><h2>Cookies et traceurs</h2>
+<p>Les traceurs strictement nécessaires assurent le fonctionnement et la sécurité du site. Les traceurs de mesure d’audience ou de médias externes restent désactivés tant que vous ne les acceptez pas.</p>
+<h3>Un choix libre et réversible</h3>
+<p>Vous pouvez tout accepter, tout refuser ou choisir par finalité. Le lien « Gérer mes cookies » reste disponible dans le pied de page.</p>
+<div class="notice" id="cookieConsentStatus" style="margin:16px 0">Aucun choix enregistré</div>
+<button class="btn btn-deep" type="button" data-cookie-manage="">Gérer mes cookies</button></article>
+      <article class="legal-doc" id="legal-mentions"><span class="eyebrow">Éditeur</span><h2>Mentions légales</h2>
+<p><strong>Éditeur :</strong> <span class="legal-placeholder">[nom, forme juridique, capital et adresse à compléter]</span></p>
+<p><strong>Immatriculation :</strong> <span class="legal-placeholder">[SIREN / RCS / RNA à compléter]</span></p>
+<p><strong>Directeur de la publication :</strong> <span class="legal-placeholder">[nom à compléter]</span></p>
+<p><strong>Contact :</strong> <span class="legal-placeholder">[e-mail et téléphone à compléter]</span></p>
+<p><strong>Hébergeur :</strong> <span class="legal-placeholder">[nom, adresse et téléphone à compléter]</span></p>
+<p><strong>Propriété intellectuelle :</strong> les textes, signes distinctifs, interfaces et médias sont protégés selon les droits applicables. Les crédits des photographies et licences devront être consignés dans la version de production.</p></article>
+    </div>
+</div>
+</div></section></main>
+  </div>
+  <footer id="siteFooter"><div class="footer-organic-cut" aria-hidden="true"><svg viewbox="0 0 1440 170" preserveaspectratio="none"><rect width="1440" height="170" fill="var(--footer-source)"></rect><path class="footer-soft" fill="#21a2af" d="M0 92 C184 18 350 6 532 82 C708 156 864 164 1028 88 C1190 14 1328 34 1440 96 L1440 170 L0 170 Z"></path><path fill="#002f40" d="M0 118 C176 42 350 24 526 96 C702 168 864 174 1024 104 C1180 36 1326 50 1440 116 L1440 170 L0 170 Z"></path></svg></div>
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" data-go="home"><span class="brand-mark"></span>SEOS</a><p style="color:#bcd7dd;max-width:290px">La communauté francophone d’entraide et d’échange de services.</p>
+</div>
+<div>
+<strong>Découvrir</strong><a data-go="home">Le concept</a><a data-go="listings">Les annonces</a><a data-go="chain">Chaîne d’entraide</a>
+</div>
+<div>
+<strong>Participer</strong><a data-go="publish">Publier</a><a data-go="travel">Voyage solidaire</a><a data-go="dashboard">Mon espace</a>
+</div>
+<div>
+<strong>Confiance</strong><a data-scroll-home="security">Sécurité</a><a data-legal-target="cgu">Règles et CGU</a><a data-go="legal">Centre légal</a>
+</div>
+<div>
+<strong>Informations légales</strong><a data-legal-target="mentions">Mentions légales</a><a data-legal-target="privacy">Confidentialité &amp; RGPD</a><a data-legal-target="cookies">Cookies</a><a data-cookie-manage="">Gérer mes cookies</a>
+</div>
+</div>
+<div class="footer-bottom">© 2026 SEOS · Tous droits réservés.</div>
+</div></footer>
+  <section class="cookie-banner active" id="cookieBanner" role="dialog" aria-modal="false" aria-labelledby="cookieTitle"><div>
+<h2 id="cookieTitle">Vos choix de confidentialité</h2>
+<p>SEOS utilise des traceurs nécessaires au fonctionnement. Avec votre accord, des traceurs de mesure d’audience et de médias externes peuvent aussi être activés. Vous pouvez modifier votre choix à tout moment.</p>
+</div>
+<div class="cookie-actions">
+<button class="btn btn-outline" type="button" data-cookie-reject="">Tout refuser</button><button class="btn btn-light" type="button" data-cookie-custom="">Personnaliser</button><button class="btn btn-primary" type="button" data-cookie-accept="">Tout accepter</button>
+</div>
+<div class="cookie-panel" id="cookiePanel">
+<label class="cookie-row"><span><strong>Nécessaires</strong><small>Connexion, sécurité et préférences indispensables.</small></span><input type="checkbox" checked disabled></label><label class="cookie-row"><span><strong>Mesure d’audience</strong><small>Comprendre l’utilisation du site pour l’améliorer.</small></span><input type="checkbox" id="cookieAnalytics"></label><label class="cookie-row"><span><strong>Médias externes</strong><small>Afficher des contenus vidéo ou sociaux tiers.</small></span><input type="checkbox" id="cookieMedia"></label><div class="cookie-actions"><button class="btn btn-primary" type="button" data-cookie-save="">Enregistrer mes choix</button></div>
+</div></section>
+  <div id="modalRoot"></div>
+  <div class="toast" id="toast" aria-live="polite"></div>
+  
+
+
+</body>
+</html>

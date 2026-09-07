@@ -1,27 +1,27 @@
+<% chrome = site_chrome("header") %>
 <header class="topbar">
   <nav class="container nav" aria-label="Navigation principale">
-    <%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag "seos-logo.png", alt: "SEOS", width: 108, height: 38 %><% end %>
-    <div class="nav-links"><%= link_to "Les annonces", listings_path %><%= link_to "Le journal", journal_path %></div>
+    <%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag site_image_path(chrome["logo"]), alt: chrome["alt"], width: 108, height: 38 %><% end %>
+    <div class="nav-links"><% chrome["links"].each do |link| %><%= link_to link["label"], link["url"] %><% end %></div>
     <div class="nav-actions">
       <% if user_signed_in? %>
         <details class="disclosure" data-controller="disclosure" data-action="keydown@window->disclosure#close click@window->disclosure#close">
-          <summary>Mon espace</summary>
+          <summary><%= chrome["account_label"] %></summary>
           <div class="menu-panel">
             <%= link_to "Mon compte", account_root_path %><%= link_to "Mes sessions", account_login_sessions_path %>
-            <% if policy(:administration).show? %><%= link_to "Administration", admin_root_path %><% end %>
-            <% if policy(:administration).super_admin? %><%= link_to "Super-administration", super_admin_root_path %><% end %>
+            <% if policy(:administration).show? %><%= link_to "Studio admin", admin_root_path %><% end %>
             <%= button_to "Déconnexion", destroy_user_session_path, method: :delete %>
           </div>
         </details>
       <% else %>
-        <%= link_to "Connexion", new_user_session_path, class: "login-link" %>
-        <%= link_to "Rejoindre SEOS", new_user_registration_path, class: "btn btn-primary" %>
+        <%= link_to chrome["login_label"], new_user_session_path, class: "login-link" %>
+        <%= link_to chrome["join_label"], new_user_registration_path, class: "btn btn-primary" %>
       <% end %>
       <details class="disclosure mobile-navigation" data-controller="disclosure" data-action="keydown@window->disclosure#close click@window->disclosure#close">
         <summary>Menu</summary>
         <div class="menu-panel">
-          <%= link_to "Les annonces", listings_path %><%= link_to "Le journal", journal_path %>
-          <% unless user_signed_in? %><%= link_to "Connexion", new_user_session_path %><%= link_to "Créer un compte", new_user_registration_path %><% end %>
+          <% chrome["links"].each do |link| %><%= link_to link["label"], link["url"] %><% end %>
+          <% unless user_signed_in? %><%= link_to chrome["login_label"], new_user_session_path %><%= link_to chrome["mobile_join_label"], new_user_registration_path %><% end %>
         </div>
       </details>
     </div>

@@ -1,0 +1,1 @@
+<% if current_user&.super_admin? && !@studio_version %><div class="container site-edit-link"><%= button_to "Modifier cette page", admin_site_index_path(page: slug), class: "btn btn-outline" %></div><% end %>

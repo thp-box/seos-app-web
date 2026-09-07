@@ -5,6 +5,8 @@
 
 @import "./components/discovery.css";
 
+@import "./components/maquette.css";
+@import "./components/site_editor.css";
 .studio-motion { animation: studio-breathe 8s ease-in-out infinite alternate; }
 @keyframes studio-breathe { to { opacity: .65; } }
 @media (prefers-reduced-motion: reduce) { .studio-motion { animation: none; } }

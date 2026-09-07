@@ -1,7 +1,7 @@
 class Studio
   def self.change!(actor:, settings:, name:, source: nil, reset: nil)
     raise Pundit::NotAuthorizedError unless actor.permission?("content.manage") || actor.super_admin?
-    raise Pundit::NotAuthorizedError if !actor.super_admin? && (settings.fetch("tokens", {}).present? || settings["editorial_resets"].present? || reset.present?)
+    raise Pundit::NotAuthorizedError if !actor.super_admin? && (settings.fetch("tokens", {}).present? || (settings["editorial_resets"].present? || settings.key?("site")) || reset.present?)
     data = source ? source.settings.except("editorial_resets").deep_dup : {}
     if reset.present?
       path = reset.split(".")
@@ -11,9 +11,14 @@ class Studio
       else
         parent = path[0...-1].reduce(data) { |item, key| item.fetch(key, {}) }
         parent.delete(path.last)
+        if path.first == "pages" && path.size <= 2
+          path.size == 1 ? data.fetch("site", {}).delete("pages") : data.dig("site", "pages")&.delete(path.last)
+        end
       end
     else
       data = data.deep_merge(settings)
+      data["site"] = settings["site"].deep_dup if settings.key?("site")
+      data["tokens"] = settings["tokens"].deep_dup if settings.key?("site") && settings.key?("tokens")
     end
     if reset == "site" || reset == "pages" || reset.to_s.match?(/\Apages\.(don|echange|points|fonctionnement)\z/)
       scope = ContentVersion.live.where(kind: "page")
@@ -23,10 +28,28 @@ class Studio
     end
     StudioVersion.transaction do
       version = StudioVersion.create!(author: actor, settings: data, name: name)
-      AuditLog.create!(actor: actor, target: version, action: "studio.draft", reason: reset.present? ? "Retour au défaut #{reset}" : "Nouvelle proposition de présentation")
+      AuditLog.create!(actor: actor, target: version, action: "studio.draft", reason: reset.present? ? "Retour au défaut #{reset}" : "Nouvelle proposition de présentation", metadata: source ? { "from" => source.id, "to" => version.id } : {})
       version
     end
   end
+  def self.review_errors(version)
+    version.site.fetch("pages", {}).filter_map do |_slug, page|
+      visible = page["blocks"].reject { |block| block["hidden"] }
+      "Ajoutez du contenu à la page « #{page['title']} » avant de la mettre en ligne." if visible.empty? || visible.all? { |block| block["template"] == "text" && block["values"].fetch("body", "").blank? }
+    end
+  end
+  def self.publish_from_review!(version:, actor:, digest:, live_id:)
+    raise Pundit::NotAuthorizedError unless actor.super_admin? && actor.permission?("content.manage")
+    StudioVersion.transaction do
+      version.lock!
+      raise Exchanges::Invalid, "Le site ou vos modifications ont changé. Ouvrez à nouveau l’aperçu avant de mettre en ligne." unless version.digest == digest && current_id_matches?(live_id)
+      raise Exchanges::Invalid, "Certaines couleurs rendent les textes difficiles à lire. Revenez dans le kit UI/UX et choisissez des couleurs plus contrastées." if version.contrast_errors.any?
+      raise Exchanges::Invalid, review_errors(version).join(" ") if review_errors(version).any?
+      transition!(version: version, actor: actor, action: "validate", reason: "Vérification automatique avant mise en ligne depuis le Studio admin")
+      transition!(version: version, actor: actor, action: "publish", reason: "Mise en ligne confirmée depuis l’aperçu du Studio admin")
+    end
+  end
+  def self.current_id_matches?(id) = StudioVersion.current&.id.to_s == id.to_s
   def self.transition!(version:, actor:, action:, reason:)
     raise Pundit::NotAuthorizedError unless actor.super_admin? && actor.permission?("content.manage")
     version.with_lock do

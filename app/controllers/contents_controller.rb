@@ -4,6 +4,10 @@ class ContentsController < ApplicationController
   end
   def show
     @content = ContentVersion.current(params[:kind], params[:slug])
+    if params[:kind] == "page" && !@content && (@page = StudioVersion.current&.site&.dig("pages", params[:slug]))
+      @slug = params[:slug]
+      return render "site/show"
+    end
     raise ActiveRecord::RecordNotFound unless @content
     @indexable = true
     @canonical = request.base_url + request.path

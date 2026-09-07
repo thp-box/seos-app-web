@@ -1,6 +1,8 @@
-<% content_for :title, "Administration" %>
-<h1>Administration</h1><p>Les sections accessibles correspondent aux permissions qui vous ont été attribuées.</p>
-<div class="card"><h2>Votre espace de travail</h2><div class="actions">
-<% if policy(:administration).users? %><%= link_to "Consulter les membres", admin_users_path, class: "btn btn-deep" %><% end %>
-<% if policy(:administration).audit? %><%= link_to "Consulter l’audit", admin_audit_logs_path, class: "btn btn-outline" %><% end %>
-</div><% unless policy(:administration).users? || policy(:administration).audit? %><div class="empty-state"><p>Aucune section ne vous est encore attribuée.</p></div><% end %></div>
+<% content_for :title, "Studio admin" %>
+<h1>Studio admin</h1><p>Bienvenue dans votre espace de gestion. Que souhaitez-vous faire aujourd’hui ?</p>
+<% links = admin_navigation_groups.flat_map { |group| group[:links] } %>
+<div class="card-grid">
+<% if current_user.super_admin? %><article class="card"><h2>Modifier les pages</h2><p>Créez une page ou changez ses textes et ses images. Vous pourrez voir le résultat avant de le mettre en ligne.</p><%= link_to "Gérer les pages", admin_site_index_path, class: "btn btn-deep" %></article><article class="card"><h2>Changer l’apparence</h2><p>Personnalisez les couleurs, les polices et les formes du site.</p><%= link_to "Ouvrir le kit UI/UX", admin_site_index_path(area: "kit"), class: "btn btn-outline" %></article><% end %>
+<% links.reject { |link| link[:path].include?("/admin/site") }.first(current_user.super_admin? ? 1 : 3).each do |link| %><article class="card"><h2><%= link[:label] %></h2><p>Retrouvez les éléments à consulter ou à gérer dans cette rubrique.</p><%= link_to "Accéder à #{link[:label].downcase}", link[:path], class: "btn btn-outline" %></article><% end %>
+</div><p>Le menu regroupe les outils auxquels vous avez accès. Les autres rubriques peuvent être ouvertes selon vos besoins.</p>
+<% if links.empty? %><p class="notice">Aucun outil ne vous a encore été attribué. Demandez à la responsable du site de vous donner les accès nécessaires.</p><% end %>

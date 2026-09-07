@@ -1,26 +1,8 @@
 <% content_for :workspace do %>
   <div class="container dashboard">
-    <aside class="side-menu" aria-label="Administration">
-      <% workspace_navigation = capture do %><nav>
-        <% if %w[organizations.read organizations.manage organizations.legal missions.manage partnerships.manage].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Organisations et Voyage", admin_network_index_path %><% end %>
-        <% if current_user.permission?("content.manage") || current_user.permission?("studio.preview") %><%= link_to "Studio UI et contenus", admin_studio_index_path %><% end %>
-<% if current_user.permission?("privacy.manage") || current_user.permission?("privacy.rules") %><%= navigation_link "Confidentialité et conservation", admin_privacy_index_path %><% end %>
-        <%= navigation_link "Vue d’ensemble", admin_root_path %>
-        <%= navigation_link "Pilotage et registres", admin_operations_path %>
-        <% if %w[community.read community.manage community.rules].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Engagement et chaînes", admin_community_index_path %><% end %>
-        <% if current_user.permission?("financial.read") || current_user.permission?("financial.manage") %><%= navigation_link "Soutien financier", admin_financial_support_index_path %><% end %>
-        <% if %w[points.read points.adjust points.rewards points.rules].any? { |permission| current_user.permission?(permission) } %><%= navigation_link "Points Services", admin_points_path %><% end %>
-        <% if current_user.permission?("trust.read") || current_user.permission?("trust.manage") %><%= navigation_link "Confiance et recours", admin_trust_index_path %><% end %>
-        <% if current_user.permission?("trust.risk") %><%= navigation_link "Revue des signaux", risks_admin_trust_index_path %><% end %>
-        <% Admin::WorkbenchController::RESOURCES.each do |kind, (_, permission)| %><% if current_user.permission?(permission) %><%= navigation_link kind.humanize, admin_workbench_index_path(kind: kind) %><% end %><% end %>
-        <% if policy(:administration).users? %><details open><summary>Communauté</summary><%= navigation_link "Membres", admin_users_path %></details><% end %>
-        <% if policy(:administration).audit? %><details open><summary>Plateforme</summary><%= navigation_link "Journal d’audit", admin_audit_logs_path %></details><% end %>
-        <% if policy(:administration).super_admin? %>
-          <details open><summary>Super-administration</summary><%= navigation_link "Carte publique", edit_super_admin_map_setting_path %><%= navigation_link "Vue d’ensemble", super_admin_root_path %><%= navigation_link "Administrateurs", super_admin_administrators_path %></details>
-        <% end %>
-      </nav><% end %>
-      <details class="mobile-workspace-navigation"><summary>Navigation de cet espace</summary><%= workspace_navigation %></details>
-      <div class="desktop-workspace-navigation"><%= workspace_navigation %></div>
+    <aside class="side-menu admin-sidebar" aria-label="Studio admin">
+      <details class="mobile-workspace-navigation"><summary>Navigation de cet espace</summary><%= render "admin/shared/navigation", accordion_name: "admin-navigation-mobile" %></details>
+      <div class="desktop-workspace-navigation"><%= render "admin/shared/navigation", accordion_name: "admin-navigation-desktop" %></div>
     </aside>
     <main class="workspace" id="main-content" tabindex="-1"><%= yield %></main>
   </div>

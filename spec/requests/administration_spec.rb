@@ -19,7 +19,7 @@ RSpec.describe "Administration", :"F-004", :"F-005", type: :request do
   it "affiche le dashboard mais refuse chaque section sans permission" do
     login(create(:user, :admin))
     get admin_root_path
-    expect(response.body).to include("Aucune section")
+    expect(response.body).to include("Aucun outil")
     [ admin_users_path, admin_audit_logs_path, super_admin_root_path ].each do |path|
       get path
       expect(response).to have_http_status(:forbidden)
@@ -54,9 +54,11 @@ RSpec.describe "Administration", :"F-004", :"F-005", type: :request do
     post account_reauthentication_path, params: { password: "incorrect" }
     expect(response).to have_http_status(:unprocessable_content)
     post account_reauthentication_path, params: { password: "UnMotDePasseSolide!42" }
-    expect(response).to redirect_to(super_admin_root_path)
+    expect(response).to redirect_to(admin_root_path)
     get super_admin_root_path
-    expect(response).to have_http_status(:ok)
+    expect(response).to redirect_to(admin_root_path)
+    follow_redirect!
+    expect(response.body).to include("Studio admin")
   end
 
   it "retourne l'admin à son dashboard après vérification" do
