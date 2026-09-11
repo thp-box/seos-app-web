@@ -1,26 +1,8 @@
 <% content_for :workspace do %>
   <div class="container dashboard">
-    <aside class="side-menu" aria-label="Espace personnel">
-      <% workspace_navigation = capture do %><nav>
-        <%= navigation_link "Mon compte", account_root_path %>
-        <%= navigation_link "Mes organisations", account_organizations_path %>
-        <%= navigation_link "Mes candidatures Voyage", account_mission_applications_path %>
-        <%= navigation_link "Mes données et mes droits", account_privacy_path %>
-        <%= navigation_link "Mon profil", edit_account_profile_path %>
-        <%= navigation_link "Mes quêtes et témoignages", account_community_path %>
-        <%= navigation_link "Mes chaînes d’entraide", account_chains_path %>
-        <% if FeatureFlag.support_enabled? %><%= navigation_link "Soutenir SEOS", account_support_path %><% end %>
-        <%= navigation_link "Mon portefeuille", account_points_path %>
-        <%= navigation_link "Confiance et parrainage", account_trust_path %>
-        <%= navigation_link "Mes annonces", account_listings_path %>
-        <%= navigation_link "Mes échanges", account_service_requests_path %>
-        <%= navigation_link "Mes favoris", account_favorites_path %>
-        <%= navigation_link "Notifications", account_notifications_path %>
-        <%= navigation_link "Mes sessions", account_login_sessions_path %>
-        <%= navigation_link "Mes identifiants", edit_user_registration_path %>
-      </nav><% end %>
-      <details class="mobile-workspace-navigation"><summary>Navigation de cet espace</summary><%= workspace_navigation %></details>
-      <div class="desktop-workspace-navigation"><%= workspace_navigation %></div>
+    <aside class="side-menu admin-sidebar account-sidebar" aria-label="Espace personnel">
+      <details class="mobile-workspace-navigation"><summary>Navigation de mon compte</summary><%= render "account/shared/navigation", accordion_name: "account-navigation-mobile" %></details>
+      <div class="desktop-workspace-navigation"><%= render "account/shared/navigation", accordion_name: "account-navigation-desktop" %></div>
     </aside>
     <main class="workspace" id="main-content" tabindex="-1"><%= yield %></main>
   </div>
