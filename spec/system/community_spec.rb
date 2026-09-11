@@ -17,6 +17,10 @@ RSpec.describe "Interface engagement", type: :system do
       expect(page).to be_axe_clean.according_to(:wcag2a, :wcag2aa, :wcag21aa, :wcag22aa)
       page.save_screenshot(Rails.root.join("tmp/screenshots/community-#{width}.png"))
     end
+    expect(page).to have_css('.quest-card[data-animated="true"] progress')
+    page.driver.browser.execute_cdp("Emulation.setEmulatedMedia", features: [ { name: "prefers-reduced-motion", value: "reduce" } ])
+    expect(page.evaluate_script("getComputedStyle(document.querySelector('.quest-card')).animationName")).to eq("none")
+    page.driver.browser.execute_cdp("Emulation.setEmulatedMedia", features: [])
     fill_in "Votre témoignage public", with: "Un accueil chaleureux dans le quartier."
     fill_in "Nom ou pseudonyme à afficher", with: "Camille"
     check "J’autorise la publication de ce témoignage et de son nom affiché sur SEOS France. Je peux retirer cet accord à tout moment depuis cette page."

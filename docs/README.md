@@ -113,3 +113,5 @@ Une fois ces points arbitrés, le plan de scaffolds peut servir de checklist d'i
 Le démarrage du code doit suivre les phases et identifiants du plan feature par feature, de F-001 à F-073 avec les identifiants volontairement non continus. Une feature est livrée verticalement avec son équivalent visiteur, membre, association, partenaire, admin et super-admin applicable ; elle ne doit pas être reportée dans un « admin à faire plus tard ».
 
 [Studio admin — éditeur visuel, glisser-déposer et effets organiques](25-studio-visuel.md).
+
+- [Quêtes visuelles et configuration](./26-quetes-visuelles.md) — cartes, progression, apparence et aperçu admin.

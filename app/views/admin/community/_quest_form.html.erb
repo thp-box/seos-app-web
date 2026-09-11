@@ -1,0 +1,30 @@
+<% fresh = quest.new_record?; prefix = fresh ? "new-quest" : "q#{quest.id}" %>
+<div class="quest-editor" data-controller="quest-preview">
+  <%= form_with url: admin_community_index_path, data: { action: "input->quest-preview#update change->quest-preview#update" } do |form| %>
+    <%= hidden_field_tag :operation, fresh ? "quest" : "quest_update", id: nil %><%= hidden_field_tag :record_id, quest.id, id: nil unless fresh %>
+    <%= input_field form, :name, "Nom de la quête", value: quest.name, id: "#{prefix}-name", required: true, maxlength: 1000 %>
+    <%= input_field form, :description, "Objectif et preuve attendue", type: :text_area, value: quest.description, id: "#{prefix}-description", required: true, maxlength: 1000 %>
+    <div class="quest-form-grid">
+      <% { icon: ["Icône", Achievement::ICONS.to_a], accent: ["Couleur", Achievement::ACCENTS.to_a], animated: ["Animation", [["Douce", true], ["Sans animation", false]]] }.each do |field, (label, choices)| %>
+        <div class="form-field"><%= form.label field, label, for: "#{prefix}-#{field}" %><%= form.select field, choices, { selected: quest.public_send(field) }, id: "#{prefix}-#{field}", class: "control" %></div>
+      <% end %>
+    </div>
+    <% if fresh %>
+      <p>Chaque participant envoie une preuve. Votre équipe la valide avant toute récompense.</p>
+      <div class="form-field"><%= form.label :reward_key, "Type de récompense", for: "#{prefix}-reward" %><%= form.select :reward_key, [["Accueil", "welcome"], ["Annonce", "listing"], ["Rencontres", "responses"], ["Parrainage", "referral"], ["Série d’échanges", "cycle"], ["Témoignage écrit", "written"], ["Vidéo", "video"], ["Partage", "share"], ["Chaîne", "chain"]], {}, id: "#{prefix}-reward", class: "control" %></div>
+      <p class="quest-note">Le montant dépend du barème de points publié. Le type et la fréquence ne pourront plus être modifiés après création.</p>
+      <div class="form-field"><%= form.label :recurrence, "Fréquence", for: "#{prefix}-recurrence" %><%= form.select :recurrence, [["Une seule fois", "once"], ["Chaque mois", "monthly"]], {}, id: "#{prefix}-recurrence", class: "control" %></div>
+    <% else %><p><%= quest_recurrence(quest) %> · Objectif : <%= quest.target_count %> · <%= quest.builtin? ? "Progression automatique" : "Preuve validée par l’équipe" %>. Les règles de cette quête sont conservées.</p><% end %>
+    <%= input_field form, :position, "Ordre d’affichage (les plus petits en premier)", type: :number_field, value: quest.position, id: "#{prefix}-position" %>
+    <div class="form-field"><%= form.label :active, "Visibilité", for: "#{prefix}-active" %><%= form.select :active, [["Visible par les membres", true], ["Archivée", false]], { selected: quest.active }, id: "#{prefix}-active", class: "control" %></div>
+    <%= input_field form, :reason, "Pourquoi ce changement ?", id: "#{prefix}-reason", required: true %>
+    <%= form.submit fresh ? "Créer la quête" : "Enregistrer", class: "btn btn-primary" %>
+  <% end %>
+  <aside class="quest-editor-preview" aria-label="Aperçu de la quête"><p class="quest-eyebrow">Aperçu pour les membres</p>
+    <article class="quest-card" data-quest-preview-target="card" data-accent="<%= quest.accent %>" data-animated="<%= quest.animated %>">
+      <div class="quest-card-top"><span class="quest-icon"><% Achievement::ICONS.each_value do |icon| %><span data-quest-preview-target="icon" data-icon="<%= icon %>" <%= "hidden" unless icon == quest.icon %>><%= quest_icon(icon, quest.event_name) %></span><% end %></span><span class="quest-pill">À vous de jouer</span></div>
+      <h3 data-quest-preview-target="name"><%= quest.name.presence || "Votre prochaine quête" %></h3><p data-quest-preview-target="description"><%= quest.description.presence || "Expliquez l’objectif en quelques mots." %></p>
+      <label for="<%= prefix %>-preview-progress">Exemple de progression</label><progress id="<%= prefix %>-preview-progress" max="100" value="60">60 %</progress><p class="quest-note">Progression illustrative. Vos changements seront visibles après enregistrement.</p>
+    </article>
+  </aside>
+</div>

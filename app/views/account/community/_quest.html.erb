@@ -1,0 +1,18 @@
+<% progress = @quest_progress.fetch(quest.id); reached = progress >= quest.target_count; record = @quest_records[quest.id] %>
+<article class="quest-card" data-accent="<%= quest.accent %>" data-animated="<%= quest.animated %>">
+  <div class="quest-card-top"><span class="quest-icon"><%= quest_icon(quest.icon, quest.event_name) %></span><span class="quest-pill"><%= reached ? "Objectif atteint" : record ? community_status(record.status) : "À vous de jouer" %></span></div>
+  <p class="quest-eyebrow"><%= quest_recurrence(quest) %> · <%= quest.event_name == "manual" ? "Preuve à faire valider" : "Suivi automatique" %></p>
+  <h3><%= quest.name %></h3><p><%= quest.description %></p>
+  <div class="quest-progress"><label for="quest-progress-<%= quest.id %>">Progression <strong><%= [progress, quest.target_count].min %> / <%= quest.target_count %></strong></label><progress id="quest-progress-<%= quest.id %>" max="<%= quest.target_count %>" value="<%= [progress, quest.target_count].min %>"><%= progress %> / <%= quest.target_count %></progress></div>
+  <% if quest.event_name == "manual" %>
+    <% if record %><p class="quest-feedback"><%= record.status == "submitted" ? "Votre preuve est en cours d’examen. Retrouvez son suivi ci-dessous." : record.status == "rejected" ? "Consultez le motif du refus dans votre suivi ci-dessous." : "Votre preuve a été validée. Retrouvez les points attribués dans votre suivi." %></p>
+    <% else %><details class="quest-proof"><summary>Envoyer ma preuve</summary>
+      <%= form_with url: account_community_path, multipart: true do |form| %>
+        <%= hidden_field_tag :operation, "quest", id: nil %><%= hidden_field_tag :achievement_id, quest.id, id: nil %>
+        <%= input_field form, :evidence, "Votre preuve pour #{quest.name}", type: :text_area, id: "quest-#{quest.id}-evidence", required: true, maxlength: 3000 %>
+        <%= input_field form, :proof, "Image justificative facultative", type: :file_field, id: "quest-#{quest.id}-proof", accept: "image/jpeg,image/png,image/webp" %>
+        <%= form.submit "Soumettre à la revue", class: "btn btn-primary" %>
+      <% end %>
+    </details><% end %>
+  <% elsif !reached %><%= link_to(*quest_action(quest), class: "quest-action") %><% end %>
+</article>

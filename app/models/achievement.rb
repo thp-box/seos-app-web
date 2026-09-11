@@ -1,4 +1,9 @@
 class Achievement < ApplicationRecord
+  ICONS = { "Selon l’objectif" => "spark", "Trophée" => "trophy", "Cœur" => "heart", "Annonce" => "listing", "Rencontre" => "people", "Lien" => "link" }.freeze
+  ACCENTS = { "Océan" => "ocean", "Forêt" => "forest", "Prune" => "plum", "Terre" => "earth" }.freeze
+  validates :icon, inclusion: { in: ICONS.values }
+  validates :accent, inclusion: { in: ACCENTS.values }
+  validates :animated, inclusion: { in: [ true, false ] }
   KEYS = %w[welcome listing responses referral cycle written video share chain].freeze
   validates :slug, format: { with: /\A[a-z0-9-]+\z/ }, uniqueness: true
   validates :name, :description, presence: true, length: { maximum: 1000 }

@@ -474,7 +474,7 @@ WHEN NEW.user_id != OLD.user_id OR NEW.point_rule_version_id != OLD.point_rule_v
   OR NEW.period_key != OLD.period_key OR NEW.evidence != OLD.evidence OR NEW.amount != OLD.amount OR NEW.level != OLD.level
   OR OLD.status != 'pending'
 BEGIN SELECT RAISE(ABORT, 'immutable reward evidence'); END;
-CREATE TABLE IF NOT EXISTS "achievements" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "slug" varchar NOT NULL, "name" varchar NOT NULL, "description" text NOT NULL, "event_name" varchar NOT NULL, "reward_key" varchar NOT NULL, "recurrence" varchar DEFAULT 'once' NOT NULL, "target_count" integer DEFAULT 1 NOT NULL, "builtin" boolean DEFAULT FALSE NOT NULL, "active" boolean DEFAULT TRUE NOT NULL, "position" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL);
+CREATE TABLE IF NOT EXISTS "achievements" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "slug" varchar NOT NULL, "name" varchar NOT NULL, "description" text NOT NULL, "event_name" varchar NOT NULL, "reward_key" varchar NOT NULL, "recurrence" varchar DEFAULT 'once' NOT NULL, "target_count" integer DEFAULT 1 NOT NULL, "builtin" boolean DEFAULT FALSE NOT NULL, "active" boolean DEFAULT TRUE NOT NULL, "position" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "icon" varchar DEFAULT 'spark' NOT NULL /*application='SeosFrance'*/, "accent" varchar DEFAULT 'ocean' NOT NULL /*application='SeosFrance'*/, "animated" boolean DEFAULT TRUE NOT NULL /*application='SeosFrance'*/);
 CREATE UNIQUE INDEX "index_achievements_on_slug" ON "achievements" ("slug");
 CREATE TABLE IF NOT EXISTS "user_achievements" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "achievement_id" integer NOT NULL, "point_rule_version_id" integer NOT NULL, "point_operation_id" integer, "reviewed_by_id" integer, "period_key" varchar NOT NULL, "status" varchar DEFAULT 'submitted' NOT NULL, "points" integer NOT NULL, "evidence" text NOT NULL, "decision" text, "reviewed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_4efde02858"
 FOREIGN KEY ("user_id")
@@ -767,6 +767,7 @@ FOREIGN KEY ("author_id")
 );
 CREATE INDEX "index_crawler_policies_on_author_id" ON "crawler_policies" ("author_id");
 INSERT INTO "schema_migrations" (version) VALUES
+('20260911090000'),
 ('20260906093000'),
 ('20260906092000'),
 ('20260906091000'),

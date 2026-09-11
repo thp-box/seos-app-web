@@ -27,8 +27,8 @@ module Admin
       when "quest", "quest_update"
         raise Pundit::NotAuthorizedError unless current_user.permission?("community.manage")
         Achievement.transaction do
-          record = params[:operation] == "quest" ? Achievement.new(params.permit(:slug, :reward_key, :recurrence).to_h.merge(event_name: "manual")) : Achievement.find(params[:record_id])
-          record.update!(params.permit(:name, :description, :active, :position))
+          record = params[:operation] == "quest" ? Achievement.new(params.permit(:slug, :reward_key, :recurrence).to_h.merge(slug: params[:slug].presence || "quete-#{SecureRandom.hex(6)}", event_name: "manual")) : Achievement.find(params[:record_id])
+          record.update!(params.permit(:name, :description, :active, :position, :icon, :accent, :animated))
           AuditLog.create!(actor: current_user, target: record, action: "community.quest.save", reason: params[:reason])
         end
       when "review_quest"

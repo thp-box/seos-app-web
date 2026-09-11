@@ -1,21 +1,11 @@
-<h1>Mes quêtes et témoignages</h1>
-<p>Avancez à votre rythme. Les Points Services sont attribués une seule fois par objectif ou période, après les vérifications prévues.</p>
-<% if @rule %><p>Niveau actuel : <strong><%= community_level(Points::Rewards.level(current_user, @rule)) %></strong>. Barème : <%= @rule.name %>. Plafond mensuel : <%= @rule.configuration["monthly_cap"] %> PS.</p><% end %>
-<div class="card"><h2>Mes objectifs</h2>
-<% @achievements.each do |quest| %>
-  <article><h3><%= quest.name %></h3><p><%= quest.description %></p>
-  <p>Progression : <%= Achievements.progress(current_user, quest) %> / <%= quest.target_count %> · <%= { "once" => "Une fois", "monthly" => "Chaque mois", "cycle" => "Par série" }[quest.recurrence] %></p>
-  <% if quest.event_name == "manual" %>
-    <%= form_with url: account_community_path, multipart: true do |form| %>
-      <%= hidden_field_tag :operation, "quest", id: nil %><%= hidden_field_tag :achievement_id, quest.id, id: nil %>
-      <%= input_field form, :evidence, "Votre preuve pour #{quest.name}", type: :text_area, id: "quest-#{quest.id}-evidence", required: true, maxlength: 3000 %>
-      <%= input_field form, :proof, "Image justificative facultative", type: :file_field, id: "quest-#{quest.id}-proof", accept: "image/jpeg,image/png,image/webp" %>
-      <%= form.submit "Soumettre à la revue", class: "btn btn-primary" %>
-    <% end %>
-  <% end %></article>
-<% end %>
-<p><%= link_to "Accueil, partages et détail des récompenses", account_points_path %> · <%= link_to "Poursuivre une chaîne", account_chains_path %></p>
-</div>
+<div class="quest-page">
+<header class="quest-hero"><div><p class="quest-eyebrow">Chaque geste compte</p><h1>Mes quêtes et témoignages</h1><p>Un premier pas, une rencontre, un coup de main : choisissez votre prochain objectif.</p></div><span class="quest-hero-icon"><%= quest_icon("trophy") %></span>
+<div class="quest-stats"><div><strong><%= @achievements.count { |quest| @quest_progress[quest.id] >= quest.target_count } %> / <%= @achievements.size %></strong><span>objectifs atteints</span></div><% if @rule %><div><strong><%= community_level(Points::Rewards.level(current_user, @rule)) %></strong><span>votre niveau actuel</span></div><div><strong><%= @rule.configuration["monthly_cap"] %> PS</strong><span>plafond de récompenses par mois</span></div><% end %></div></header>
+<div class="quest-section-heading"><div><h2>Mes objectifs</h2><p>La progression se met à jour à partir de vos actions validées.</p></div><%= link_to "Mon portefeuille →", account_points_path, class: "quest-action" %></div>
+<div class="quest-grid"><%= render partial: "quest", collection: @achievements, as: :quest %></div>
+<% if @achievements.empty? %><p class="card">De nouvelles quêtes arrivent bientôt. En attendant, découvrez les annonces et les chaînes d’entraide.</p><% end %>
+<p class="quest-note">Les récompenses suivent le barème publié et ses plafonds, après les vérifications prévues. Un objectif atteint ne garantit pas un nouveau versement.</p>
+<% if @records.any? %><h2>Le suivi de mes preuves</h2><% end %>
 <% @records.each do |record| %><div class="card"><h2><%= record.achievement.name %> — <%= record.period_key %></h2><p><%= community_status(record.status) %> · <%= record.points %> PS selon <%= record.point_rule_version.name %></p><p><%= record.decision %></p><p><%= record.evidence %></p><% if record.proof.attached? %><%= link_to "Voir ma preuve", media_path(record.proof.attachment) %><% end %></div><% end %>
 <div class="card"><h2>Demander une mise en avant</h2><p>Réservée aux annonces publiques : niveau Argent ou Or, ou preuve de partage validée ce mois-ci. Une personne de l’équipe examine chaque demande. Aucun paiement n’intervient.</p>
 <%= form_with url: account_community_path do |form| %>
@@ -39,3 +29,5 @@
 <% end %>
 <% @testimonials.each do |record| %><article><h3><%= record.display_name_snapshot %> · <%= community_status(record.status) %></h3><p><%= record.quote %></p><p><%= record.decision %></p><% unless record.status == "removed" %><%= button_to "Retirer mon consentement", account_community_path, params: { operation: "withdraw_testimonial", record_id: record.id }, class: "btn btn-outline" %><% end %></article><% end %>
 <p><%= link_to "Lire les témoignages publiés", testimonials_path %></p></div>
+
+</div>
