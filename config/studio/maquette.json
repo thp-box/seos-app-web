@@ -1,0 +1,1150 @@
+{
+  "sha256": "83338c404d00e98d13c5722b1cd8fc17f1b234a14cd1d58eaab9954d68c436ce",
+  "images": {
+    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1800&q=88": "maquette/photo-1581578731548-c64695cc695294a873d9.jpg",
+    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=88": "maquette/photo-1522202176988-66273c2fd55f262793d0.jpg",
+    "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1800&q=88": "maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg",
+    "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=300&q=85": "maquette/photo-1593113598332-cd288d649433598c8e07.jpg",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=300&q=85": "maquette/photo-1521737604893-d14cc237f11d106520fb.jpg",
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=300&q=85": "maquette/photo-1556761175-b413da4baf72db6f9ace.jpg",
+    "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=700&q=82": "maquette/photo-1516589178581-6cd7833ae3b28b76327b.jpg",
+    "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=700&q=82": "maquette/photo-1504148455328-c376907d081cef2fbe26.jpg",
+    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=700&q=82": "maquette/photo-1516321318423-f06f85e504b3f27a878f.jpg",
+    "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=700&q=82": "maquette/photo-1416879595882-3373a0480b5b3641bfdd.jpg",
+    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=700&q=82": "maquette/photo-1522202176988-66273c2fd55fc53b6fe0.jpg",
+    "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=700&q=82": "maquette/photo-1510915361894-db8b60106cb1a1db45e8.jpg",
+    "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=82": "maquette/photo-1518611012118-696072aa579aab892ec2.jpg",
+    "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=700&q=82": "maquette/photo-1502741338009-cac2772e18bc44ecc9fd.jpg",
+    "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=900&q=84": "maquette/photo-1543269865-cbf427effbad19dcd05e.jpg",
+    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=900&q=84": "maquette/photo-1586023492125-27b2c045efd7a8d3f02d.jpg",
+    "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=84": "maquette/photo-1542838132-92c53300491e136f4471.jpg",
+    "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=900&q=84": "maquette/photo-1510915361894-db8b60106cb157037181.jpg",
+    "https://images.unsplash.com/photo-1571175475562-83600102a315?auto=format&fit=crop&w=900&q=82": "maquette/photo-1571175475562-83600102a315601d8f2f.jpg",
+    "https://images.unsplash.com/photo-1663697697070-13f1502bd6f1?auto=format&fit=crop&w=900&q=82": "maquette/photo-1663697697070-13f1502bd6f1e09bef29.jpg",
+    "https://images.unsplash.com/photo-1742716569164-644f62dff230?auto=format&fit=crop&w=900&q=82": "maquette/photo-1742716569164-644f62dff2304f45d775.jpg",
+    "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=300&q=80": "maquette/photo-1593113598332-cd288d64943316bb68d4.jpg",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=300&q=80": "maquette/photo-1521737604893-d14cc237f11d6a93a504.jpg",
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=300&q=80": "maquette/photo-1556761175-b413da4baf7233fb64b1.jpg",
+    "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1300&q=88": "maquette/photo-1593113598332-cd288d649433732aba29.jpg",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1300&q=88": "maquette/photo-1521737604893-d14cc237f11d500bca5b.jpg",
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1300&q=88": "maquette/photo-1556761175-b413da4baf72d51cb62d.jpg",
+    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=84": "maquette/photo-1498050108023-c5249f4df0857785a561.jpg",
+    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=84": "maquette/photo-1529156069898-49953e39b3acd068637d.jpg",
+    "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1300&q=86": "maquette/photo-1543269865-cbf427effbad1380c9b7.jpg",
+    "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=400&q=80": "maquette/photo-1543269865-cbf427effbad47cff8af.jpg",
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=400&q=80": "maquette/photo-1523240795612-9a054b0db6449e903fd1.jpg",
+    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80": "maquette/photo-1529156069898-49953e39b3acc917879c.jpg",
+    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1300&q=88": "maquette/photo-1529156069898-49953e39b3ac052184c4.jpg",
+    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=700&q=82": "maquette/photo-1497366811353-6870744d04b257964d7a.jpg",
+    "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=700&q=82": "maquette/photo-1455390582262-044cdead277a93c85362.jpg",
+    "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=700&q=82": "maquette/photo-1485846234645-a62644f8472847ac2d32.jpg",
+    "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=700&q=82": "maquette/photo-1611162617474-5b21e879e1131f73e650.jpg",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=700&q=82": "maquette/photo-1521737604893-d14cc237f11db1452eb6.jpg",
+    "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=700&q=82": "maquette/photo-1511632765486-a01980e01a1892011295.jpg",
+    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=82": "maquette/photo-1529156069898-49953e39b3ac500da09b.jpg",
+    "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1300&q=88": "maquette/photo-1469571486292-0ba58a3f068b18bed5e9.jpg",
+    "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=700&q=85": "maquette/photo-1416879595882-3373a0480b5be3d794ff.jpg",
+    "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=700&q=85": "maquette/photo-1488521787991-ed7bbaae773c85b4eae3.jpg",
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=85": "maquette/photo-1500530855697-b586d89ba3ee69246eaa.jpg"
+  },
+  "sections": {
+    "home-0": {
+      "name": "Faites circulerl’entraide.\n",
+      "html": "<section class=\"hero\">\n        <div class=\"hero-media\" id=\"heroMedia\">\n          <div class=\"hero-slide active\"><img src=\"maquette/photo-1581578731548-c64695cc695294a873d9.jpg\" alt=\"Entraide à domicile\" data-image=\"image-0\" data-alt=\"alt-0\"></div>\n          <div class=\"hero-slide\"><img src=\"maquette/photo-1522202176988-66273c2fd55f262793d0.jpg\" alt=\"Partage de compétences\" data-image=\"image-1\" data-alt=\"alt-1\"></div>\n          <div class=\"hero-slide\"><img src=\"maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg\" alt=\"Entraide au jardin\" data-image=\"image-2\" data-alt=\"alt-2\"></div>\n        </div>\n        <div class=\"container hero-content\">\n<span class=\"hero-label\"><i class=\"live-dot\"></i><span id=\"heroServiceLabel\"><span data-field=\"text-0\">Aide à la personne</span></span><span data-field=\"text-1\"> · la communauté en action</span></span><span class=\"eyebrow source-inline-0\"><span data-field=\"text-2\">Bienvenue sur SEOS</span></span><h1>\n<span data-field=\"text-3\">Faites circuler</span><br><span class=\"accent\"><span data-field=\"text-4\">l’entraide.</span></span>\n</h1>\n<p><span data-field=\"text-5\">Proposez un savoir-faire, trouvez un coup de main et créez des liens dans toute la communauté francophone.</span></p>\n</div>\n        <div class=\"container hero-search-wrap\">\n<form class=\"search-bar\" action=\"/annonces\" method=\"get\">\n<label class=\"search-field\"><span data-field=\"text-6\">⌕ </span><input id=\"homeKeyword\" placeholder=\"Bricolage, informatique, cours…\" name=\"q\" aria-label=\"Rechercher un service\"></label><label class=\"search-field\"><span data-field=\"text-7\">⌖ </span><input id=\"homeLocation\" placeholder=\"Ville ou code postal\" name=\"city\" aria-label=\"Ville ou code postal\"></label><button class=\"btn btn-deep\" type=\"submit\"><span data-field=\"text-8\">Chercher</span></button>\n</form>\n<div class=\"hero-quick\">\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\" data-link=\"link-0\"><span data-field=\"text-9\">＋ Publier une annonce</span></a><a class=\"btn btn-light\" href=\"/decouvrir/fonctionnement\" data-link=\"link-1\"><span data-field=\"text-10\">▶ Comprendre en 2 minutes</span></a>\n</div>\n</div>\n<div class=\"hero-wave\"></div>\n      <div class=\"hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"cut-gold\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Aide à la personne",
+          "default": "Aide à la personne"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "· la communauté en action",
+          "default": "· la communauté en action"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "Bienvenue sur SEOS",
+          "default": "Bienvenue sur SEOS"
+        },
+        "text-3": {
+          "type": "text",
+          "label": "Faites circuler",
+          "default": "Faites circuler"
+        },
+        "text-4": {
+          "type": "text",
+          "label": "l’entraide.",
+          "default": "l’entraide."
+        },
+        "text-5": {
+          "type": "text",
+          "label": "Proposez un savoir-faire, trouvez un coup de main et créez des li",
+          "default": "Proposez un savoir-faire, trouvez un coup de main et créez des liens dans toute la communauté francophone."
+        },
+        "text-6": {
+          "type": "text",
+          "label": "⌕",
+          "default": "⌕"
+        },
+        "text-7": {
+          "type": "text",
+          "label": "⌖",
+          "default": "⌖"
+        },
+        "text-8": {
+          "type": "text",
+          "label": "Chercher",
+          "default": "Chercher"
+        },
+        "text-9": {
+          "type": "text",
+          "label": "＋ Publier une annonce",
+          "default": "＋ Publier une annonce"
+        },
+        "text-10": {
+          "type": "text",
+          "label": "▶ Comprendre en 2 minutes",
+          "default": "▶ Comprendre en 2 minutes"
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Entraide à domicile",
+          "default": "maquette/photo-1581578731548-c64695cc695294a873d9.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description image 1",
+          "default": "Entraide à domicile"
+        },
+        "image-1": {
+          "type": "image",
+          "label": "Partage de compétences",
+          "default": "maquette/photo-1522202176988-66273c2fd55f262793d0.jpg"
+        },
+        "alt-1": {
+          "type": "text",
+          "label": "Description image 2",
+          "default": "Partage de compétences"
+        },
+        "image-2": {
+          "type": "image",
+          "label": "Entraide au jardin",
+          "default": "maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg"
+        },
+        "alt-2": {
+          "type": "text",
+          "label": "Description image 3",
+          "default": "Entraide au jardin"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : ＋ Publier une annonce",
+          "default": "/compte/annonces/new"
+        },
+        "link-1": {
+          "type": "url",
+          "label": "Destination : ▶ Comprendre en 2 minutes",
+          "default": "/decouvrir/fonctionnement"
+        }
+      }
+    },
+    "home-1": {
+      "name": "Trois manières de faire circuler l’entraide\n",
+      "html": "<section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">À chacun sa façon d’aider</span></span><h2>\n<span data-field=\"text-1\">Trois manières de faire circuler </span><span class=\"accent\"><span data-field=\"text-2\">l’entraide</span></span>\n</h2>\n</div>\n<p><span data-field=\"text-3\">Choisissez librement la forme d’échange qui correspond à votre situation. Chaque option possède ses propres règles, expliquées simplement.</span></p>\n</div>\n<div class=\"exchange-grid\">\n        <article class=\"exchange-card\"><div class=\"exchange-photo\"><img src=\"maquette/photo-1593113598332-cd288d649433598c8e07.jpg\" alt=\"Don\" data-image=\"image-0\" data-alt=\"alt-0\"></div>\n<span class=\"exchange-num\"><span data-field=\"text-4\">01</span></span><h3><span data-field=\"text-5\">Le don</span></h3>\n<p><span data-field=\"text-6\">Offrez votre aide librement, sans contrepartie. Un geste simple peut changer une journée.</span></p>\n<a class=\"text-link\" href=\"/decouvrir/don\" data-link=\"link-0\"><span data-field=\"text-7\">Comprendre le don</span></a></article>\n        <article class=\"exchange-card\"><div class=\"exchange-photo\"><img src=\"maquette/photo-1521737604893-d14cc237f11d106520fb.jpg\" alt=\"Échange\" data-image=\"image-1\" data-alt=\"alt-1\"></div>\n<span class=\"exchange-num\"><span data-field=\"text-8\">02</span></span><h3><span data-field=\"text-9\">L’échange</span></h3>\n<p><span data-field=\"text-10\">Échangez directement vos compétences. Les modalités sont libres et décidées ensemble.</span></p>\n<a class=\"text-link\" href=\"/decouvrir/echange\" data-link=\"link-1\"><span data-field=\"text-11\">Découvrir l’échange</span></a></article>\n        <article class=\"exchange-card\"><div class=\"exchange-photo\"><img src=\"maquette/photo-1556761175-b413da4baf72db6f9ace.jpg\" alt=\"Points Services\" data-image=\"image-2\" data-alt=\"alt-2\"></div>\n<span class=\"exchange-num\"><span data-field=\"text-12\">03</span></span><h3><span data-field=\"text-13\">Les Points Services</span></h3>\n<p><span data-field=\"text-14\">Aidez aujourd’hui, utilisez vos points plus tard auprès d’un autre membre de la communauté.</span></p>\n<a class=\"text-link\" href=\"/decouvrir/points\" data-link=\"link-2\"><span data-field=\"text-15\">Voir comment ça marche</span></a></article>\n      </div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "À chacun sa façon d’aider",
+          "default": "À chacun sa façon d’aider"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Trois manières de faire circuler",
+          "default": "Trois manières de faire circuler"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "l’entraide",
+          "default": "l’entraide"
+        },
+        "text-3": {
+          "type": "text",
+          "label": "Choisissez librement la forme d’échange qui correspond à votre si",
+          "default": "Choisissez librement la forme d’échange qui correspond à votre situation. Chaque option possède ses propres règles, expliquées simplement."
+        },
+        "text-4": {
+          "type": "text",
+          "label": "01",
+          "default": "01"
+        },
+        "text-5": {
+          "type": "text",
+          "label": "Le don",
+          "default": "Le don"
+        },
+        "text-6": {
+          "type": "text",
+          "label": "Offrez votre aide librement, sans contrepartie. Un geste simple p",
+          "default": "Offrez votre aide librement, sans contrepartie. Un geste simple peut changer une journée."
+        },
+        "text-7": {
+          "type": "text",
+          "label": "Comprendre le don",
+          "default": "Comprendre le don"
+        },
+        "text-8": {
+          "type": "text",
+          "label": "02",
+          "default": "02"
+        },
+        "text-9": {
+          "type": "text",
+          "label": "L’échange",
+          "default": "L’échange"
+        },
+        "text-10": {
+          "type": "text",
+          "label": "Échangez directement vos compétences. Les modalités sont libres e",
+          "default": "Échangez directement vos compétences. Les modalités sont libres et décidées ensemble."
+        },
+        "text-11": {
+          "type": "text",
+          "label": "Découvrir l’échange",
+          "default": "Découvrir l’échange"
+        },
+        "text-12": {
+          "type": "text",
+          "label": "03",
+          "default": "03"
+        },
+        "text-13": {
+          "type": "text",
+          "label": "Les Points Services",
+          "default": "Les Points Services"
+        },
+        "text-14": {
+          "type": "text",
+          "label": "Aidez aujourd’hui, utilisez vos points plus tard auprès d’un autr",
+          "default": "Aidez aujourd’hui, utilisez vos points plus tard auprès d’un autre membre de la communauté."
+        },
+        "text-15": {
+          "type": "text",
+          "label": "Voir comment ça marche",
+          "default": "Voir comment ça marche"
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Don",
+          "default": "maquette/photo-1593113598332-cd288d649433598c8e07.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description image 1",
+          "default": "Don"
+        },
+        "image-1": {
+          "type": "image",
+          "label": "Échange",
+          "default": "maquette/photo-1521737604893-d14cc237f11d106520fb.jpg"
+        },
+        "alt-1": {
+          "type": "text",
+          "label": "Description image 2",
+          "default": "Échange"
+        },
+        "image-2": {
+          "type": "image",
+          "label": "Points Services",
+          "default": "maquette/photo-1556761175-b413da4baf72db6f9ace.jpg"
+        },
+        "alt-2": {
+          "type": "text",
+          "label": "Description image 3",
+          "default": "Points Services"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : Comprendre le don",
+          "default": "/decouvrir/don"
+        },
+        "link-1": {
+          "type": "url",
+          "label": "Destination : Découvrir l’échange",
+          "default": "/decouvrir/echange"
+        },
+        "link-2": {
+          "type": "url",
+          "label": "Destination : Voir comment ça marche",
+          "default": "/decouvrir/points"
+        }
+      }
+    },
+    "home-2": {
+      "name": "Parcourez les catégories",
+      "html": "<section class=\"section soft\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Explorer</span></span><h2><span data-field=\"text-1\">Parcourez les catégories</span></h2>\n</div>\n<p><span data-field=\"text-2\">Des besoins du quotidien aux savoir-faire créatifs, trouvez rapidement les personnes qui peuvent vous aider.</span></p>\n</div>\n<div class=\"category-grid\" id=\"categoryGrid\"></div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--seos)\"></rect><path class=\"wave-melt-outer\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Explorer",
+          "default": "Explorer"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Parcourez les catégories",
+          "default": "Parcourez les catégories"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "Des besoins du quotidien aux savoir-faire créatifs, trouvez rapid",
+          "default": "Des besoins du quotidien aux savoir-faire créatifs, trouvez rapidement les personnes qui peuvent vous aider."
+        }
+      }
+    },
+    "home-3": {
+      "name": "Annonces à la une",
+      "html": "<section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Près de chez vous</span></span><h2><span data-field=\"text-1\">Annonces à la une</span></h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/annonces\" data-link=\"link-0\"><span data-field=\"text-2\">Voir toutes les annonces →</span></a>\n</div>\n<div class=\"ad-grid\" id=\"homeAds\"></div>\n</div></section><div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96\" fill=\"none\" stroke=\"var(--deep)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--deep)\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Près de chez vous",
+          "default": "Près de chez vous"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Annonces à la une",
+          "default": "Annonces à la une"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "Voir toutes les annonces →",
+          "default": "Voir toutes les annonces →"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : Voir toutes les annonces →",
+          "default": "/annonces"
+        }
+      }
+    },
+    "home-4": {
+      "name": "Votre coup de main déclenche une chaîne\n",
+      "html": "<section class=\"section soft\"><div class=\"container chain-home\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Le cœur du modèle</span></span><h2>\n<span data-field=\"text-1\">Votre coup de main déclenche une </span><span class=\"accent\"><span data-field=\"text-2\">chaîne</span></span>\n</h2>\n<p><span data-field=\"text-3\">La chaîne d’entraide est distincte des annonces : vous pouvez aider une personne de votre entourage, même si elle n’est pas encore membre. Elle valide le service grâce à votre lien, puis aide quelqu’un à son tour.</span></p>\n<p><strong><span data-field=\"text-4\">Chaque validation rapporte 10 PS aux dix derniers membres, dans la limite de 100 PS par personne.</span></strong></p>\n<a class=\"btn btn-deep\" href=\"/decouvrir/fonctionnement\" data-link=\"link-0\"><span data-field=\"text-5\">Comprendre la chaîne d’entraide →</span></a>\n</div>\n<div>\n\n\n</div>\n</div></section><div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--deep)\"></rect><path class=\"wave-melt-outer\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Le cœur du modèle",
+          "default": "Le cœur du modèle"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Votre coup de main déclenche une",
+          "default": "Votre coup de main déclenche une"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "chaîne",
+          "default": "chaîne"
+        },
+        "text-3": {
+          "type": "text",
+          "label": "La chaîne d’entraide est distincte des annonces : vous pouvez aid",
+          "default": "La chaîne d’entraide est distincte des annonces : vous pouvez aider une personne de votre entourage, même si elle n’est pas encore membre. Elle valide le service grâce à votre lien, puis aide quelqu’un à son tour."
+        },
+        "text-4": {
+          "type": "text",
+          "label": "Chaque validation rapporte 10 PS aux dix derniers membres, dans l",
+          "default": "Chaque validation rapporte 10 PS aux dix derniers membres, dans la limite de 100 PS par personne."
+        },
+        "text-5": {
+          "type": "text",
+          "label": "Comprendre la chaîne d’entraide →",
+          "default": "Comprendre la chaîne d’entraide →"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : Comprendre la chaîne d’entraide →",
+          "default": "/decouvrir/fonctionnement"
+        }
+      }
+    },
+    "home-5": {
+      "name": "Du besoin à la rencontre,en toute simplicité.\n",
+      "html": "<section class=\"section\" id=\"presentation\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Comprendre en 2 minutes</span></span><h2>\n<span data-field=\"text-1\">Du besoin à la rencontre,</span><br><span class=\"accent\"><span data-field=\"text-2\">en toute simplicité.</span></span>\n</h2>\n</div>\n<p><span data-field=\"text-3\">Une courte présentation explique la publication, la messagerie et la manière de définir ensemble les modalités de l’échange.</span></p>\n</div>\n<div class=\"video-testimonial source-inline-1\">\n<video controls=\"\" preload=\"metadata\" poster=\"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=1500&amp;q=85\" aria-label=\"Présentation vidéo de SEOS\"></video><span class=\"caption\"><span data-field=\"text-4\">Emplacement vidéo prêt · média final à fournir</span></span>\n</div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Comprendre en 2 minutes",
+          "default": "Comprendre en 2 minutes"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Du besoin à la rencontre,",
+          "default": "Du besoin à la rencontre,"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "en toute simplicité.",
+          "default": "en toute simplicité."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "Une courte présentation explique la publication, la messagerie et",
+          "default": "Une courte présentation explique la publication, la messagerie et la manière de définir ensemble les modalités de l’échange."
+        },
+        "text-4": {
+          "type": "text",
+          "label": "Emplacement vidéo prêt · média final à fournir",
+          "default": "Emplacement vidéo prêt · média final à fournir"
+        }
+      }
+    },
+    "home-6": {
+      "name": "Ce que ça change, concrètement",
+      "html": "<section class=\"section soft\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Ils l’ont vécu</span></span><h2><span data-field=\"text-1\">Ce que ça change, concrètement</span></h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/contact\" data-link=\"link-0\"><span data-field=\"text-2\">Partager mon témoignage</span></a>\n</div>\n<div class=\"testimonial-grid\"></div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--seos)\"></rect><path class=\"wave-melt-outer\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Ils l’ont vécu",
+          "default": "Ils l’ont vécu"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Ce que ça change, concrètement",
+          "default": "Ce que ça change, concrètement"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "Partager mon témoignage",
+          "default": "Partager mon témoignage"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : Partager mon témoignage",
+          "default": "/contact"
+        }
+      }
+    },
+    "home-7": {
+      "name": "Un cadre clair, parce que l’entraide ne s’improvise pas",
+      "html": "<section class=\"section\"><div class=\"container security-grid\">\n<div class=\"security-orb\">\n<span data-field=\"text-0\">⌾</span><br><span data-field=\"text-1\">Se rencontrer</span><br><span data-field=\"text-2\">en confiance</span>\n</div>\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-3\">Sécurité</span></span><h2><span data-field=\"text-4\">Un cadre clair, parce que l’entraide ne s’improvise pas</span></h2>\n<p><span data-field=\"text-5\">SEOS met des inconnus en relation : la prudence et la transparence font partie du service.</span></p>\n<div class=\"security-items\">\n<article class=\"security-item\"><h3><span data-field=\"text-6\">✓ Profils vérifiés</span></h3>\n<p><span data-field=\"text-7\">E-mail et téléphone confirmés. Pièce d’identité demandée pour les services auprès de publics vulnérables.</span></p></article><article class=\"security-item\"><h3><span data-field=\"text-8\">☆ Avis après échange</span></h3>\n<p><span data-field=\"text-9\">Seuls les membres ayant réellement échangé peuvent publier un avis.</span></p></article><article class=\"security-item\"><h3><span data-field=\"text-10\">◯ Messagerie interne</span></h3>\n<p><span data-field=\"text-11\">Vos coordonnées restent privées jusqu’à ce que vous décidiez de les transmettre.</span></p></article><article class=\"security-item\"><h3><span data-field=\"text-12\">⚑ Signalement en un clic</span></h3>\n<p><span data-field=\"text-13\">Chaque signalement est examiné par l’équipe sous 48 heures ouvrées.</span></p></article>\n</div>\n</div>\n</div></section><div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60\" fill=\"none\" stroke=\"var(--gold)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60\" fill=\"none\" stroke=\"var(--deep)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--deep)\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "⌾",
+          "default": "⌾"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Se rencontrer",
+          "default": "Se rencontrer"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "en confiance",
+          "default": "en confiance"
+        },
+        "text-3": {
+          "type": "text",
+          "label": "Sécurité",
+          "default": "Sécurité"
+        },
+        "text-4": {
+          "type": "text",
+          "label": "Un cadre clair, parce que l’entraide ne s’improvise pas",
+          "default": "Un cadre clair, parce que l’entraide ne s’improvise pas"
+        },
+        "text-5": {
+          "type": "text",
+          "label": "SEOS met des inconnus en relation : la prudence et la transparenc",
+          "default": "SEOS met des inconnus en relation : la prudence et la transparence font partie du service."
+        },
+        "text-6": {
+          "type": "text",
+          "label": "✓ Profils vérifiés",
+          "default": "✓ Profils vérifiés"
+        },
+        "text-7": {
+          "type": "text",
+          "label": "E-mail et téléphone confirmés. Pièce d’identité demandée pour les",
+          "default": "E-mail et téléphone confirmés. Pièce d’identité demandée pour les services auprès de publics vulnérables."
+        },
+        "text-8": {
+          "type": "text",
+          "label": "☆ Avis après échange",
+          "default": "☆ Avis après échange"
+        },
+        "text-9": {
+          "type": "text",
+          "label": "Seuls les membres ayant réellement échangé peuvent publier un avi",
+          "default": "Seuls les membres ayant réellement échangé peuvent publier un avis."
+        },
+        "text-10": {
+          "type": "text",
+          "label": "◯ Messagerie interne",
+          "default": "◯ Messagerie interne"
+        },
+        "text-11": {
+          "type": "text",
+          "label": "Vos coordonnées restent privées jusqu’à ce que vous décidiez de l",
+          "default": "Vos coordonnées restent privées jusqu’à ce que vous décidiez de les transmettre."
+        },
+        "text-12": {
+          "type": "text",
+          "label": "⚑ Signalement en un clic",
+          "default": "⚑ Signalement en un clic"
+        },
+        "text-13": {
+          "type": "text",
+          "label": "Chaque signalement est examiné par l’équipe sous 48 heures ouvrée",
+          "default": "Chaque signalement est examiné par l’équipe sous 48 heures ouvrées."
+        }
+      }
+    },
+    "home-8": {
+      "name": "L’entraide dépasse les frontières.",
+      "html": "<section class=\"section francophone\"><div class=\"container section-head source-inline-2\">\n<div>\n<span class=\"eyebrow source-inline-3\"><span data-field=\"text-0\">Une communauté francophone</span></span><h2 class=\"source-inline-4\"><span data-field=\"text-1\">L’entraide dépasse les frontières.</span></h2>\n<p class=\"source-inline-5\"><span data-field=\"text-2\">SEOS s’adresse aux membres francophones de quatre pays.</span></p>\n</div>\n<figure class=\"francophone-visual\" role=\"img\" aria-label=\"Photographies des drapeaux de la France, de la Belgique, de la Suisse et du Luxembourg\"><div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1571175475562-83600102a315601d8f2f.jpg\" alt=\"Drapeau français flottant sur un bâtiment à Paris\" data-image=\"image-0\" data-alt=\"alt-0\"><span><span data-field=\"text-3\">🇫🇷 France</span></span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1663697697070-13f1502bd6f1e09bef29.jpg\" alt=\"Drapeau belge flottant dans le ciel\" data-image=\"image-1\" data-alt=\"alt-1\"><span><span data-field=\"text-4\">🇧🇪 Belgique</span></span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1742716569164-644f62dff2304f45d775.jpg\" alt=\"Drapeau suisse devant les montagnes\" data-image=\"image-2\" data-alt=\"alt-2\"><span><span data-field=\"text-5\">🇨🇭 Suisse</span></span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"seos-logo.png\" alt=\"Drapeau luxembourgeois flottant dans le ciel\" data-image=\"image-3\" data-alt=\"alt-3\"><span><span data-field=\"text-6\">🇱🇺 Luxembourg</span></span>\n</div></figure>\n</div></section><div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--deep)\"></rect><path class=\"wave-melt-outer\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Une communauté francophone",
+          "default": "Une communauté francophone"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "L’entraide dépasse les frontières.",
+          "default": "L’entraide dépasse les frontières."
+        },
+        "text-2": {
+          "type": "text",
+          "label": "SEOS s’adresse aux membres francophones de quatre pays.",
+          "default": "SEOS s’adresse aux membres francophones de quatre pays."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "🇫🇷 France",
+          "default": "🇫🇷 France"
+        },
+        "text-4": {
+          "type": "text",
+          "label": "🇧🇪 Belgique",
+          "default": "🇧🇪 Belgique"
+        },
+        "text-5": {
+          "type": "text",
+          "label": "🇨🇭 Suisse",
+          "default": "🇨🇭 Suisse"
+        },
+        "text-6": {
+          "type": "text",
+          "label": "🇱🇺 Luxembourg",
+          "default": "🇱🇺 Luxembourg"
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Drapeau français flottant sur un bâtiment à Paris",
+          "default": "maquette/photo-1571175475562-83600102a315601d8f2f.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description image 1",
+          "default": "Drapeau français flottant sur un bâtiment à Paris"
+        },
+        "image-1": {
+          "type": "image",
+          "label": "Drapeau belge flottant dans le ciel",
+          "default": "maquette/photo-1663697697070-13f1502bd6f1e09bef29.jpg"
+        },
+        "alt-1": {
+          "type": "text",
+          "label": "Description image 2",
+          "default": "Drapeau belge flottant dans le ciel"
+        },
+        "image-2": {
+          "type": "image",
+          "label": "Drapeau suisse devant les montagnes",
+          "default": "maquette/photo-1742716569164-644f62dff2304f45d775.jpg"
+        },
+        "alt-2": {
+          "type": "text",
+          "label": "Description image 3",
+          "default": "Drapeau suisse devant les montagnes"
+        },
+        "image-3": {
+          "type": "image",
+          "label": "Drapeau luxembourgeois flottant dans le ciel",
+          "default": "seos-logo.png"
+        },
+        "alt-3": {
+          "type": "text",
+          "label": "Description image 4",
+          "default": "Drapeau luxembourgeois flottant dans le ciel"
+        }
+      }
+    },
+    "home-9": {
+      "name": "Et si votre savoir-faire était exactement ce qu’il manquait à quelqu’un ?\n",
+      "html": "<section class=\"section\"><div class=\"container join-panel\">\n<div class=\"join-copy\">\n<span class=\"eyebrow source-inline-6\"><span data-field=\"text-0\">Faites le premier pas</span></span><h2>\n<span data-field=\"text-1\">Et si votre savoir-faire était exactement ce qu’il </span><span class=\"accent\"><span data-field=\"text-2\">manquait à quelqu’un ?</span></span>\n</h2>\n<p class=\"source-inline-7\"><span data-field=\"text-3\">L’inscription est gratuite. Commencez par découvrir les besoins autour de vous.</span></p>\n<div class=\"hero-quick\">\n<a class=\"btn btn-light\" href=\"/auth/inscription\" data-link=\"link-0\"><span data-field=\"text-4\">Créer mon compte →</span></a><a class=\"btn btn-outline source-inline-8\" href=\"/annonces\" data-link=\"link-1\"><span data-field=\"text-5\">Explorer sans s’inscrire</span></a>\n</div>\n</div>\n<div class=\"join-art\">\n<div class=\"join-bubble\"><img src=\"maquette/photo-1593113598332-cd288d64943316bb68d4.jpg\" alt=\"Don\" data-image=\"image-0\" data-alt=\"alt-0\"></div>\n<div class=\"join-bubble\"><img src=\"maquette/photo-1521737604893-d14cc237f11d6a93a504.jpg\" alt=\"Échange\" data-image=\"image-1\" data-alt=\"alt-1\"></div>\n<div class=\"join-bubble\"><img src=\"maquette/photo-1556761175-b413da4baf7233fb64b1.jpg\" alt=\"Communauté\" data-image=\"image-2\" data-alt=\"alt-2\"></div>\n</div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96 L1440 170 L0 170 Z\"></path></svg></div>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Faites le premier pas",
+          "default": "Faites le premier pas"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Et si votre savoir-faire était exactement ce qu’il",
+          "default": "Et si votre savoir-faire était exactement ce qu’il"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "manquait à quelqu’un ?",
+          "default": "manquait à quelqu’un ?"
+        },
+        "text-3": {
+          "type": "text",
+          "label": "L’inscription est gratuite. Commencez par découvrir les besoins a",
+          "default": "L’inscription est gratuite. Commencez par découvrir les besoins autour de vous."
+        },
+        "text-4": {
+          "type": "text",
+          "label": "Créer mon compte →",
+          "default": "Créer mon compte →"
+        },
+        "text-5": {
+          "type": "text",
+          "label": "Explorer sans s’inscrire",
+          "default": "Explorer sans s’inscrire"
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Don",
+          "default": "maquette/photo-1593113598332-cd288d64943316bb68d4.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description image 1",
+          "default": "Don"
+        },
+        "image-1": {
+          "type": "image",
+          "label": "Échange",
+          "default": "maquette/photo-1521737604893-d14cc237f11d6a93a504.jpg"
+        },
+        "alt-1": {
+          "type": "text",
+          "label": "Description image 2",
+          "default": "Échange"
+        },
+        "image-2": {
+          "type": "image",
+          "label": "Communauté",
+          "default": "maquette/photo-1556761175-b413da4baf7233fb64b1.jpg"
+        },
+        "alt-2": {
+          "type": "text",
+          "label": "Description image 3",
+          "default": "Communauté"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : Créer mon compte →",
+          "default": "/auth/inscription"
+        },
+        "link-1": {
+          "type": "url",
+          "label": "Destination : Explorer sans s’inscrire",
+          "default": "/annonces"
+        }
+      }
+    },
+    "home-10": {
+      "name": "Tu as envie d’être utile et de participer à ta façon ?",
+      "html": "<section class=\"section soft\"><div class=\"container support-grid\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Soutenir SEOS</span></span><h2><span data-field=\"text-1\">Tu as envie d’être utile et de participer à ta façon ?</span></h2>\n<p><strong><span data-field=\"text-2\">SEOS a fait le choix d’être gratuit pour tous afin d’être accessible à ceux qui en ont le plus besoin.</span></strong></p>\n<p><span data-field=\"text-3\">Parlez du projet autour de vous, invitez de nouveaux membres ou contribuez à son développement.</span></p>\n<p><strong><span data-field=\"text-4\">Tu aides SEOS → SEOS aide la communauté → La communauté s’entraide</span></strong></p>\n</div>\n<div class=\"support-actions\">\n<article class=\"support-card\"><h3><span data-field=\"text-5\">Faire connaître SEOS</span></h3>\n<p><span data-field=\"text-6\">Partagez le projet et gagnez 10 PS une fois par mois.</span></p>\n<div class=\"share-buttons\">\n<a class=\"icon-btn\" href=\"/contact\" data-link=\"link-0\"><span data-field=\"text-7\">◎</span></a><a class=\"icon-btn\" href=\"/contact\" data-link=\"link-1\"><span data-field=\"text-8\">f</span></a><a class=\"icon-btn\" href=\"/contact\" data-link=\"link-2\"><span data-field=\"text-9\">in</span></a>\n</div></article><article class=\"support-card gold\"><h3><span data-field=\"text-10\">Participer autrement</span></h3>\n<p><span data-field=\"text-11\">Un soutien matériel nous aide à maintenir SEOS accessible.</span></p>\n<a class=\"btn btn-light\" href=\"/contact\" data-link=\"link-3\"><span data-field=\"text-12\">Soutenir SEOS</span></a></article>\n</div>\n</div></section>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Soutenir SEOS",
+          "default": "Soutenir SEOS"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Tu as envie d’être utile et de participer à ta façon ?",
+          "default": "Tu as envie d’être utile et de participer à ta façon ?"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "SEOS a fait le choix d’être gratuit pour tous afin d’être accessi",
+          "default": "SEOS a fait le choix d’être gratuit pour tous afin d’être accessible à ceux qui en ont le plus besoin."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "Parlez du projet autour de vous, invitez de nouveaux membres ou c",
+          "default": "Parlez du projet autour de vous, invitez de nouveaux membres ou contribuez à son développement."
+        },
+        "text-4": {
+          "type": "text",
+          "label": "Tu aides SEOS → SEOS aide la communauté → La communauté s’entraid",
+          "default": "Tu aides SEOS → SEOS aide la communauté → La communauté s’entraide"
+        },
+        "text-5": {
+          "type": "text",
+          "label": "Faire connaître SEOS",
+          "default": "Faire connaître SEOS"
+        },
+        "text-6": {
+          "type": "text",
+          "label": "Partagez le projet et gagnez 10 PS une fois par mois.",
+          "default": "Partagez le projet et gagnez 10 PS une fois par mois."
+        },
+        "text-7": {
+          "type": "text",
+          "label": "◎",
+          "default": "◎"
+        },
+        "text-8": {
+          "type": "text",
+          "label": "f",
+          "default": "f"
+        },
+        "text-9": {
+          "type": "text",
+          "label": "in",
+          "default": "in"
+        },
+        "text-10": {
+          "type": "text",
+          "label": "Participer autrement",
+          "default": "Participer autrement"
+        },
+        "text-11": {
+          "type": "text",
+          "label": "Un soutien matériel nous aide à maintenir SEOS accessible.",
+          "default": "Un soutien matériel nous aide à maintenir SEOS accessible."
+        },
+        "text-12": {
+          "type": "text",
+          "label": "Soutenir SEOS",
+          "default": "Soutenir SEOS"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : ◎",
+          "default": "/contact"
+        },
+        "link-1": {
+          "type": "url",
+          "label": "Destination : f",
+          "default": "/contact"
+        },
+        "link-2": {
+          "type": "url",
+          "label": "Destination : in",
+          "default": "/contact"
+        },
+        "link-3": {
+          "type": "url",
+          "label": "Destination : Soutenir SEOS",
+          "default": "/contact"
+        }
+      }
+    },
+    "don-0": {
+      "name": "Le don,sans contrepartie.\n",
+      "html": "<section class=\"info-hero\"><div class=\"info-hero-copy\">\n<span class=\"eyebrow source-inline-9\"><span data-field=\"text-0\">Choisir son échange</span></span><h1>\n<span data-field=\"text-1\">Le don,</span><br><span class=\"accent\"><span data-field=\"text-2\">sans contrepartie.</span></span>\n</h1>\n<p><span data-field=\"text-3\">Vous donnez librement un peu de temps, un savoir-faire ou un objet. Aucun point n’est demandé et aucune dette n’est créée.</span></p>\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\" data-link=\"link-0\"><span data-field=\"text-4\">Publier un don</span></a>\n</div>\n<div class=\"info-hero-photo\"><img src=\"maquette/photo-1593113598332-cd288d649433732aba29.jpg\" alt=\"Personnes qui partagent un don\" data-image=\"image-0\" data-alt=\"alt-0\"></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Choisir son échange",
+          "default": "Choisir son échange"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Le don,",
+          "default": "Le don,"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "sans contrepartie.",
+          "default": "sans contrepartie."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "Vous donnez librement un peu de temps, un savoir-faire ou un obje",
+          "default": "Vous donnez librement un peu de temps, un savoir-faire ou un objet. Aucun point n’est demandé et aucune dette n’est créée."
+        },
+        "text-4": {
+          "type": "text",
+          "label": "Publier un don",
+          "default": "Publier un don"
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Personnes qui partagent un don",
+          "default": "maquette/photo-1593113598332-cd288d649433732aba29.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description image 1",
+          "default": "Personnes qui partagent un don"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : Publier un don",
+          "default": "/compte/annonces/new"
+        }
+      }
+    },
+    "don-1": {
+      "name": "Un geste simple,des règles claires.",
+      "html": "<section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Le parcours</span></span><h2>\n<span data-field=\"text-1\">Un geste simple,</span><br><span data-field=\"text-2\">des règles claires.</span>\n</h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/\" data-link=\"link-0\"><span data-field=\"text-3\">← Retour à l’accueil</span></a>\n</div>\n<div class=\"info-steps\">\n<article class=\"info-step\"><b><span data-field=\"text-4\">1</span></b><h3><span data-field=\"text-5\">Publiez</span></h3>\n<p><span data-field=\"text-6\">Décrivez précisément ce que vous proposez ou recherchez et indiquez vos disponibilités.</span></p></article><article class=\"info-step\"><b><span data-field=\"text-7\">2</span></b><h3><span data-field=\"text-8\">Échangez</span></h3>\n<p><span data-field=\"text-9\">La messagerie interne permet de convenir du lieu, de la date et des conditions.</span></p></article><article class=\"info-step\"><b><span data-field=\"text-10\">3</span></b><h3><span data-field=\"text-11\">Validez</span></h3>\n<p><span data-field=\"text-12\">Après la rencontre, les deux membres peuvent confirmer l’échange et laisser un avis.</span></p></article>\n</div>\n<div class=\"notice source-inline-10\"><span data-field=\"text-13\">Le don est volontaire : aucune compensation financière ni aucun Point Service ne peut être imposé.</span></div>\n</div></section>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Le parcours",
+          "default": "Le parcours"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Un geste simple,",
+          "default": "Un geste simple,"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "des règles claires.",
+          "default": "des règles claires."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "← Retour à l’accueil",
+          "default": "← Retour à l’accueil"
+        },
+        "text-4": {
+          "type": "text",
+          "label": "1",
+          "default": "1"
+        },
+        "text-5": {
+          "type": "text",
+          "label": "Publiez",
+          "default": "Publiez"
+        },
+        "text-6": {
+          "type": "text",
+          "label": "Décrivez précisément ce que vous proposez ou recherchez et indiqu",
+          "default": "Décrivez précisément ce que vous proposez ou recherchez et indiquez vos disponibilités."
+        },
+        "text-7": {
+          "type": "text",
+          "label": "2",
+          "default": "2"
+        },
+        "text-8": {
+          "type": "text",
+          "label": "Échangez",
+          "default": "Échangez"
+        },
+        "text-9": {
+          "type": "text",
+          "label": "La messagerie interne permet de convenir du lieu, de la date et d",
+          "default": "La messagerie interne permet de convenir du lieu, de la date et des conditions."
+        },
+        "text-10": {
+          "type": "text",
+          "label": "3",
+          "default": "3"
+        },
+        "text-11": {
+          "type": "text",
+          "label": "Validez",
+          "default": "Validez"
+        },
+        "text-12": {
+          "type": "text",
+          "label": "Après la rencontre, les deux membres peuvent confirmer l’échange ",
+          "default": "Après la rencontre, les deux membres peuvent confirmer l’échange et laisser un avis."
+        },
+        "text-13": {
+          "type": "text",
+          "label": "Le don est volontaire : aucune compensation financière ni aucun P",
+          "default": "Le don est volontaire : aucune compensation financière ni aucun Point Service ne peut être imposé."
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : ← Retour à l’accueil",
+          "default": "/"
+        }
+      }
+    },
+    "exchange-0": {
+      "name": "L’échange,compétence contre compétence.\n",
+      "html": "<section class=\"info-hero\"><div class=\"info-hero-copy\">\n<span class=\"eyebrow source-inline-11\"><span data-field=\"text-0\">Choisir son échange</span></span><h1>\n<span data-field=\"text-1\">L’échange,</span><br><span class=\"accent\"><span data-field=\"text-2\">compétence contre compétence.</span></span>\n</h1>\n<p><span data-field=\"text-3\">Deux membres s’entendent librement : un cours contre un dépannage, une aide au jardin contre du transport, ou toute autre combinaison acceptée.</span></p>\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\" data-link=\"link-0\"><span data-field=\"text-4\">Proposer un échange</span></a>\n</div>\n<div class=\"info-hero-photo\"><img src=\"maquette/photo-1521737604893-d14cc237f11d500bca5b.jpg\" alt=\"Membres préparant un échange de services\" data-image=\"image-0\" data-alt=\"alt-0\"></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Choisir son échange",
+          "default": "Choisir son échange"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "L’échange,",
+          "default": "L’échange,"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "compétence contre compétence.",
+          "default": "compétence contre compétence."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "Deux membres s’entendent librement : un cours contre un dépannage",
+          "default": "Deux membres s’entendent librement : un cours contre un dépannage, une aide au jardin contre du transport, ou toute autre combinaison acceptée."
+        },
+        "text-4": {
+          "type": "text",
+          "label": "Proposer un échange",
+          "default": "Proposer un échange"
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Membres préparant un échange de services",
+          "default": "maquette/photo-1521737604893-d14cc237f11d500bca5b.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description image 1",
+          "default": "Membres préparant un échange de services"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : Proposer un échange",
+          "default": "/compte/annonces/new"
+        }
+      }
+    },
+    "exchange-1": {
+      "name": "Vous décidezensemble.",
+      "html": "<section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Le parcours</span></span><h2>\n<span data-field=\"text-1\">Vous décidez</span><br><span data-field=\"text-2\">ensemble.</span>\n</h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/\" data-link=\"link-0\"><span data-field=\"text-3\">← Retour à l’accueil</span></a>\n</div>\n<div class=\"info-steps\">\n<article class=\"info-step\"><b><span data-field=\"text-4\">1</span></b><h3><span data-field=\"text-5\">Proposez</span></h3>\n<p><span data-field=\"text-6\">Indiquez le service offert et celui que vous aimeriez recevoir en retour.</span></p></article><article class=\"info-step\"><b><span data-field=\"text-7\">2</span></b><h3><span data-field=\"text-8\">Négociez</span></h3>\n<p><span data-field=\"text-9\">Les membres précisent la durée, le matériel, les déplacements et les disponibilités.</span></p></article><article class=\"info-step\"><b><span data-field=\"text-10\">3</span></b><h3><span data-field=\"text-11\">Confirmez</span></h3>\n<p><span data-field=\"text-12\">Les modalités restent visibles dans la messagerie et sont validées après le service.</span></p></article>\n</div>\n<div class=\"notice source-inline-12\"><span data-field=\"text-13\">Les deux services peuvent avoir des durées différentes : l’essentiel est que les deux membres acceptent les modalités.</span></div>\n</div></section>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Le parcours",
+          "default": "Le parcours"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Vous décidez",
+          "default": "Vous décidez"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "ensemble.",
+          "default": "ensemble."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "← Retour à l’accueil",
+          "default": "← Retour à l’accueil"
+        },
+        "text-4": {
+          "type": "text",
+          "label": "1",
+          "default": "1"
+        },
+        "text-5": {
+          "type": "text",
+          "label": "Proposez",
+          "default": "Proposez"
+        },
+        "text-6": {
+          "type": "text",
+          "label": "Indiquez le service offert et celui que vous aimeriez recevoir en",
+          "default": "Indiquez le service offert et celui que vous aimeriez recevoir en retour."
+        },
+        "text-7": {
+          "type": "text",
+          "label": "2",
+          "default": "2"
+        },
+        "text-8": {
+          "type": "text",
+          "label": "Négociez",
+          "default": "Négociez"
+        },
+        "text-9": {
+          "type": "text",
+          "label": "Les membres précisent la durée, le matériel, les déplacements et ",
+          "default": "Les membres précisent la durée, le matériel, les déplacements et les disponibilités."
+        },
+        "text-10": {
+          "type": "text",
+          "label": "3",
+          "default": "3"
+        },
+        "text-11": {
+          "type": "text",
+          "label": "Confirmez",
+          "default": "Confirmez"
+        },
+        "text-12": {
+          "type": "text",
+          "label": "Les modalités restent visibles dans la messagerie et sont validée",
+          "default": "Les modalités restent visibles dans la messagerie et sont validées après le service."
+        },
+        "text-13": {
+          "type": "text",
+          "label": "Les deux services peuvent avoir des durées différentes : l’essent",
+          "default": "Les deux services peuvent avoir des durées différentes : l’essentiel est que les deux membres acceptent les modalités."
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : ← Retour à l’accueil",
+          "default": "/"
+        }
+      }
+    },
+    "points-0": {
+      "name": "Les Points Services,aider maintenant, recevoir plus tard.\n",
+      "html": "<section class=\"info-hero\"><div class=\"info-hero-copy\">\n<span class=\"eyebrow source-inline-13\"><span data-field=\"text-0\">Choisir son échange</span></span><h1>\n<span data-field=\"text-1\">Les Points Services,</span><br><span class=\"accent\"><span data-field=\"text-2\">aider maintenant, recevoir plus tard.</span></span>\n</h1>\n<p><span data-field=\"text-3\">Les Points Services circulent uniquement dans SEOS. Ils servent à remercier un membre et ne sont pas convertibles en euros.</span></p>\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\" data-link=\"link-0\"><span data-field=\"text-4\">Publier avec des points</span></a>\n</div>\n<div class=\"info-hero-photo\"><img src=\"maquette/photo-1556761175-b413da4baf72d51cb62d.jpg\" alt=\"Communauté utilisant les Points Services\" data-image=\"image-0\" data-alt=\"alt-0\"></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Choisir son échange",
+          "default": "Choisir son échange"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Les Points Services,",
+          "default": "Les Points Services,"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "aider maintenant, recevoir plus tard.",
+          "default": "aider maintenant, recevoir plus tard."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "Les Points Services circulent uniquement dans SEOS. Ils servent à",
+          "default": "Les Points Services circulent uniquement dans SEOS. Ils servent à remercier un membre et ne sont pas convertibles en euros."
+        },
+        "text-4": {
+          "type": "text",
+          "label": "Publier avec des points",
+          "default": "Publier avec des points"
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Communauté utilisant les Points Services",
+          "default": "maquette/photo-1556761175-b413da4baf72d51cb62d.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description image 1",
+          "default": "Communauté utilisant les Points Services"
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : Publier avec des points",
+          "default": "/compte/annonces/new"
+        }
+      }
+    },
+    "points-1": {
+      "name": "Une estimation,puis un accord.",
+      "html": "<section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Le parcours</span></span><h2>\n<span data-field=\"text-1\">Une estimation,</span><br><span data-field=\"text-2\">puis un accord.</span>\n</h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/\" data-link=\"link-0\"><span data-field=\"text-3\">← Retour à l’accueil</span></a>\n</div>\n<div class=\"info-steps\">\n<article class=\"info-step\"><b><span data-field=\"text-4\">1</span></b><h3><span data-field=\"text-5\">Estimez</span></h3>\n<p><span data-field=\"text-6\">10 PS correspondent à une valeur comprise entre 0 et 20 €, et 50 PS à une valeur comprise entre 80 et 100 €.</span></p></article><article class=\"info-step\"><b><span data-field=\"text-7\">2</span></b><h3><span data-field=\"text-8\">Discutez</span></h3>\n<p><span data-field=\"text-9\">Le montant affiché reste approximatif et peut être modifié après discussion.</span></p></article><article class=\"info-step\"><b><span data-field=\"text-10\">3</span></b><h3><span data-field=\"text-11\">Rétribuez</span></h3>\n<p><span data-field=\"text-12\">Le bouton apparaît seulement si votre solde couvre le montant final accepté.</span></p></article>\n</div>\n<div class=\"notice source-inline-14\"><span data-field=\"text-13\">30 PS sont offerts à l’inscription. Tous les cinq échanges réalisés en Points Services rapportent 20 PS supplémentaires.</span></div>\n</div></section>",
+      "fields": {
+        "text-0": {
+          "type": "text",
+          "label": "Le parcours",
+          "default": "Le parcours"
+        },
+        "text-1": {
+          "type": "text",
+          "label": "Une estimation,",
+          "default": "Une estimation,"
+        },
+        "text-2": {
+          "type": "text",
+          "label": "puis un accord.",
+          "default": "puis un accord."
+        },
+        "text-3": {
+          "type": "text",
+          "label": "← Retour à l’accueil",
+          "default": "← Retour à l’accueil"
+        },
+        "text-4": {
+          "type": "text",
+          "label": "1",
+          "default": "1"
+        },
+        "text-5": {
+          "type": "text",
+          "label": "Estimez",
+          "default": "Estimez"
+        },
+        "text-6": {
+          "type": "text",
+          "label": "10 PS correspondent à une valeur comprise entre 0 et 20 €, et 50 ",
+          "default": "10 PS correspondent à une valeur comprise entre 0 et 20 €, et 50 PS à une valeur comprise entre 80 et 100 €."
+        },
+        "text-7": {
+          "type": "text",
+          "label": "2",
+          "default": "2"
+        },
+        "text-8": {
+          "type": "text",
+          "label": "Discutez",
+          "default": "Discutez"
+        },
+        "text-9": {
+          "type": "text",
+          "label": "Le montant affiché reste approximatif et peut être modifié après ",
+          "default": "Le montant affiché reste approximatif et peut être modifié après discussion."
+        },
+        "text-10": {
+          "type": "text",
+          "label": "3",
+          "default": "3"
+        },
+        "text-11": {
+          "type": "text",
+          "label": "Rétribuez",
+          "default": "Rétribuez"
+        },
+        "text-12": {
+          "type": "text",
+          "label": "Le bouton apparaît seulement si votre solde couvre le montant fin",
+          "default": "Le bouton apparaît seulement si votre solde couvre le montant final accepté."
+        },
+        "text-13": {
+          "type": "text",
+          "label": "30 PS sont offerts à l’inscription. Tous les cinq échanges réalis",
+          "default": "30 PS sont offerts à l’inscription. Tous les cinq échanges réalisés en Points Services rapportent 20 PS supplémentaires."
+        },
+        "link-0": {
+          "type": "url",
+          "label": "Destination : ← Retour à l’accueil",
+          "default": "/"
+        }
+      }
+    }
+  },
+  "kit": {
+    "home": "<main class=\"page active\" id=\"homePage\">\n      <section class=\"hero\">\n        <div class=\"hero-media\" id=\"heroMedia\">\n          <div class=\"hero-slide active\"><img src=\"maquette/photo-1581578731548-c64695cc695294a873d9.jpg\" alt=\"Entraide à domicile\"></div>\n          <div class=\"hero-slide\"><img src=\"maquette/photo-1522202176988-66273c2fd55f262793d0.jpg\" alt=\"Partage de compétences\"></div>\n          <div class=\"hero-slide\"><img src=\"maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg\" alt=\"Entraide au jardin\"></div>\n        </div>\n        <div class=\"container hero-content\">\n<span class=\"hero-label\"><i class=\"live-dot\"></i><span id=\"heroServiceLabel\">Aide à la personne</span> · la communauté en action</span><span class=\"eyebrow source-inline-15\">Bienvenue sur SEOS</span><h1>Faites circuler<br><span class=\"accent\">l’entraide.</span>\n</h1>\n<p>Proposez un savoir-faire, trouvez un coup de main et créez des liens dans toute la communauté francophone.</p>\n</div>\n        <div class=\"container hero-search-wrap\">\n<div class=\"search-bar\">\n<label class=\"search-field\">⌕ <input id=\"homeKeyword\" placeholder=\"Bricolage, informatique, cours…\" disabled></label><label class=\"search-field\">⌖ <input id=\"homeLocation\" placeholder=\"Ville ou code postal\" disabled></label><a class=\"btn btn-deep\" href=\"/annonces\">Chercher</a>\n</div>\n<div class=\"hero-quick\">\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\">＋ Publier une annonce</a><a class=\"btn btn-light\" href=\"/decouvrir/fonctionnement\">▶ Comprendre en 2 minutes</a>\n</div>\n</div>\n<div class=\"hero-wave\"></div>\n      <div class=\"hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"cut-gold\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>\n\n      <section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">À chacun sa façon d’aider</span><h2>Trois manières de faire circuler <span class=\"accent\">l’entraide</span>\n</h2>\n</div>\n<p>Choisissez librement la forme d’échange qui correspond à votre situation. Chaque option possède ses propres règles, expliquées simplement.</p>\n</div>\n<div class=\"exchange-grid\">\n        <article class=\"exchange-card\"><div class=\"exchange-photo\"><img src=\"maquette/photo-1593113598332-cd288d649433598c8e07.jpg\" alt=\"Don\"></div>\n<span class=\"exchange-num\">01</span><h3>Le don</h3>\n<p>Offrez votre aide librement, sans contrepartie. Un geste simple peut changer une journée.</p>\n<a class=\"text-link\" href=\"/decouvrir/don\">Comprendre le don</a></article>\n        <article class=\"exchange-card\"><div class=\"exchange-photo\"><img src=\"maquette/photo-1521737604893-d14cc237f11d106520fb.jpg\" alt=\"Échange\"></div>\n<span class=\"exchange-num\">02</span><h3>L’échange</h3>\n<p>Échangez directement vos compétences. Les modalités sont libres et décidées ensemble.</p>\n<a class=\"text-link\" href=\"/decouvrir/echange\">Découvrir l’échange</a></article>\n        <article class=\"exchange-card\"><div class=\"exchange-photo\"><img src=\"maquette/photo-1556761175-b413da4baf72db6f9ace.jpg\" alt=\"Points Services\"></div>\n<span class=\"exchange-num\">03</span><h3>Les Points Services</h3>\n<p>Aidez aujourd’hui, utilisez vos points plus tard auprès d’un autre membre de la communauté.</p>\n<a class=\"text-link\" href=\"/decouvrir/points\">Voir comment ça marche</a></article>\n      </div>\n</div></section>\n\n      <div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section soft\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Explorer</span><h2>Parcourez les catégories</h2>\n</div>\n<p>Des besoins du quotidien aux savoir-faire créatifs, trouvez rapidement les personnes qui peuvent vous aider.</p>\n</div>\n<div class=\"category-grid\" id=\"categoryGrid\">\n<a class=\"category\" href=\"/contact\"><img src=\"maquette/photo-1516589178581-6cd7833ae3b28b76327b.jpg\" alt=\"Aide à la personne\"><span>Aide à la personne</span></a><a class=\"category\" href=\"/contact\"><img src=\"maquette/photo-1504148455328-c376907d081cef2fbe26.jpg\" alt=\"Habitation &amp; bricolage\"><span>Habitation &amp; bricolage</span></a><a class=\"category\" href=\"/contact\"><img src=\"maquette/photo-1516321318423-f06f85e504b3f27a878f.jpg\" alt=\"Informatique\"><span>Informatique</span></a><a class=\"category\" href=\"/contact\"><img src=\"maquette/photo-1416879595882-3373a0480b5b3641bfdd.jpg\" alt=\"Jardinage\"><span>Jardinage</span></a><a class=\"category\" href=\"/contact\"><img src=\"maquette/photo-1522202176988-66273c2fd55fc53b6fe0.jpg\" alt=\"Cours &amp; formations\"><span>Cours &amp; formations</span></a><a class=\"category\" href=\"/contact\"><img src=\"maquette/photo-1510915361894-db8b60106cb1a1db45e8.jpg\" alt=\"Services créatifs\"><span>Services créatifs</span></a><a class=\"category\" href=\"/contact\"><img src=\"maquette/photo-1518611012118-696072aa579aab892ec2.jpg\" alt=\"Bien-être\"><span>Bien-être</span></a><a class=\"category\" href=\"/contact\"><img src=\"maquette/photo-1502741338009-cac2772e18bc44ecc9fd.jpg\" alt=\"Transport\"><span>Transport</span></a>\n</div>\n</div></section>\n\n      <div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--seos)\"></rect><path class=\"wave-melt-outer\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Près de chez vous</span><h2>Annonces à la une</h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/annonces\">Voir toutes les annonces →</a>\n</div>\n<div class=\"ad-grid\" id=\"homeAds\">\n<article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1543269865-cbf427effbad19dcd05e.jpg\" alt=\"Cours d’anglais pour débutant\"><span class=\"ad-badge top\">Top annonce</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Cours &amp; formations</span><h3>Cours d’anglais pour débutant</h3>\n<p>Des séances conviviales et progressives, adaptées à votre niveau.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">C</span><strong>Camille <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,8 sur 5\">★ 4,8</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Rennes · 1.8 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>25 PS</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1586023492125-27b2c045efd7a8d3f02d.jpg\" alt=\"Aide pour monter un meuble\"><span class=\"ad-badge\">Offre</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Habitation &amp; bricolage</span><h3>Aide pour monter un meuble</h3>\n<p>Un coup de main soigneux pour assembler votre mobilier.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">T</span><strong>Thomas <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,6 sur 5\">★ 4,6</span></strong>\n</div>\n<div class=\"fact-row\"><span class=\"fact\">⌖ Nantes · 3.4 km</span></div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>Échange libre</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1542838132-92c53300491e136f4471.jpg\" alt=\"Besoin urgent : courses samedi\"><span class=\"ad-badge urgent\">Besoin urgent</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Aide à la personne</span><h3>Besoin urgent : courses samedi</h3>\n<p>Je recherche une personne pour m’accompagner faire les courses.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">M</span><strong>Marie <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,9 sur 5\">★ 4,9</span></strong>\n</div>\n<div class=\"fact-row\"><span class=\"fact\">⌖ Rennes · 2.2 km</span></div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>Don</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1510915361894-db8b60106cb157037181.jpg\" alt=\"Cours de guitare\"><span class=\"ad-badge\">Offre</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Services créatifs</span><h3>Cours de guitare</h3>\n<p>Apprenez les bases à votre rythme dans une ambiance détendue.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">S</span><strong>Sophie <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,7 sur 5\">★ 4,7</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Rennes · 5.6 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>20 PS</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article>\n</div>\n</div></section>\n\n      <div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96\" fill=\"none\" stroke=\"var(--deep)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--deep)\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section soft\"><div class=\"container chain-home\">\n<div>\n<span class=\"eyebrow\">Le cœur du modèle</span><h2>Votre coup de main déclenche une <span class=\"accent\">chaîne</span>\n</h2>\n<p>La chaîne d’entraide est distincte des annonces : vous pouvez aider une personne de votre entourage, même si elle n’est pas encore membre. Elle valide le service grâce à votre lien, puis aide quelqu’un à son tour.</p>\n<p><strong>Chaque validation rapporte 10 PS aux dix derniers membres, dans la limite de 100 PS par personne.</strong></p>\n<a class=\"btn btn-deep\" href=\"/decouvrir/fonctionnement\">Comprendre la chaîne d’entraide →</a>\n</div>\n<div>\n<div class=\"chain-flow\">\n<div class=\"chain-person gold\">\n<span class=\"avatar-letter\">MD</span><strong>Marc</strong><small>répare le vélo d’Amina</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">\n<span class=\"avatar-letter\">AB</span><strong>Amina</strong><small>donne un cours à Fatou</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">\n<span class=\"avatar-letter\">FN</span><strong>Fatou</strong><small>garde les enfants de Lucie</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">\n<span class=\"avatar-letter\">LP</span><strong>Lucie</strong><small>emmène Paul en voiture</small><span class=\"coin\">10</span>\n</div>\n</div>\n<div class=\"notice\">4 services validés · 40 Points Services en circulation · 0 €</div>\n</div>\n</div></section>\n\n      <div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--deep)\"></rect><path class=\"wave-melt-outer\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section\" id=\"presentation\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Comprendre en 2 minutes</span><h2>Du besoin à la rencontre,<br><span class=\"accent\">en toute simplicité.</span>\n</h2>\n</div>\n<p>Une courte présentation explique la publication, la messagerie et la manière de définir ensemble les modalités de l’échange.</p>\n</div>\n<div class=\"video-testimonial source-inline-16\">\n<video controls=\"\" preload=\"metadata\" poster=\"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=1500&amp;q=85\" aria-label=\"Présentation vidéo de SEOS\"></video><span class=\"caption\">Emplacement vidéo prêt · média final à fournir</span>\n</div>\n</div></section>\n\n      <div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section soft\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Ils l’ont vécu</span><h2>Ce que ça change, concrètement</h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/contact\">Partager mon témoignage</a>\n</div>\n<div class=\"testimonial-grid\">\n<article class=\"testimonial\"><div class=\"quote\">“</div>\n<p>Je suis arrivée à Roubaix sans connaître personne. Aujourd’hui j’ai des voisins, pas juste une adresse.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">AB</span><div>\n<strong>Amina B.</strong><small>Roubaix · membre depuis 2024</small>\n</div>\n</div></article><article class=\"testimonial\"><div class=\"quote\">“</div>\n<p>À la retraite, on te fait vite sentir que tu ne sers plus. Ici, mes quinze ans d’atelier valent quelque chose.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">MD</span><div>\n<strong>Marc D.</strong><small>Lyon · 63 échanges</small>\n</div>\n</div></article><div class=\"video-testimonial\">\n<video controls=\"\" preload=\"metadata\" poster=\"https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=700&amp;q=85\" aria-label=\"Témoignage vidéo de Lucie\"></video><span class=\"caption\">Témoignage de Lucie · média final à fournir</span>\n</div>\n</div>\n</div></section>\n\n      <div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--seos)\"></rect><path class=\"wave-melt-outer\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section\"><div class=\"container security-grid\">\n<div class=\"security-orb\">⌾<br>Se rencontrer<br>en confiance</div>\n<div>\n<span class=\"eyebrow\">Sécurité</span><h2>Un cadre clair, parce que l’entraide ne s’improvise pas</h2>\n<p>SEOS met des inconnus en relation : la prudence et la transparence font partie du service.</p>\n<div class=\"security-items\">\n<article class=\"security-item\"><h3>✓ Profils vérifiés</h3>\n<p>E-mail et téléphone confirmés. Pièce d’identité demandée pour les services auprès de publics vulnérables.</p></article><article class=\"security-item\"><h3>☆ Avis après échange</h3>\n<p>Seuls les membres ayant réellement échangé peuvent publier un avis.</p></article><article class=\"security-item\"><h3>◯ Messagerie interne</h3>\n<p>Vos coordonnées restent privées jusqu’à ce que vous décidiez de les transmettre.</p></article><article class=\"security-item\"><h3>⚑ Signalement en un clic</h3>\n<p>Chaque signalement est examiné par l’équipe sous 48 heures ouvrées.</p></article>\n</div>\n</div>\n</div></section>\n\n      <div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60\" fill=\"none\" stroke=\"var(--gold)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60\" fill=\"none\" stroke=\"var(--deep)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--deep)\" d=\"M0 34 C165 174 332 184 510 62 C680 -54 838 -10 1002 88 C1162 184 1302 140 1440 60 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section francophone\"><div class=\"container section-head source-inline-17\">\n<div>\n<span class=\"eyebrow source-inline-18\">Une communauté francophone</span><h2 class=\"source-inline-19\">L’entraide dépasse les frontières.</h2>\n<p class=\"source-inline-20\">SEOS s’adresse aux membres francophones de quatre pays.</p>\n</div>\n<figure class=\"francophone-visual\" role=\"img\" aria-label=\"Photographies des drapeaux de la France, de la Belgique, de la Suisse et du Luxembourg\"><div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1571175475562-83600102a315601d8f2f.jpg\" alt=\"Drapeau français flottant sur un bâtiment à Paris\"><span>🇫🇷 France</span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1663697697070-13f1502bd6f1e09bef29.jpg\" alt=\"Drapeau belge flottant dans le ciel\"><span>🇧🇪 Belgique</span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1742716569164-644f62dff2304f45d775.jpg\" alt=\"Drapeau suisse devant les montagnes\"><span>🇨🇭 Suisse</span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"seos-logo.png\" alt=\"Drapeau luxembourgeois flottant dans le ciel\"><span>🇱🇺 Luxembourg</span>\n</div></figure>\n</div></section>\n\n      <div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--deep)\"></rect><path class=\"wave-melt-outer\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section\"><div class=\"container join-panel\">\n<div class=\"join-copy\">\n<span class=\"eyebrow source-inline-21\">Faites le premier pas</span><h2>Et si votre savoir-faire était exactement ce qu’il <span class=\"accent\">manquait à quelqu’un ?</span>\n</h2>\n<p class=\"source-inline-22\">L’inscription est gratuite. Commencez par découvrir les besoins autour de vous.</p>\n<div class=\"hero-quick\">\n<a class=\"btn btn-light\" href=\"/auth/inscription\">Créer mon compte →</a><a class=\"btn btn-outline source-inline-23\" href=\"/annonces\">Explorer sans s’inscrire</a>\n</div>\n</div>\n<div class=\"join-art\">\n<div class=\"join-bubble\"><img src=\"maquette/photo-1593113598332-cd288d64943316bb68d4.jpg\" alt=\"Don\"></div>\n<div class=\"join-bubble\"><img src=\"maquette/photo-1521737604893-d14cc237f11d6a93a504.jpg\" alt=\"Échange\"></div>\n<div class=\"join-bubble\"><img src=\"maquette/photo-1556761175-b413da4baf7233fb64b1.jpg\" alt=\"Communauté\"></div>\n</div>\n</div></section>\n      <div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 58 C184 150 350 158 522 88 C702 14 836 -28 1014 70 C1176 158 1318 146 1440 96 L1440 170 L0 170 Z\"></path></svg></div>\n<section class=\"section soft\"><div class=\"container support-grid\">\n<div>\n<span class=\"eyebrow\">Soutenir SEOS</span><h2>Tu as envie d’être utile et de participer à ta façon ?</h2>\n<p><strong>SEOS a fait le choix d’être gratuit pour tous afin d’être accessible à ceux qui en ont le plus besoin.</strong></p>\n<p>Parlez du projet autour de vous, invitez de nouveaux membres ou contribuez à son développement.</p>\n<p><strong>Tu aides SEOS → SEOS aide la communauté → La communauté s’entraide</strong></p>\n</div>\n<div class=\"support-actions\">\n<article class=\"support-card\"><h3>Faire connaître SEOS</h3>\n<p>Partagez le projet et gagnez 10 PS une fois par mois.</p>\n<div class=\"share-buttons\">\n<a class=\"icon-btn\" href=\"/contact\">◎</a><a class=\"icon-btn\" href=\"/contact\">f</a><a class=\"icon-btn\" href=\"/contact\">in</a>\n</div></article><article class=\"support-card gold\"><h3>Participer autrement</h3>\n<p>Un soutien matériel nous aide à maintenir SEOS accessible.</p>\n<a class=\"btn btn-light\" href=\"/contact\">Soutenir SEOS</a></article>\n</div>\n</div></section>\n    </main>",
+    "don": "<main class=\"page active\" id=\"donPage\"><section class=\"info-hero\"><div class=\"info-hero-copy\">\n<span class=\"eyebrow source-inline-24\">Choisir son échange</span><h1>Le don,<br><span class=\"accent\">sans contrepartie.</span>\n</h1>\n<p>Vous donnez librement un peu de temps, un savoir-faire ou un objet. Aucun point n’est demandé et aucune dette n’est créée.</p>\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\">Publier un don</a>\n</div>\n<div class=\"info-hero-photo\"><img src=\"maquette/photo-1593113598332-cd288d649433732aba29.jpg\" alt=\"Personnes qui partagent un don\"></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Le parcours</span><h2>Un geste simple,<br>des règles claires.</h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/\">← Retour à l’accueil</a>\n</div>\n<div class=\"info-steps\">\n<article class=\"info-step\"><b>1</b><h3>Publiez</h3>\n<p>Décrivez précisément ce que vous proposez ou recherchez et indiquez vos disponibilités.</p></article><article class=\"info-step\"><b>2</b><h3>Échangez</h3>\n<p>La messagerie interne permet de convenir du lieu, de la date et des conditions.</p></article><article class=\"info-step\"><b>3</b><h3>Validez</h3>\n<p>Après la rencontre, les deux membres peuvent confirmer l’échange et laisser un avis.</p></article>\n</div>\n<div class=\"notice source-inline-25\">Le don est volontaire : aucune compensation financière ni aucun Point Service ne peut être imposé.</div>\n</div></section></main>",
+    "exchange": "<main class=\"page active\" id=\"exchangePage\"><section class=\"info-hero\"><div class=\"info-hero-copy\">\n<span class=\"eyebrow source-inline-26\">Choisir son échange</span><h1>L’échange,<br><span class=\"accent\">compétence contre compétence.</span>\n</h1>\n<p>Deux membres s’entendent librement : un cours contre un dépannage, une aide au jardin contre du transport, ou toute autre combinaison acceptée.</p>\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\">Proposer un échange</a>\n</div>\n<div class=\"info-hero-photo\"><img src=\"maquette/photo-1521737604893-d14cc237f11d500bca5b.jpg\" alt=\"Membres préparant un échange de services\"></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Le parcours</span><h2>Vous décidez<br>ensemble.</h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/\">← Retour à l’accueil</a>\n</div>\n<div class=\"info-steps\">\n<article class=\"info-step\"><b>1</b><h3>Proposez</h3>\n<p>Indiquez le service offert et celui que vous aimeriez recevoir en retour.</p></article><article class=\"info-step\"><b>2</b><h3>Négociez</h3>\n<p>Les membres précisent la durée, le matériel, les déplacements et les disponibilités.</p></article><article class=\"info-step\"><b>3</b><h3>Confirmez</h3>\n<p>Les modalités restent visibles dans la messagerie et sont validées après le service.</p></article>\n</div>\n<div class=\"notice source-inline-27\">Les deux services peuvent avoir des durées différentes : l’essentiel est que les deux membres acceptent les modalités.</div>\n</div></section></main>",
+    "points": "<main class=\"page active\" id=\"pointsPage\"><section class=\"info-hero\"><div class=\"info-hero-copy\">\n<span class=\"eyebrow source-inline-28\">Choisir son échange</span><h1>Les Points Services,<br><span class=\"accent\">aider maintenant, recevoir plus tard.</span>\n</h1>\n<p>Les Points Services circulent uniquement dans SEOS. Ils servent à remercier un membre et ne sont pas convertibles en euros.</p>\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\">Publier avec des points</a>\n</div>\n<div class=\"info-hero-photo\"><img src=\"maquette/photo-1556761175-b413da4baf72d51cb62d.jpg\" alt=\"Communauté utilisant les Points Services\"></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Le parcours</span><h2>Une estimation,<br>puis un accord.</h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/\">← Retour à l’accueil</a>\n</div>\n<div class=\"info-steps\">\n<article class=\"info-step\"><b>1</b><h3>Estimez</h3>\n<p>10 PS correspondent à une valeur comprise entre 0 et 20 €, et 50 PS à une valeur comprise entre 80 et 100 €.</p></article><article class=\"info-step\"><b>2</b><h3>Discutez</h3>\n<p>Le montant affiché reste approximatif et peut être modifié après discussion.</p></article><article class=\"info-step\"><b>3</b><h3>Rétribuez</h3>\n<p>Le bouton apparaît seulement si votre solde couvre le montant final accepté.</p></article>\n</div>\n<div class=\"notice source-inline-29\">30 PS sont offerts à l’inscription. Tous les cinq échanges réalisés en Points Services rapportent 20 PS supplémentaires.</div>\n</div></section></main>",
+    "listings": "<main class=\"page active\" id=\"listingsPage\">\n      <section class=\"subhero\"><div class=\"container\">\n<span class=\"eyebrow source-inline-30\">Annonces</span><h1>Trouvez le coup de main<br>qu’il vous faut.</h1>\n<p>Offres et demandes locales, à distance ou près de chez vous.</p>\n</div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>\n      <div class=\"container\">\n<div class=\"listing-search\">\n<div class=\"search-bar source-inline-31\">\n<label class=\"search-field\">⌕ <input id=\"listingKeyword\" value=\"Cours d’anglais\" disabled></label><label class=\"search-field\">⌖ <input id=\"listingLocation\" value=\"Rennes, 35000\" disabled></label><a class=\"btn btn-deep\" id=\"searchAds\" href=\"/contact\">Chercher</a>\n</div>\n<div class=\"pill-row source-inline-32\">\n<a class=\"pill active\" href=\"/contact\">Tous</a><a class=\"pill\" href=\"/contact\">⌁ À distance</a><a class=\"pill\" href=\"/contact\">⌖ Près de chez moi</a><a class=\"pill\" href=\"/contact\">Offres</a><a class=\"pill\" href=\"/contact\">Demandes</a>\n</div>\n</div>\n        <div class=\"listing-layout\">\n<aside class=\"filters\"><div class=\"source-inline-33\">\n<h3>Filtres</h3>\n<a class=\"btn btn-light source-inline-34\" id=\"resetFilters\" href=\"/contact\">Effacer</a>\n</div>\n          <div class=\"filter-group\">\n<label class=\"filter-label\">Catégories et sous-catégories</label><div class=\"category-tree\">\n<details open=\"\"><summary>Aide à la personne</summary><label><input type=\"checkbox\" disabled> Courses et accompagnement</label><label><input type=\"checkbox\" disabled> Garde et présence</label></details><details><summary>Maison &amp; extérieur</summary><label><input type=\"checkbox\" disabled> Bricolage</label><label><input type=\"checkbox\" disabled> Jardinage</label><label><input type=\"checkbox\" disabled> Ménage</label></details><details><summary>Savoirs &amp; numérique</summary><label><input type=\"checkbox\" checked disabled> Cours &amp; formations</label><label><input type=\"checkbox\" disabled> Informatique</label></details><details><summary>Créatif &amp; bien-être</summary><label><input type=\"checkbox\" disabled> Services créatifs</label><label><input type=\"checkbox\" disabled> Bien-être</label></details>\n</div>\n</div>\n          <div class=\"filter-group\">\n<label class=\"filter-label\">Localité</label><input class=\"control\" placeholder=\"Adresse, ville ou département\" value=\"Rennes\" disabled><label class=\"filter-label source-inline-35\">Rayon : <b id=\"radiusValue\">25 km</b></label><input type=\"range\" id=\"radiusRange\" min=\"5\" max=\"100\" value=\"25\" disabled><div class=\"range-values\">\n<span>5 km</span><span>100 km</span>\n</div>\n</div>\n          <div class=\"filter-group\">\n<label class=\"filter-label\">Mode d’échange</label><div class=\"check-list\">\n<label><input type=\"checkbox\" checked disabled> Don</label><label><input type=\"checkbox\" checked disabled> Échange de services</label><label><input type=\"checkbox\" checked disabled> Points Services</label>\n</div>\n</div>\n          <div class=\"filter-group\">\n<label class=\"filter-label\">Maximum : <b id=\"pointsMaxValue\">60 PS</b></label><input type=\"range\" id=\"pointsMax\" min=\"0\" max=\"200\" value=\"60\" disabled><div class=\"range-values\">\n<span>0 PS</span><span>200 PS</span>\n</div>\n</div>\n          <a class=\"btn btn-primary btn-block\" id=\"applyFilters\" href=\"/contact\">Afficher les résultats</a>\n        </aside><section><div class=\"results-top\">\n<div>\n<span class=\"eyebrow\">Catalogue</span><h2 class=\"source-inline-36\">Offres et demandes</h2>\n<span class=\"tiny\" id=\"resultCount\">6 annonces trouvées</span>\n</div>\n<div class=\"results-tools\">\n<select class=\"control\" id=\"sortAds\" disabled><option>Plus pertinentes</option>\n<option>Plus proches</option>\n<option>Mieux notées</option>\n<option>Plus récentes</option></select><a class=\"pill active\" id=\"listView\" href=\"/contact\">☷ Liste</a><a class=\"pill\" id=\"mapView\" href=\"/contact\">⌖ Carte</a>\n</div>\n</div>\n<div class=\"ad-grid source-inline-37\" id=\"listingAds\">\n<article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1543269865-cbf427effbad19dcd05e.jpg\" alt=\"Cours d’anglais pour débutant\"><span class=\"ad-badge top\">Top annonce</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Cours &amp; formations</span><h3>Cours d’anglais pour débutant</h3>\n<p>Des séances conviviales et progressives, adaptées à votre niveau.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">C</span><strong>Camille <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,8 sur 5\">★ 4,8</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Rennes · 1.8 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>25 PS</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1586023492125-27b2c045efd7a8d3f02d.jpg\" alt=\"Aide pour monter un meuble\"><span class=\"ad-badge\">Offre</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Habitation &amp; bricolage</span><h3>Aide pour monter un meuble</h3>\n<p>Un coup de main soigneux pour assembler votre mobilier.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">T</span><strong>Thomas <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,6 sur 5\">★ 4,6</span></strong>\n</div>\n<div class=\"fact-row\"><span class=\"fact\">⌖ Nantes · 3.4 km</span></div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>Échange libre</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1542838132-92c53300491e136f4471.jpg\" alt=\"Besoin urgent : courses samedi\"><span class=\"ad-badge urgent\">Besoin urgent</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Aide à la personne</span><h3>Besoin urgent : courses samedi</h3>\n<p>Je recherche une personne pour m’accompagner faire les courses.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">M</span><strong>Marie <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,9 sur 5\">★ 4,9</span></strong>\n</div>\n<div class=\"fact-row\"><span class=\"fact\">⌖ Rennes · 2.2 km</span></div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>Don</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1510915361894-db8b60106cb157037181.jpg\" alt=\"Cours de guitare\"><span class=\"ad-badge\">Offre</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Services créatifs</span><h3>Cours de guitare</h3>\n<p>Apprenez les bases à votre rythme dans une ambiance détendue.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">S</span><strong>Sophie <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,7 sur 5\">★ 4,7</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Rennes · 5.6 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>20 PS</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1498050108023-c5249f4df0857785a561.jpg\" alt=\"Création complète d’un site associatif\"><span class=\"ad-badge\">Offre</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Informatique</span><h3>Création complète d’un site associatif</h3>\n<p>Conception et accompagnement pour votre site vitrine.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">M</span><strong>Marc <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,9 sur 5\">★ 4,9</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Brest · 78 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>180 PS</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1529156069898-49953e39b3acd068637d.jpg\" alt=\"Recherche conversation française\"><span class=\"ad-badge\">Demande</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Cours &amp; formations</span><h3>Recherche conversation française</h3>\n<p>Je souhaite pratiquer le français autour de discussions simples.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">N</span><strong>Nora <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,8 sur 5\">★ 4,8</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Rennes · 4.1 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>Échange libre</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article>\n</div>\n<div class=\"empty-state source-inline-38\" id=\"emptyAds\">\n<h3>Aucune annonce ne correspond</h3>\n<p>Élargissez le rayon ou retirez un filtre pour découvrir des services proches.</p>\n<a class=\"btn btn-deep\" id=\"emptyReset\" href=\"/contact\">Réinitialiser les filtres</a>\n</div>\n<div class=\"map-panel\" id=\"mapPanel\">\n<a class=\"map-marker source-inline-39\" href=\"/contact\"><span>25</span></a><a class=\"map-marker source-inline-40\" href=\"/contact\"><span>↔</span></a><a class=\"map-marker source-inline-41\" href=\"/contact\"><span>!</span></a><a class=\"map-marker source-inline-42\" href=\"/contact\"><span>20</span></a><div class=\"map-popup\" id=\"mapPopup\"></div>\n</div></section>\n</div>\n      </div>\n    </main>",
+    "detail": "<main class=\"page active\" id=\"detailPage\">\n      <section class=\"subhero\"><div class=\"container\"><a class=\"btn btn-light\" href=\"/annonces\">← Retour aux annonces</a></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>\n      <section class=\"content\"><div class=\"container detail-layout\">\n<div>\n<div class=\"gallery-main\">\n<img id=\"galleryImage\" src=\"maquette/photo-1543269865-cbf427effbad1380c9b7.jpg\" alt=\"Cours d’anglais\"><div class=\"gallery-video source-inline-43\" id=\"galleryVideo\"><a class=\"play\" href=\"/contact\">▶</a></div>\n</div>\n<div class=\"thumb-row\">\n<a class=\"thumb active\" href=\"/contact\"><img src=\"maquette/photo-1543269865-cbf427effbad47cff8af.jpg\" alt=\"Cours en groupe\"></a><a class=\"thumb\" href=\"/contact\"><img src=\"maquette/photo-1523240795612-9a054b0db6449e903fd1.jpg\" alt=\"Cours individuel\"></a><a class=\"thumb\" href=\"/contact\"><img src=\"maquette/photo-1529156069898-49953e39b3acc917879c.jpg\" alt=\"Conversation\"></a><a class=\"thumb\" href=\"/contact\"><span class=\"source-inline-44\">▶ Vidéo</span></a>\n</div>\n          <article class=\"detail-copy\"><div class=\"pill-row\">\n<span class=\"ad-badge source-inline-45\">TOP ANNONCE</span><span class=\"ad-badge source-inline-46\">OFFRE</span>\n</div>\n<span class=\"eyebrow source-inline-47\">Cours &amp; formations</span><h1 id=\"detailTitle\">Cours d’anglais pour débutant</h1>\n<p>Des séances conviviales et progressives, adaptées à votre niveau et à vos objectifs. Supports inclus et rythme défini ensemble.</p>\n<h3>Description</h3>\n<p>Nous travaillons la conversation, le vocabulaire utile et la confiance à l’oral. Les séances peuvent se dérouler à domicile, dans un lieu public ou à distance.</p>\n<h3>Informations pratiques</h3>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Rennes · 1,8 km</span><span class=\"fact\">◷ Soirs &amp; week-end</span><span class=\"fact\">⌁ À distance possible</span>\n</div>\n<h3>Partager l’annonce</h3>\n<div class=\"share-buttons\">\n<a class=\"btn btn-outline\" href=\"/contact\">f Facebook</a><a class=\"btn btn-outline\" href=\"/contact\">in LinkedIn</a><a class=\"btn btn-outline\" href=\"/contact\">⧉ Copier le lien</a>\n</div></article>\n          <section class=\"detail-copy\"><div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Avis vérifiés</span><h2 class=\"source-inline-48\">Ce que pensent les membres</h2>\n</div>\n<a class=\"btn btn-outline\" id=\"rateProfile\" href=\"/contact\">Noter Camille</a>\n</div>\n<div class=\"review-grid\">\n<div class=\"rating-big\">\n<b>4,8</b><div>★★★★★</div>\n<small>32 échanges vérifiés</small>\n</div>\n<div>\n<article class=\"review\"><strong>Amina · 5/5</strong><p>Camille explique clairement et met immédiatement à l’aise.</p></article><article class=\"review\"><strong>Luc · 4,7/5</strong><p>Très bon échange, ponctuelle et pédagogue.</p></article>\n</div>\n</div></section>\n        </div>\n<aside class=\"detail-side\"><div class=\"exchange-panel\">\n<span class=\"eyebrow source-inline-49\">Répondre à cette offre</span><h2>Une valeur à définir ensemble</h2>\n<div class=\"estimate\" id=\"detailPrice\">25 <small>Points Services estimés</small>\n</div>\n<div class=\"balance-math\">\n<div class=\"math-row\">\n<span>Votre solde actuel</span><strong id=\"balanceBefore\">128 PS</strong>\n</div>\n<div class=\"math-row\">\n<span>Coût estimé</span><strong id=\"exchangeCost\">− 25 PS</strong>\n</div>\n<div class=\"math-row total\">\n<span>Solde après échange</span><strong id=\"balanceAfter\" class=\"source-inline-50\">103 PS</strong>\n</div>\n</div>\n<p class=\"tiny source-inline-51\">Aucun point n’est débité avant que les deux membres aient validé le montant final après le service.</p>\n<a class=\"btn btn-primary btn-block\" id=\"proposeExchange\" href=\"/contact\">➤ Proposer un échange</a><a class=\"btn btn-outline btn-block source-inline-52\" id=\"askQuestion\" href=\"/contact\">◯ Poser une question d’abord</a><a class=\"btn btn-light btn-block source-inline-53\" id=\"rewardPoints\" href=\"/contact\">Rétribuer en Points Services</a><p class=\"tiny source-inline-54\" id=\"insufficientNote\">Solde insuffisant : le bouton de rétribution est désactivé.</p>\n</div>\n<article class=\"owner-card\"><div class=\"provider\">\n<span class=\"avatar-letter\">C</span><div>\n<strong>Camille <span class=\"verified\">✓</span></strong><small>Membre Argent · répond sous 3 h</small>\n</div>\n</div>\n<p>📍 Rennes · ★ 4,8 · 32 échanges</p>\n<div class=\"notice\" id=\"phonePrivacy\">Le téléphone est facultatif et réservé aux membres connectés.</div>\n<a class=\"btn btn-outline btn-block source-inline-55\" id=\"showPhone\" href=\"/contact\">Afficher le téléphone</a><a class=\"btn btn-danger btn-block source-inline-56\" id=\"reportAd\" href=\"/contact\">⚑ Signaler cette annonce</a></article></aside>\n</div></section>\n    </main>",
+    "publish": "<main class=\"page active\" id=\"publishPage\"><section class=\"subhero\"><div class=\"container\">\n<span class=\"eyebrow source-inline-57\">Publier une annonce</span><h1>Partagez un savoir-faire,<br><span class=\"accent\">créez une rencontre.</span>\n</h1>\n<p>Cette maquette n’envoie aucune donnée. Le parcours est entièrement simulé.</p>\n</div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"content\"><div class=\"container wizard\">\n<div class=\"stepper\" id=\"stepper\">\n<div class=\"step-dot active\">Intention</div>\n<div class=\"step-dot\">Échange</div>\n<div class=\"step-dot\">Détails</div>\n<div class=\"step-dot\">Aperçu</div>\n</div>\n<form class=\"wizard-card\" id=\"publishWizard\">\n<div class=\"wizard-head\">\n<div>\n<span class=\"eyebrow\" id=\"wizardLabel\">Étape 1 sur 4</span><h2 id=\"wizardTitle\" class=\"source-inline-58\">Que souhaitez-vous faire ?</h2>\n</div>\n<div class=\"step-character\" id=\"stepCharacter\">🤝</div>\n</div>\n        <div class=\"wizard-step active\"><div class=\"choice-grid\">\n<a class=\"choice selected\" href=\"/contact\">♡<b>Je propose mon aide</b><span>Je partage une compétence ou un peu de mon temps.</span></a><a class=\"choice\" href=\"/contact\">⌕<b>Je recherche de l’aide</b><span>J’explique mon besoin à la communauté.</span></a>\n</div></div>\n        <div class=\"wizard-step\">\n<div class=\"choice-grid\">\n<a class=\"choice selected\" href=\"/contact\">♡<b>Don</b><span>Sans contrepartie.</span></a><a class=\"choice\" href=\"/contact\">⇄<b>Échange</b><span>Compétence contre compétence.</span></a><a class=\"choice\" href=\"/contact\">pt<b>Points Services</b><span>Une estimation négociable.</span></a>\n</div>\n<div class=\"form-field full source-inline-59\" id=\"wizardPoints\">\n<label>Estimation en Points Services</label><input class=\"control\" type=\"number\" min=\"10\" step=\"10\" value=\"20\" disabled><div class=\"points-explain source-inline-60\">Les Points Services se calculent à partir de la valeur en euros, par tranches de 20 €. Ainsi, 10 PS correspondent à 0–20 €, et 50 PS à 80–100 €. Si plusieurs prestations ont des valeurs différentes, indiquez une estimation que vous pourrez modifier après négociation.</div>\n</div>\n</div>\n        <div class=\"wizard-step\"><div class=\"form-grid\">\n<div class=\"form-field full\">\n<label>Titre</label><input class=\"control\" id=\"pubTitle\" value=\"Cours de guitare pour débutant\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Catégorie</label><select class=\"control\" disabled><option>Cours &amp; formations › Musique</option>\n<option>Maison › Bricolage</option>\n<option>Aide à la personne › Accompagnement</option></select>\n</div>\n<div class=\"form-field\">\n<label>Adresse du service</label><input class=\"control\" id=\"pubAddress\" autocomplete=\"street-address\" value=\"12 rue de la Monnaie, 35000 Rennes\" disabled><small>Préremplie depuis votre profil, modifiable pour chaque annonce.</small>\n</div>\n<div class=\"form-field full\">\n<label>Description</label><textarea class=\"control\" disabled>Je propose des cours conviviaux adaptés aux débutants.</textarea>\n</div>\n<div class=\"form-field\">\n<label>Priorité</label><select class=\"control\" disabled><option>Annonce classique</option>\n<option>Besoin urgent</option></select>\n</div>\n<div class=\"form-field\">\n<label>Disponibilités</label><input class=\"control\" value=\"Mercredi et samedi\" disabled>\n</div>\n<div class=\"form-field full\"><div class=\"upload-box\">＋ Ajouter 2 ou 3 photos ou une vidéo<br><small>JPG, PNG ou MP4 · démonstration</small><input type=\"file\" accept=\"image/*,video/*\" multiple class=\"source-inline-61\" disabled>\n</div></div>\n</div></div>\n        <div class=\"wizard-step\">\n<div class=\"preview-ad\">\n<span class=\"ad-category\">Cours &amp; formations</span><h3 id=\"previewTitle\">Cours de guitare pour débutant</h3>\n<p>Je propose des cours conviviaux adaptés aux débutants.</p>\n<div class=\"fact-row\">\n<span class=\"fact\" id=\"previewAddress\"><span class=\"public-location-note\">Rennes · adresse exacte masquée</span></span><span class=\"fact\">Échange sélectionné</span>\n</div>\n</div>\n<label class=\"terms source-inline-62\"><input type=\"checkbox\" id=\"acceptTerms\" disabled><span>J’accepte les <a class=\"inline-legal\" href=\"/contact\">CGU</a> et les règles de la communauté SEOS.</span></label><div class=\"privacy-note\">Les informations de l’annonce sont traitées pour sa publication et la mise en relation. <a href=\"/contact\">Voir les informations RGPD</a>.</div>\n</div>\n        <div class=\"wizard-foot\">\n<a class=\"btn btn-outline\" id=\"wizardPrev\" disabled href=\"/contact\">← Précédent</a><a class=\"btn btn-blue\" id=\"wizardNext\" href=\"/contact\">Continuer →</a>\n</div>\n</form>\n</div></section></main>",
+    "auth": "<main class=\"page active\" id=\"authPage\"><section class=\"auth-shell\"><div class=\"auth-visual\">\n<img src=\"maquette/photo-1529156069898-49953e39b3ac052184c4.jpg\" alt=\"Communauté SEOS\"><div class=\"auth-quote\">\n<span class=\"eyebrow source-inline-63\">Bienvenue</span><h2>Rejoignez celles et ceux qui font circuler l’entraide.</h2>\n</div>\n</div>\n<div class=\"auth-form\"><div class=\"auth-card\">\n<div class=\"auth-tabs\">\n<a class=\"active\" href=\"/contact\">Connexion</a><a href=\"/contact\">Créer un compte</a>\n</div>\n<div id=\"loginForm\">\n<h2 class=\"source-inline-64\">Heureux de vous revoir</h2>\n<div class=\"social-login\">\n<a href=\"/contact\">G Continuer avec Google</a><a href=\"/contact\">f Continuer avec Facebook</a>\n</div>\n<div class=\"divider\">ou</div>\n<div class=\"form-field\">\n<label>E-mail</label><input class=\"control\" type=\"email\" value=\"camille@exemple.fr\" disabled>\n</div>\n<div class=\"form-field source-inline-65\">\n<label>Mot de passe</label><input class=\"control\" type=\"password\" value=\"motdepasse\" disabled>\n</div>\n<a class=\"btn btn-deep btn-block source-inline-66\" id=\"loginSubmit\" href=\"/contact\">Se connecter</a><p class=\"source-inline-67\"><strong>Pas encore de compte ?</strong> <a href=\"#\" class=\"source-inline-68\">Créer un compte ici</a></p>\n</div>\n<div id=\"signupForm\" class=\"source-inline-69\">\n<h2 class=\"source-inline-70\">Créer votre compte</h2>\n<div class=\"social-login\">\n<a href=\"/contact\">G S’inscrire avec Google</a><a href=\"/contact\">f S’inscrire avec Facebook</a>\n</div>\n<div class=\"divider\">ou</div>\n<div class=\"form-grid\">\n<div class=\"form-field\">\n<label>Prénom</label><input class=\"control\" value=\"Camille\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Nom</label><input class=\"control\" value=\"Martin\" disabled>\n</div>\n<div class=\"form-field full\">\n<label>E-mail</label><input class=\"control\" type=\"email\" value=\"camille@exemple.fr\" disabled>\n</div>\n<div class=\"form-field full\">\n<label>Mot de passe</label><input class=\"control\" type=\"password\" value=\"motdepasse\" disabled>\n</div>\n<div class=\"form-field full\">\n<label>Téléphone facultatif</label><input class=\"control\" placeholder=\"Visible uniquement si vous le décidez\" disabled>\n</div>\n</div>\n<label class=\"captcha\"><span><input type=\"checkbox\" id=\"captchaCheck\" disabled> Je ne suis pas un robot</span><strong>CAPTCHA</strong></label><label class=\"terms\"><input type=\"checkbox\" id=\"signupTerms\" disabled><span>J’accepte les <a class=\"inline-legal\" href=\"/contact\">conditions générales d’utilisation</a>.</span></label><label class=\"terms\"><input type=\"checkbox\" id=\"signupNewsletter\" disabled><span>Je souhaite recevoir les nouvelles de SEOS par e-mail (facultatif).</span></label><div class=\"privacy-note\">Vos données servent à créer et gérer votre compte. Consultez la <a href=\"/contact\">politique de confidentialité</a> pour connaître vos droits.</div>\n<a class=\"btn btn-primary btn-block source-inline-71\" id=\"signupSubmit\" href=\"/contact\">Créer mon compte et recevoir 30 PS</a>\n</div>\n</div></div></section></main>",
+    "dashboard": "<main class=\"page active\" id=\"dashboardPage\"><section class=\"subhero\"><div class=\"container\">\n<span class=\"eyebrow source-inline-72\">Espace utilisateur</span><h1>Bonjour Camille.</h1>\n<p>Gérez vos annonces, vos échanges et toutes vos chaînes d’entraide au même endroit.</p>\n</div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"content\"><div class=\"container dashboard\">\n<aside class=\"side-menu\"><a class=\"dash-nav active\" href=\"/contact\">Aperçu</a><a class=\"dash-nav\" href=\"/contact\">Mes annonces</a><a class=\"dash-nav\" href=\"/contact\">Quêtes <span class=\"count\">4</span></a><a class=\"dash-nav\" href=\"/contact\">Portefeuille</a><a class=\"dash-nav\" href=\"/contact\">Mes chaînes</a><a class=\"dash-nav\" href=\"/contact\">Favoris</a><a class=\"dash-nav\" href=\"/contact\">Messagerie <span class=\"count\">3</span></a><a class=\"dash-nav\" href=\"/contact\">Avis reçus</a><a class=\"dash-nav\" href=\"/contact\">Profil &amp; paramètres</a><a class=\"dash-nav association-only\" href=\"/contact\">Voyage solidaire</a><a class=\"dash-nav\" href=\"/contact\">Back-office démo</a></aside><div>\n        <section class=\"dash-panel active\" id=\"dash-overview\"><div class=\"dash-head\">\n<div>\n<span class=\"eyebrow\">Tableau de bord</span><h2 class=\"source-inline-73\">Votre activité</h2>\n</div>\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\">＋ Publier une annonce</a>\n</div>\n<div class=\"dash-grid\">\n<article class=\"dash-card wallet\"><small>Mon portefeuille</small><div class=\"wallet-total\">\n<span>128</span> PS</div>\n<p>30 PS offerts à l’inscription</p>\n<a class=\"btn btn-light\" href=\"/contact\">Gagner des points</a></article><article class=\"dash-card\"><small>Votre niveau</small><h3>Membre Argent</h3>\n<div class=\"progress\"><i class=\"source-inline-74\"></i></div>\n<p>72 % vers le niveau Gold</p>\n<small>Les niveaux modulent certaines récompenses et donnent accès aux Top annonces.</small></article><article class=\"dash-card\"><small>On aurait besoin de vous</small><h3>Aide au jardin à 2 km</h3>\n<p>Marie cherche un coup de main samedi matin.</p>\n<a class=\"btn btn-outline\" href=\"/contact\">Voir le besoin</a></article>\n</div>\n<article class=\"dash-card dashboard-chain-preview\"><div class=\"dash-head\">\n<div>\n<small>Chaîne commencée</small><h3>Les voisins de Rennes</h3>\n<p>Votre coup de main circule déjà entre quatre membres.</p>\n</div>\n<a class=\"btn btn-light\" href=\"/contact\">Voir la chaîne complète →</a>\n</div>\n<div class=\"dashboard-chain-flow\">\n<span class=\"dashboard-chain-member\"><i>CM</i>Vous</span><b class=\"dashboard-chain-link\"></b><span class=\"dashboard-chain-member\"><i>LU</i>Luc</span><b class=\"dashboard-chain-link\"></b><span class=\"dashboard-chain-member\"><i>IN</i>Inès</span><b class=\"dashboard-chain-link\"></b><span class=\"dashboard-chain-member\"><i>SA</i>Sam</span>\n</div>\n<div class=\"dashboard-chain-progress\">\n<div class=\"progress\"><i class=\"source-inline-75\"></i></div>\n<strong>4 services · 30 PS</strong>\n</div></article><div class=\"dash-card source-inline-76\">\n<div class=\"dash-head\">\n<h3>Activité récente</h3>\n<a class=\"btn btn-outline\" href=\"/contact\">Mes annonces</a>\n</div>\n<div class=\"transaction plus\">\n<span>Quête : annonce publiée</span><b>+10 PS</b>\n</div>\n<div class=\"transaction minus\">\n<span>Cours de guitare avec Sophie</span><b>−20 PS</b>\n</div>\n</div></section>\n        <section class=\"dash-panel\" id=\"dash-ads\"><div class=\"dash-head\">\n<div>\n<span class=\"eyebrow\">Gestion</span><h2 class=\"source-inline-77\">Mes annonces</h2>\n</div>\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\">Nouvelle annonce</a>\n</div>\n<div class=\"ad-grid\" id=\"myAds\">\n<article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1543269865-cbf427effbad19dcd05e.jpg\" alt=\"Cours d’anglais pour débutant\"><span class=\"ad-badge top\">Top annonce</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Cours &amp; formations</span><h3>Cours d’anglais pour débutant</h3>\n<p>Des séances conviviales et progressives, adaptées à votre niveau.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">C</span><strong>Camille <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,8 sur 5\">★ 4,8</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Rennes · 1.8 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>25 PS</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1510915361894-db8b60106cb157037181.jpg\" alt=\"Cours de guitare\"><span class=\"ad-badge\">Offre</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Services créatifs</span><h3>Cours de guitare</h3>\n<p>Apprenez les bases à votre rythme dans une ambiance détendue.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">S</span><strong>Sophie <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,7 sur 5\">★ 4,7</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Rennes · 5.6 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>20 PS</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article>\n</div>\n<table class=\"admin-table source-inline-78\">\n<thead><tr>\n<th>Annonce</th>\n<th>Statut</th>\n<th>Vues</th>\n<th>Actions</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>Cours d’anglais</td>\n<td>Publiée</td>\n<td>128</td>\n<td>\n<a class=\"btn btn-outline edit-ad\" href=\"/contact\">Modifier</a> <a class=\"btn btn-outline top-request\" href=\"/contact\">Demander Top annonce</a>\n</td>\n</tr>\n<tr>\n<td>Cours de guitare</td>\n<td>En pause</td>\n<td>42</td>\n<td>\n<a class=\"btn btn-outline edit-ad\" href=\"/contact\">Modifier</a> <a class=\"btn btn-outline\" href=\"/contact\">Réactiver</a>\n</td>\n</tr>\n</tbody>\n</table>\n<div class=\"notice source-inline-79\">Les membres Argent et ceux ayant partagé SEOS peuvent demander une mise en avant « Top annonce ». La validation appartient à l’administration.</div></section>\n        <section class=\"dash-panel\" id=\"dash-quests\"><div class=\"dash-head\">\n<div>\n<span class=\"eyebrow\">Gagner des Points Services</span><h2 class=\"source-inline-80\">Mes quêtes</h2>\n</div>\n<span class=\"pill active\">40 PS gagnés ce mois</span>\n</div>\n<div class=\"quest-list\" id=\"questList\">\n          <article class=\"quest done\"><div class=\"quest-visual\">\n<img src=\"maquette/photo-1497366811353-6870744d04b257964d7a.jpg\" alt=\"Annonce publiée\"><span class=\"quest-status\">Terminée</span><span class=\"quest-points\">+10 PS</span>\n</div>\n<div class=\"quest-content\">\n<strong>Publier une annonce</strong><small>Chaque nouvelle annonce complète un cycle.</small><div class=\"progress\"><i class=\"source-inline-81\"></i></div>\n<div class=\"quest-meta\">\n<span>4 sur 4</span><b>Cycle terminé</b>\n</div>\n</div></article>\n          <article class=\"quest\"><div class=\"quest-visual\">\n<img src=\"maquette/photo-1455390582262-044cdead277a93c85362.jpg\" alt=\"Écriture d’un témoignage\"><span class=\"quest-status\">À commencer</span><span class=\"quest-points\">+15 PS</span>\n</div>\n<div class=\"quest-content\">\n<strong>Faire un témoignage écrit</strong><small>Racontez un échange utile à la communauté.</small><div class=\"progress\"><i class=\"source-inline-82\"></i></div>\n<div class=\"quest-meta\">\n<span>0 sur 1</span><span>Bonus Argent</span>\n</div>\n<a class=\"btn btn-deep quest-action\" href=\"/contact\">Commencer</a>\n</div></article>\n          <article class=\"quest\"><div class=\"quest-visual\">\n<img src=\"maquette/photo-1485846234645-a62644f8472847ac2d32.jpg\" alt=\"Témoignage filmé\"><span class=\"quest-status\">À commencer</span><span class=\"quest-points\">+25 PS</span>\n</div>\n<div class=\"quest-content\">\n<strong>Faire un témoignage vidéo</strong><small>Partagez votre expérience dans une courte vidéo.</small><div class=\"progress\"><i class=\"source-inline-83\"></i></div>\n<div class=\"quest-meta\">\n<span>0 sur 1</span><span>Bonus Argent</span>\n</div>\n<a class=\"btn btn-deep quest-action\" href=\"/contact\">Commencer</a>\n</div></article>\n          <article class=\"quest\"><div class=\"quest-visual\">\n<img src=\"maquette/photo-1611162617474-5b21e879e1131f73e650.jpg\" alt=\"Partage sur les réseaux\"><span class=\"quest-status\">Mensuelle</span><span class=\"quest-points\">+10 PS</span>\n</div>\n<div class=\"quest-content\">\n<strong>Partager SEOS</strong><small>Publiez SEOS sur un réseau et ajoutez votre capture.</small><div class=\"progress\"><i class=\"source-inline-84\"></i></div>\n<div class=\"quest-meta\">\n<span>0 sur 1</span><span>Ce mois-ci</span>\n</div>\n<a class=\"btn btn-deep quest-action\" href=\"/contact\">Partager</a>\n</div></article>\n          <article class=\"quest\"><div class=\"quest-visual\">\n<img src=\"maquette/photo-1521737604893-d14cc237f11db1452eb6.jpg\" alt=\"Réponses aux annonces\"><span class=\"quest-status\">En cours</span><span class=\"quest-points\">+10 PS</span>\n</div>\n<div class=\"quest-content\">\n<strong>Répondre à trois annonces</strong><small>Échangez avec des membres qui ont besoin de vous.</small><div class=\"progress\"><i class=\"source-inline-85\"></i></div>\n<div class=\"quest-meta\">\n<span>2 sur 3</span><b>67 %</b>\n</div>\n</div></article>\n          <article class=\"quest\"><div class=\"quest-visual\">\n<img src=\"maquette/photo-1511632765486-a01980e01a1892011295.jpg\" alt=\"Parrainage d’un membre\"><span class=\"quest-status\">À commencer</span><span class=\"quest-points\">+15 PS</span>\n</div>\n<div class=\"quest-content\">\n<strong>Parrainer une personne</strong><small>La récompense est accordée après son inscription.</small><div class=\"progress\"><i class=\"source-inline-86\"></i></div>\n<div class=\"quest-meta\">\n<span>0 sur 1</span><span>Bonus Argent</span>\n</div>\n<a class=\"btn btn-deep quest-action\" href=\"/contact\">Inviter</a>\n</div></article>\n          <article class=\"quest\"><div class=\"quest-visual\">\n<img src=\"maquette/photo-1529156069898-49953e39b3ac500da09b.jpg\" alt=\"Échanges entre membres\"><span class=\"quest-status\">En cours</span><span class=\"quest-points\">+25 PS</span>\n</div>\n<div class=\"quest-content\">\n<strong>Faire cinq échanges en PS</strong><small>Complétez une série d’échanges en Points Services.</small><div class=\"progress\"><i class=\"source-inline-87\"></i></div>\n<div class=\"quest-meta\">\n<span>3 sur 5</span><b>60 %</b>\n</div>\n</div></article>\n        </div>\n<div class=\"dash-card source-inline-88\">\n<div class=\"dash-head\">\n<div>\n<h3>Niveaux et récompenses</h3>\n<p class=\"tiny\">Le montant affiché dans les quêtes correspond au niveau actuel : Argent.</p>\n</div>\n<span class=\"pill active\">Argent</span>\n</div>\n<table class=\"admin-table\">\n<thead><tr>\n<th>Quête</th>\n<th>Bronze</th>\n<th>Argent</th>\n<th>Gold</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>Témoignage écrit</td>\n<td>10 PS</td>\n<td><strong>15 PS</strong></td>\n<td>20 PS</td>\n</tr>\n<tr>\n<td>Témoignage vidéo</td>\n<td>20 PS</td>\n<td><strong>25 PS</strong></td>\n<td>30 PS</td>\n</tr>\n<tr>\n<td>Parrainage validé</td>\n<td>10 PS</td>\n<td><strong>15 PS</strong></td>\n<td>20 PS</td>\n</tr>\n<tr>\n<td>Chaque série de 5 échanges</td>\n<td>20 PS</td>\n<td><strong>25 PS</strong></td>\n<td>30 PS</td>\n</tr>\n</tbody>\n</table>\n<div class=\"notice source-inline-89\">Le partage mensuel et la publication d’une annonce conservent leur récompense de base de 10 PS.</div>\n</div></section>\n        <section class=\"dash-panel\" id=\"dash-wallet\"><div class=\"dash-head\">\n<div>\n<span class=\"eyebrow\">Cagnotte personnelle</span><h2 class=\"source-inline-90\">Mon portefeuille</h2>\n</div>\n<div class=\"wallet-total\">\n<span>128</span> PS</div>\n</div>\n<div class=\"dash-card\">\n<h3>Historique</h3>\n<div class=\"transaction plus\">\n<span>Bonus d’inscription</span><b>+30 PS</b>\n</div>\n<div class=\"transaction plus\">\n<span>Quête : annonce publiée</span><b>+10 PS</b>\n</div>\n<div class=\"transaction plus\">\n<span>5 échanges réalisés</span><b>+20 PS</b>\n</div>\n<div class=\"transaction minus\">\n<span>Cours de guitare</span><b>−20 PS</b>\n</div>\n<div class=\"transaction plus\">\n<span>Chaîne « Voisins Rennes »</span><b>+10 PS</b>\n</div>\n</div>\n<div class=\"notice source-inline-91\">Un bouton « Rétribuer » n’apparaît que si votre solde couvre le montant final convenu.</div></section>\n        <section class=\"dash-panel\" id=\"dash-chains\"><div class=\"dash-head\">\n<div>\n<span class=\"eyebrow\">Distinctes des annonces</span><h2 class=\"source-inline-92\">Mes chaînes d’entraide</h2>\n</div>\n<a class=\"btn btn-primary\" href=\"/decouvrir/fonctionnement\">Démarrer une chaîne</a>\n</div>\n<article class=\"chain-card\"><div class=\"dash-head\">\n<div>\n<h3>Les voisins de Rennes</h3>\n<small>8 services validés · 6 membres · 30 PS gagnés</small>\n</div>\n<a class=\"btn btn-outline\" href=\"/contact\">Copier mon lien</a>\n</div>\n<div class=\"chain-flow\">\n<div class=\"chain-person gold\">Vous<small>Courses pour Luc</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">Luc<small>Jardinage pour Inès</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">Inès<small>Cours pour Sam</small><span class=\"coin\">10</span>\n</div>\n</div></article></section>\n        <section class=\"dash-panel\" id=\"dash-favorites\"><div class=\"dash-head\"><h2 class=\"source-inline-93\">Mes favoris</h2></div>\n<div class=\"ad-grid\" id=\"favoriteAds\">\n<article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1586023492125-27b2c045efd7a8d3f02d.jpg\" alt=\"Aide pour monter un meuble\"><span class=\"ad-badge\">Offre</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Habitation &amp; bricolage</span><h3>Aide pour monter un meuble</h3>\n<p>Un coup de main soigneux pour assembler votre mobilier.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">T</span><strong>Thomas <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,6 sur 5\">★ 4,6</span></strong>\n</div>\n<div class=\"fact-row\"><span class=\"fact\">⌖ Nantes · 3.4 km</span></div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>Échange libre</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article><article class=\"ad-card\"><div class=\"ad-image\">\n<img src=\"maquette/photo-1498050108023-c5249f4df0857785a561.jpg\" alt=\"Création complète d’un site associatif\"><span class=\"ad-badge\">Offre</span><a class=\"icon-btn ad-fav\" aria-label=\"Favori\" href=\"/contact\">♡</a>\n</div>\n<div class=\"ad-body\">\n<span class=\"ad-category\">Informatique</span><h3>Création complète d’un site associatif</h3>\n<p>Conception et accompagnement pour votre site vitrine.</p>\n<div class=\"provider\">\n<span class=\"avatar-letter\">M</span><strong>Marc <span class=\"verified\">✓</span><span class=\"provider-rating\" aria-label=\"Note 4,9 sur 5\">★ 4,9</span></strong>\n</div>\n<div class=\"fact-row\">\n<span class=\"fact\">⌖ Brest · 78 km</span><span class=\"fact\">⌁ À distance</span>\n</div>\n<div class=\"ad-foot\">\n<div class=\"ad-price\">\n<small>Mode d’échange</small><strong>180 PS</strong>\n</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Voir l’offre →</a>\n</div>\n</div></article>\n</div></section>\n        <section class=\"dash-panel\" id=\"dash-messages\"><div class=\"dash-head\">\n<h2 class=\"source-inline-94\">Messagerie interne</h2>\n<span class=\"pill active\">3 non lus</span>\n</div>\n<div class=\"message-layout\">\n<div class=\"thread-list\">\n<div class=\"thread active\">\n<strong>Thomas</strong><small>Le meuble est prêt…</small>\n</div>\n<div class=\"thread\">\n<strong>Marie</strong><small>Merci pour votre réponse !</small>\n</div>\n<div class=\"thread\">\n<strong>Sophie</strong><small>Mercredi me convient.</small>\n</div>\n</div>\n<div class=\"conversation\">\n<h3>Thomas · Montage de meuble</h3>\n<div class=\"bubble\">Bonjour Camille, samedi vous conviendrait ?</div>\n<div class=\"bubble me\">Oui, vers 10 h. On confirme après le service.</div>\n<div class=\"bubble\">Parfait, merci !</div>\n<div class=\"form-field\">\n<label>Votre message</label><textarea class=\"control\" id=\"messageText\" placeholder=\"Écrivez votre message…\" disabled></textarea>\n</div>\n<a class=\"btn btn-deep\" id=\"sendInternal\" href=\"/contact\">Envoyer</a><div class=\"privacy-note contextual\">Les messages sont accessibles uniquement aux membres concernés et aux personnes habilitées en cas de signalement. <a href=\"/contact\">En savoir plus</a>.</div>\n</div>\n</div></section>\n        <section class=\"dash-panel\" id=\"dash-reviews\"><div class=\"dash-head\">\n<h2 class=\"source-inline-95\">Avis reçus</h2>\n<span class=\"pill active\">4,8 / 5</span>\n</div>\n<div class=\"dash-card\">\n<article class=\"review\"><strong>Amina · échange vérifié · 5/5</strong><p>Camille explique clairement et met à l’aise.</p></article><article class=\"review\"><strong>Luc · échange vérifié · 4,7/5</strong><p>Très bon échange, je recommande.</p></article>\n</div></section>\n        <section class=\"dash-panel\" id=\"dash-profile\"><div class=\"dash-head\"><h2 class=\"source-inline-96\">Profil et paramètres</h2></div>\n<div class=\"dash-card form-grid\">\n<div class=\"form-field full\">\n<label>Photo de profil</label><div class=\"profile-photo-field\">\n<div class=\"profile-photo-preview\" id=\"profilePhotoPreview\">C</div>\n<div class=\"profile-photo-copy\">\n<strong>Personnalisez votre avatar</strong><p>JPG ou PNG · la photo sera affichée dans votre profil et la navigation.</p>\n<input id=\"profilePhotoInput\" type=\"file\" accept=\"image/jpeg,image/png\" disabled><div class=\"privacy-note contextual\">La photo est facultative. Évitez tout document ou information sensible dans l’image. <a href=\"/contact\">En savoir plus</a>.</div>\n</div>\n</div>\n</div>\n<div class=\"form-field\">\n<label>Prénom</label><input class=\"control\" value=\"Camille\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Nom</label><input class=\"control\" value=\"Martin\" disabled>\n</div>\n<div class=\"form-field\">\n<label>E-mail</label><input class=\"control\" value=\"camille@exemple.fr\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Téléphone facultatif</label><input class=\"control\" value=\"06 12 34 56 78\" disabled>\n</div>\n<div class=\"form-field full\">\n<label>Adresse enregistrée</label><input class=\"control\" id=\"profileAddress\" autocomplete=\"street-address\" value=\"12 rue de la Monnaie, 35000 Rennes\" disabled><small>Elle préremplit automatiquement l’adresse lors de la publication d’une annonce.</small>\n</div>\n<div class=\"form-field full\">\n<label>Bio</label><textarea class=\"control\" disabled>Passionnée d’anglais et de pédagogie.</textarea>\n</div>\n<div class=\"form-field\">\n<label>Nouveau mot de passe</label><input class=\"control\" type=\"password\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Visibilité du téléphone</label><select class=\"control\" disabled><option>Seulement après mon accord</option>\n<option>Membres connectés</option>\n<option>Personne</option></select>\n</div>\n<a class=\"btn btn-deep\" id=\"saveProfile\" href=\"/contact\">Enregistrer</a><section class=\"data-actions\"><span class=\"eyebrow\">Vos données</span><h3>Confidentialité et droits RGPD</h3>\n<p>Accédez à vos informations, corrigez-les ou formulez une demande concernant votre compte.</p>\n<div class=\"data-action-grid\">\n<a class=\"btn btn-outline\" href=\"/contact\">Télécharger mes données</a><a class=\"btn btn-outline\" href=\"/contact\">Demander une rectification</a><a class=\"btn btn-outline\" href=\"/contact\">Demander l’effacement</a><a class=\"btn btn-deep\" href=\"/contact\">Gérer mes cookies</a><a class=\"btn btn-outline\" href=\"/contact\">Limiter un traitement</a><a class=\"btn btn-outline\" href=\"/contact\">M’opposer à un traitement</a><a class=\"btn btn-outline\" href=\"/contact\">Retirer un consentement</a>\n</div></section>\n</div></section>\n        <section class=\"dash-panel\" id=\"dash-volunteer\"><div class=\"dash-head\">\n<div>\n<span class=\"eyebrow\">Compte Association</span><h2 class=\"source-inline-97\">Créer une mission solidaire</h2>\n</div>\n<span class=\"pill active\">Accès accordé</span>\n</div>\n<div class=\"dash-card form-grid\">\n<div class=\"form-field full\">\n<label>Titre de la mission</label><input class=\"control\" value=\"Éco-lieu cherche bénévoles pour l’été\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Pays et région</label><input class=\"control\" value=\"France · Ardèche\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Adresse et accès</label><input class=\"control\" value=\"À 20 min de Privas · bus puis navette\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Dates et durée minimale</label><input class=\"control\" value=\"Juin à septembre · minimum 2 semaines\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Heures d’aide et jours libres</label><input class=\"control\" value=\"5 h/jour · 2 jours libres/semaine\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Langues parlées</label><input class=\"control\" value=\"Français, anglais\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Contribution demandée par jour</label><input class=\"control\" id=\"dailyContribution\" type=\"number\" max=\"15\" value=\"10\" disabled>\n</div>\n<div class=\"form-field\">\n<label>Nombre de bénévoles recherchés</label><input class=\"control\" type=\"number\" value=\"4\" disabled>\n</div>\n<div class=\"form-field full\">\n<label>Mission et compétences utiles</label><textarea class=\"control\" disabled>Jardinage, cuisine collective, accueil des visiteurs. Débutants acceptés et accompagnés.</textarea>\n</div>\n<div class=\"form-field full\">\n<label>Hébergement, repas et conditions</label><textarea class=\"control\" disabled>Chambre partagée, trois repas inclus, accès internet et espaces communs.</textarea>\n</div>\n<div class=\"form-field full\">\n<label>Photos de la mission et de l’hébergement</label><div class=\"upload-box\">＋ Ajouter des photos<input type=\"file\" accept=\"image/*\" multiple class=\"source-inline-98\" disabled>\n</div>\n</div>\n<div class=\"notice full\">Les associations ne peuvent pas demander plus de 15 € par jour. Ces annonces restent actives jusqu’à leur suppression par l’association ou l’administration.</div>\n<a class=\"btn btn-primary\" id=\"publishTravel\" href=\"/contact\">Publier la mission</a><div class=\"privacy-note contextual\">Les informations de mission sont utilisées pour publier et modérer l’annonce. L’adresse précise doit rester limitée aux personnes qui en ont besoin. <a href=\"/contact\">En savoir plus</a>.</div>\n</div></section>\n      </div>\n</div></section></main>",
+    "chain": "<main class=\"page active\" id=\"chainPage\"><section class=\"subhero\"><div class=\"container\">\n<span class=\"eyebrow source-inline-99\">Chaîne d’entraide</span><h1>Un service rendu<br>en libère un autre.</h1>\n<p>La personne aidée peut ne pas encore appartenir à SEOS : votre lien lui permet de s’inscrire ou se connecter, puis de valider simplement le service.</p>\n</div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"content\"><div class=\"container\">\n<div class=\"chain-home\">\n<div>\n<span class=\"eyebrow\">Comment ça fonctionne</span><h2>De A vers B,<br>puis de B vers C.</h2>\n<ol>\n<li>A rend un service à B et renseigne sa nature.</li>\n<li>A partage son lien personnel à B.</li>\n<li>B s’inscrit ou se connecte, puis valide le service reçu.</li>\n<li>A gagne 10 PS. B aide ensuite C avec son propre lien.</li>\n<li>À chaque validation, seuls les dix derniers membres gagnent 10 PS, avec un maximum de 100 PS chacun.</li>\n</ol>\n</div>\n<div class=\"dash-card\">\n<h3>Démarrer une nouvelle chaîne</h3>\n<div class=\"form-field\">\n<label>Nature du service rendu</label><input class=\"control\" id=\"chainService\" value=\"Aide pour faire les courses\" disabled>\n</div>\n<div class=\"form-field source-inline-100\">\n<label>E-mail ou téléphone du bénéficiaire</label><input class=\"control\" id=\"chainRecipient\" placeholder=\"La personne pourra s’inscrire via le lien\" disabled>\n</div>\n<label class=\"terms source-inline-101\"><input type=\"checkbox\" id=\"chainConfirm\" disabled><span>Je confirme avoir réellement rendu ce service.</span></label><a class=\"btn btn-primary btn-block\" id=\"createChain\" href=\"/contact\">Créer mon lien de validation</a><div class=\"notice source-inline-102\" id=\"chainLinkResult\">Lien créé : <strong>seos.fr/chaine/CM-2048</strong><br><a class=\"text-link\" href=\"/contact\">Copier le lien</a>\n</div>\n<div class=\"privacy-note contextual\">La coordonnée du bénéficiaire sert uniquement à lui transmettre le lien. Comme elle est fournie par un tiers, la personne sera informée dès le premier contact. <a href=\"/contact\">En savoir plus</a>.</div>\n</div>\n</div>\n<div class=\"section source-inline-103\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">La plus grande chaîne du site</span><h2>Chaque maillon raconte un service.</h2>\n</div>\n<p>Les membres voient l’avancement de toutes leurs chaînes dans leur espace utilisateur.</p>\n</div>\n<div class=\"chain-flow\">\n<div class=\"chain-person gold\">Marc<small>répare le vélo d’Amina</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">Amina<small>cours de maths à Fatou</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">Fatou<small>garde les enfants de Lucie</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">Lucie<small>transporte Paul</small><span class=\"coin\">10</span>\n</div>\n<i class=\"chain-link\"></i><div class=\"chain-person\">Paul<small>taille la haie de Marc</small><span class=\"coin\">10</span>\n</div>\n</div>\n<div class=\"notice\">5 services rendus · 50 PS distribués · les dix derniers maillons restent récompensés.</div>\n</div>\n</div></section></main>",
+    "travel": "<main class=\"page active\" id=\"travelPage\"><section class=\"travel-hero\"><div class=\"travel-copy\">\n<span class=\"eyebrow source-inline-104\">Voyage solidaire</span><h1>Voyager,<br><span class=\"accent\">aider, rencontrer.</span>\n</h1>\n<p class=\"source-inline-105\">Des missions publiées exclusivement par des associations vérifiées par SEOS.</p>\n<div class=\"notice\">Contribution autorisée : 15 € maximum par jour.</div>\n</div>\n<div class=\"travel-photo\"><img src=\"maquette/photo-1469571486292-0ba58a3f068b18bed5e9.jpg\" alt=\"Voyage solidaire\"></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"section\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\">Missions ouvertes</span><h2>Donnez un peu de temps,<br>vivez beaucoup.</h2>\n</div>\n<p>Ces annonces ne sont pas supprimées automatiquement. Seules l’association concernée ou l’administration peuvent les retirer.</p>\n</div>\n<div class=\"travel-grid\">\n<article class=\"travel-card\"><div class=\"photo\"><img src=\"maquette/photo-1416879595882-3373a0480b5be3d794ff.jpg\" alt=\"Éco-lieu\"></div>\n<div class=\"body\">\n<span class=\"ad-category\">Association vérifiée · Ardèche</span><h3>Participer à un éco-lieu</h3>\n<p>Jardinage, cuisine collective et accueil.</p>\n<strong>10 €/jour · Chambre et repas inclus</strong>\n</div></article><article class=\"travel-card\"><div class=\"photo\"><img src=\"maquette/photo-1488521787991-ed7bbaae773c85b4eae3.jpg\" alt=\"Projet éducatif\"></div>\n<div class=\"body\">\n<span class=\"ad-category\">Association vérifiée · Belgique</span><h3>Soutien à un projet éducatif</h3>\n<p>Animation et aide aux devoirs.</p>\n<strong>0 €/jour · Repas inclus</strong>\n</div></article><article class=\"travel-card\"><div class=\"photo\"><img src=\"maquette/photo-1500530855697-b586d89ba3ee69246eaa.jpg\" alt=\"Refuge\"></div>\n<div class=\"body\">\n<span class=\"ad-category\">Association vérifiée · Suisse</span><h3>Aider dans un refuge</h3>\n<p>Accueil, entretien et cuisine.</p>\n<strong>15 €/jour · Hébergement inclus</strong>\n</div></article>\n</div>\n</div></section></main>",
+    "admin": "<main class=\"page active\" id=\"adminPage\"><section class=\"subhero\"><div class=\"container\">\n<span class=\"eyebrow source-inline-106\">Back-office · démonstration</span><h1>Administration SEOS</h1>\n<p>Activation des rubriques, comptes Association, mises en avant et modération.</p>\n</div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"content\"><div class=\"container\">\n<div class=\"dash-grid\">\n<article class=\"dash-card\"><small>Voyage solidaire</small><h3>Afficher dans la navigation</h3>\n<p>5 annonces sont disponibles.</p>\n<a class=\"switch on\" id=\"travelToggle\" aria-label=\"Activer Voyage solidaire\" href=\"/contact\"><i></i></a></article><article class=\"dash-card\"><small>Demandes</small><h3>Top annonces</h3>\n<div class=\"wallet-total source-inline-107\">3</div>\n<p>En attente de validation</p></article><article class=\"dash-card\"><small>Modération</small><h3>Signalements</h3>\n<div class=\"wallet-total source-inline-108\">2</div>\n<p>À traiter sous 48 h</p></article>\n</div>\n<div class=\"section source-inline-109\">\n<div class=\"dash-head\">\n<h2 class=\"source-inline-110\">Comptes Association</h2>\n<a class=\"btn btn-primary\" id=\"grantAssociation\" href=\"/contact\">Accorder l’accès à Camille</a>\n</div>\n<table class=\"admin-table\">\n<thead><tr>\n<th>Organisation</th>\n<th>Pays</th>\n<th>Statut</th>\n<th>Action</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>Les Jardins solidaires</td>\n<td>France</td>\n<td>Vérifiée</td>\n<td><a class=\"btn btn-outline\" href=\"/contact\">Gérer</a></td>\n</tr>\n<tr>\n<td>Maison des jeunes</td>\n<td>Belgique</td>\n<td>À vérifier</td>\n<td><a class=\"btn btn-deep\" href=\"/contact\">Valider</a></td>\n</tr>\n</tbody>\n</table>\n</div>\n<div class=\"section source-inline-111\">\n<div class=\"dash-head\"><h2 class=\"source-inline-112\">Demandes « Top annonce »</h2></div>\n<table class=\"admin-table\">\n<thead><tr>\n<th>Annonce</th>\n<th>Membre</th>\n<th>Éligibilité</th>\n<th>Action</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>Cours d’anglais</td>\n<td>Camille · Argent</td>\n<td>Niveau Argent</td>\n<td><a class=\"btn btn-primary admin-action\" href=\"/contact\">Approuver</a></td>\n</tr>\n<tr>\n<td>Aide au déménagement</td>\n<td>Luc · Bronze</td>\n<td>Partage SEOS validé</td>\n<td><a class=\"btn btn-primary admin-action\" href=\"/contact\">Approuver</a></td>\n</tr>\n</tbody>\n</table>\n</div>\n<div class=\"section source-inline-113\">\n<div class=\"dash-head\"><h2 class=\"source-inline-114\">Signalements</h2></div>\n<table class=\"admin-table\">\n<thead><tr>\n<th>Annonce</th>\n<th>Motif</th>\n<th>Délai</th>\n<th>Action</th>\n</tr></thead>\n<tbody><tr>\n<td>Transport longue distance</td>\n<td>Informations incomplètes</td>\n<td>22 h restantes</td>\n<td><a class=\"btn btn-danger admin-action\" href=\"/contact\">Examiner</a></td>\n</tr></tbody>\n</table>\n</div>\n</div></section></main>",
+    "chain-validation": "<main class=\"page active\" id=\"chainValidationPage\"><section class=\"subhero\"><div class=\"container\">\n<span class=\"eyebrow source-inline-115\">Lien reçu</span><h1>Validez le service<br>rendu par Camille.</h1>\n<p>Vous pouvez créer un compte ou vous connecter avant de confirmer la nature du service.</p>\n</div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"content\"><div class=\"container\"><div class=\"recipient-card\">\n<span class=\"eyebrow\">Étape bénéficiaire</span><h2 class=\"source-inline-116\">Aide pour faire les courses</h2>\n<p><strong>Camille Martin</strong> indique vous avoir rendu ce service aujourd’hui.</p>\n<div class=\"social-login\">\n<a href=\"/contact\">G Continuer avec Google</a><a href=\"/contact\">f Continuer avec Facebook</a>\n</div>\n<div class=\"divider\">ou</div>\n<a class=\"btn btn-outline btn-block\" href=\"/contact\">Créer un compte / se connecter par e-mail</a><label class=\"terms source-inline-117\"><input type=\"checkbox\" id=\"recipientConfirm\" disabled><span>Je confirme avoir reçu ce service et que sa nature est correctement décrite.</span></label><a class=\"btn btn-primary btn-block\" id=\"validateChainService\" href=\"/contact\">Valider le service reçu</a><div class=\"notice source-inline-118\" id=\"recipientSuccess\">\n<strong>Service validé.</strong> Camille reçoit immédiatement 10 PS et la chaîne est mise à jour dans vos deux espaces.</div>\n<a class=\"text-link source-inline-119\" href=\"/decouvrir/fonctionnement\">Retour à la chaîne</a><div class=\"privacy-note contextual\">Les données de validation servent à prouver le service et à attribuer les Points Services. <a href=\"/contact\">En savoir plus</a>.</div>\n</div></div></section></main>",
+    "legal": "<main class=\"page active\" id=\"legalPage\"><section class=\"subhero\"><div class=\"container\">\n<span class=\"eyebrow source-inline-120\">Transparence &amp; confiance</span><h1>Le centre légal<br>de SEOS.</h1>\n<p>Retrouvez les règles du service, la gestion de vos données et vos choix de confidentialité.</p>\n</div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><section class=\"content\"><div class=\"container\">\n<div class=\"notice source-inline-121\">\n<strong>Maquette à finaliser avant mise en ligne :</strong> les éléments surlignés « à compléter » doivent être renseignés puis validés par le responsable juridique de SEOS.</div>\n<div class=\"legal-shell\">\n<nav class=\"legal-nav\" aria-label=\"Documents juridiques\"><a href=\"/contact\">Conditions d’utilisation</a><a href=\"/contact\">Confidentialité &amp; RGPD</a><a href=\"/contact\">Cookies</a><a href=\"/contact\">Mentions légales</a></nav><div class=\"legal-docs\">\n      <article class=\"legal-doc\" id=\"legal-cgu\"><span class=\"eyebrow\">CGU</span><h2>Conditions générales d’utilisation</h2>\n<div class=\"legal-meta\">\n<span class=\"pill active\">Version de travail</span><span class=\"pill\">Mise à jour : 28 août 2026</span>\n</div>\n<p>Les présentes conditions encadrent l’accès à SEOS et l’utilisation des services d’entraide, de don, d’échange et de Points Services.</p>\n<h3>Compte et accès</h3>\n<p>Chaque membre fournit des informations exactes, protège ses identifiants et reste responsable de son compte. L’âge minimum, le territoire couvert et les modalités propres aux comptes Association devront être confirmés.</p>\n<h3>Échanges et Points Services</h3>\n<p>SEOS facilite la mise en relation. Les membres conviennent ensemble des modalités du service. Les Points Services sont une unité interne, sans valeur monétaire et non convertible en euros.</p>\n<h3>Comportements interdits</h3>\n<ul>\n<li>Contenus trompeurs, discriminatoires, dangereux ou contraires à la loi.</li>\n<li>Vente dissimulée, sollicitation abusive ou contournement des mesures de sécurité.</li>\n<li>Faux avis, fausses validations de services ou manipulation des récompenses.</li>\n</ul>\n<h3>Modération, responsabilité et fermeture</h3>\n<p>SEOS peut modérer, suspendre ou retirer un contenu ou un compte en cas de manquement. Les règles de preuve, de contestation, de responsabilité et de résiliation devront être validées dans la version définitive.</p></article>\n      <article class=\"legal-doc\" id=\"legal-privacy\"><span class=\"eyebrow\">RGPD</span><h2>Politique de confidentialité</h2>\n<div class=\"legal-meta\"><span class=\"pill active\">Information des personnes</span></div>\n<p>Responsable du traitement : <span class=\"legal-placeholder\">[nom et coordonnées à compléter]</span>. Contact données personnelles / DPO : <span class=\"legal-placeholder\">[contact à compléter]</span>.</p>\n<h3>Données, finalités et bases juridiques</h3>\n<ul>\n<li>\n<strong>Compte et authentification :</strong> identité, e-mail et sécurité du compte — exécution du service.</li>\n<li>\n<strong>Annonces et échanges :</strong> contenus, localisation choisie, messages et validations — exécution du service.</li>\n<li>\n<strong>Sécurité et modération :</strong> signalements et journaux techniques — intérêt légitime et obligations légales selon les cas.</li>\n<li>\n<strong>Actualités SEOS :</strong> e-mail — consentement facultatif, retirable à tout moment.</li>\n</ul>\n<h3>Destinataires et conservation</h3>\n<p>Les équipes habilitées de SEOS et ses prestataires strictement nécessaires peuvent recevoir les données. Les durées précises par catégorie et les éventuels transferts hors Union européenne doivent être documentés avant publication.</p>\n<h3>Vos droits</h3>\n<p>Vous pouvez demander l’accès, la rectification, l’effacement, la limitation, l’opposition et, lorsque applicable, la portabilité de vos données. Vous pouvez retirer votre consentement à tout moment et saisir la CNIL.</p>\n<h3>Contact</h3>\n<p>Adressez votre demande à <span class=\"legal-placeholder\">[adresse RGPD à compléter]</span>. Une vérification d’identité proportionnée pourra être demandée.</p>\n<section id=\"rgpdTreatmentMatrix\"><h3>Registre public simplifié des traitements</h3>\n<p>Cette synthèse rend les principaux traitements compréhensibles. Le registre interne complet reste obligatoire.</p>\n<div class=\"legal-table-wrap\"><table class=\"legal-table\">\n<thead><tr>\n<th>Traitement</th>\n<th>Base envisagée</th>\n<th>Données principales</th>\n<th>Conservation proposée</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>Compte et authentification</td>\n<td>Exécution des CGU</td>\n<td>Identité, e-mail, sécurité</td>\n<td>Vie du compte, puis archivage limité pour les litiges <span class=\"legal-status\">à valider</span>\n</td>\n</tr>\n<tr>\n<td>Annonces, messages et échanges</td>\n<td>Exécution du service</td>\n<td>Contenus, zone géographique, messages</td>\n<td>Durée utile à l’échange, puis suppression ou archivage limité <span class=\"legal-status\">à valider</span>\n</td>\n</tr>\n<tr>\n<td>Modération et prévention de la fraude</td>\n<td>Intérêt légitime documenté</td>\n<td>Signalements, preuves et journaux</td>\n<td>Durée proportionnée au risque et aux contestations <span class=\"legal-status\">à valider</span>\n</td>\n</tr>\n<tr>\n<td>Newsletter</td>\n<td>Consentement</td>\n<td>E-mail, preuve du choix</td>\n<td>Jusqu’au retrait, avec renouvellement périodique <span class=\"legal-status\">à valider</span>\n</td>\n</tr>\n<tr>\n<td>Pièce d’identité, si nécessaire</td>\n<td>Base à confirmer selon le dispositif</td>\n<td>Document et résultat de vérification</td>\n<td>Document supprimé après vérification ; résultat strictement limité <span class=\"legal-status\">à valider</span>\n</td>\n</tr>\n</tbody>\n</table></div>\n<h3>Localisation et minimisation</h3>\n<p>L’adresse complète reste privée dans le compte. Les annonces publiques n’affichent que la commune ou une zone approximative. L’adresse exacte n’est transmise qu’après accord du membre lorsque la rencontre l’exige.</p>\n<h3>Niveaux, notes et récompenses</h3>\n<p>Les niveaux et Points Services reposent sur des règles déterminées : échanges validés, quêtes réalisées et avis reçus. Ils n’entraînent pas de décision produisant un effet juridique. Les mises en avant « Top annonce » restent soumises à une validation humaine et peuvent être contestées.</p>\n<h3>Mineurs</h3>\n<p><span class=\"legal-placeholder\">Règle produit à valider avant lancement</span> : définir un âge minimal, un parcours parental si des mineurs sont admis et une information rédigée dans un langage adapté.</p>\n<h3>Prestataires et transferts</h3>\n<div class=\"legal-table-wrap\"><table class=\"legal-table\">\n<thead><tr>\n<th>Service</th>\n<th>Usage</th>\n<th>Statut avant production</th>\n</tr></thead>\n<tbody>\n<tr>\n<td>Hébergeur et base de données</td>\n<td>Fonctionnement du service</td>\n<td><span class=\"legal-status\">prestataire à renseigner</span></td>\n</tr>\n<tr>\n<td>Messagerie et e-mails</td>\n<td>Notifications et échanges</td>\n<td><span class=\"legal-status\">contrat art. 28 à vérifier</span></td>\n</tr>\n<tr>\n<td>Google / Facebook</td>\n<td>Connexion sociale facultative</td>\n<td><span class=\"legal-status\">transferts et garanties à documenter</span></td>\n</tr>\n<tr>\n<td>Médias de démonstration</td>\n<td>Photographies et vidéos</td>\n<td><span class=\"legal-status\">à auto-héberger ou encadrer</span></td>\n</tr>\n</tbody>\n</table></div>\n<h3>Checklist avant mise en ligne</h3>\n<div class=\"compliance-checklist\">\n<div class=\"compliance-item pending\">\n<i>!</i><div>\n<strong>Identité juridique et contact RGPD</strong><br>Remplacer tous les champs « à compléter ».</div>\n</div>\n<div class=\"compliance-item pending\">\n<i>!</i><div>\n<strong>Registre, contrats et AIPD</strong><br>Documenter les traitements, sous-traitants et risques avant déploiement.</div>\n</div>\n<div class=\"compliance-item pending\">\n<i>!</i><div>\n<strong>Sécurité et violations</strong><br>HTTPS, mots de passe hachés, contrôle d’accès, sauvegardes et procédure d’incident.</div>\n</div>\n<div class=\"compliance-item ready\">\n<i>✓</i><div>\n<strong>Interface par niveaux</strong><br>Mentions courtes dans les formulaires et politique détaillée accessible.</div>\n</div>\n</div></section></article>\n      <article class=\"legal-doc\" id=\"legal-cookies\"><span class=\"eyebrow\">Préférences</span><h2>Cookies et traceurs</h2>\n<p>Les traceurs strictement nécessaires assurent le fonctionnement et la sécurité du site. Les traceurs de mesure d’audience ou de médias externes restent désactivés tant que vous ne les acceptez pas.</p>\n<h3>Un choix libre et réversible</h3>\n<p>Vous pouvez tout accepter, tout refuser ou choisir par finalité. Le lien « Gérer mes cookies » reste disponible dans le pied de page.</p>\n<div class=\"notice source-inline-122\" id=\"cookieConsentStatus\">Aucun choix enregistré</div>\n<a class=\"btn btn-deep\" href=\"/contact\">Gérer mes cookies</a></article>\n      <article class=\"legal-doc\" id=\"legal-mentions\"><span class=\"eyebrow\">Éditeur</span><h2>Mentions légales</h2>\n<p><strong>Éditeur :</strong> <span class=\"legal-placeholder\">[nom, forme juridique, capital et adresse à compléter]</span></p>\n<p><strong>Immatriculation :</strong> <span class=\"legal-placeholder\">[SIREN / RCS / RNA à compléter]</span></p>\n<p><strong>Directeur de la publication :</strong> <span class=\"legal-placeholder\">[nom à compléter]</span></p>\n<p><strong>Contact :</strong> <span class=\"legal-placeholder\">[e-mail et téléphone à compléter]</span></p>\n<p><strong>Hébergeur :</strong> <span class=\"legal-placeholder\">[nom, adresse et téléphone à compléter]</span></p>\n<p><strong>Propriété intellectuelle :</strong> les textes, signes distinctifs, interfaces et médias sont protégés selon les droits applicables. Les crédits des photographies et licences devront être consignés dans la version de production.</p></article>\n    </div>\n</div>\n</div></section></main>"
+  }
+}

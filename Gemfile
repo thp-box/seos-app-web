@@ -80,3 +80,6 @@ end
 gem "geocoder", "~> 1.8"
 
 gem "stripe", "~> 19.6"
+
+gem "omniauth-google-oauth2", "~> 1.2"
+gem "omniauth-rails_csrf_protection", "~> 2.0"

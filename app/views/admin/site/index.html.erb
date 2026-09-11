@@ -1,0 +1,19 @@
+<% title = @area == "kit" ? "Kit UI/UX — Apparence du site" : "Pages et sections" %>
+<% content_for :title, title %>
+<h1><%= title %></h1>
+<div class="editor-intro"><% if @workspace_version %><%= link_to "Ouvrir l’éditeur visuel", visual_admin_site_path(@workspace_version, area: @area), class: "btn btn-deep", data: { turbo: false } %><% else %><%= button_to "Ouvrir l’éditeur visuel", admin_site_index_path, params: { visual: "1", area: @area }, class: "btn btn-deep", form: { data: { turbo: false } } %><% end %><p>Modifiez directement la page et voyez les effets de vos réglages.</p></div>
+<% if @workspace_version && @workspace_version.status != "published" %><p class="notice">Vous retrouvez ici vos modifications enregistrées. Elles ne sont pas encore visibles par les visiteurs.</p><% end %>
+<% if @area == "kit" %>
+  <p>Choisissez les couleurs, les polices et les formes de votre site. Vos essais restent privés jusqu’à leur mise en ligne.</p>
+  <article class="card"><h2>Personnaliser l’apparence</h2><p>Les réglages s’appliquent à l’ensemble du site. Vous pourrez vérifier le résultat avant de le rendre visible.</p><%= site_workspace_action "Modifier le kit UI/UX", @workspace_version, area: "kit" %></article>
+<% else %>
+  <p>Choisissez la page à modifier, ou créez-en une nouvelle. Une page est composée de plusieurs parties : une introduction, un texte, des images…</p>
+  <div class="editor-intro"><div><strong>Comment ça marche ?</strong><p>1. Choisissez une page · 2. Modifiez son contenu · 3. Vérifiez et mettez en ligne.</p></div><%= link_to "Créer une page", new_page_admin_site_index_path, class: "btn btn-deep" %></div>
+  <h2>Quelle page souhaitez-vous modifier ?</h2>
+  <div class="card-grid"><% @pages.each do |slug| %><article class="card"><h3><%= site_page_name(slug, @workspace_version) %></h3><p><%= site_page_description(slug) %></p><%= site_workspace_action "Modifier cette page", @workspace_version, page: slug %></article><% end %></div>
+  <h2>Les éléments communs à toutes les pages</h2><p>Le haut et le bas du site sont partagés : une modification à ces endroits apparaît sur toutes les pages.</p>
+  <div class="card-grid"><% { "header" => ["Haut du site", "Le logo, le menu et les liens de connexion."], "footer" => ["Bas du site", "Les coordonnées, les informations et les liens utiles."], "images" => ["Bibliothèque d’images", "Ajoutez les photos à utiliser dans vos pages."] }.each do |area, (label, description)| %><article class="card"><h3><%= label %></h3><p><%= description %></p><%= site_workspace_action "Modifier #{label.downcase}", @workspace_version, area: area %></article><% end %></div>
+<% end %>
+<details class="card editor-advanced"><summary>Retrouver une ancienne sauvegarde</summary><p>Chaque enregistrement garde une copie. Reprendre une sauvegarde permet de la vérifier avant de la remettre en ligne.</p>
+<% @versions.each do |version| %><article class="editor-history-item"><h3><%= l version.created_at, format: :short %> · <%= version.status == "published" ? "Mise en ligne" : "Modifications enregistrées" %></h3><p><%= version.name %></p><%= link_to "Consulter cette sauvegarde", edit_admin_site_path(version, area: @area), class: "btn btn-outline" %><%= button_to "Reprendre cette sauvegarde", admin_site_index_path(source_id: version.id, area: @area), class: "btn btn-outline" %></article><% end %>
+</details>

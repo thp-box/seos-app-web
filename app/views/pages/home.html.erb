@@ -1,8 +1,13 @@
+<% if (composed_page = site_version&.site&.dig("pages", "home")) %>
+<% content_for :title, composed_page["title"] %><%= render "site/page", page: composed_page, slug: "home" %>
+<% else %>
+<%= render "site/edit_link", slug: "home" %>
+<% studio_page = (@studio_version || StudioVersion.current)&.page("home") || {} %>
 <section class="hero">
   <div class="container">
     <span class="eyebrow">L’entraide près de chez vous</span>
-    <h1>Un petit coup de main.<br>De <em>grands liens.</em></h1>
-    <p>Un savoir-faire à partager, un service à demander. Ensemble, faisons circuler l’entraide, simplement.</p>
+    <h1><% if studio_page["title"] %><%= studio_page["title"] %><% else %>Un petit coup de main.<br>De <em>grands liens.</em><% end %></h1>
+    <p><%= studio_page["description"] || "Un savoir-faire à partager, un service à demander. Ensemble, faisons circuler l’entraide, simplement." %></p>
     <div class="actions">
       <%= link_to user_signed_in? ? "Accéder à mon compte" : "Rejoindre SEOS", user_signed_in? ? account_root_path : new_user_registration_path, class: "btn btn-primary" %>
       <%= link_to "Découvrir les annonces", listings_path, class: "btn btn-outline" %>
@@ -29,3 +34,7 @@
     </dialog>
   </div>
 </section>
+
+<%= render "shared/studio_media", fields: studio_page %>
+
+<% end %>

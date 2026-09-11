@@ -7,3 +7,5 @@ Ces références portent sur le premier socle implémenté. Elles ne remplacent 
 Les tests lisent ces PNG et produisent les images obtenues/diffs dans `tmp/screenshots`. Ils échouent si une référence manque ou si l’écart dépasse 0,5 %. Le mode explicite `CAPTURE_VISUAL_CANDIDATES=1` écrit seulement des candidats dans `tmp/`, jamais ici, et est interdit en CI. Toute modification d’une référence existante doit documenter la décision produit et la revue avant/après.
 
 Les références ont fait l’objet d’une [revue explicite le 5 septembre](../../../../docs/16-revue-visuelle-decouverte.md) pour les liens de navigation et du footer. Deux références du catalogue ont été ajoutées aux largeurs 375 et 1440. Les tests n’écrivent jamais ces fichiers.
+
+Revue du 6 septembre 2026 (phase 7) : ajout du lien public « Confidentialité et cookies » dans le footer. Les 16 captures ont été recapturées explicitement et les différences localisées au footer ; le mobile 320 px gagne 39 px de hauteur. Voir [le suivi de phase 7](../../../../docs/21-suivi-phase-7.md). Le seuil de comparaison reste 0,5 %.

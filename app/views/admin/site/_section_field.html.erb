@@ -1,0 +1,13 @@
+<% key = field.fetch("key"); value = block["values"].fetch(key, field["default"]); field_id = "#{block['id']}-#{key}"; help_id = "#{field_id}-help" %>
+<div class="form-field">
+  <%= label_tag field_id, field["label"] %>
+  <p class="editor-field-help" id="<%= help_id %>"><%= field["help"] %></p>
+  <% if field["type"] == "image" %>
+    <%= image_tag site_image_path(value), alt: "", width: 120, height: 85, class: "site-thumbnail" %>
+    <%= select_tag "values[#{key}]", options_for_select(site_image_options(@assets), value), id: field_id, class: "control", aria: { describedby: help_id } %>
+  <% elsif field["type"] == "url" %>
+    <%= text_field_tag "values[#{key}]", value, id: field_id, class: "control", aria: { describedby: help_id } %>
+  <% else %>
+    <%= text_area_tag "values[#{key}]", value, id: field_id, rows: field["label"].start_with?("Texte de présentation") ? 4 : 1, class: "control", maxlength: 15000, aria: { describedby: help_id } %>
+  <% end %>
+</div>

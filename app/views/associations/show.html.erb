@@ -1,0 +1,1 @@
+<section class="container section prose"><h1>Association</h1><%= render "profile", organization: @organization %><h2>Ses missions solidaires</h2><% @missions.each do |mission| %><%= render "volunteer_missions/card", mission: mission %><% end %></section>

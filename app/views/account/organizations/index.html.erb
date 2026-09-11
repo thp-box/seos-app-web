@@ -1,0 +1,8 @@
+<h1>Mes organisations</h1><p>Créez votre espace et soumettez son identité à vérification. Les missions monde seront publiées après décision du super-admin.</p>
+<% @organizations.each do |organization| %><div class="card"><h2><%= organization.name %></h2><p><%= network_label(organization.status) %></p><% unless organization.suspended? %><%= link_to "Ouvrir l’espace", account_organization_path(organization), class: "btn btn-outline" %><% end %></div><% end %>
+<div class="card"><h2>Demander un espace organisation</h2><%= form_with url: account_organizations_path, scope: :organization do |form| %>
+<%= input_field form, :name, "Nom public", required: true, maxlength: 150 %><%= input_field form, :slug, "Adresse courte de la fiche", required: true, pattern: "[a-z0-9]+(-[a-z0-9]+)*" %><%= select_field form, :kind, "Type", [["Association", "association"], ["Entreprise", "company"], ["Institution", "institution"], ["Collectif", "collective"]] %>
+<%= input_field form, :description, "Présentation publique", type: :text_area, required: true, maxlength: 5000 %><%= input_field form, :public_location, "Ville ou région publique", maxlength: 150 %>
+<%= input_field form, :legal_name, "Dénomination légale (privée)", required: true %><%= input_field form, :registration_number, "Numéro d’enregistrement (privé)", required: true %><%= input_field form, :legal_email, "E-mail légal (privé)", type: :email_field, required: true %>
+<%= form.button "Demander la vérification", class: "btn btn-primary" %><% end %></div>
+<p><%= link_to "Découvrir les associations", associations_path %> · <%= link_to "Voyage solidaire", volunteer_missions_path if FeatureFlag.voyage_enabled? %> · <%= link_to "Partenaires", partnerships_path if FeatureFlag.partnerships_enabled? %></p>

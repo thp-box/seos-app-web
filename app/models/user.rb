@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :restrict_with_exception
 
   devise :database_authenticatable, :registerable, :recoverable, :validatable,
-    :confirmable, :lockable, :timeoutable
+    :confirmable, :lockable, :timeoutable, :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   enum :role, { member: "member", admin: "admin", super_admin: "super_admin" }, validate: true
   enum :status, { pending: "pending", active: "active", suspended: "suspended", anonymized: "anonymized" }, validate: true
@@ -21,7 +21,7 @@ class User < ApplicationRecord
   normalizes :email, with: ->(email) { email.strip.downcase }
 
   def active_for_authentication?
-    super && active?
+    super && active? && !LoginBlock.blocked?(email)
   end
 
   def inactive_message

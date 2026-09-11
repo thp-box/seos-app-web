@@ -1,3 +1,3 @@
 <% content_for :title, "Vérifier mon identité" %>
-<h1>Confirmer votre mot de passe</h1><p>Cette vérification protège l’accès aux fonctions d’administration pendant 15 minutes.</p>
+<h1>Confirmer votre mot de passe</h1><p>Cette confirmation est demandée pour une opération sensible sur votre compte.</p>
 <%= form_with url: account_reauthentication_path do |form| %><div class="form-field"><%= form.label :password, "Mot de passe" %><%= form.password_field :password, class: "control", autocomplete: "current-password", required: true %></div><%= form.submit "Confirmer", class: "btn btn-deep" %><% end %>

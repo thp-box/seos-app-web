@@ -97,6 +97,30 @@ RSpec.describe "Authentification et sessions", :"F-003", :"US-07", :"US-08", typ
     end
   end
 
+  %i[member admin super_admin].each do |role|
+    it "garde le #{role} connecté après huit heures sans activité" do
+      member = create(:user, role: role)
+      login(member)
+
+      travel 8.hours do
+        get account_root_path
+        expect(response).to have_http_status(:ok)
+        if member.administrative?
+          get admin_root_path
+          expect(response).to have_http_status(:ok)
+        end
+      end
+    end
+  end
+
+  it "respecte encore la durée maximale de session de douze heures" do
+    login(user)
+    travel 13.hours do
+      get account_root_path
+      expect(response).to redirect_to(new_user_session_path)
+    end
+  end
+
   it "permet de révoquer seulement ses propres appareils" do
     login(user)
     own = user.login_sessions.last

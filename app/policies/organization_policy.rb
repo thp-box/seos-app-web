@@ -7,6 +7,11 @@ class OrganizationPolicy < ApplicationPolicy
     show? && (membership.owner? || membership.manager?)
   end
 
+  def workspace? = !!(user&.active? && user.confirmed? && !record.suspended? && membership)
+  def manage_team? = workspace? && (membership.owner? || membership.manager?)
+  def owner? = workspace? && membership.owner?
+  def edit_content? = workspace? && record.verified?
+
   private
 
   def membership

@@ -1,0 +1,9 @@
+<% content_for :title, "Créer une page" %>
+<%= link_to "← Toutes les pages", admin_site_index_path %>
+<h1>Créer une page</h1><p>Commencez par lui donner un nom. Vous pourrez ensuite écrire son contenu et ajouter des images.</p>
+<%= form_with url: admin_site_index_path, class: "card" do |f| %>
+  <%= hidden_field_tag :operation, "create_page" %><%= hidden_field_tag :source_id, @workspace_version&.id %>
+  <%= input_field f, :title, "Nom de la page", required: true, maxlength: 100, placeholder: "Par exemple : Notre association" %>
+  <p>L’adresse de la page sera créée automatiquement. La page restera privée jusqu’à ce que vous choisissiez de la mettre en ligne.</p>
+  <%= f.button "Créer et écrire le contenu", class: "btn btn-deep" %>
+<% end %>

@@ -26,7 +26,7 @@ module VisualRegression
     if ratio > 0.005
       diff = ChunkyPNG::Image.new(actual.width, actual.height, ChunkyPNG::Color::TRANSPARENT)
       expected.pixels.zip(actual.pixels).each_with_index do |(left, right), index|
-        diff[index % actual.width, index / actual.width] = ChunkyPNG::Color::RED if left != right
+        diff[index % actual.width, index / actual.width] = ChunkyPNG::Color.rgb(255, 0, 0) if left != right
       end
       diff.save(Rails.root.join("tmp/screenshots", "#{name}-diff.png"))
     end

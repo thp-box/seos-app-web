@@ -127,3 +127,62 @@ rescue Exchanges::Invalid
 end
 raise "Chain branch" unless invitations.sort == [ :invited, :rejected ] && chain.chain_services.where(status: "invited").count == 1
 puts "SQLite chaînes : un bénéficiaire et une récompense par validation, aucune branche concurrente."
+
+organization = Organization.create!(name: "Association concurrence", slug: "association-concurrence", kind: "association", status: "verified")
+organization.organization_memberships.create!(user: provider, role: "owner")
+organization.organization_memberships.create!(user: requester, role: "owner")
+owner_changes = simultaneously(provider, requester) do |actor|
+  membership = organization.organization_memberships.find_by!(user: actor)
+  OrganizationWorkflow.membership!(membership: membership, actor: actor, role: "editor", status: "active")
+  :changed
+rescue Exchanges::Invalid
+  :rejected
+end
+raise "Last owner removed" unless owner_changes.sort == [ :changed, :rejected ] && organization.organization_memberships.active.where(role: "owner").count == 1
+owner = organization.organization_memberships.active.find_by!(role: "owner").user
+mission = VolunteerMission.create!(organization: organization, title: "Mission concurrente", description: "Une place seulement", status: "published", starts_on: Date.current + 1, ends_on: Date.current + 10)
+applicants = 2.times.map do |index|
+  person = User.create!(email: "volunteer#{index}@concurrency.test", password: "DisposableTestPassword!42", status: "active", confirmed_at: Time.current)
+  Missions.apply!(mission: mission, actor: person, message: "Candidature", starts_on: Date.current + 2, ends_on: Date.current + 5)
+end
+acceptances = simultaneously(*applicants) do |application|
+  Missions.decide!(application: application, actor: owner, status: "accepted", reason: "Validation simultanée")
+  :accepted
+rescue Exchanges::Invalid
+  :rejected
+end
+raise "Mission over capacity" unless acceptances.sort == [ :accepted, :rejected ] && mission.mission_applications.where(status: "accepted").count == 1
+application = mission.mission_applications.find_by!(status: "accepted")
+simultaneously(application.user, application.user) do |actor|
+  Missions.message!(application: MissionApplication.find(application.id), actor: actor, body: "Message unique", key: "same-message")
+end
+raise "Duplicate mission message" unless application.mission_messages.count == 1
+puts "SQLite organisations et Voyage : dernier propriétaire conservé, capacité respectée, message unique."
+invitation_token = OrganizationWorkflow.invite!(organization: organization, actor: owner, email: admin.email, role: "editor")
+invitation = OrganizationInvitation.find_by!(token_digest: Digest::SHA256.hexdigest(invitation_token))
+simultaneously(admin, admin) { |actor| OrganizationWorkflow.accept!(invitation: OrganizationInvitation.find(invitation.id), actor: actor) }
+raise "Duplicate organization invitation acceptance" unless organization.organization_memberships.where(user: admin).count == 1 && AuditLog.where(target: invitation, action: "organization.join").count == 1
+puts "SQLite organisations : invitation acceptée une seule fois."
+second_admin = User.create!(email: "second-admin@concurrency.test", password: "DisposableTestPassword!42", role: :super_admin, confirmed_at: Time.current, status: :active)
+bulk_target = User.create!(email: "bulk-target@concurrency.test", password: "DisposableTestPassword!42", confirmed_at: Time.current, status: :active)
+operation = Operations.preview!(actor: admin, ids: [ bulk_target.id ], reason: "Recette de concurrence")
+simultaneously(second_admin, second_admin) { |actor| Operations.execute!(operation: BulkOperation.find(operation.id), actor: actor) }
+raise "Duplicate bulk suspension" unless bulk_target.reload.suspended? && AuditLog.where(target: bulk_target, action: "operations.suspend").count == 1
+puts "SQLite phase 7 : suspension groupée appliquée et auditée une seule fois."
+Dir.mktmpdir("seos-restoration-") do |directory|
+  storage = File.join(directory, "storage")
+  FileUtils.mkdir_p(storage)
+  snapshot = File.join(directory, "snapshot")
+  restored = File.join(directory, "restored")
+  SeosBackup.create!(database: ActiveRecord::Base.connection_db_config.database, storage: storage, destination: snapshot)
+  SeosBackup.restore!(source: snapshot, destination: restored)
+  database = SQLite3::Database.new(File.join(restored, "primary.sqlite3"), readonly: true)
+  begin
+    raise "Users lost in restoration" unless database.get_first_value("SELECT COUNT(*) FROM users") == User.count
+    raise "Ledger lost in restoration" unless database.get_first_value("SELECT COUNT(*) FROM point_operations") == PointOperation.count
+    raise "Unbalanced restored ledger" unless database.get_first_value("SELECT COALESCE(SUM(amount), 0) FROM point_entries") == 0
+  ensure
+    database.close
+  end
+end
+puts "SQLite phase 7 : sauvegarde applicative restaurée, membres et registre PS conservés, écritures équilibrées."

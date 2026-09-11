@@ -1,0 +1,1 @@
+<article class="card"><h2><%= link_to mission.title, volunteer_mission_path(mission) %></h2><p><%= mission.organization.name %> · <%= mission.public_location %>, <%= mission.country_code %></p><p><%= truncate(mission.description, length: 200) %></p><p><%= number_to_currency(mission.daily_contribution_cents / 100.0, unit: "€") %> par jour</p></article>

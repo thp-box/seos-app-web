@@ -1,0 +1,2 @@
+<% testimonials = Testimonial.where(status: "published", removed_at: nil).includes(:user).order(id: :desc).limit(30).select(&:publicly_visible?).first(3) %><% if testimonials.empty? %><p>Les témoignages publiés apparaîtront ici.</p><% end %>
+<% testimonials.each do |testimonial| %><article class="testimonial"><div class="quote" aria-hidden="true">“</div><p><%= testimonial.quote %></p><div class="provider"><div><strong><%= testimonial.display_name_snapshot %></strong><small><%= testimonial.public_location_snapshot %></small></div></div></article><% end %>

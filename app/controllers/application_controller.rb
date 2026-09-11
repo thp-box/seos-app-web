@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     else error.message
     end
     private_response
-    render "errors/invalid_operation", status: :unprocessable_entity
+    render "errors/invalid_operation", formats: [ :html ], status: :unprocessable_entity
   end
 
   def current_login_session
@@ -49,8 +49,11 @@ class ApplicationController < ActionController::Base
 
   def forbidden
     private_response
-    render "errors/forbidden", status: :forbidden
+    render "errors/forbidden", formats: [ :html ], status: :forbidden
   end
 
-  def after_sign_in_path_for(_resource) = session[:chain_invitation_id] ? chain_invitation_path : account_root_path
+  def after_sign_in_path_for(_resource)
+    return organization_invitation_path if session[:organization_invitation_id]
+    session[:chain_invitation_id] ? chain_invitation_path : account_root_path
+  end
 end

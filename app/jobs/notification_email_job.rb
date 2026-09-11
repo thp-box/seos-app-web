@@ -2,10 +2,16 @@ class NotificationEmailJob < ApplicationJob
   retry_on IOError, Timeout::Error, wait: :polynomially_longer, attempts: 3
   discard_on ActiveJob::DeserializationError
   def perform(notification)
-    notification.with_lock do
-      return if notification.emailed_at || !notification.user.email_notifications? || !notification.user.active_for_authentication?
-      NotificationMailer.notice(notification).deliver_now
-      notification.update!(emailed_at: Time.current)
+    if ActionMailer::Base.delivery_method == :gmail
+      deliver_notice(notification)
+    else
+      notification.with_lock { deliver_notice(notification) }
     end
+  end
+  private
+  def deliver_notice(notification)
+    return if notification.emailed_at || !notification.user.email_notifications? || !notification.user.active_for_authentication?
+    NotificationMailer.notice(notification).deliver_now
+    notification.update!(emailed_at: Time.current)
   end
 end

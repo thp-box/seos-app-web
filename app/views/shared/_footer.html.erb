@@ -1,7 +1,8 @@
+<% chrome = site_chrome("footer") %>
 <footer>
   <div class="container footer-row">
-    <div><%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag "seos-logo.png", alt: "SEOS", width: 108, height: 38, loading: "lazy" %><% end %><p>Les petits gestes font les grands liens.</p></div>
-    <p>L’entraide locale, en France.</p>
+    <div><%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag site_image_path(chrome["logo"]), alt: chrome["alt"], width: 108, height: 38, loading: "lazy" %><% end %><p><%= chrome["title"] %></p></div>
+    <p><%= chrome["description"] %></p>
     <%= link_to "Retour en haut", "#main-content" %>
   </div>
-<nav class="container actions" aria-label="Informations SEOS"><%= link_to "Contact", contact_path %><%= link_to "Don", explanation_path("don") %><%= link_to "Échange", explanation_path("echange") %><%= link_to "Points Services", explanation_path("points") %><%= link_to "Le journal", journal_path %></nav></footer>
+<nav class="container actions" aria-label="Informations SEOS"><%= link_to "Confidentialité et cookies", privacy_preferences_path %><% chrome["links"].each do |link| %><%= link_to link["label"], link["url"] %><% end %></nav></footer>

@@ -4,3 +4,16 @@
 @import "./layouts/shell.css";
 
 @import "./components/discovery.css";
+
+@import "./components/maquette.css";
+@import "./components/site_editor.css";
+.studio-motion { animation: studio-breathe 8s ease-in-out infinite alternate; }
+@keyframes studio-breathe { to { opacity: .65; } }
+@media (prefers-reduced-motion: reduce) { .studio-motion { animation: none; } }
+.studio-preview-375 { max-width: 375px; margin-inline: auto; }
+.studio-preview-768 { max-width: 768px; margin-inline: auto; }
+.studio-preview-1440 { max-width: 1440px; margin-inline: auto; }
+.workspace { overflow-wrap: anywhere; min-width: 0; }
+.workspace .control { max-width: 100%; min-width: 0; }
+.workspace .btn { white-space: normal; }
+.studio-frame { display: block; width: 100%; height: 850px; border: 1px solid var(--line); }

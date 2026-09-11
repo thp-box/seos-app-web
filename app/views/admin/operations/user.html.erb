@@ -1,0 +1,4 @@
+<% content_for :title, "Fiche membre" %><h1>Membre #<%= @user.id %></h1><p><%= @user.masked_email %> · <%= @user.role %> · <%= @user.status %></p>
+<ul><li><%= @user.listings.count %> annonces</li><li><%= @user.organization_memberships.count %> affiliations</li><li><%= DataRequest.where(user: @user).count %> demandes de droits</li><li><%= @user.login_sessions.active.count %> sessions actives</li></ul>
+<% if current_user.permission?("points.read") %><p>Solde PS : <%= PointAccount.find_by(user: @user)&.balance || 0 %></p><% end %>
+<% if @revealed %><p>E-mail : <%= @user.email %></p><p>Téléphone : <%= @user.profile&.phone %></p><% elsif current_user.super_admin? %><%= form_with url: user_admin_operation_path(@user) do |f| %><%= input_field f, :reason, "Motif de révélation" %><%= f.button "Révéler les coordonnées et journaliser", class: "btn btn-outline" %><% end %><% end %>

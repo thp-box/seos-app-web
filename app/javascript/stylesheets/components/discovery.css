@@ -48,3 +48,7 @@ input[type=checkbox] { width:20px; height:20px; margin:12px; vertical-align:midd
 .community-page { min-width: 0; overflow-wrap: anywhere; }
 .community-page .control { max-width: 100%; min-width: 0; }
 .testimonial-video { width: 100%; max-width: 48rem; }
+
+.organization-logo { object-fit: contain; max-width: 100%; }
+
+.network-workspace .btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }

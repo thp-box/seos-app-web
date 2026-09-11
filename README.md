@@ -1,8 +1,8 @@
 # SEOS France
 
-Plateforme d’entraide locale en Rails 8.1. Le socle comprend désormais les premiers parcours des phases 1 et 2 : profils, annonces, demandes, conversations, accords, avis et modération.
+Plateforme d’entraide locale en Rails 8.1. Les livraisons des phases 0 à 7 couvrent profils, annonces, échanges, confiance, Points Services, organisations et outils d’administration.
 
-Le périmètre actuel et les compléments à construire figurent dans le [suivi des phases 1 et 2](docs/15-suivi-phases-1-et-2.md). Le [bilan initial du socle](docs/14-analyse-et-suivi-phase-0.md) reste historique. Le [dossier de conception](docs/README.md) reste la référence fonctionnelle.
+Le [reste à faire et à vérifier](docs/23-reste-a-faire-et-verifier.md) décrit les limites actuelles. Le [dossier de conception](docs/README.md) regroupe les spécifications et suivis de livraison.
 
 ## Démarrer
 
@@ -89,7 +89,7 @@ Les candidats restent dans `tmp/screenshots/`. Leur adoption demande une revue e
 
 Le schéma canonique est `db/structure.sql` : il conserve aussi les triggers SQLite qui interdisent de modifier/supprimer l’audit. Les migrations ajoutent clés étrangères, unicités et contraintes de rôles/statuts. Les données de développement restent dans `storage/`.
 
-Les sessions sont limitées à 30 minutes d’inactivité et 12 heures au maximum. L’administration exige une confirmation du mot de passe datant de moins de 15 minutes. Les mots de passe changés et les changements de rôle révoquent les sessions. Les jetons de session sont stockés sous forme de condensat ; les agents utilisateurs sont résumés sans conservation de l’IP.
+Les sessions ne sont pas interrompues pour inactivité ; leur durée maximale reste de 12 heures après connexion. L’administration et le Studio ne demandent pas de confirmation périodique du mot de passe. Une confirmation récente reste requise pour les demandes et téléchargements de données personnelles et l’association d’un compte Google. Les mots de passe changés et les changements de rôle révoquent les sessions. Les jetons de session sont stockés sous forme de condensat ; les agents utilisateurs sont résumés sans conservation de l’IP.
 
 Les images passent par un contrôle MIME/taille, réencodage et retrait des métadonnées, puis une route autorisée `/medias/:id`. Les routes génériques Active Storage restent fermées. La carte publique utilise Leaflet dans un bundle distinct, uniquement lorsque le flag est actif. `MAP_TILE_URL` remplace le fond OSM par défaut. Aucun OAuth, analytics ou Stripe n’est chargé.
 
@@ -99,6 +99,16 @@ La [phase 4 — Points Services](docs/18-suivi-phase-4.md) fournit `/compte/poin
 
 La [phase 3](docs/17-suivi-phase-3.md) ajoute le parrainage, le moteur Trust versionné, les recours humains et la revue interne des signaux. Entrées : `/compte/confiance`, `/confiance`, `/admin/confiance`. Les seeds préparent `v1.0` en brouillon : simulation, seconde approbation et calcul en ombre précèdent toute activation publique. Le registre des points est désormais fourni par la phase 4. Redémarrer `bin/dev` après migration pour recharger routes et filtres de paramètres. Les recalculs nécessitent les jobs ; `bin/rails runner 'TrustMaintenanceJob.perform_now'` permet un passage local explicite.
 
-Restent notamment Google OmniAuth, Gmail API avec réconciliation des envois, les outils admin avancés et les Studios complets F-008/F-009. Les compléments propres aux phases 1 et 2 sont détaillés dans leur suivi. L’inscription n’enregistre pas encore d’acceptation de CGU versionnées : les documents légaux et la politique d’âge restent à valider et intégrer. Cette tranche est destinée au développement, pas à une ouverture en production.
+Le [Studio admin](docs/24-studio-mon-site-et-kit-maquette.md) offre un accueil commun sur `/admin`, avec des menus selon les permissions. Le super admin dispose de **Personnalisation** : création guidée de pages, contenu par parties, haut et bas du site, images et kit UI/UX issu de la maquette. Un aperçu et un récapitulatif précèdent la mise en ligne. Les validations de lancement et les compléments métier restent suivis dans la checklist, notamment les CGU versionnées et la politique d’âge.
 
 La [phase 5 — Engagement communautaire](docs/19-suivi-phase-5.md) ajoute les quêtes, Top annonces, témoignages écrits/vidéo et chaînes d’entraide : `/compte/engagement`, `/compte/chaines`, `/temoignages`, `/admin/engagement`. Le module Stripe de `/admin/soutien` reste désactivé par défaut. FFmpeg et FFprobe sont nécessaires au traitement vidéo et sont inclus dans le Dockerfile.
+
+La [phase 6 — Organisations, Voyage et partenariats](docs/20-suivi-phase-6.md) ajoute `/compte/organisations`, `/compte/candidatures`, `/associations`, `/voyage-solidaire`, `/partenaires` et `/admin/organisations`. Les seeds préparent une mission et un partenariat en brouillon pour l’association de démonstration. Les annonces monde restent publiées exclusivement par le super-admin.
+
+### Phase 7 : confidentialité et pilotage
+
+Après `bundle install`, `bin/rails db:migrate`, `bin/rails db:seed` et `yarn build`, redémarrer l’application et les workers. Nouveaux espaces : `/compte/confidentialite`, `/admin/confidentialite`, `/admin/operations`, `/admin/studio` et `/preferences-confidentialite`.
+
+Les comptes locaux `admin@seos.test` et `partenaire@seos.test` complètent les trois comptes existants, avec `SeosDemo2026!`. L’admin reçoit des droits de démonstration limités à 30 jours ; le partenaire possède une organisation en attente de revue. Aucun de ces comptes n’est créé en production.
+
+Voir [le suivi de phase 7](docs/21-suivi-phase-7.md) et [le guide d’exploitation](docs/22-exploitation-et-recette.md) pour Google/Gmail, sauvegardes, recette et limites de lancement. Le logiciel livré ne vaut pas validation juridique des durées de conservation ou de l’ouverture au public.
