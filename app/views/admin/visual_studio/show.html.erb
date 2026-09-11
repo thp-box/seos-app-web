@@ -1,0 +1,29 @@
+<% content_for :title, "Éditeur visuel — Studio admin" %>
+<div data-controller="visual-studio" data-visual-studio-state-value="<%= @editor_data.to_json %>" data-visual-studio-save-url-value="<%= visual_save_admin_site_path(@source) %>" data-turbo="false" class="visual-studio">
+  <div class="visual-toolbar">
+    <%= link_to "← Studio admin", admin_root_path %><h1>Éditeur visuel</h1>
+    <button type="button" class="btn btn-outline" data-action="visual-studio#undo">Annuler</button><button type="button" class="btn btn-outline" data-action="visual-studio#redo">Rétablir</button>
+    <button type="button" class="btn btn-outline" data-action="visual-studio#save">Enregistrer</button><button type="button" class="btn btn-deep" data-action="visual-studio#review">Vérifier et mettre en ligne</button>
+  </div>
+  <p role="status" aria-live="polite" data-visual-studio-target="status">Vos essais restent privés. Glissez une section dans la page ou cliquez sur un élément pour le modifier.</p>
+  <div class="visual-grid">
+    <aside class="visual-library" aria-label="Ajouter et personnaliser">
+      <label for="visual-page">Page à modifier</label><select id="visual-page" class="control" data-visual-studio-target="pages" data-action="visual-studio#changePage"></select>
+      <details><summary>Créer ou retirer une page</summary><label for="visual-page-name">Nom de la nouvelle page</label><input id="visual-page-name" class="control" maxlength="100" data-visual-studio-target="pageName"><button type="button" class="btn btn-outline" data-action="visual-studio#createPage">Créer cette page</button><button type="button" class="btn btn-outline" data-action="visual-studio#deletePage">Retirer cette page</button><p>Les pages principales du site ne peuvent pas être retirées.</p></details>
+      <details name="visual-library"><summary>Sections de cette page</summary><div data-visual-studio-target="layers"></div></details>
+      <details <%= "open" unless params[:area] == "kit" %> name="visual-library"><summary>Ajouter une section</summary><p>Glissez un modèle sur un emplacement de l’aperçu, ou utilisez son bouton Ajouter.</p><div data-visual-studio-target="library"></div></details>
+      <details name="visual-library" <%= "open" if params[:area] == "kit" %>><summary>Apparence et effets du site</summary><div data-visual-studio-target="theme"></div></details>
+      <details name="visual-library"><summary>Haut et bas du site</summary><button type="button" class="btn btn-outline" data-action="visual-studio#header">Modifier le haut</button><button type="button" class="btn btn-outline" data-action="visual-studio#footer">Modifier le bas</button></details>
+      <%= link_to "Éditeur guidé et bibliothèque d’images", edit_admin_site_path(@source, page: @slug, area: params[:area]), data: { visual_studio_target: "guided" } %>
+    </aside>
+    <section class="visual-canvas" aria-label="Aperçu interactif">
+      <div class="visual-devices"><% { "375" => "Téléphone", "768" => "Tablette", "1440" => "Ordinateur" }.each do |width, label| %><button type="button" class="btn btn-outline" data-action="visual-studio#device" data-width="<%= width %>"><%= label %></button><% end %><button type="button" class="btn btn-outline" data-action="visual-studio#expand">Agrandir / réduire</button></div>
+      <div class="visual-frame-wrap" data-visual-studio-target="frameWrap"><iframe name="visual-site-preview" title="Votre page — cliquez sur une section pour la modifier" data-visual-studio-target="frame" data-action="load->visual-studio#frameLoaded"></iframe></div>
+      <p>Le contenu des annonces reste géré dans les outils métier. Les liens de cet aperçu servent à sélectionner les éléments.</p>
+    </section>
+    <aside class="visual-inspector" aria-label="Modifier la sélection" data-visual-studio-target="inspector"><p>Cliquez sur un texte, une photo ou une section dans l’aperçu.</p></aside>
+  </div>
+  <%= form_with url: visual_preview_admin_site_path(@source), method: :post, html: { target: "visual-site-preview", hidden: true }, data: { visual_studio_target: "previewForm", turbo: false } do %>
+    <%= hidden_field_tag :document, "", data: { visual_studio_target: "document" } %><%= hidden_field_tag :page, @slug, data: { visual_studio_target: "slug" } %><%= hidden_field_tag :revision, "0", data: { visual_studio_target: "revision" } %>
+  <% end %>
+</div>

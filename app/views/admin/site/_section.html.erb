@@ -1,13 +1,22 @@
 <% block = @section %>
 <%= link_to "← Retour aux parties de la page", edit_admin_site_path(@version, page: @slug) %>
-<h2><%= site_section_name(block["template"]) %></h2><p>Modifiez les textes et les images ci-dessous, puis cliquez sur Enregistrer le contenu.</p>
+<h2><%= site_section_name(block["template"]) %></h2><p>Ouvrez la rubrique à modifier, puis enregistrez. Chaque champ indique où son contenu apparaît sur la page.</p>
 <%= form_with url: admin_site_path(@version), method: :patch do |f| %><%= hidden_field_tag :operation, "page", id: nil %><%= hidden_field_tag :page, @slug, id: nil %><%= hidden_field_tag :block_id, block["id"], id: nil %><%= hidden_field_tag :block_action, "save", id: nil %>
       
+      <% if block["template"] == "text" %>
       <% SiteDesign.templates.fetch(block["template"])["fields"].each do |key, field| %><% value = block["values"].fetch(key, block["template"] == "text" && %w[label url].include?(key) ? "" : field["default"]); field_id = "#{block['id']}-#{key}" %><% if block["template"] == "text" && key == "label" %><details class="editor-advanced" <%= "open" if block["values"]["label"].present? %>><summary>Ajouter un bouton (facultatif)</summary><p>Indiquez le texte du bouton et la page vers laquelle il doit conduire. Laissez les deux champs vides pour ne pas afficher de bouton.</p><% end %><div class="form-field"><%= label_tag field_id, field["label"] %>
         <% if field["type"] == "image" %><%= image_tag site_image_path(value), alt: "", width: 100, height: 70, class: "site-thumbnail" %><%= select_tag "values[#{key}]", options_for_select(site_image_options(@assets), value), id: field_id, class: "control" %>
         <% elsif field["type"] == "url" %><%= text_field_tag "values[#{key}]", value, id: field_id, class: "control", required: block["template"] != "text" %><small>Adresse de la page à ouvrir, par exemple /contact, ou adresse complète commençant par https://.</small>
         <% else %><%= text_area_tag "values[#{key}]", value, id: field_id, rows: value.to_s.size > 120 ? 4 : 2, class: "control", maxlength: 15000 %><% end %></div><% if block["template"] == "text" && key == "url" %></details><% end %><% end %>
-      <details class="editor-advanced"><summary>Options de présentation</summary><p>Facultatif : ajoutez une forme décorative ou masquez cette partie de la page.</p><div class="form-field"><%= label_tag "separator-#{block['id']}", "Décoration de la section" %><%= select_tag :separator, options_for_select([["Aucune", "none"]] + ContentVersion::PRESETS.map { |preset| [human_value(preset), preset] }, block["separator"]), id: "separator-#{block['id']}", class: "control" %></div>
+      <% else %>
+        <% SiteSectionEditor.new(SiteDesign.templates.fetch(block["template"])).groups.each_with_index do |(name, fields), index| %>
+          <details class="card editor-field-group" name="section-fields" <%= "open" if index.zero? %>>
+            <summary><%= name %></summary>
+            <% fields.each do |field| %><%= render "section_field", block: block, field: field %><% end %>
+          </details>
+        <% end %>
+      <% end %>
+      <details class="editor-advanced" name="section-fields"><summary>Options de présentation</summary><p>Facultatif : ajoutez une forme décorative ou masquez cette partie de la page.</p><div class="form-field"><%= label_tag "separator-#{block['id']}", "Décoration de la section" %><%= select_tag :separator, options_for_select([["Aucune", "none"]] + ContentVersion::PRESETS.map { |preset| [human_value(preset), preset] }, block["separator"]), id: "separator-#{block['id']}", class: "control" %></div>
       <div class="form-field"><%= label_tag "placement-#{block['id']}", "Position de la décoration" %><%= select_tag :placement, options_for_select([["Après la section", "bottom"], ["Avant la section", "top"]], block["placement"]), id: "placement-#{block['id']}", class: "control" %></div>
       <div class="form-field"><%= label_tag "hidden-#{block['id']}" do %><%= check_box_tag :hidden, "1", block["hidden"], id: "hidden-#{block['id']}" %> Masquer cette section<% end %></div></details><div class="actions"><%= f.button "Enregistrer le contenu", class: "btn btn-outline" %><%= f.button "Enregistrer et voir le résultat", name: :after_save, value: "review", class: "btn btn-deep" %></div>
 

@@ -36,7 +36,8 @@ module Admin
       end
       source = params[:source_id].present? ? StudioVersion.find(params[:source_id]) : StudioVersion.current
       version = Studio.change!(actor: current_user, settings: {}, name: params[:name].presence || "Mon site — #{Time.current.strftime('%d/%m %H:%M')}", source: source)
-      redirect_to edit_admin_site_path(version, page: params[:page], area: params[:area] == "kit" ? "kit" : "pages"), status: :see_other
+      destination = params[:visual] == "1" ? visual_admin_site_path(version, page: params[:page], area: params[:area]) : edit_admin_site_path(version, page: params[:page], area: params[:area] == "kit" ? "kit" : "pages")
+      redirect_to destination, status: :see_other
     end
     def edit
       @area = %w[pages header footer kit images].include?(params[:area]) ? params[:area] : "pages"
@@ -126,7 +127,7 @@ module Admin
       when "down" then blocks.insert([ index + 1, blocks.size - 1 ].min, blocks.delete_at(index))
       when "duplicate" then blocks.insert(index + 1, block.deep_dup.merge("id" => SecureRandom.uuid))
       when "save"
-        block["values"] = params.fetch(:values, ActionController::Parameters.new).permit(*SiteDesign.templates.fetch(block["template"])["fields"].keys).to_h
+        block["values"] = block["values"].merge(params.fetch(:values, ActionController::Parameters.new).permit(*SiteDesign.templates.fetch(block["template"])["fields"].keys).to_h)
         if block["template"] == "text"
           if block["values"]["label"].blank? && block["values"]["url"].blank?
             block["values"].except!("label", "url")

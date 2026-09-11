@@ -12,7 +12,7 @@ RSpec.describe "Studio Mon site", type: :system do
     within(".editor-template", text: "Grande présentation avec photo") { click_button "Ajouter cette partie" }
     expect(page).to have_css(".site-block", count: 1)
     click_link "Modifier le contenu"
-    fill_in "Bienvenue sur SEOS", with: "Bienvenue dans notre communauté"
+    fill_in "Petit texte au-dessus du titre", with: "Bienvenue dans notre communauté"
     click_button "Enregistrer le contenu"
     expect(page).to have_content("Modifications enregistrées")
     version = StudioVersion.last

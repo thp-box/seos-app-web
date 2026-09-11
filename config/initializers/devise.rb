@@ -12,7 +12,7 @@ Devise.setup do |config|
   config.reset_password_within = 2.hours
   config.sign_in_after_reset_password = false
   config.sign_in_after_change_password = false
-  config.timeout_in = 30.minutes
+  config.timeout_in = nil
   config.lock_strategy = :failed_attempts
   config.unlock_strategy = :time
   config.maximum_attempts = 10

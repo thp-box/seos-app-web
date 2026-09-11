@@ -47,9 +47,12 @@ class SiteDesign
     end
   end
   def self.valid_block?(block)
-    return false unless block.is_a?(Hash) && (block.keys - %w[id template values hidden separator placement]).empty? && block["id"].is_a?(String) && block["id"].match?(/\A[a-z0-9-]{1,50}\z/) && [ true, false, nil ].include?(block["hidden"])
+    return false unless block.is_a?(Hash) && (block.keys - %w[id template values hidden separator placement style elements]).empty? && block["id"].is_a?(String) && block["id"].match?(/\A[a-z0-9-]{1,50}\z/) && [ true, false, nil ].include?(block["hidden"])
     return false unless [ nil, "none", *ContentVersion::PRESETS ].include?(block["separator"]) && [ nil, "top", "bottom" ].include?(block["placement"])
     template = templates[block["template"]]
+    return false unless SiteSectionStyle.valid?(block.fetch("style", {}))
+    elements = block.fetch("elements", {})
+    return false unless elements.is_a?(Hash) && template && elements.all? { |field, style| template["fields"].key?(field) && SiteSectionStyle.valid?(style) }
     values = block["values"]
     return false unless template && values.is_a?(Hash) && (values.keys - template["fields"].keys).empty?
     values.all? do |key, value|

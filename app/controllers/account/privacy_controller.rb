@@ -1,6 +1,6 @@
 module Account
   class PrivacyController < BaseController
-    before_action :require_recent_authentication
+    before_action :require_recent_authentication, only: [ :create, :download ]
     def show
       @requests = DataRequest.where(user: current_user).order(id: :desc).limit(30)
     end

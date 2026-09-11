@@ -77,6 +77,9 @@ Rails.application.routes.draw do
       match :user, via: [ :get, :post ], on: :member
     end
     resources :site, only: [ :index, :create, :edit, :update ] do
+      get :visual, on: :member, to: "visual_studio#show"
+      post :visual_preview, on: :member, to: "visual_studio#preview"
+      post :visual_save, on: :member, to: "visual_studio#save"
       get :kit, on: :member
       get :new_page, on: :collection
       get :review, on: :member

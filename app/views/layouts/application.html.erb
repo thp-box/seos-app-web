@@ -8,6 +8,7 @@
     <meta name="robots" content="<%= @indexable && CrawlerPolicy.current&.search_enabled != false ? "index, follow" : "noindex, nofollow" %>">
     <% if @canonical %><%= tag.link rel: "canonical", href: @canonical %><%= tag.meta property: "og:url", content: @canonical %><%= tag.meta property: "og:title", content: content_for(:title) %><% end %>
     <%= yield :structured_data %>
+    <% if @visual_preview %><%= tag.meta name: "studio-preview-revision", content: @visual_revision %><% end %>
     <%= favicon_link_tag "seos-logo.png", type: "image/png" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -17,7 +18,7 @@
     <% if studio %><%= tag.style studio.css, nonce: content_security_policy_nonce %><% end %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
-  <body>
+  <body class="app-shell">
     <a class="skip-link" href="#main-content" data-turbo="false">Aller au contenu</a>
     <%= render "shared/header" %>
     <%= render "shared/flash" %>

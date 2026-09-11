@@ -36,7 +36,13 @@ RSpec.describe "Parcours de confidentialité et pilotage", type: :request do
     expect(response).to have_http_status(:not_found)
     user.login_sessions.active.update_all(reauthenticated_at: 1.hour.ago)
     get account_privacy_path
+    expect(response).to have_http_status(:ok)
+    post account_privacy_path, params: { kind: "access" }
     expect(response).to redirect_to(new_account_reauthentication_path)
+    get download_account_privacy_path(id: record.id)
+    expect(response).to redirect_to(new_account_reauthentication_path)
+    post account_reauthentication_path, params: { password: "UnMotDePasseSolide!42" }
+    expect(response).to redirect_to(account_root_path)
   end
   it "masque les membres, contrôle la révélation et borne les exports" do
     login user

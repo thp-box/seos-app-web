@@ -1,6 +1,7 @@
 <% title = @area == "kit" ? "Kit UI/UX — Apparence du site" : "Pages et sections" %>
 <% content_for :title, title %>
 <h1><%= title %></h1>
+<div class="editor-intro"><% if @workspace_version %><%= link_to "Ouvrir l’éditeur visuel", visual_admin_site_path(@workspace_version, area: @area), class: "btn btn-deep", data: { turbo: false } %><% else %><%= button_to "Ouvrir l’éditeur visuel", admin_site_index_path, params: { visual: "1", area: @area }, class: "btn btn-deep", form: { data: { turbo: false } } %><% end %><p>Modifiez directement la page et voyez les effets de vos réglages.</p></div>
 <% if @workspace_version && @workspace_version.status != "published" %><p class="notice">Vous retrouvez ici vos modifications enregistrées. Elles ne sont pas encore visibles par les visiteurs.</p><% end %>
 <% if @area == "kit" %>
   <p>Choisissez les couleurs, les polices et les formes de votre site. Vos essais restent privés jusqu’à leur mise en ligne.</p>

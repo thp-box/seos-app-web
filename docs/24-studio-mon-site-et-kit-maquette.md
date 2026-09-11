@@ -64,7 +64,7 @@ Les styles globaux modifiables sont les contrôles affichés dans le kit : il ne
 ## Publication et protections
 
 - Autorisation serveur super admin pour le compositeur, le chrome et le kit. Les permissions historiques de consultation/édition du Studio restent appliquées à l’ancien espace.
-- Brouillons privés, réauthentification de l’administration, protection CSRF et absence de cache des aperçus.
+- Brouillons privés, session authentifiée et permissions administratives, protection CSRF et absence de cache des aperçus. Aucune confirmation périodique du mot de passe dans le Studio.
 - Données déclaratives validées : types de sections, tailles, identifiants uniques, champs connus, images locales/importées et URL du site ou HTTPS. Aucun HTML, CSS ou script fourni par l’éditrice n’est interprété.
 - Insertion des textes via les setters DOM avec échappement. Les templates HTML sont des fichiers de référence versionnés dans le dépôt.
 - Validation du contraste des couples de couleurs déjà contrôlés par le Studio, puis vérification du digest avant publication. Cette vérification ne remplace pas la recette de tous les contrastes sur une photo ou de chaque combinaison personnalisée.
@@ -92,3 +92,19 @@ Recette de la navigation : **300 exemples RSpec, 0 échec** (seed 32712), couver
 Après la simplification du Studio admin : **305 exemples RSpec, 0 échec** (seed 19899), couverture **98,87 % des lignes / 90,91 % des branches**. Les contrôles ciblés comptent 32 exemples réussis : séparation des permissions, redirection de l’ancien accueil, création de page sans adresse technique, bouton facultatif, publication atomique, refus des aperçus obsolètes et parcours navigateur jusqu’à la confirmation de mise en ligne. L’écran de vérification permet de choisir la page et de revenir à l’élément édité.
 
 RuboCop : 320 fichiers sans infraction. Brakeman : 0 avertissement et 0 erreur. Contrôle de fraîcheur des assets et `git diff --check` réussis. Captures du parcours : `tmp/screenshots/studio-admin-{content,review}-{375,1440}.png`.
+
+
+## Champs de contenu et pied de page
+
+Les 17 modèles de la maquette ont désormais des champs nommés selon leur rôle : petit texte au-dessus du titre, début du titre, mots du titre en couleur, texte de présentation, texte du bouton, page à ouvrir au clic, photo et description pour l’accessibilité. Une courte aide associée à chaque champ indique où son contenu apparaît. Les mots en couleur et en italique sont explicitement distingués des textes dans une forme animée ; l’éditeur ne présente pas un texte fixe comme animé.
+
+Seule la rubrique du titre est ouverte au départ. Le texte de présentation, les encadrés, les boutons et les photos sont regroupés ; ouvrir une rubrique ferme l’autre. Les symboles de recherche, numéros décoratifs et icônes ne sont plus des champs ordinaires. Leurs valeurs déjà enregistrées sont conservées. Les espaces entre les morceaux d’un titre sont préservés lors de l’affichage après modification.
+
+Le pied de page suit une structure commune aux pages publiques, à l’espace membre et au Studio : en bas de l’écran lorsque le contenu est court, après le contenu lorsqu’il est long. La hauteur minimale héritée des écrans de démonstration est retirée des pages composées publiques ; le kit de référence conserve sa présentation.
+
+Recette de ces corrections : **309 exemples RSpec, 0 échec** (seed 35836), couverture **98,89 % des lignes / 90,95 % des branches**. Les nouveaux tests couvrent les 17 modèles, les aides accessibles, la conservation des valeurs non affichées, l’enregistrement des boutons dans une rubrique refermée, les espaces du titre et la position du footer sur les pages publiques, membre et admin à 375/1440 px. RuboCop : 323 fichiers sans infraction. Brakeman : 0 avertissement / 0 erreur. Build et contrôle de fraîcheur réussis. Captures : `tmp/screenshots/footer-bottom-{375,1440}.png` et `tmp/screenshots/studio-field-labels-{375,1440}.png`.
+
+
+## Édition visuelle
+
+Le bouton **Ouvrir l’éditeur visuel** ajoute la composition par glisser-déposer dans le rendu réel du site et l’aperçu des couleurs et effets. Voir le [guide de l’éditeur visuel](25-studio-visuel.md). L’éditeur guidé reste disponible.

@@ -89,7 +89,7 @@ Les candidats restent dans `tmp/screenshots/`. Leur adoption demande une revue e
 
 Le schéma canonique est `db/structure.sql` : il conserve aussi les triggers SQLite qui interdisent de modifier/supprimer l’audit. Les migrations ajoutent clés étrangères, unicités et contraintes de rôles/statuts. Les données de développement restent dans `storage/`.
 
-Les sessions sont limitées à 30 minutes d’inactivité et 12 heures au maximum. L’administration exige une confirmation du mot de passe datant de moins de 15 minutes. Les mots de passe changés et les changements de rôle révoquent les sessions. Les jetons de session sont stockés sous forme de condensat ; les agents utilisateurs sont résumés sans conservation de l’IP.
+Les sessions ne sont pas interrompues pour inactivité ; leur durée maximale reste de 12 heures après connexion. L’administration et le Studio ne demandent pas de confirmation périodique du mot de passe. Une confirmation récente reste requise pour les demandes et téléchargements de données personnelles et l’association d’un compte Google. Les mots de passe changés et les changements de rôle révoquent les sessions. Les jetons de session sont stockés sous forme de condensat ; les agents utilisateurs sont résumés sans conservation de l’IP.
 
 Les images passent par un contrôle MIME/taille, réencodage et retrait des métadonnées, puis une route autorisée `/medias/:id`. Les routes génériques Active Storage restent fermées. La carte publique utilise Leaflet dans un bundle distinct, uniquement lorsque le flag est actif. `MAP_TILE_URL` remplace le fond OSM par défaut. Aucun OAuth, analytics ou Stripe n’est chargé.
 

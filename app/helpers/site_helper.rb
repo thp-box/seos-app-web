@@ -74,7 +74,13 @@ module SiteHelper
     if block
       fields = SiteDesign.templates.fetch(block["template"]).fetch("fields")
       values = fields.transform_values { |field| field["default"] }.merge(block["values"])
-      doc.css("[data-field]").each { |node| node.content = values.fetch(node["data-field"]) }
+      doc.css("[data-field]").each do |node|
+        value = values.fetch(node["data-field"])
+        # Keep the source spacing between adjacent parts of a title after editing.
+        leading = value.match?(/\A\s/) ? "" : node.text[/\A\s*/]
+        trailing = value.match?(/\s\z/) ? "" : node.text[/\s*\z/]
+        node.content = "#{leading}#{value}#{trailing}"
+      end
       doc.css("[data-link]").each { |node| node["href"] = values.fetch(node["data-link"]) }
       doc.css("[data-image]").each { |node| node["src"] = values.fetch(node["data-image"]); node["alt"] = values.fetch(node["data-alt"]) }
       identifiers = doc.css("[id]").to_h { |node| [ node["id"], "#{block['id']}-#{node['id']}" ] }
