@@ -1,0 +1,44 @@
+{
+  "travel-hero": {
+    "name": "Voyage solidaire : présentation",
+    "html": "<section class=\"public-hero\">\n  <div class=\"container\"><span class=\"eyebrow\"><span data-field=\"text-0\">S’engager ensemble</span></span><h1><span data-field=\"text-1\">Voyage solidaire</span></h1><p><span data-field=\"text-2\">Participez aux projets d’associations vérifiées, avec des conditions d’accueil transparentes.</span></p></div>\n  <svg class=\"public-hero-wave\" viewBox=\"0 0 1440 100\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path class=\"public-hero-wave-gold\" d=\"M0 25C220 100 350 90 540 42S830 8 1030 65S1270 85 1440 45V100H0Z\"/><path d=\"M0 44C220 110 350 95 540 52S830 15 1030 71S1270 95 1440 61V100H0Z\"/></svg>\n</section>\n",
+    "fields": {
+      "text-0": {
+        "type": "text",
+        "label": "S’engager ensemble",
+        "default": "S’engager ensemble"
+      },
+      "text-1": {
+        "type": "text",
+        "label": "Voyage solidaire",
+        "default": "Voyage solidaire"
+      },
+      "text-2": {
+        "type": "text",
+        "label": "Participez aux projets d’associations vérifiées, avec des conditions d’accueil transparentes.",
+        "default": "Participez aux projets d’associations vérifiées, avec des conditions d’accueil transparentes."
+      }
+    }
+  },
+  "travel-missions": {
+    "name": "Voyage solidaire : missions et filtre",
+    "html": "<section class=\"container section prose travel-missions\"><div class=\"travel-missions-slot\"><label data-field=\"text-0\">Filtrer par pays (code à deux lettres)</label><button data-field=\"text-1\">Filtrer les missions</button><p data-field=\"text-2\">Aucune mission publiée ne correspond pour le moment.</p></div></section>",
+    "fields": {
+      "text-0": {
+        "type": "text",
+        "label": "Filtrer par pays (code à deux lettres)",
+        "default": "Filtrer par pays (code à deux lettres)"
+      },
+      "text-1": {
+        "type": "text",
+        "label": "Filtrer les missions",
+        "default": "Filtrer les missions"
+      },
+      "text-2": {
+        "type": "text",
+        "label": "Aucune mission publiée ne correspond pour le moment.",
+        "default": "Aucune mission publiée ne correspond pour le moment."
+      }
+    }
+  }
+}

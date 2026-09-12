@@ -85,3 +85,8 @@
 .site-spacer { width: 100%; }
 .site-spacer:has(> span) { display: grid; place-items: center; outline: 1px dashed var(--deep); outline-offset: -1px; background: var(--mist); color: var(--deep); overflow: hidden; }
 .site-spacer > span { font-size: 12px; pointer-events: none; }
+
+/* Public hero templates retain their contrast inside the Studio surface. */
+.maquette-surface .public-hero :is(h1,h2) { color: var(--white); }
+.maquette-surface .travel-missions .form-field { display: grid; gap: 8px; margin-bottom: 20px; }
+.maquette-surface .travel-missions .control { width: 100%; min-height: 48px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); color: var(--ink); }

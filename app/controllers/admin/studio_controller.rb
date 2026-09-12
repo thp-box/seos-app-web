@@ -36,7 +36,7 @@ module Admin
         if (@page = @studio_version.site.dig("pages", @preview_page))
           @slug = @preview_page
           render "site/show", layout: "application"
-        elsif @preview_page == "communaute"
+        elsif %w[communaute voyage-solidaire].include?(@preview_page)
           @slug = @preview_page
           @page = SiteDesign.default_page(@slug)
           render "site/show", layout: "application"

@@ -1,0 +1,8 @@
+<% missions = studio_public_missions %>
+<%= form_with url: volunteer_missions_path, method: :get do |form| %>
+  <div class="form-field"><%= form.label :country, values.fetch("text-0"), for: "#{block_id}-country", data: { field: "text-0" } %>
+  <%= form.text_field :country, value: params[:country], maxlength: 2, class: "control", id: "#{block_id}-country" %></div>
+  <%= form.button values.fetch("text-1"), name: nil, class: "btn btn-outline", data: { field: "text-1" } %>
+<% end %>
+<% missions.each do |mission| %><%= render "volunteer_missions/card", mission: mission %><% end %>
+<% if missions.empty? %><p data-field="text-2"><%= values.fetch("text-2") %></p><% end %>

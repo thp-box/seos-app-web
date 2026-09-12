@@ -7,7 +7,7 @@ class SiteDesign
   }.freeze
   def self.reference = @reference ||= JSON.parse(SOURCE.read)
   def self.templates
-    reference.fetch("sections").merge("spacer" => { "name" => "Section vide", "html" => "", "fields" => {
+    reference.fetch("sections").merge(JSON.parse(Rails.root.join("config/studio/travel.json").read)).merge("spacer" => { "name" => "Section vide", "html" => "", "fields" => {
       "height" => { "type" => "height", "label" => "Hauteur sur ordinateur (px)", "default" => "96" },
       "mobile_height" => { "type" => "height", "label" => "Hauteur sur téléphone (px)", "default" => "48" }
     } }).merge(JSON.parse(Rails.root.join("config/studio/community.json").read)).merge("text" => { "name" => "Texte et bouton", "fields" => {
@@ -93,6 +93,12 @@ class SiteDesign
     result
   end
   def self.default_page(slug)
+    if slug == "voyage-solidaire"
+      return { "title" => "Voyage solidaire", "blocks" => [
+        { "id" => "travel-intro", "template" => "travel-hero", "values" => {} },
+        { "id" => "travel-list", "template" => "travel-missions", "values" => {} }
+      ] }
+    end
     return community_page if slug == "communaute"
     title = slug == "home" ? "Accueil" : ContentVersion.current("page", slug)&.title || slug.humanize
     content = ContentVersion.current("page", slug)
