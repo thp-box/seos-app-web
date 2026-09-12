@@ -32,7 +32,7 @@ RSpec.describe "Parcours confiance et parrainage", type: :request do
     expect(response.body).to include("données insuffisantes")
     login user
     get account_trust_path
-    expect(response.body).to include("Aucun calcul disponible")
+    expect(response.body).to include("Mon score de confiance", "Aucun score de confiance n’a encore été calculé", "Comprendre mon score")
   end
 
   it "affiche le lien permanent, prend une objection et empêche une action étrangère" do

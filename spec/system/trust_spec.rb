@@ -19,6 +19,8 @@ RSpec.describe "Interface confiance", type: :system do
       expect(page).to be_axe_clean.according_to(:wcag2a, :wcag2aa, :wcag21aa, :wcag22aa)
       page.save_screenshot(Rails.root.join("tmp/screenshots/trust-account-#{width}.png"))
     end
+    expect(page).not_to have_selector("summary", text: "Calcul du", visible: true)
+    find("summary", text: "Comprendre mon score", exact_text: true).click
     find("summary", text: "Calcul du").click
     fill_in "Signaler une erreur sur ce calcul", with: "Je souhaite comprendre les preuves retenues."
     click_button "Demander une revue humaine"

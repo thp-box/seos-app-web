@@ -25,7 +25,11 @@
   <% end %></div>
 <% end %>
 <%= render "shared/pagination", page: @page, total: @total %>
-<h2>Évolution et explication</h2>
+<h2>Mon score de confiance</h2>
+<p>Votre score de confiance évolue à partir de vos échanges, des avis reçus et de vos parrainages. Les détails ci-dessous vous permettent de comprendre son évolution et de signaler une erreur.</p>
+<% if @snapshots.empty? %><p>Aucun score de confiance n’a encore été calculé pour votre compte. Cette rubrique affichera son évolution dès qu’un premier calcul sera enregistré. Cela ne désactive pas votre parrainage.</p><% end %>
+<details class="card"><summary>Comprendre mon score</summary>
+<p>Retrouvez les résultats précédents et les éléments pris en compte. <%= link_to "Comment fonctionne le score de confiance ?", trust_explanation_path %></p>
 <% @snapshots.each do |snapshot| %>
   <details class="card"><summary>Calcul du <%= l snapshot.calculated_at, format: :short %> · <%= snapshot.result["score"] || "sans note" %> · version <%= snapshot.result["version"] %></summary>
     <p>Statut de la version : <%= human_value snapshot.trust_algorithm_version.status %>. Les calculs en ombre ne sont pas publiés.</p>
@@ -34,7 +38,7 @@
     <%= form_with url: account_trust_path, class: "form-field" do |f| %><%= f.hidden_field :operation, value: "appeal" %><%= f.hidden_field :snapshot_id, value: snapshot.id %><%= f.label :statement, "Signaler une erreur sur ce calcul", for: "appeal-#{snapshot.id}" %><%= f.text_area :statement, id: "appeal-#{snapshot.id}", required: true, maxlength: 3000, class: "control" %><%= f.submit "Demander une revue humaine", class: "btn btn-outline" %><% end %>
   </details>
 <% end %>
-<% if @snapshots.empty? %><p>Aucun calcul disponible pour le moment.</p><% end %>
 <% @events.each do |event| %><p>Preuve n° <%= event.id %> · <%= event.event_kind == "exchange" ? "Échange confirmé" : "Avis structuré" %> · <%= link_to "Voir l’échange", account_service_request_path(event.service_request_id) %></p><% end %>
+</details>
 <h2>Mes recours</h2>
 <% @appeals.each do |appeal| %><article class="card"><p>Recours n° <%= appeal.id %> · <%= human_value appeal.status %> · réponse attendue avant le <%= l appeal.response_due_at, format: :short %></p><p><%= appeal.statement %></p><p><%= appeal.decision %></p></article><% end %>
