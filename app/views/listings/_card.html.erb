@@ -1,9 +1,18 @@
-<article class="card listing-card">
-  <div class="actions"><span class="badge"><%= human_value(listing.intent) %></span><span class="badge"><%= human_value(listing.exchange_mode) %></span><% if listing.top_placement %><span class="badge">Top annonce</span><% end %>
-    <% if listing.urgent? %><span class="badge">Urgent</span><% end %></div>
-  <% if listing.photos.attached? %><%= image_tag media_path(listing.photos.first), alt: listing.title, loading: "lazy", width: 480, height: 300, class: "listing-photo" %><% end %>
-  <p class="eyebrow"><%= listing.category&.name %></p><h2><%= link_to listing.title, listing_path(listing) %></h2>
-  <p><%= truncate(listing.description, length: 150) %></p><p><%= listing.location_label %> · <%= human_value(listing.service_location_mode) %></p>
-  <% if @search_coordinates && listing.public_coordinates %><p>À environ <%= Geocoder::Calculations.distance_between(@search_coordinates, listing.public_coordinates, units: :km).round %> km de la commune recherchée</p><% end %>
-  <div class="card-meta"><span><%= public_name(listing.user) %></span><% if listing.exchange_mode_points? %><strong><%= listing.estimated_points %> PS estimés</strong><% end %></div>
+<article class="listing-card catalogue-card">
+  <div class="catalogue-card-image">
+    <% if listing.photos.attached? %><%= image_tag media_path(listing.photos.first), alt: "", loading: "lazy", width: 480, height: 560, class: "listing-photo" %><% else %><div class="catalogue-photo-placeholder"><%= quest_icon("people") %><span>Entraide entre membres</span></div><% end %>
+    <span class="catalogue-card-badge <%= listing.urgent? ? "is-urgent" : listing.top_placement ? "is-top" : "" %>"><%= listing.urgent? ? "Besoin urgent" : listing.top_placement ? "Top annonce" : listing.intent_offer? ? "Offre" : "Demande" %></span>
+    <% if user_signed_in? %>
+      <% saved = current_user.favorites.exists?(listing_id: listing.id); returning = controller_path == "listings" && action_name == "index" ? { return_to: "catalogue", filters: request.query_parameters } : {} %>
+      <%= button_to saved ? account_favorite_path(listing.id) : account_favorites_path(listing_slug: listing.slug), method: saved ? :delete : :post, params: returning, class: "catalogue-favorite", aria: { label: "#{saved ? 'Retirer des favoris' : 'Ajouter aux favoris'} : #{listing.title}", pressed: saved } do %><%= quest_icon("heart") %><% end %>
+    <% else %><%= link_to new_user_session_path, class: "catalogue-favorite", aria: { label: "Se connecter pour ajouter aux favoris : #{listing.title}" } do %><%= quest_icon("heart") %><% end %><% end %>
+  </div>
+  <div class="catalogue-card-body">
+    <p class="eyebrow"><%= listing.category&.name %></p><h3><%= link_to listing.title, listing_path(listing) %></h3>
+    <p class="catalogue-description"><%= truncate(listing.description, length: 110) %></p>
+    <div class="catalogue-provider"><span class="catalogue-avatar" aria-hidden="true"><%= public_name(listing.user).first.upcase %></span><span><%= public_name(listing.user) %></span></div>
+    <div class="catalogue-facts"><span><%= listing.location_label %></span><span><%= human_value(listing.service_location_mode) %></span>
+    <% if @search_coordinates && listing.public_coordinates %><span>À environ <%= Geocoder::Calculations.distance_between(@search_coordinates, listing.public_coordinates, units: :km).round %> km de la commune recherchée</span><% end %></div>
+    <div class="catalogue-card-foot"><div><small>Mode d’échange</small><strong><%= listing.exchange_mode_points? ? "#{listing.estimated_points} PS estimés" : human_value(listing.exchange_mode) %></strong></div><%= link_to listing.intent_offer? ? "Voir l’offre →" : "Voir la demande →", listing_path(listing), class: "btn btn-deep", aria: { label: "Voir #{listing.title}" } %></div>
+  </div>
 </article>

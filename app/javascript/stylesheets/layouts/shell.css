@@ -8,7 +8,7 @@
 .nav-links { display: flex; gap: 24px; align-items: center; flex: 1; }
 .nav-links a { color: var(--white); padding-block: 12px; text-decoration: none; }
 .nav-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
-.nav-actions .login-link { color: var(--white); min-height: 44px; padding: 10px; }
+.nav-actions .login-link { color: var(--deep); background: var(--white); text-decoration: none; }
 .mobile-navigation { display: none; }
 .disclosure { position: relative; }
 .disclosure summary { min-height: 44px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.5); border-radius: 12px; }

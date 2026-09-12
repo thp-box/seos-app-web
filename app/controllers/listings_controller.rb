@@ -7,8 +7,8 @@ class ListingsController < ApplicationController
     end
   end
   def index
-    filters = params.permit(:q, :city, :category_id, :intent, :exchange_mode, :service_location_mode, :priority, :sort, :radius).to_h
-    @search_coordinates = PublicGeocoding.coordinates(params[:city].to_s.first(100)) if params[:city].present? && params[:radius].present?
+    filters = params.permit(:q, :city, :category_id, :intent, :exchange_mode, :service_location_mode, :priority, :sort, :radius, :max_points, category_ids: [], exchange_modes: []).to_h
+    @search_coordinates = PublicGeocoding.coordinates(params[:city].to_s.first(100)) if params[:city].present? && params[:radius].to_f.positive?
     filters.merge!(latitude: @search_coordinates[0], longitude: @search_coordinates[1]) if @search_coordinates
     @results = Catalogue.call(filters)
     @page = [ params[:page].to_i, 1 ].max

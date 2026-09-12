@@ -3,10 +3,19 @@ class Catalogue
     params = params.with_indifferent_access if params.is_a?(Hash)
     scope = Listing.public_candidates.includes(:category, :organization, user: :profile)
     scope = scope.where("listings.title LIKE :q OR listings.description LIKE :q", q: "%#{Listing.sanitize_sql_like(params[:q].to_s.first(100))}%") if params[:q].present?
-    %w[intent exchange_mode service_location_mode category_id priority].each do |key|
+    %w[intent service_location_mode priority].each do |key|
       scope = scope.where(key => params[key]) if params[key].present?
     end
+    modes = Array(params.key?(:exchange_modes) ? params[:exchange_modes] : params[:exchange_mode]).reject(&:blank?)
+    scope = scope.where(exchange_mode: modes) if modes.any? || params.key?(:exchange_modes)
+    maximum = Integer(params[:max_points], exception: false)
+    scope = scope.where("listings.exchange_mode != 'points' OR listings.estimated_points <= ?", maximum) if maximum && (0...200).cover?(maximum)
     scope = scope.where("urgent_until > ?", Time.current) if params[:priority] == "urgent"
+    selected_categories = Array(params.key?(:category_ids) ? params[:category_ids] : params[:category_id]).reject(&:blank?).map(&:to_s)
+    if selected_categories.any?
+      ids = Category.available.select { |category| category.lineage.any? { |ancestor| selected_categories.include?(ancestor.id.to_s) } }.map(&:id)
+      scope = scope.where(category_id: ids)
+    end
     records = scope.order(published_at: :desc, id: :desc).select(&:publicly_visible?)
     if params[:city].present? && params[:latitude].blank?
       city = params[:city].to_s.first(100).downcase

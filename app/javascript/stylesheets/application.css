@@ -1,6 +1,7 @@
 @import "./foundations/fonts.css";
 @import "./foundations/tokens.css";
 @import "./components/ui.css";
+@import "./components/privacy_preferences.css";
 @import "./layouts/shell.css";
 
 @import "./components/discovery.css";
@@ -8,6 +9,7 @@
 @import "./components/maquette.css";
 @import "./components/site_editor.css";
 @import "./components/quests.css";
+@import "./components/catalogue.css";
 .studio-motion { animation: studio-breathe 8s ease-in-out infinite alternate; }
 @keyframes studio-breathe { to { opacity: .65; } }
 @media (prefers-reduced-motion: reduce) { .studio-motion { animation: none; } }

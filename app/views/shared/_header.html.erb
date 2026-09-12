@@ -1,26 +1,27 @@
 <% chrome = site_chrome("header") %>
+<% navigation_links = chrome["links"].reject { |link| link["url"] == volunteer_missions_path && !FeatureFlag.voyage_enabled? } %>
 <header class="topbar">
   <nav class="container nav" aria-label="Navigation principale">
     <%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag site_image_path(chrome["logo"]), alt: chrome["alt"], width: 108, height: 38 %><% end %>
-    <div class="nav-links"><% chrome["links"].each do |link| %><%= link_to link["label"], link["url"] %><% end %></div>
+    <div class="nav-links"><% navigation_links.each do |link| %><%= link_to link["label"], link["url"], aria: { current: ("page" if current_page?(link["url"]) || (link["url"] != "/" && request.path.start_with?("#{link["url"]}/"))) } %><% end %></div>
     <div class="nav-actions">
+      <% unless user_signed_in? %><%= link_to chrome["login_label"], new_user_session_path, class: "btn btn-outline login-link" %><% end %>
+      <%= link_to "+ Publier une annonce", new_account_listing_path, class: "btn btn-primary nav-publish" %>
       <% if user_signed_in? %>
-        <details class="disclosure" data-controller="disclosure" data-action="keydown@window->disclosure#close click@window->disclosure#close">
-          <summary><%= chrome["account_label"] %></summary>
+        <details class="disclosure profile-navigation" data-controller="disclosure" data-action="keydown@window->disclosure#close click@window->disclosure#close">
+          <summary aria-label="<%= chrome["account_label"] %>"><span class="nav-avatar" aria-hidden="true"><%= public_name(current_user).first.upcase %></span><span class="sr-only"><%= chrome["account_label"] %></span><% unread = current_user.notifications.where(read_at: nil).count %><% if unread.positive? %><span class="nav-notification-count" aria-label="<%= unread %> notifications non lues"><%= unread > 99 ? "99+" : unread %></span><% end %></summary>
           <div class="menu-panel">
-            <%= link_to "Mon compte", account_root_path %><%= link_to "Mes sessions", account_login_sessions_path %>
+            <div class="nav-profile-heading"><strong><%= public_name(current_user) %></strong></div><%= link_to "Mon compte", account_root_path %><%= link_to "Notifications", account_notifications_path %><%= link_to "Mes annonces", account_listings_path %><%= link_to "Mes favoris", account_favorites_path %><%= link_to "Mes sessions", account_login_sessions_path %>
             <% if policy(:administration).show? %><%= link_to "Studio admin", admin_root_path %><% end %>
             <%= button_to "Déconnexion", destroy_user_session_path, method: :delete %>
           </div>
         </details>
-      <% else %>
-        <%= link_to chrome["login_label"], new_user_session_path, class: "login-link" %>
-        <%= link_to chrome["join_label"], new_user_registration_path, class: "btn btn-primary" %>
       <% end %>
       <details class="disclosure mobile-navigation" data-controller="disclosure" data-action="keydown@window->disclosure#close click@window->disclosure#close">
         <summary>Menu</summary>
         <div class="menu-panel">
-          <% chrome["links"].each do |link| %><%= link_to link["label"], link["url"] %><% end %>
+          <%= link_to "+ Publier une annonce", new_account_listing_path %>
+          <% navigation_links.each do |link| %><%= link_to link["label"], link["url"], aria: { current: ("page" if current_page?(link["url"]) || (link["url"] != "/" && request.path.start_with?("#{link["url"]}/"))) } %><% end %>
           <% unless user_signed_in? %><%= link_to chrome["login_label"], new_user_session_path %><%= link_to chrome["mobile_join_label"], new_user_registration_path %><% end %>
         </div>
       </details>

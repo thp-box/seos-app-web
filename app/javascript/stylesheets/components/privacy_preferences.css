@@ -1,0 +1,14 @@
+.privacy-preferences { max-width: 850px; padding-block: 48px; }
+.privacy-preferences h1 { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.12; }
+.privacy-preferences header { margin-bottom: 28px; }
+.privacy-required { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+.privacy-quick-choices { margin-block: 24px; }
+.privacy-options { min-width: 0; border: 0; padding: 0; margin: 0 0 24px; }
+.privacy-options legend { font-weight: 700; padding: 0; margin-bottom: 16px; }
+.privacy-option { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; margin-bottom: 12px; cursor: pointer; background: var(--cream); }
+.privacy-option input[type="checkbox"] { flex: 0 0 22px; width: 22px; height: 22px; margin: 3px 0 0; accent-color: var(--deep); }
+.privacy-option strong,.privacy-option span span { display: block; }
+.privacy-option span span { font-size: .875rem; margin-top: 6px; }
+.privacy-option:focus-within { outline: 2px solid var(--deep); outline-offset: 3px; }
+.privacy-retention { font-size: .875rem; margin-top: 24px; }
+@media (max-width: 540px) { .privacy-preferences { padding-block: 32px; }.privacy-preferences .card { padding: 20px; }.privacy-option { padding: 16px; gap: 12px; }.privacy-quick-choices { align-items: stretch; }.privacy-quick-choices form { flex: 1 1 100%; }.privacy-preferences .btn { width: 100%; } }

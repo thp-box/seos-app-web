@@ -1,1 +1,31 @@
-<section class="container section prose"><h1>Mes préférences de confidentialité</h1><p>Les cookies nécessaires protègent la connexion et vos formulaires. Aucun outil d’analyse tiers ni média externe n’est chargé actuellement. Les fonctionnalités facultatives restent désactivées sans accord.</p><p>Version : <%= CookieConsent::VERSION %>. Votre choix expire après six mois.</p><div class="actions"><%= button_to "Tout accepter", privacy_preferences_path, params: { choice: "accept" }, class: "btn btn-outline" %><%= button_to "Tout refuser", privacy_preferences_path, params: { choice: "reject" }, class: "btn btn-outline" %></div><%= form_with url: privacy_preferences_path do |form| %><%= hidden_field_tag :choice, "custom", id: nil %><div class="form-field"><%= form.check_box :analytics, checked: @consent&.analytics %><%= form.label :analytics, "Mesure d’audience facultative" %></div><div class="form-field"><%= form.check_box :external_media, checked: @consent&.external_media %><%= form.label :external_media, "Médias externes facultatifs" %></div><%= form.button "Enregistrer mes préférences", class: "btn btn-primary" %><% end %><p><%= link_to "Exercer mes droits sur mes données", account_privacy_path %></p></section>
+<section class="container section privacy-preferences">
+  <header>
+    <h1>Mes préférences de confidentialité</h1>
+    <p>Les cookies nécessaires protègent la connexion et vos formulaires. Les fonctionnalités facultatives restent désactivées sans votre accord.</p>
+  </header>
+  <div class="card">
+    <div class="privacy-required"><strong>Cookies nécessaires</strong><span class="badge">Toujours actifs</span></div>
+    <p>Ils permettent de vous connecter et de sécuriser vos actions sur le site.</p>
+    <div class="actions privacy-quick-choices">
+      <%= button_to "Tout accepter", privacy_preferences_path, params: { choice: "accept" }, class: "btn btn-outline" %>
+      <%= button_to "Tout refuser", privacy_preferences_path, params: { choice: "reject" }, class: "btn btn-outline" %>
+    </div>
+    <%= form_with url: privacy_preferences_path do |form| %>
+      <%= hidden_field_tag :choice, "custom", id: nil %>
+      <fieldset class="privacy-options">
+        <legend>Personnaliser mon choix</legend>
+        <label class="privacy-option" for="analytics">
+          <%= form.check_box :analytics, checked: @consent&.analytics, aria: { describedby: "analytics-help" } %>
+          <span><strong>Mesure d’audience facultative</strong><span id="analytics-help">Autoriser les outils de statistiques facultatifs. Aucun outil d’analyse tiers n’est chargé actuellement.</span></span>
+        </label>
+        <label class="privacy-option" for="external_media">
+          <%= form.check_box :external_media, checked: @consent&.external_media, aria: { describedby: "external-media-help" } %>
+          <span><strong>Médias externes facultatifs</strong><span id="external-media-help">Autoriser les contenus intégrés depuis d’autres services. Aucun média externe n’est chargé actuellement.</span></span>
+        </label>
+      </fieldset>
+      <%= form.button "Enregistrer mes préférences", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <p class="privacy-retention">Votre choix est conservé six mois. Vous pouvez le modifier à tout moment.</p>
+  <p><%= link_to "Exercer mes droits sur mes données", account_privacy_path %></p>
+</section>

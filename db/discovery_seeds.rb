@@ -45,3 +45,5 @@ if Rails.env.development?
     end
   end
 end
+
+load Rails.root.join("db/discovery_demo_photos.rb")

@@ -2,7 +2,7 @@
 class SiteDesign
   SOURCE = Rails.root.join("config/studio/maquette.json")
   CHROME = {
-    "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Les annonces", "url" => "/annonces" }, { "label" => "Le journal", "url" => "/journal" } ] },
+    "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "L’association", "url" => "/associations" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
     "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "Les petits gestes font les grands liens.", "description" => "L’entraide locale, en France.", "links" => [ { "label" => "Contact", "url" => "/contact" }, { "label" => "Don", "url" => "/decouvrir/don" }, { "label" => "Échange", "url" => "/decouvrir/echange" }, { "label" => "Points Services", "url" => "/decouvrir/points" }, { "label" => "Le journal", "url" => "/journal" } ] }
   }.freeze
   def self.reference = @reference ||= JSON.parse(SOURCE.read)

@@ -1,27 +1,54 @@
 <% content_for :structured_data do %><%= tag.script(json_escape(catalogue_schema(@listings).to_json).html_safe, type: "application/ld+json", nonce: content_security_policy_nonce) %><% end %>
 <% content_for :title, "Les annonces d’entraide" %>
-<section class="container section catalogue">
-  <div class="page-heading"><div><span class="eyebrow">Des savoir-faire, tout près de vous</span><h1>Un coup de main<br>change le quotidien.</h1><p>Proposez votre aide, partagez vos talents ou trouvez la bonne personne.</p></div><%= link_to "Publier une annonce", new_account_listing_path, class: "btn btn-primary" %></div>
-  <%= form_with url: listings_path, method: :get, class: "card search-panel" do |f| %>
-    <div class="filters">
-      <%= input_field f, :q, "Votre recherche", value: params[:q], placeholder: "Bricolage, jardinage, informatique…" %>
-      <%= input_field f, :city, "Commune", value: params[:city] %>
-      <%= select_field f, :category_id, "Catégorie", @categories.map { |c| [c.name,c.id] }, include_blank: "Toutes", selected: params[:category_id] %>
-      <%= f.submit "Rechercher", class: "btn btn-deep" %>
+<%= render "shared/public_hero", eyebrow: "Annonces", title: safe_join(["Trouvez le coup de main", tag.br, "qu’il vous faut."]), description: "Offres et demandes locales, à distance ou près de chez vous." %>
+<section class="container catalogue catalogue-content" aria-label="Recherche d’annonces" data-controller="catalogue">
+  <%= form_with url: listings_path, method: :get, id: "catalogue-search", class: "catalogue-search card" do |f| %>
+    <div class="catalogue-search-fields">
+      <div class="catalogue-search-entry"><svg class="catalogue-search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg><%= f.label :q, "Votre recherche", class: "sr-only" %><%= f.text_field :q, value: params[:q], placeholder: "Cours d’anglais, jardinage…", class: "control" %></div>
+      <div class="catalogue-search-entry"><svg class="catalogue-search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2"/></svg><%= f.label :city, "Commune", class: "sr-only" %><%= f.text_field :city, value: params[:city], placeholder: "Ville ou code postal", class: "control", data: { catalogue_target: "city", action: "input->catalogue#syncCity" } %></div>
+      <%= f.submit "Chercher", class: "btn btn-deep" %>
     </div>
-    <details class="advanced-filters" <%= "open" if %i[radius intent exchange_mode service_location_mode sort priority].any? { |key| params[key].present? } %>>
-      <summary>Affiner la recherche</summary><div class="filters">
-      <%= select_field f, :radius, "Rayon autour de la commune", [["10 km",10],["25 km",25],["50 km",50],["100 km",100]], include_blank: "Commune uniquement", selected: params[:radius] %>
-      <%= select_field f, :intent, "Besoin", choices_for(Listing.intents.keys), include_blank: "Tous", selected: params[:intent] %>
-      <%= select_field f, :exchange_mode, "Mode d’échange", choices_for(Listing.exchange_modes.keys), include_blank: "Tous", selected: params[:exchange_mode] %>
-      <%= select_field f, :service_location_mode, "Réalisation", choices_for(Listing.service_location_modes.keys), include_blank: "Toutes", selected: params[:service_location_mode] %>
-      <%= select_field f, :priority, "Priorité", choices_for(%w[standard urgent]), include_blank: "Toutes", selected: params[:priority] %>
-      <%= select_field f, :sort, "Trier", [["Plus récentes", "recent"],["Plus anciennes", "oldest"]], selected: params[:sort] %>
-      <%= f.submit "Appliquer les filtres", class: "btn btn-outline" %></div>
-    </details>
+    <div class="catalogue-pills" aria-label="Recherche rapide">
+      <% [["Tous", { intent: nil, service_location_mode: nil }], ["À distance", { service_location_mode: "remote" }], ["Près de chez moi", { service_location_mode: "in_person" }], ["Offres", { intent: "offer" }], ["Demandes", { intent: "request" }]].each do |label, filters| %>
+        <% active = filters.all? { |key, value| params[key].presence == value } %>
+        <%= link_to label, listings_path(request.query_parameters.with_indifferent_access.merge(filters).except("page", :page)), class: "catalogue-pill", aria: { current: ("true" if active) } %>
+      <% end %>
+    </div>
   <% end %>
-  <div class="actions results-heading"><p><strong><%= @results.size %></strong> annonce(s)</p><% if FeatureFlag.map_enabled? %><%= link_to @map ? "Vue liste" : "Vue carte", listings_path(request.query_parameters.merge(view: @map ? "list" : "map", page: nil)), class: "btn btn-outline" %><% end %></div>
-  <% if @map %><%= render "listings/map", listings: @results %><p><%= @results.count { |l| l.service_location_mode_remote? } %> annonce(s) à distance, sans marqueur · <%= @results.count { |l| l.public_coordinates.present? } %> zone(s) géolocalisée(s). Toutes les annonces restent dans la liste ci-dessous.</p><% end %>
-  <% if @listings.empty? %><div class="card empty-state"><h2>Aucun résultat pour le moment.</h2><p>Essayez une autre catégorie ou élargissez votre recherche.</p></div><% else %><div class="card-grid"><%= render partial: "listings/card", collection: @listings, as: :listing %></div><% end %>
-  <nav class="pagination" aria-label="Pagination"><% if @page > 1 %><%= link_to "Précédent", listings_path(request.query_parameters.merge(page: @page - 1)) %><% end %><span>Page <%= @page %></span><% if @results.size > @page * 12 %><%= link_to "Suivant", listings_path(request.query_parameters.merge(page: @page + 1)) %><% end %></nav>
+  <div class="catalogue-layout">
+    <aside class="catalogue-filters" aria-label="Filtres des annonces">
+      <div class="catalogue-filter-heading"><h2>Filtres</h2><%= link_to "Effacer", listings_path, class: "btn btn-outline" %></div>
+      <details class="catalogue-filter-disclosure" open>
+        <summary>Affiner la recherche</summary>
+        <% selected_categories = Array(params.key?(:category_ids) ? params[:category_ids] : params[:category_id]).map(&:to_s) %>
+        <fieldset class="catalogue-category-tree"><legend>Catégories et sous-catégories</legend>
+          <%= hidden_field_tag "category_ids[]", "", form: "catalogue-search", id: nil %>
+          <%= render "category_filters", categories: @categories.select { |category| category.parent_id.nil? || @categories.none? { |parent| parent.id == category.parent_id } }, selected_categories: selected_categories %>
+        </fieldset>
+        <div class="catalogue-filter-group">
+          <%= label_tag :filter_city, "Localité", class: "catalogue-filter-label" %><%= text_field_tag nil, params[:city], id: "filter_city", placeholder: "Ville ou code postal", class: "control", disabled: true, data: { catalogue_target: "locality", action: "input->catalogue#syncLocality" } %>
+          <%= label_tag :radius, "Rayon autour de la commune", class: "catalogue-filter-label" %><output for="radius" data-catalogue-target="radiusLabel"><%= params[:radius].to_i.positive? ? "#{params[:radius].to_i} km" : "Commune uniquement" %></output>
+          <%= range_field_tag :radius, params[:radius].presence || 0, min: 0, max: 100, step: 5, form: "catalogue-search", data: { action: "input->catalogue#range", catalogue_target: "radius" } %><div class="catalogue-range-labels"><span>Commune</span><span>100 km</span></div>
+        </div>
+        <fieldset class="catalogue-filter-group"><legend>Mode d’échange</legend>
+          <%= hidden_field_tag "exchange_modes[]", "", form: "catalogue-search", id: nil %>
+          <% selected_modes = params.key?(:exchange_modes) ? Array(params[:exchange_modes]) : params[:exchange_mode].present? ? [params[:exchange_mode]] : Listing.exchange_modes.keys %>
+          <% [["Don", "gift"], ["Échange de services", "barter"], ["Points Services", "points"]].each do |label, mode| %><label class="catalogue-check"><%= check_box_tag "exchange_modes[]", mode, selected_modes.include?(mode), form: "catalogue-search", id: "mode-#{mode}" %><%= label %></label><% end %>
+        </fieldset>
+        <div class="catalogue-filter-group"><%= label_tag :max_points, "Maximum de Points Services", class: "catalogue-filter-label" %><output for="max_points" data-catalogue-target="pointsLabel"><%= params[:max_points].present? && params[:max_points].to_i < 200 ? "#{params[:max_points]} PS" : "Sans plafond" %></output><%= range_field_tag :max_points, params[:max_points].presence || 200, min: 0, max: 200, step: 5, form: "catalogue-search", data: { action: "input->catalogue#range", catalogue_target: "points" } %><div class="catalogue-range-labels"><span>0 PS</span><span>Sans plafond</span></div></div>
+        <% [:intent, :service_location_mode, :priority].each do |key| %><%= hidden_field_tag key, params[key], form: "catalogue-search", id: nil if params[key].present? %><% end %>
+        <% if @map %><%= hidden_field_tag :view, "map", form: "catalogue-search" %><% end %>
+        <button type="submit" form="catalogue-search" class="btn btn-primary">Afficher les résultats</button>
+      </details>
+    </aside>
+    <section class="catalogue-results" aria-labelledby="catalogue-title">
+      <div class="catalogue-results-heading"><div><span class="eyebrow">Catalogue</span><h2 id="catalogue-title">Offres et demandes</h2><p><%= pluralize(@results.size, "annonce trouvée", "annonces trouvées") %></p></div>
+        <div class="catalogue-results-tools"><div><%= label_tag :sort, "Trier", class: "sr-only" %><%= select_tag :sort, options_for_select([["Plus récentes", "recent"], ["Plus anciennes", "oldest"]], params[:sort]), class: "control", form: "catalogue-search", data: { action: "change->catalogue#sort" } %><noscript><button type="submit" form="catalogue-search">Trier</button></noscript></div>
+        <% if FeatureFlag.map_enabled? %><%= link_to "Liste", listings_path(request.query_parameters.merge(view: "list", page: nil)), class: "catalogue-pill", aria: { current: ("true" unless @map) } %><%= link_to "Carte", listings_path(request.query_parameters.merge(view: "map", page: nil)), class: "catalogue-pill", aria: { current: ("true" if @map) } %><% end %></div>
+      </div>
+      <% if @map %><%= render "listings/map", listings: @results %><p><%= @results.count { |l| l.service_location_mode_remote? } %> annonce(s) à distance, sans marqueur · <%= @results.count { |l| l.public_coordinates.present? } %> zone(s) géolocalisée(s). Toutes les annonces restent dans la liste ci-dessous.</p><% end %>
+      <% if @listings.empty? %><div class="card empty-state"><h3>Aucun résultat pour le moment.</h3><p>Essayez une autre catégorie ou élargissez votre recherche.</p><%= link_to "Réinitialiser les filtres", listings_path, class: "btn btn-deep" %></div><% else %><div class="catalogue-grid"><%= render partial: "listings/card", collection: @listings, as: :listing %></div><% end %>
+      <nav class="pagination" aria-label="Pagination"><% if @page > 1 %><%= link_to "Précédent", listings_path(request.query_parameters.merge(page: @page - 1)) %><% end %><span>Page <%= @page %></span><% if @results.size > @page * 12 %><%= link_to "Suivant", listings_path(request.query_parameters.merge(page: @page + 1)) %><% end %></nav>
+    </section>
+  </div>
 </section>

@@ -57,7 +57,7 @@ RSpec.describe "Navigation SEOS", :"F-002", :"F-007", type: :system do
     expect(page).to have_content("Session actuelle")
     find("summary", text: "Mon espace").click
     click_button "Déconnexion"
-    expect(page).to have_link("Rejoindre SEOS")
+    within(".topbar .nav-actions") { expect(page).to have_link("Connexion") }
     expect(user.login_sessions.active).to be_empty
   end
 
