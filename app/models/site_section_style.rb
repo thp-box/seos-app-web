@@ -11,6 +11,11 @@ class SiteSectionStyle
   end
   def self.css(block)
     selector = "#site-section-#{block.fetch('id')}"
+    if block["template"] == "spacer"
+      fields = SiteDesign.templates.fetch("spacer").fetch("fields")
+      heights = fields.to_h { |key, field| [ key, block.fetch("values", {}).fetch(key, field["default"]).to_i.clamp(8, 1200) ] }
+      return "#{selector} .site-spacer{height:#{heights['height']}px}@media(max-width:760px){#{selector} .site-spacer{height:#{heights['mobile_height']}px}}"
+    end
     css = rules(selector, block.fetch("style", {}), section: true)
     block.fetch("elements", {}).each do |field, style|
       # Field identifiers come from the reference schema, never from arbitrary selectors.

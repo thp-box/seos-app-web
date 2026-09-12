@@ -7,7 +7,10 @@ class SiteDesign
   }.freeze
   def self.reference = @reference ||= JSON.parse(SOURCE.read)
   def self.templates
-    reference.fetch("sections").merge(JSON.parse(Rails.root.join("config/studio/community.json").read)).merge("text" => { "name" => "Texte et bouton", "fields" => {
+    reference.fetch("sections").merge("spacer" => { "name" => "Section vide", "html" => "", "fields" => {
+      "height" => { "type" => "height", "label" => "Hauteur sur ordinateur (px)", "default" => "96" },
+      "mobile_height" => { "type" => "height", "label" => "Hauteur sur téléphone (px)", "default" => "48" }
+    } }).merge(JSON.parse(Rails.root.join("config/studio/community.json").read)).merge("text" => { "name" => "Texte et bouton", "fields" => {
       "title" => { "type" => "text", "label" => "Titre", "default" => "Votre titre" },
       "body" => { "type" => "text", "label" => "Contenu", "default" => "Votre contenu" },
       "label" => { "type" => "text", "label" => "Bouton", "default" => "En savoir plus" },
@@ -57,6 +60,7 @@ class SiteDesign
     return false unless template && values.is_a?(Hash) && (values.keys - template["fields"].keys).empty?
     values.all? do |key, value|
       case template["fields"][key]["type"]
+      when "height" then value.is_a?(String) && value.match?(/\A[0-9]{1,4}\z/) && value.to_i.between?(8, 1200)
       when "url" then safe_url?(value)
       when "image" then image?(value)
       else text?(value)

@@ -49,7 +49,7 @@ export default class extends Controller {
       input = this.node("select")
       choices.forEach(([text, value]) => { const option = this.node("option", text); option.value = value; input.append(option) })
     } else if (type === "textarea") { input = this.node("textarea"); input.rows = 3; input.maxLength = 15000 }
-    else { input = this.node("input"); input.type = type; if (type === "text") input.maxLength = 15000 }
+    else { input = this.node("input"); input.type = type; if (type === "number") { input.min = 8; input.max = 1200; input.step = 1; input.required = true }; if (type === "text") input.maxLength = 15000 }
     input.id = id; input.className = "control"; input.value = value ?? ""
     if (help) { const hint = this.node("small", help); hint.id = `${id}-help`; input.setAttribute("aria-describedby", hint.id); wrapper.append(hint) }
     input.addEventListener(choices ? "change" : "input", () => callback(input.value))
@@ -193,9 +193,10 @@ export default class extends Controller {
           value => this.change(() => {
             block.values[key] = value
             if (block.template === "text" && !block.values.label && !block.values.url) { delete block.values.label; delete block.values.url }
-          }), field.type === "text" ? "textarea" : "text", field.help)
+          }), field.type === "height" ? "number" : field.type === "text" ? "textarea" : "text", field.help)
       })
     })
+    if (block.template === "spacer") return
     if (this.selectedField && template.fields[this.selectedField] && template.fields[this.selectedField].type !== "url") {
       const field = this.selectedField
       const group = this.details(this.inspectorTarget, "Taille et animation de cet élément")

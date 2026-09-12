@@ -3,6 +3,10 @@ class SiteSectionEditor
   attr_reader :groups
 
   def initialize(template)
+    if template.fetch("fields").values.any? { |field| field["type"] == "height" }
+      @groups = { "Dimensions de la section vide" => template.fetch("fields").map { |key, field| field.merge("key" => key, "help" => "Hauteur de 8 à 1 200 pixels. La largeur suit celle de la page.") } }
+      return
+    end
     @template = template
     @doc = Nokogiri::HTML.fragment(template.fetch("html"))
     @groups = { "Titre de cette partie" => [] }

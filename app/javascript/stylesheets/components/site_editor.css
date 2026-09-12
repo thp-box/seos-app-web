@@ -81,3 +81,7 @@
 @media (prefers-reduced-motion:reduce) { .site-section,.site-section * { animation:none!important; transition:none!important; } }
 @media (max-width:1100px) { .visual-grid { grid-template-columns:190px minmax(0,1fr); } .visual-inspector { grid-column:1/-1; max-height:none; } }
 @media (max-width:720px) { .visual-workspace { padding:12px; } .visual-grid { grid-template-columns:1fr; } .visual-library { max-height:320px; } .visual-toolbar h1 { width:100%; } }
+
+.site-spacer { width: 100%; }
+.site-spacer:has(> span) { display: grid; place-items: center; outline: 1px dashed var(--deep); outline-offset: -1px; background: var(--mist); color: var(--deep); overflow: hidden; }
+.site-spacer > span { font-size: 12px; pointer-events: none; }

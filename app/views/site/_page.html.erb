@@ -7,7 +7,8 @@
   <% page["blocks"].reject { |block| block["hidden"] }.each do |block| %>
     <div id="site-section-<%= block['id'] %>" data-studio-block="<%= block['id'] %>" class="site-section">
     <% if block["placement"] == "top" %><%= render "site/decoration", block: block %><% end %>
-    <% if block["template"] == "text" %><section class="section"><div class="container"><h2 data-field="title"><%= block["values"].fetch("title", "Votre titre") %></h2><div data-field="body"><%= plain_paragraphs block["values"].fetch("body", "Votre contenu") %></div><% if block["values"]["url"].present? && block["values"]["label"].present? %><%= link_to block["values"]["label"], block["values"]["url"], class: "btn btn-deep" %><% end %></div></section>
+    <% if block["template"] == "spacer" %><div class="site-spacer" aria-hidden="true"><% if @visual_preview %><span>Section vide</span><% end %></div>
+    <% elsif block["template"] == "text" %><section class="section"><div class="container"><h2 data-field="title"><%= block["values"].fetch("title", "Votre titre") %></h2><div data-field="body"><%= plain_paragraphs block["values"].fetch("body", "Votre contenu") %></div><% if block["values"]["url"].present? && block["values"]["label"].present? %><%= link_to block["values"]["label"], block["values"]["url"], class: "btn btn-deep" %><% end %></div></section>
     <% else %><%= maquette_html SiteDesign.templates.fetch(block["template"])["html"], block: block, secondary_heading: heading_used %><% heading_used ||= SiteDesign.templates.fetch(block["template"])["html"].to_s.include?("<h1") %><% end %>
     <% unless block["placement"] == "top" %><%= render "site/decoration", block: block %><% end %>
     </div>
