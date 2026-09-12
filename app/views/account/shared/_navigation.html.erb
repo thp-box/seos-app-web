@@ -2,9 +2,9 @@
   <%= link_to "Mon compte", account_root_path, class: "admin-overview", aria: { current: ("page" if controller_path == "account/dashboard") } %>
   <% account_navigation_groups.each do |group| %>
     <%= tag.details class: "admin-nav-group", name: accordion_name, open: group[:links].any? { |link| link[:active] } do %>
-      <summary><span><%= group[:label] %></span><span class="admin-nav-chevron" aria-hidden="true"></span></summary>
+      <summary><span><%= group[:label] %> <%= notification_badge(group[:links].map { |link| link[:category] }) %></span><span class="admin-nav-chevron" aria-hidden="true"></span></summary>
       <div class="admin-nav-links">
-        <% group[:links].each do |link| %><%= link_to link[:label], link[:path], aria: { current: ("page" if link[:active]) } %><% end %>
+        <% group[:links].each do |link| %><%= link_to link[:path], aria: { current: ("page" if link[:active]) } do %><span><%= link[:label] %></span><%= notification_badge(link[:category]) %><% end %><% end %>
       </div>
     <% end %>
   <% end %>

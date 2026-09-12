@@ -48,9 +48,11 @@ module Admin
           raise Exchanges::Invalid, "Statut non autorisé" unless %w[pending_review paused removed published].include?(desired)
           @record.valid?(:moderated_publication) || (raise ActiveRecord::RecordInvalid, @record) if desired == "published"
           @record.update!(status: desired, moderation_hold: desired != "published", published_at: (@record.published_at || (Time.current if desired == "published")), removed_at: desired == "removed" ? Time.current : nil)
+          Notification.notify!(user: @record.user, key: "listing:#{@record.id}:#{@record.lock_version}", title: "Le statut de votre annonce a été examiné.", category: "listings")
         when Profile
           raise Exchanges::Invalid, "Statut non autorisé" unless %w[restricted published].include?(params[:status])
           @record.update!(status: params[:status])
+          Notification.notify!(user: @record.user, key: "profile:#{@record.id}:#{@record.updated_at.to_f}", title: "La visibilité de votre profil a été examinée.", category: "profile")
         when ContentVersion
           raise Pundit::NotAuthorizedError unless current_user.super_admin?
           raise Exchanges::Invalid, "Créez une nouvelle version pour modifier un contenu publié" if @record.published_at

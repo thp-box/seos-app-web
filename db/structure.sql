@@ -125,7 +125,7 @@ FOREIGN KEY ("sender_id")
 CREATE INDEX "index_messages_on_service_request_id" ON "messages" ("service_request_id") /*application='SeosFrance'*/;
 CREATE INDEX "index_messages_on_sender_id" ON "messages" ("sender_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_messages_on_sender_id_and_delivery_key" ON "messages" ("sender_id", "delivery_key") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "notifications" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "service_request_id" integer, "event_key" varchar NOT NULL, "title" varchar NOT NULL, "read_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "emailed_at" datetime(6) /*application='SeosFrance'*/, CONSTRAINT "fk_rails_b080fb4855"
+CREATE TABLE IF NOT EXISTS "notifications" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "service_request_id" integer, "event_key" varchar NOT NULL, "title" varchar NOT NULL, "read_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "emailed_at" datetime(6) /*application='SeosFrance'*/, "category" varchar DEFAULT 'general' NOT NULL /*application='SeosFrance'*/, CONSTRAINT "fk_rails_b080fb4855"
 FOREIGN KEY ("user_id")
   REFERENCES "users" ("id")
 , CONSTRAINT "fk_rails_f6d7cf0913"
@@ -782,7 +782,9 @@ CREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmatio
 CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token") /*application='SeosFrance'*/;
 CREATE INDEX "index_users_on_role_and_status" ON "users" ("role", "status") /*application='SeosFrance'*/;
 CREATE INDEX "index_users_on_pending_referral_link_id" ON "users" ("pending_referral_link_id") /*application='SeosFrance'*/;
+CREATE INDEX "notification_unread_categories" ON "notifications" ("user_id", "read_at", "category") /*application='SeosFrance'*/;
 INSERT INTO "schema_migrations" (version) VALUES
+('20260912190000'),
 ('20260912180000'),
 ('20260911090000'),
 ('20260906093000'),

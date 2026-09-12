@@ -43,7 +43,9 @@ class User < ApplicationRecord
   private
 
   def revoke_sessions_after_password_change
-    login_sessions.active.update_all(revoked_at: Time.current) if saved_change_to_encrypted_password?
+    return unless saved_change_to_encrypted_password?
+    login_sessions.active.update_all(revoked_at: Time.current)
+    Notification.notify!(user: self, key: "security:password:#{id}:#{updated_at.to_f}", title: "Le mot de passe de votre compte a été modifié.", category: "security") if active? && confirmed?
   end
 
   protected

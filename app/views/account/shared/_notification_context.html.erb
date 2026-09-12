@@ -1,0 +1,4 @@
+<% category = notification_category_for([controller_path]) %>
+<% if category != "all" && notification_counts.fetch(category, 0).positive? %>
+  <aside class="account-notification-context" aria-label="Notifications de cette rubrique" data-notification-context-category="<%= category %>"><span><%= notification_badge(category) %> notifications non lues dans cette rubrique</span><%= link_to "Consulter les notifications", account_notifications_path(category: category), class: "btn btn-outline" %></aside>
+<% end %>

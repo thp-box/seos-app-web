@@ -33,7 +33,7 @@ module AccountNavigationHelper
     end
     groups.map do |label, entries|
       { label: label, links: entries.map do |text, path, controllers|
-        { label: text, path: path, active: controllers.include?(controller_path) }
+        { label: text, path: path, category: notification_category_for(controllers), active: controllers.include?(controller_path) }
       end }
     end
   end

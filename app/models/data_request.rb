@@ -1,5 +1,9 @@
 class DataRequest < ApplicationRecord
   KINDS = %w[access portability rectification erasure restriction objection withdrawal].freeze
+  after_update_commit :notify_status, if: -> { saved_change_to_status? && %w[reviewed completed partial rejected].include?(status) }
+  def notify_status
+    Notification.notify!(user: user, key: "privacy:#{id}:#{updated_at.to_f}:#{status}", title: "Votre demande concernant vos données personnelles a été mise à jour.", category: "privacy")
+  end
   belongs_to :user
   belongs_to :reviewed_by, class_name: "User", optional: true
   belongs_to :approved_by, class_name: "User", optional: true

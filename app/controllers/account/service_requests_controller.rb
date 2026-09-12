@@ -17,6 +17,8 @@ module Account
       @messages = @request.messages.where(removed_at: nil).includes(:sender).order(:created_at)
       @messages.where.not(sender: current_user).where(read_at: nil).update_all(read_at: Time.current)
       @events = @request.request_events.order(:created_at)
+      read_keys = @messages.map { |message| "message:#{message.id}" } + @events.map { |event| "exchange:#{event.id}" }
+      current_user.notifications.unread.where(service_request: @request, category: "messages", event_key: read_keys).update_all(read_at: Time.current)
       @criteria = ReviewCriterion.applicable(@request, current_user)
       @reviews = @request.reviews.includes(:review_ratings).select { |review| review.author_id == current_user.id || review.revealed? }
     end

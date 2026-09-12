@@ -13,3 +13,5 @@ import ListingWizardController from "./listing_wizard_controller"
 application.register("listing-wizard", ListingWizardController)
 import CopyLinkController from "./copy_link_controller"
 application.register("copy-link", CopyLinkController)
+import NotificationBadgesController from "./notification_badges_controller"
+application.register("notification-badges", NotificationBadgesController)

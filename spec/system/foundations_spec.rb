@@ -21,7 +21,7 @@ RSpec.describe "Navigation SEOS", :"F-002", :"F-007", type: :system do
     expect(page).not_to have_css(".mobile-navigation[open]")
     expect(page.evaluate_script("document.activeElement.textContent")).to eq("Menu")
     summary.click
-    find(".hero p").click
+    find(".topbar").click(x: 2, y: 2)
     expect(page).not_to have_css(".mobile-navigation[open]")
   end
 
@@ -53,10 +53,10 @@ RSpec.describe "Navigation SEOS", :"F-002", :"F-007", type: :system do
     fill_in "Mot de passe", with: "UnMotDePasseSolide!42"
     click_button "Se connecter"
     expect(page).to have_current_path(account_root_path)
-    within(".workspace") { click_link "Mes sessions" }
+    visit account_login_sessions_path
     expect(page).to have_content("Session actuelle")
     find("summary", text: "Mon espace").click
-    click_button "Déconnexion"
+    click_button "Se déconnecter"
     within(".topbar .nav-actions") { expect(page).to have_link("Connexion") }
     expect(user.login_sessions.active).to be_empty
   end

@@ -122,3 +122,4 @@ Le démarrage du code doit suivre les phases et identifiants du plan feature par
 
 - [Dashboard utilisateur : reprise de la maquette](29-dashboard-utilisateur-maquette.md)
 - [Parrainage : liens personnels permanents](30-parrainage-liens-permanents.md)
+- [Menu profil et notifications par rubrique](31-menu-profil-notifications.md)

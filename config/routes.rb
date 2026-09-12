@@ -65,6 +65,9 @@ Rails.application.routes.draw do
     end
     resources :reviews, only: [ :index, :update ]
     resources :notifications, only: [ :index, :update ] do
+      get :counts, on: :collection
+      patch :read_all, on: :collection
+      patch :open, on: :member
       patch :preferences, on: :collection
     end
     resources :favorites, path: "favoris", only: [ :index, :create, :destroy ]

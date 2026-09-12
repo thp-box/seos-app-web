@@ -87,6 +87,9 @@ class OrganizationWorkflow
       organization.update!(status: status, kind: kind.presence || organization.kind, verified_at: status == "verified" ? Time.current : organization.verified_at,
         verified_by: actor, published_at: status == "verified" ? Time.current : nil)
       AuditLog.create!(actor: actor, target: organization, action: "organization.#{status}", reason: reason)
+      organization.organization_memberships.active.includes(:user).each do |membership|
+        Notification.notify!(user: membership.user, key: "organization:#{organization.id}:#{organization.updated_at.to_f}", title: "Le statut de votre organisation a été examiné.", category: "organizations")
+      end
     end
   end
 end
