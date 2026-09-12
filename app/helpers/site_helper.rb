@@ -47,6 +47,7 @@ module SiteHelper
     (old_pages.keys | new_pages.keys).each do |slug|
       changes << "Page : #{site_page_name(slug, version)}" if old_pages[slug] != new_pages[slug]
     end
+    (version.deleted_pages - (live&.deleted_pages || [])).each { |slug| changes << "Page supprimée : #{site_page_name(slug, live)}" }
     %w[header footer].each do |area|
       changes << (area == "header" ? "Haut du site : logo et menu" : "Bas du site : informations et liens") if before.dig("site", area) != version.site[area]
     end

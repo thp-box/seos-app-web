@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   allow_browser versions: :modern
+  before_action :reject_deleted_site_page
   before_action :verify_login_session
   before_action :private_response, if: :devise_controller?
   helper_method :current_login_session
@@ -9,6 +10,12 @@ class ApplicationController < ActionController::Base
   rescue_from Exchanges::Invalid, ActiveRecord::RecordInvalid, ActiveRecord::StaleObjectError, ActiveRecord::RecordNotUnique, with: :invalid_operation
 
   private
+
+  def reject_deleted_site_page
+    return unless request.get? || request.head?
+    paths = StudioVersion.current&.deleted_pages&.flat_map { |slug| SiteDesign.page_paths(slug) } || []
+    raise ActiveRecord::RecordNotFound if paths.include?(request.path.delete_suffix("/"))
+  end
 
   def invalid_operation(error)
     @error_message = case error

@@ -17,6 +17,11 @@ class SiteDesign
       "url" => { "type" => "url", "label" => "Destination", "default" => "/contact" }
     } })
   end
+  def self.page_paths(slug)
+    paths = [ "/pages/#{slug}", "/decouvrir/#{slug}" ]
+    paths << "/#{slug}" if %w[communaute voyage-solidaire].include?(slug)
+    paths
+  end
   def self.safe_url?(value)
     return false unless value.is_a?(String) && value.size <= 2000 && !value.match?(/[\s\\\x00-\x1f]/)
     return true if value.match?(/\A\/(?!\/)/) || value.match?(/\A#[a-zA-Z][\w-]*\z/)
@@ -30,7 +35,11 @@ class SiteDesign
   end
   def self.text?(value) = value.is_a?(String) && value.size <= 15_000 && !value.include?("\u0000")
   def self.valid?(data)
-    return false unless data.is_a?(Hash) && (data.keys - %w[pages header footer]).empty?
+    return false unless data.is_a?(Hash) && (data.keys - %w[pages header footer deleted_pages]).empty?
+    deleted = data.fetch("deleted_pages", [])
+    return false unless deleted.is_a?(Array) && deleted.size <= 50 && deleted.uniq == deleted && deleted.all? { |slug| slug.is_a?(String) && slug.match?(/\A[a-z][a-z0-9-]{0,70}\z/) && !%w[home accueil annonces listings].include?(slug) }
+    return false unless data.fetch("pages", {}).is_a?(Hash)
+    return false if (data.fetch("pages", {}).keys & deleted).any?
     %w[header footer].each do |area|
       next unless data.key?(area)
       chrome = data[area]

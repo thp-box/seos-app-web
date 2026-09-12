@@ -9,3 +9,9 @@ Le bloc **Voyage solidaire : missions et filtre** affiche automatiquement les mi
 Modèles déclaratifs : `config/studio/travel.json`. Les valeurs éditées sont échappées comme celles des autres sections. Aucun HTML libre n’est accepté.
 
 Vérifications : permissions, isolation du brouillon, publication, aperçu Studio, parcours de missions existant, filtre public, mobile/ordinateur et axe WCAG A/AA.
+
+## Supprimer une page
+
+Toutes les pages du Studio peuvent être supprimées, sauf l’accueil et les annonces. Dans l’éditeur visuel : **Créer ou retirer une page → Retirer cette page**. Dans l’éditeur guidé : **Supprimer cette page**. Enregistrer puis publier pour rendre la suppression effective.
+
+La suppression est conservée dans la version du site : elle empêche le retour automatique au contenu initial, retire les liens correspondants de la navigation et du pied de page et rend l’URL publique indisponible (404). Les missions, candidatures et autres données métier restent conservées. Une ancienne sauvegarde peut être reprise et publiée pour restaurer la page. Les liens saisis dans le contenu d’autres sections restent à adapter par l’administrateur.

@@ -30,7 +30,7 @@ module Admin
       @studio_version = StudioVersion.find(params[:id])
       @preview_width = [ 375, 768, 1440 ].include?(params[:width].to_i) ? params[:width].to_i : 1440
       @preview_page = params[:page].presence || "home"
-      raise ActiveRecord::RecordNotFound unless (StudioVersion::PAGES + @studio_version.site.fetch("pages", {}).keys).include?(@preview_page)
+      raise ActiveRecord::RecordNotFound unless @studio_version.available_pages.include?(@preview_page)
       if params[:canvas] == "1"
         @preview_width = nil
         if (@page = @studio_version.site.dig("pages", @preview_page))

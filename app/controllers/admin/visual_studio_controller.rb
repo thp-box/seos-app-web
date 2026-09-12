@@ -9,7 +9,7 @@ module Admin
     def show
       @version = @source
       @slug = params[:page].presence || "home"
-      raise ActiveRecord::RecordNotFound unless (StudioVersion::PAGES + @source.site.fetch("pages", {}).keys).include?(@slug)
+      raise ActiveRecord::RecordNotFound unless @source.available_pages.include?(@slug)
       @assets = StudioAsset.includes(image_attachment: :blob).order(id: :desc)
       @editor_data = {
         settings: @source.settings, page: @slug, area: params[:area], digest: @source.digest,
@@ -27,7 +27,7 @@ module Admin
       @visual_preview = true
       @visual_revision = params[:revision].to_s.first(20)
       @slug = params[:page].presence || "home"
-      raise ActiveRecord::RecordNotFound unless (StudioVersion::PAGES + @studio_version.site.fetch("pages", {}).keys).include?(@slug)
+      raise ActiveRecord::RecordNotFound unless @studio_version.available_pages.include?(@slug)
       @page = @studio_version.site.dig("pages", @slug)
       if @page
         render "site/show", layout: "application"

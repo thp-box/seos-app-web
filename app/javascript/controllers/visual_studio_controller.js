@@ -81,13 +81,14 @@ export default class extends Controller {
     this.past.push(JSON.stringify(this.doc)); this.doc = JSON.parse(this.future.pop()); this.restore()
   }
   restore() {
-    if (!this.doc.site.pages[this.page] && !this.config.pages[this.page]) this.page = "home"
+    if (this.doc.site.deleted_pages?.includes(this.page) || (!this.doc.site.pages[this.page] && !this.config.pages[this.page])) this.page = "home"
     this.renderPages(); this.renderTheme(); this.inspect(); this.refresh()
     this.message(this.dirty ? "Modification annulée ou rétablie — copie non enregistrée." : "Vous êtes revenu à la copie enregistrée.")
   }
   renderPages() {
     this.pagesTarget.replaceChildren()
     Object.entries({ ...this.config.pages, ...this.doc.site.pages }).forEach(([slug, page]) => {
+      if (this.doc.site.deleted_pages?.includes(slug)) return
       const option = this.node("option", page.title); option.value = slug; this.pagesTarget.append(option)
     })
     this.pagesTarget.value = this.page
@@ -111,15 +112,15 @@ export default class extends Controller {
     let base = title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "page"
     if (!/^[a-z]/.test(base)) base = `page-${base}`
     let slug = base, i = 2
-    while (this.doc.site.pages[slug] || this.config.pages[slug]) slug = `${base}-${i++}`
+    while (this.doc.site.pages[slug] || this.config.pages[slug] || this.doc.site.deleted_pages?.includes(slug)) slug = `${base}-${i++}`
     this.change(() => { this.doc.site.pages[slug] = { title, blocks: [{ id: crypto.randomUUID(), template: "text", values: { title, body: "" } }] } })
     this.page = slug; this.selectedId = this.blocks[0].id; this.pageNameTarget.value = ""
     this.renderPages(); this.inspect(); this.refresh()
   }
   deletePage() {
-    if (this.config.pages[this.page]) { this.message("Cette page principale doit rester disponible. Vous pouvez modifier ses sections."); return }
+    if (["home", "accueil", "annonces", "listings"].includes(this.page)) { this.message("L’accueil et les annonces ne peuvent pas être supprimés."); return }
     if (!window.confirm(`Retirer la page « ${this.currentPage.title} » de cette copie ?`)) return
-    this.change(() => { delete this.doc.site.pages[this.page] }); this.page = "home"; this.selectedId = null
+    this.change(() => { delete this.doc.site.pages[this.page]; this.doc.site.deleted_pages = [...new Set([...(this.doc.site.deleted_pages || []), this.page])] }); this.page = "home"; this.selectedId = null
     this.renderPages(); this.inspect(); this.refresh()
   }
   renderLibrary() {

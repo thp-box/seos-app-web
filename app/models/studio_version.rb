@@ -13,7 +13,14 @@ class StudioVersion < ApplicationRecord
   def tokens = settings.fetch("tokens", {})
   def page(slug) = settings.fetch("pages", {}).fetch(slug, {})
   def site = settings.fetch("site", {})
-  def chrome(area) = SiteDesign.chrome(area, site.fetch(area, {}))
+  def deleted_pages = site.fetch("deleted_pages", [])
+  def available_pages = (PAGES + site.fetch("pages", {}).keys).uniq - deleted_pages
+  def chrome(area)
+    result = SiteDesign.chrome(area, site.fetch(area, {}))
+    removed_paths = deleted_pages.flat_map { |slug| SiteDesign.page_paths(slug) }
+    result["links"].reject! { |link| removed_paths.include?(link["url"].split(/[?#]/).first) }
+    result
+  end
   def css
     values = tokens.except("motion").map { |key, value| "--#{key}:#{value};" }.join
     ":root{#{values}}" + StudioTheme.css(tokens) + (tokens["motion"] == "none" ? "*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}" : "")

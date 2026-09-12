@@ -9,7 +9,7 @@ module Admin
       @area = params[:area] == "kit" ? "kit" : "pages"
       @versions = StudioVersion.order(id: :desc).limit(30)
       @workspace_version = workspace_version
-      @pages = (StudioVersion::PAGES + (@workspace_version&.site&.fetch("pages", {}) || {}).keys).uniq
+      @pages = @workspace_version ? @workspace_version.available_pages : StudioVersion::PAGES
     end
     def new_page
       @workspace_version = workspace_version
@@ -25,7 +25,7 @@ module Admin
         base = "page-#{base}" unless base.match?(/\A[a-z]/)
         slug = base
         number = 2
-        while (StudioVersion::PAGES + pages.keys).include?(slug)
+        while (StudioVersion::PAGES + pages.keys + data.fetch("deleted_pages", [])).include?(slug)
           slug = "#{base}-#{number}"
           number += 1
         end
@@ -51,6 +51,11 @@ module Admin
       data = @version.site.deep_dup
       tokens = nil
       case params[:operation]
+      when "delete_page"
+        slug = params[:page].to_s
+        raise Exchanges::Invalid, "Cette page ne peut pas être supprimée." unless @version.available_pages.include?(slug) && !%w[home accueil annonces listings].include?(slug)
+        data.fetch("pages", {}).delete(slug)
+        data["deleted_pages"] = (data.fetch("deleted_pages", []) + [ slug ]).uniq
       when "page"
         slug = params[:page].to_s
         raise Exchanges::Invalid, "Adresse invalide" unless slug.match?(/\A[a-z][a-z0-9-]{0,70}\z/)
@@ -81,12 +86,13 @@ module Admin
       # Each save is a new immutable proposal ancestry; a validated version is never edited.
       version = Studio.change!(actor: current_user, source: @version, settings: settings, name: @version.name, reset: (params[:area] == "kit" ? "tokens" : "pages.#{params[:page]}" if params[:operation] == "reset" && %w[kit pages].include?(params[:area])))
       destination = params[:after_save] == "review" ? review_admin_site_path(version, area: params[:area], page: params[:page]) : edit_admin_site_path(version, area: params[:area], page: params[:page])
+      destination = edit_admin_site_path(version, page: "home") if params[:operation] == "delete_page"
       redirect_to destination, notice: "Modifications enregistrées. Elles seront visibles après la mise en ligne.", status: :see_other
     end
     def review
       @area = %w[pages header footer kit images].include?(params[:area]) ? params[:area] : "pages"
       @slug = params[:page].presence || "home"
-      raise ActiveRecord::RecordNotFound unless (StudioVersion::PAGES + @version.site.fetch("pages", {}).keys).include?(@slug)
+      raise ActiveRecord::RecordNotFound unless @version.available_pages.include?(@slug)
       @device = %w[phone tablet desktop].include?(params[:device]) ? params[:device] : "desktop"
       @live_version = StudioVersion.current
       @review_errors = Studio.review_errors(@version)
