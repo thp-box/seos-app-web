@@ -12,7 +12,8 @@ module AccountNavigationHelper
         [ "Mes favoris", account_favorites_path, %w[account/favorites] ]
       ] ],
       [ "Entraide et points", [
-        [ "Mes quêtes et témoignages", account_community_path, %w[account/community] ],
+        [ "Mes quêtes", account_community_path, %w[account/community] ],
+        [ "Mes témoignages", account_testimonials_path, %w[account/testimonials] ],
         [ "Mes chaînes d’entraide", account_chains_path, %w[account/chains] ],
         [ "Mon portefeuille", account_points_path, %w[account/points] ],
         [ "Confiance et parrainage", account_trust_path, %w[account/trust] ]

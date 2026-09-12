@@ -4,7 +4,7 @@ RSpec.describe "Espace personnel", type: :request do
   it "rend toutes les rubriques sans créer de portefeuille ni crédit" do
     user = create(:profile).user
     login(user)
-    paths = [ account_root_path, account_listings_path, account_community_path, account_points_path, account_chains_path, account_favorites_path, account_service_requests_path, account_reviews_path, edit_account_profile_path, account_notifications_path, account_login_sessions_path, account_organizations_path, account_mission_applications_path, account_trust_path, account_privacy_path, edit_user_registration_path ]
+    paths = [ account_root_path, account_listings_path, account_community_path, account_testimonials_path, account_points_path, account_chains_path, account_favorites_path, account_service_requests_path, account_reviews_path, edit_account_profile_path, account_notifications_path, account_login_sessions_path, account_organizations_path, account_mission_applications_path, account_trust_path, account_privacy_path, edit_user_registration_path ]
     expect do
       paths.each do |path|
         get path

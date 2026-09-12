@@ -8,7 +8,7 @@ RSpec.describe "Médias communautaires", type: :request do
   it "vérifie la vidéo réelle, la garde privée avant accord et bloque son accès après retrait" do
     login user
     upload = fixture_file_upload("testimonial.mp4", "video/mp4")
-    post account_community_path, params: { operation: "testimonial", kind: "video", quote: "Une expérience utile", display_name_snapshot: "Camille", transcript: "Une expérience utile au jardin partagé.", consent: "1", video: upload }
+    post account_testimonials_path, params: { operation: "testimonial", kind: "video", quote: "Une expérience utile", display_name_snapshot: "Camille", transcript: "Une expérience utile au jardin partagé.", consent: "1", video: upload }
     expect(response).to have_http_status(:see_other)
     record = Testimonial.last
     expect(record.video).to be_attached

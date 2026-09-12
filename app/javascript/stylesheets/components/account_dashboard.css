@@ -125,3 +125,12 @@
 @media (max-width: 650px) { .account-chain-timeline { flex-direction: column; } .account-chain-timeline li { flex-basis: auto; } .account-chain-timeline li + li::before { width: 1px; height: 24px; top: -25px; left: 50%; } }
 @media (prefers-reduced-motion: no-preference) { .account-workspace .quest-card[data-animated="true"] { animation-name: account-appear; } }
 .account-workspace p > a { display: inline-block; min-height: 24px; }
+
+/* Consentement et actions du formulaire de témoignage. */
+.account-workspace .testimonial-consent { display: grid; grid-template-columns: 20px minmax(0,1fr); align-items: start; gap: 12px; margin: 24px 0; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #f0f7f8; }
+.account-workspace .testimonial-consent input[type=checkbox] { margin: 2px 0 0; padding: 0; }
+.account-workspace .testimonial-consent label { margin: 0; font-size: .85rem; font-weight: 400; line-height: 1.65; cursor: pointer; }
+.account-workspace .testimonial-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.account-workspace .testimonial-actions .btn { margin: 0; }
+.account-workspace .testimonial-submission { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
+@media (max-width: 650px) { .account-workspace .testimonial-actions { flex-direction: column; align-items: stretch; } .account-workspace .testimonial-actions .btn { width: 100%; text-align: center; } }

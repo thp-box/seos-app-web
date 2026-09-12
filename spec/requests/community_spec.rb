@@ -44,14 +44,19 @@ RSpec.describe "Parcours communautaires", type: :request do
     expect(response).to redirect_to(new_user_session_path)
     get testimonials_path
     expect(response).to have_http_status(:ok)
+    get account_testimonials_path
+    expect(response).to redirect_to(new_user_session_path)
     login user
     get account_community_path
     expect(response.body).to include("Mes quêtes", "Bronze")
-    post account_community_path, params: { operation: "testimonial", kind: "written", quote: "Entraide formidable", display_name_snapshot: "Camille", consent: "1", status: "published" }
+    post account_testimonials_path, params: { operation: "testimonial", kind: "written", quote: "Entraide formidable", display_name_snapshot: "Camille", consent: "1", status: "published" }
     expect(response).to have_http_status(:see_other)
     record = Testimonial.last
     expect(record.status).to eq("submitted")
+    expect(response).to redirect_to(account_testimonials_path)
     get account_community_path
+    expect(response.body).not_to include("Entraide formidable", "Votre témoignage public")
+    get account_testimonials_path
     expect(response.body).to include("Entraide formidable")
     get testimonials_path
     expect(response.body).not_to include("Entraide formidable")
@@ -63,11 +68,11 @@ RSpec.describe "Parcours communautaires", type: :request do
     expect(response).to have_http_status(:see_other)
     get testimonials_path
     expect(response.body).to include("Entraide formidable")
-    post account_community_path, params: { operation: "withdraw_testimonial", record_id: record.id }
+    post account_testimonials_path, params: { operation: "withdraw_testimonial", record_id: record.id }
     expect(response).to have_http_status(:forbidden)
     delete destroy_user_session_path
     login user
-    post account_community_path, params: { operation: "withdraw_testimonial", record_id: record.id }
+    post account_testimonials_path, params: { operation: "withdraw_testimonial", record_id: record.id }
     get testimonials_path
     expect(response.body).not_to include("Entraide formidable")
     post account_community_path, params: { operation: "invalid" }

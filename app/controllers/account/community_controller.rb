@@ -5,7 +5,6 @@ module Account
       @quest_progress = @achievements.to_h { |quest| [ quest.id, Achievements.progress(current_user, quest) ] }
       @quest_records = UserAchievement.where(user: current_user, achievement: @achievements).where(period_key: [ "lifetime", Time.current.strftime("%Y-%m") ]).index_by(&:achievement_id)
       @records = UserAchievement.where(user: current_user).includes(:achievement).order(id: :desc).limit(50)
-      @testimonials = Testimonial.where(user: current_user).order(id: :desc).limit(20)
       @listings = Listing.public_candidates.includes(:category, :organization, user: :profile).select { |listing| ListingPolicy.new(current_user, listing).update? && listing.publicly_visible? }
       @tops = TopListingRequest.where(user: current_user).includes(:listing).order(id: :desc).limit(20)
       @rule = PointRuleVersion.current("engagement")
@@ -28,7 +27,8 @@ module Account
       else
         raise Exchanges::Invalid, "Action inconnue."
       end
-      redirect_to account_community_path, notice: "Votre demande a été enregistrée.", status: :see_other
+      destination = %w[testimonial withdraw_testimonial].include?(params[:operation]) ? account_testimonials_path : account_community_path
+      redirect_to destination, notice: "Votre demande a été enregistrée.", status: :see_other
     end
   end
 end

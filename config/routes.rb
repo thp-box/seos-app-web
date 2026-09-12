@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     end
     resources :organizations, path: "organisations", param: :slug, only: [ :index, :show, :create, :update ]
     resources :mission_applications, path: "candidatures", only: [ :index, :show, :create, :update ]
+    resource :testimonials, path: "temoignages", controller: "testimonials", only: [ :show, :create ]
     resource :community, path: "engagement", controller: "community", only: [ :show, :create ]
     resources :chains, path: "chaines", only: [ :index, :show, :create, :update ]
     constraints ->(_request) { FeatureFlag.support_enabled? } do
