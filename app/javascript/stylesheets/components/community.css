@@ -1,0 +1,14 @@
+.maquette-surface .community-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:32px}
+.maquette-surface .community-card{display:flex;flex-direction:column;align-items:flex-start;padding:28px;border:1px solid var(--line);border-radius:24px;background:var(--white);box-shadow:var(--shadow)}
+.maquette-surface .community-card p{flex:1}
+.maquette-surface .community-number{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--mist);color:var(--deep);font-weight:700}
+.maquette-surface .community-associations{padding-top:0}
+.maquette-surface .community-association-panel{padding:40px;border-radius:28px;background:var(--mist);display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+.maquette-surface .community-links{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.maquette-surface .community-support .share-buttons{display:flex;flex-wrap:wrap;gap:10px}
+.maquette-surface .community-support .share-buttons .btn{width:auto;height:auto;min-height:44px;padding:10px 16px}
+@media(max-width:760px){.maquette-surface .community-cards,.maquette-surface .community-association-panel{grid-template-columns:1fr}.maquette-surface .community-association-panel{padding:24px}.maquette-surface .community-support .support-actions{grid-template-columns:1fr}}
+.maquette-surface .section.community-support{background:color-mix(in srgb,var(--seos) 65%,var(--deep));color:var(--white)}
+.maquette-surface .community-support .support-grid>div:first-child :is(h2,p,.eyebrow){color:var(--white)}
+
+.maquette-surface :is(.community-app,.community-associations) .eyebrow,.maquette-surface .community-association-panel p{color:var(--deep)}

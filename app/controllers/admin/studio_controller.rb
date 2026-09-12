@@ -36,6 +36,10 @@ module Admin
         if (@page = @studio_version.site.dig("pages", @preview_page))
           @slug = @preview_page
           render "site/show", layout: "application"
+        elsif @preview_page == "communaute"
+          @slug = @preview_page
+          @page = SiteDesign.default_page(@slug)
+          render "site/show", layout: "application"
         elsif @preview_page == "home"
           render "pages/home", layout: "application"
         else

@@ -1,6 +1,6 @@
 module SiteHelper
-  PAGE_NAMES = { "home" => "Accueil", "don" => "Le don", "echange" => "L’échange", "points" => "Les Points Services", "fonctionnement" => "Comment ça marche ?" }.freeze
-  SECTION_NAMES = { "home-0" => "Grande présentation avec photo", "home-1" => "Les trois façons de s’entraider", "home-2" => "Catégories d’annonces", "home-3" => "Annonces récentes", "home-4" => "La chaîne d’entraide", "home-5" => "Présentation de SEOS", "home-6" => "Témoignages de membres", "home-7" => "Confiance et sécurité", "home-8" => "La communauté francophone", "home-9" => "Invitation à nous rejoindre", "home-10" => "Soutenir SEOS", "don-0" => "Présentation du don", "don-1" => "Le don en trois étapes", "exchange-0" => "Présentation de l’échange", "exchange-1" => "L’échange en trois étapes", "points-0" => "Présentation des Points Services", "points-1" => "Les Points Services en trois étapes", "text" => "Texte libre" }.freeze
+  PAGE_NAMES = { "communaute" => "La communauté", "home" => "Accueil", "don" => "Le don", "echange" => "L’échange", "points" => "Les Points Services", "fonctionnement" => "Comment ça marche ?" }.freeze
+  SECTION_NAMES = { "community-app" => "La communauté : l’application", "community-associations" => "La communauté : les associations", "community-support" => "La communauté : participer", "home-0" => "Grande présentation avec photo", "home-1" => "Les trois façons de s’entraider", "home-2" => "Catégories d’annonces", "home-3" => "Annonces récentes", "home-4" => "La chaîne d’entraide", "home-5" => "Présentation de SEOS", "home-6" => "Témoignages de membres", "home-7" => "Confiance et sécurité", "home-8" => "La communauté francophone", "home-9" => "Invitation à nous rejoindre", "home-10" => "Soutenir SEOS", "don-0" => "Présentation du don", "don-1" => "Le don en trois étapes", "exchange-0" => "Présentation de l’échange", "exchange-1" => "L’échange en trois étapes", "points-0" => "Présentation des Points Services", "points-1" => "Les Points Services en trois étapes", "text" => "Texte libre" }.freeze
   COLOR_NAMES = { "deep" => "Bleu principal", "seos" => "Bleu des liens et accents", "turq" => "Turquoise", "gold" => "Doré des boutons", "cream" => "Fond des pages", "mist" => "Fond des encadrés", "ink" => "Textes principaux", "muted" => "Textes secondaires", "line" => "Bordures", "white" => "Surfaces claires", "danger" => "Alertes", "ok" => "Confirmations", "footer" => "Fond du bas de page" }.freeze
   def site_kit_screen_name(key)
     { "home" => "Accueil", "don" => "Don", "exchange" => "Échange", "points" => "Points Services", "listings" => "Liste des annonces", "detail" => "Détail d’une annonce", "publish" => "Création d’une annonce", "auth" => "Connexion et inscription", "dashboard" => "Espace membre", "chain" => "Chaîne d’entraide", "travel" => "Voyage solidaire", "admin" => "Gestion du site", "chain-validation" => "Confirmation d’un service", "legal" => "Informations légales" }.fetch(key)
@@ -65,6 +65,7 @@ module SiteHelper
     value.start_with?("asset:") ? media_path(StudioAsset.find(value.delete_prefix("asset:")).image.attachment) : image_path(value)
   end
   def site_public_path(slug)
+    return community_path if slug == "communaute"
     return root_path if slug == "home"
     StudioVersion::PAGES.include?(slug) ? explanation_path(slug) : site_page_path(slug)
   end

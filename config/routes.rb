@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "pages#home"
   get "parrainage/:token", to: "referral_invitations#show", as: :referral_invitation
+  get "communaute", to: "site#show", defaults: { slug: "communaute" }, as: :community
   get "pages/:slug", to: "site#show", as: :site_page
   get "preferences-confidentialite/recu", to: "privacy_preferences#receipt", as: :privacy_receipt
   resource :privacy_preferences, path: "preferences-confidentialite", only: [ :show, :create ]

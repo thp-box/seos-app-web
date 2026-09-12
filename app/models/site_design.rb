@@ -2,12 +2,12 @@
 class SiteDesign
   SOURCE = Rails.root.join("config/studio/maquette.json")
   CHROME = {
-    "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "L’association", "url" => "/associations" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
+    "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "La communauté", "url" => "/communaute" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
     "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "Les petits gestes font les grands liens.", "description" => "L’entraide locale, en France.", "links" => [ { "label" => "Contact", "url" => "/contact" }, { "label" => "Don", "url" => "/decouvrir/don" }, { "label" => "Échange", "url" => "/decouvrir/echange" }, { "label" => "Points Services", "url" => "/decouvrir/points" }, { "label" => "Le journal", "url" => "/journal" } ] }
   }.freeze
   def self.reference = @reference ||= JSON.parse(SOURCE.read)
   def self.templates
-    reference.fetch("sections").merge("text" => { "name" => "Texte et bouton", "fields" => {
+    reference.fetch("sections").merge(JSON.parse(Rails.root.join("config/studio/community.json").read)).merge("text" => { "name" => "Texte et bouton", "fields" => {
       "title" => { "type" => "text", "label" => "Titre", "default" => "Votre titre" },
       "body" => { "type" => "text", "label" => "Contenu", "default" => "Votre contenu" },
       "label" => { "type" => "text", "label" => "Bouton", "default" => "En savoir plus" },
@@ -63,7 +63,33 @@ class SiteDesign
       end
     end && template["fields"].keys.grep(/\Aimage-/).all? { |key| values.fetch(key.sub("image-", "alt-"), template["fields"][key.sub("image-", "alt-")]["default"]).present? }
   end
+  def self.community_page
+    { "title" => "La communauté", "blocks" => [
+      { "id" => "community-intro", "template" => "don-0", "values" => {
+        "text-0" => "La communauté", "text-1" => "Les petits gestes", "text-2" => "font les grands liens.",
+        "text-3" => "SEOS réunit les personnes et les associations qui veulent s’entraider. Partagez vos savoir-faire, trouvez un coup de main et créez des liens, près de chez vous ou à distance.",
+        "text-4" => "Découvrir les annonces", "link-0" => "/annonces" } },
+      { "id" => "community-application", "template" => "community-app", "values" => {} },
+      { "id" => "community-associations", "template" => "community-associations", "values" => {} },
+      { "id" => "community-support", "template" => "community-support", "values" => {} }
+    ] }
+  end
+  # Upgrade only the original menu item; preserve any administrator customization.
+  def self.chrome(area, overrides = {})
+    result = CHROME.fetch(area).merge(overrides).deep_dup
+    if area == "header"
+      result["links"].map! do |link|
+        if link == { "label" => "L’association", "url" => "/associations" }
+          { "label" => "La communauté", "url" => "/communaute" }
+        else
+          link
+        end
+      end
+    end
+    result
+  end
   def self.default_page(slug)
+    return community_page if slug == "communaute"
     title = slug == "home" ? "Accueil" : ContentVersion.current("page", slug)&.title || slug.humanize
     content = ContentVersion.current("page", slug)
     blocks = content ? [ { "id" => "initial-#{slug}", "template" => "text", "values" => { "title" => title, "body" => [ content.summary, content.body ].compact.join("\n\n") } } ] : []
