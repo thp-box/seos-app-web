@@ -1,6 +1,8 @@
 <% content_for :title, "Confiance et recours" %>
 <h1>Confiance et recours</h1>
 <p>Corrigez une source documentée, jamais directement une note. Les signaux techniques sont instruits séparément.</p>
+<% if current_user.super_admin? %><section class="card"><h2>Réglages du parrainage</h2><p>Un lien permanent par membre, sans limite de filleuls. L’ancienneté ci-dessous s’applique immédiatement aux invitations et au texte affiché. Un compte actif et un e-mail confirmé restent obligatoires ; les exemptions administratives sont conservées.</p>
+<%= form_with url: admin_trust_index_path do |form| %><%= form.hidden_field :operation, value: "referral_settings" %><%= input_field form, :minimum_age_days, "Ancienneté minimale pour parrainer (jours)", type: :number_field, value: ReferralSetting.minimum_age_days, min: 0, max: 36500, required: true %><%= form.submit "Enregistrer les conditions de parrainage", class: "btn btn-primary" %><% end %></section><% end %>
 <h2>Versions du calcul</h2>
 <% @versions.each do |version| %>
   <article class="card"><h3><%= version.version %> · <%= human_value version.status %></h3><p><%= version.explanation %></p><p>Repères simulés : <%= version.simulation["referral_scores"]&.join(" / ") || "à calculer" %></p>

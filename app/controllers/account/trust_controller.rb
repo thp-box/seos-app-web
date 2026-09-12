@@ -4,8 +4,13 @@ module Account
       @snapshot = current_user.trust_profile&.trust_score_snapshot
       @snapshots = TrustScoreSnapshot.where(user: current_user).order(id: :desc).limit(20)
       @referrals = Referral.where(referred_user: current_user).order(:position)
-      @sponsorships = Referral.where(referrer: current_user).order(id: :desc).limit(30)
-      @codes = ReferralCode.where(owner: current_user).order(id: :desc).limit(10)
+      scope = Referral.where(referrer: current_user)
+      @total = scope.count
+      @qualified_count = scope.valid_support.where.not(qualified_at: nil).count
+      @page = [ params[:page].to_i, 1 ].max
+      @sponsorships = scope.includes(referred_user: :profile).order(id: :desc).limit(20).offset((@page - 1) * 20)
+      @referral_link = ReferralLink.find_by(owner: current_user)
+      @minimum_age_days = ReferralSetting.minimum_age_days
       @appeals = TrustAppeal.where(user: current_user).order(id: :desc).limit(20)
       @events = TrustEvent.where(subject: current_user).order(id: :desc).limit(50)
     end
@@ -13,7 +18,7 @@ module Account
     def create
       case params[:operation]
       when "issue"
-        @issued_code = Referrals.issue!(current_user)
+        Referrals.link_for!(current_user)
         show
         return render :show, status: :created
       when "claim"

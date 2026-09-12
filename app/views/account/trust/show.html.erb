@@ -1,13 +1,7 @@
 <% content_for :title, "Confiance et parrainage" %>
 <%= account_page_heading "Confiance et parrainage" %>
 <%= render "shared/trust_score", user: current_user %>
-<h2>Mes soutiens</h2>
-<p>Vous avez sept jours après la création du compte pour saisir jusqu’à dix codes. Aucun point ni droit supplémentaire n’est attribué au filleul. Les identités de vos parrains ne sont jamais publiées.</p>
-<% if current_user.created_at > 7.days.ago %>
-  <%= form_with url: account_trust_path, class: "card form-field" do |f| %>
-    <%= f.hidden_field :operation, value: "claim" %><%= f.label :referral_codes, "Codes de parrainage (un par ligne)" %><%= f.text_area :referral_codes, required: true, maxlength: 500, class: "control", autocomplete: "off" %><%= f.submit "Enregistrer mes codes", class: "btn btn-primary" %>
-  <% end %>
-<% end %>
+<h2>Mon parrainage</h2><p>Votre parrain est rattaché lors de votre inscription par invitation. Les anciens soutiens sont conservés et restent privés.</p>
 <% @referrals.each do |referral| %>
   <div class="card"><p>Soutien <%= referral.position %> · <%= human_value referral.status %><%= " · parrain principal" if referral.primary_referrer? %></p>
   <% if !referral.primary_referrer? && current_user.created_at > 7.days.ago && %w[provisional confirmed].include?(referral.status) %><%= button_to "Choisir comme parrain principal", account_trust_path, params: { operation: "primary", referral_id: referral.id }, class: "btn btn-outline" %><% end %>
@@ -15,17 +9,22 @@
     <%= form_with url: account_trust_path, class: "form-field" do |f| %><%= f.hidden_field :operation, value: "appeal" %><%= f.hidden_field :referral_id, value: referral.id %><%= f.label :statement, "Contester le retrait du soutien", for: "referral-appeal-#{referral.id}" %><%= f.text_area :statement, id: "referral-appeal-#{referral.id}", required: true, maxlength: 3000, class: "control" %><%= f.submit "Demander une revue humaine", class: "btn btn-outline" %><% end %>
   <% end %></div>
 <% end %>
-<h2>Parrainer un nouveau membre</h2>
-<p>Il faut un e-mail confirmé, 30 jours d’ancienneté et deux partenaires distincts, sauf exemption fondatrice auditée. Maximum cinq codes disponibles et cinq émissions par jour. Un code expire après sept jours et ne sert qu’une fois.</p>
-<% if @issued_code %><div class="card" role="status"><strong>Votre code, affiché une seule fois :</strong> <code class="trust-code"><%= @issued_code %></code><p>Conservez-le avant de quitter cette page.</p></div><% end %>
-<% if Referrals.eligible?(current_user) %><%= button_to "Générer un code", account_trust_path, params: { operation: "issue" }, class: "btn btn-primary" %><% end %>
-<% @codes.each do |code| %><p>Code émis le <%= l code.created_at, format: :short %> · <%= code.claimed_at ? "utilisé" : "expire le #{l code.expires_at, format: :short}" %></p><% end %>
+<section class="card"><h2>Parrainer de nouveaux membres</h2>
+<p>Partagez votre lien personnel avec autant de personnes que vous le souhaitez. Il reste identique et n’expire pas.</p>
+<p>Conditions : compte actif, e-mail confirmé et <%= @minimum_age_days %> jours d’ancienneté, sauf exemption administrative. Aucun échange préalable n’est nécessaire pour parrainer.</p>
+<% if Referrals.eligible?(current_user) %>
+  <% if @referral_link %><div class="form-field referral-link-box" data-controller="copy-link"><%= label_tag :personal_referral_link, "Votre lien de parrainage" %><%= text_field_tag :personal_referral_link, referral_invitation_url(token: @referral_link.token), readonly: true, class: "control", data: { copy_link_target: "input" } %><button type="button" class="btn btn-outline" data-action="copy-link#copy">Copier mon lien</button><p role="status" data-copy-link-target="status"></p></div>
+  <% else %><%= button_to "Créer mon lien de parrainage", account_trust_path, params: { operation: "issue" }, class: "btn btn-primary" %><% end %>
+<% else %><p class="account-note">Votre lien sera disponible lorsque les conditions ci-dessus seront remplies. Ancienneté requise atteinte le <%= l((current_user.created_at + @minimum_age_days.days).to_date) %>.</p><% end %>
+<p><strong><%= @total %> inscriptions confirmées</strong> · <%= @qualified_count %> parrainages qualifiés</p>
+<p>La qualification des récompenses reste liée à l’activité réelle du filleul : 30 jours d’ancienneté et deux partenaires distincts hors parrains. Chaque filleul qualifié via votre lien peut vous rapporter 15 PS, une seule fois par filleul. Les plafonds mensuels de Points Services s’appliquent.</p></section>
 <% @sponsorships.each do |referral| %>
-  <div class="card"><p>Soutien émis n° <%= referral.id %> · <%= human_value referral.status %><%= " · qualifié — consultez la récompense dans votre portefeuille" if referral.qualified_at %></p>
+  <div class="card"><p><%= public_name referral.referred_user %> · Parrainage n° <%= referral.id %> · <%= human_value referral.status %><%= " · qualifié — consultez la récompense dans votre portefeuille" if referral.qualified_at && referral.status == "confirmed" %></p>
   <% if referral.status == "provisional" && referral.objection_deadline_at > Time.current %>
     <%= form_with url: account_trust_path, class: "form-field" do |f| %><%= f.hidden_field :operation, value: "object" %><%= f.hidden_field :referral_id, value: referral.id %><%= f.label :reason, "Motif de l’objection", for: "objection-#{referral.id}" %><%= f.text_area :reason, id: "objection-#{referral.id}", required: true, maxlength: 500, class: "control" %><%= f.submit "Signaler un usage non autorisé", class: "btn btn-outline" %><% end %>
   <% end %></div>
 <% end %>
+<%= render "shared/pagination", page: @page, total: @total %>
 <h2>Évolution et explication</h2>
 <% @snapshots.each do |snapshot| %>
   <details class="card"><summary>Calcul du <%= l snapshot.calculated_at, format: :short %> · <%= snapshot.result["score"] || "sans note" %> · version <%= snapshot.result["version"] %></summary>

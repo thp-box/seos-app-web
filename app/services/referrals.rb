@@ -5,12 +5,43 @@ class Referrals
 
   def self.eligible?(user)
     user.active? && user.confirmed? &&
-      ((user.created_at <= 30.days.ago && partners(user).size >= 2) || ReferralExemption.where(user: user).where("expires_at > ?", Time.current).exists?)
+      ((user.created_at <= ReferralSetting.minimum_age_days.days.ago) || ReferralExemption.where(user: user).where("expires_at > ?", Time.current).exists?)
+  end
+
+  def self.link_for!(user)
+    user.with_lock do
+      raise Exchanges::Invalid, "Votre compte doit être actif, confirmé et avoir #{ReferralSetting.minimum_age_days} jours d’ancienneté, sauf exemption administrative." unless eligible?(user)
+      ReferralLink.find_by(owner: user) || ReferralLink.create!(owner: user)
+    end
+  end
+
+  # Capturé à l’inscription, conservé en base jusqu’à la confirmation de l’e-mail.
+  def self.register_link!(user, link_id)
+    link = ReferralLink.find_by(id: link_id)
+    return unless link && link.owner_id != user.id && eligible?(link.owner)
+    user.with_lock do
+      return if user.pending_referral_link_id || Referral.exists?(referred_user: user)
+      user.update!(pending_referral_link_id: link.id)
+    end
+    activate_pending!(user) if user.confirmed?
+  end
+
+  def self.activate_pending!(user)
+    user.with_lock do
+      link = ReferralLink.find_by(id: user.pending_referral_link_id)
+      return unless link && user.active? && user.confirmed? && link.owner_id != user.id && eligible?(link.owner)
+      unless Referral.exists?(referred_user: user)
+        referral = Referral.create!(referral_link: link, referrer: link.owner, referred_user: user, position: 1,
+          primary_referrer: true, claimed_at: Time.current, objection_deadline_at: 72.hours.from_now)
+        Notification.notify!(user: link.owner, key: "referral:#{referral.id}", title: "Un nouveau filleul a confirmé son inscription. Retrouvez son suivi dans votre espace parrainage.")
+      end
+      user.update!(pending_referral_link_id: nil)
+    end
   end
 
   def self.issue!(user)
     user.with_lock do
-      raise Exchanges::Invalid, "Le parrainage demande 30 jours d’ancienneté et deux partenaires distincts." unless eligible?(user)
+      raise Exchanges::Invalid, "Le compte ne remplit pas les conditions actuelles de parrainage." unless eligible?(user)
       codes = ReferralCode.where(owner: user)
       raise Exchanges::Invalid, "Cinq codes disponibles maximum, cinq émissions par jour et une par minute." if codes.available.count >= 5 || codes.where(created_at: 24.hours.ago..).count >= 5 || codes.where(created_at: 1.minute.ago..).exists?
       raw = SecureRandom.urlsafe_base64(24)
@@ -22,6 +53,7 @@ class Referrals
   def self.claim!(user, raw_codes)
     user.with_lock do
       raise Exchanges::Invalid, "Les codes sont acceptés pendant les sept premiers jours du compte." unless user.active? && user.confirmed? && user.created_at > 7.days.ago
+      raise Exchanges::Invalid, "Votre parrain est déjà rattaché à votre inscription." if Referral.where(referred_user: user).where.not(referral_link_id: nil).exists?
       codes = raw_codes.to_s.split(/[\s,;]+/).reject(&:blank?)
       existing = Referral.where(referred_user: user)
       raise Exchanges::Invalid, "Saisissez de un à dix codes, issus de parrains distincts." if codes.empty? || existing.count + codes.size > 10

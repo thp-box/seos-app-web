@@ -50,5 +50,6 @@ class User < ApplicationRecord
 
   def after_confirmation
     update!(status: :active) if pending?
+    Referrals.activate_pending!(self) if pending_referral_link_id
   end
 end

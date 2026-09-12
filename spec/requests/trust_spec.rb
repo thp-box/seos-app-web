@@ -35,19 +35,18 @@ RSpec.describe "Parcours confiance et parrainage", type: :request do
     expect(response.body).to include("Aucun calcul disponible")
   end
 
-  it "affiche le code seulement lors de son émission, prend une objection et empêche une action étrangère" do
+  it "affiche le lien permanent, prend une objection et empêche une action étrangère" do
     sponsor = exempt_sponsor(user)
     login sponsor
     post account_trust_path, params: { operation: "issue" }
     expect(response).to have_http_status(:created)
-    raw = Nokogiri::HTML(response.body).at_css("code.trust-code").text
+    raw = Nokogiri::HTML(response.body).at_css("#personal_referral_link")["value"]
     get account_trust_path
-    expect(response.body).not_to include(raw)
+    expect(response.body).to include(raw)
     newbie = create(:profile).user
     delete destroy_user_session_path
+    Referrals.register_link!(newbie, ReferralLink.find_by!(owner: sponsor).id)
     login newbie
-    post account_trust_path, params: { operation: "claim", referral_codes: raw }
-    expect(response).to have_http_status(:see_other)
     referral = Referral.last
     post account_trust_path, params: { operation: "primary", referral_id: referral.id }
     expect(response).to have_http_status(:see_other)

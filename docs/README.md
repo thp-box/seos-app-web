@@ -121,3 +121,4 @@ Le démarrage du code doit suivre les phases et identifiants du plan feature par
 - [Création d’annonce en quatre étapes](./28-creation-annonce-maquette.md).
 
 - [Dashboard utilisateur : reprise de la maquette](29-dashboard-utilisateur-maquette.md)
+- [Parrainage : liens personnels permanents](30-parrainage-liens-permanents.md)

@@ -9,7 +9,11 @@ module Users
         resource.errors.add(:base, "Inscription impossible. Réessayez.")
         render :new, status: :unprocessable_content
       else
-        super
+        super do |user|
+          if user.persisted? && user.errors.empty?
+            Referrals.register_link!(user, session.delete(:referral_link_id))
+          end
+        end
       end
     end
 

@@ -4,7 +4,7 @@ class Achievements
     when "welcome" then PointOperation.exists?(idempotency_key: "welcome:#{user.id}") ? 1 : 0
     when "listing" then user.listings.where(status: "published").count
     when "responses" then ServiceRequest.where(requester: user, status: %w[accepted scheduled awaiting_confirmation completed]).distinct.count(:provider_id)
-    when "referral" then PointOperation.exists?(idempotency_key: "referral_quest:#{user.id}") ? 1 : 0
+    when "referral" then PointEntry.joins(:point_operation).where(point_account: PointAccount.where(user: user), point_operations: { kind: "referral_reward", status: "committed" }).exists? ? 1 : 0
     when "cycle" then Points::Rewards.transfers(user).count
     when "written", "video", "share"
       scope = PointRewardClaim.where(user: user, kind: achievement.event_name, status: "approved")

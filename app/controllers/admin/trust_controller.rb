@@ -19,6 +19,14 @@ module Admin
     def create
       raise Pundit::NotAuthorizedError unless current_user.permission?("trust.manage")
       case params[:operation]
+      when "referral_settings"
+        raise Pundit::NotAuthorizedError unless current_user.super_admin?
+        ReferralSetting.transaction do
+          setting = ReferralSetting.find_or_create_by!(id: 1)
+          previous = setting.minimum_age_days
+          setting.update!(minimum_age_days: params[:minimum_age_days])
+          AuditLog.create!(actor: current_user, target: setting, action: "referral.settings", reason: "Ancienneté minimale : #{previous} → #{setting.minimum_age_days} jours")
+        end
       when "version"
         raise Pundit::NotAuthorizedError unless current_user.super_admin?
         TrustAlgorithmVersion.transaction do
