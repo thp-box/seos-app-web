@@ -1,5 +1,6 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    layout -> { %w[edit update].include?(action_name) ? "account" : "application" }
     before_action :private_response
 
     def create

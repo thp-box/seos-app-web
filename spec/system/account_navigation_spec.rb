@@ -41,7 +41,7 @@ RSpec.describe "Sidebar du compte", type: :system do
         expect(page).to have_css('.admin-nav-group[open] a[aria-current="page"]', text: "Mes annonces")
         click_link "Mes annonces"
       end
-      visit new_account_listing_path
+      visit account_listings_path
       expect(page).to have_css('.account-sidebar .desktop-workspace-navigation .admin-nav-group[open] a[aria-current="page"]', text: "Mes annonces")
     end
   end

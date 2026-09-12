@@ -1,7 +1,7 @@
 module Account
   class ChainsController < BaseController
     def index
-      @chains = HelpChain.where(id: ChainService.where("provider_id = :id OR beneficiary_id = :id", id: current_user.id).select(:help_chain_id)).or(HelpChain.where(creator: current_user)).order(id: :desc).limit(50)
+      @chains = HelpChain.where(id: ChainService.where("provider_id = :id OR beneficiary_id = :id", id: current_user.id).select(:help_chain_id)).or(HelpChain.where(creator: current_user)).includes(:creator, chain_services: [ :provider, :beneficiary ]).order(id: :desc).limit(50)
     end
 
     def show

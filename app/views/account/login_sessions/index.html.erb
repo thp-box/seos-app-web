@@ -1,5 +1,5 @@
 <% content_for :title, "Mes sessions" %>
-<h1>Mes sessions</h1><p>Révoquez un appareil pour lui retirer l’accès à votre compte.</p>
+<%= account_page_heading "Mes sessions" %><p>Révoquez un appareil pour lui retirer l’accès à votre compte.</p>
 <% @sessions.each do |login_session| %><div class="card"><h2><%= login_session.user_agent_summary %></h2><p>Connecté le <%= l login_session.created_at, format: :short %>. Dernière activité : <%= l login_session.last_seen_at, format: :short %>.</p>
 <% if login_session == current_login_session %><p><span class="badge">Session actuelle</span></p><% end %>
 <%= button_to "Révoquer cette session", account_login_session_path(login_session), method: :delete, class: "btn btn-danger" %></div><% end %>

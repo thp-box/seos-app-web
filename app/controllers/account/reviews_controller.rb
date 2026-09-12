@@ -1,5 +1,9 @@
 module Account
   class ReviewsController < BaseController
+    def index
+      @reviews = Review.where(reviewee: current_user).revealed.includes(:author, :review_ratings, :service_request).order(created_at: :desc).limit(100)
+    end
+
     def create
       request = ServiceRequest.participating(current_user).find(params[:service_request_id])
       ratings = params.fetch(:ratings, ActionController::Parameters.new).permit(*ReviewCriterion.applicable(request, current_user).pluck(:id).map(&:to_s)).to_h

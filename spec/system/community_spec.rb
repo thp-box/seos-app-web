@@ -27,6 +27,7 @@ RSpec.describe "Interface engagement", type: :system do
     click_button "Proposer mon témoignage"
     expect(page).to have_content("Votre demande a été enregistrée.")
     visit account_chains_path
+    find("summary", text: "Commencer une chaîne").click
     fill_in "Nom de la chaîne", with: "Les voisins solidaires"
     click_button "Créer ma chaîne"
     expect(page).to have_content("Les voisins solidaires")

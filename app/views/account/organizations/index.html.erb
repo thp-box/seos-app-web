@@ -1,4 +1,4 @@
-<h1>Mes organisations</h1><p>Créez votre espace et soumettez son identité à vérification. Les missions monde seront publiées après décision du super-admin.</p>
+<%= account_page_heading "Mes organisations" %><p>Créez votre espace et soumettez son identité à vérification. Les missions monde seront publiées après décision du super-admin.</p>
 <% @organizations.each do |organization| %><div class="card"><h2><%= organization.name %></h2><p><%= network_label(organization.status) %></p><% unless organization.suspended? %><%= link_to "Ouvrir l’espace", account_organization_path(organization), class: "btn btn-outline" %><% end %></div><% end %>
 <div class="card"><h2>Demander un espace organisation</h2><%= form_with url: account_organizations_path, scope: :organization do |form| %>
 <%= input_field form, :name, "Nom public", required: true, maxlength: 150 %><%= input_field form, :slug, "Adresse courte de la fiche", required: true, pattern: "[a-z0-9]+(-[a-z0-9]+)*" %><%= select_field form, :kind, "Type", [["Association", "association"], ["Entreprise", "company"], ["Institution", "institution"], ["Collectif", "collective"]] %>

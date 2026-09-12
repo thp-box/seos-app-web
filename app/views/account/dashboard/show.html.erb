@@ -1,4 +1,14 @@
-<% content_for :title, "Mon compte" %>
-<h1>Mon compte</h1>
-<div class="card"><h2>Bienvenue dans votre espace</h2><p>Votre adresse e-mail est confirmée. Retrouvez ici vos identifiants et les appareils connectés.</p><div class="actions"><%= link_to "Mes sessions", account_login_sessions_path, class: "btn btn-deep" %><%= link_to "Mes identifiants", edit_user_registration_path, class: "btn btn-outline" %></div></div>
-<% if @organizations.any? %><div class="card"><h2>Mes organisations</h2><ul><% @organizations.each do |organization| %><li><%= link_to organization.name, organization_dashboard_path(organization_slug: organization.slug) %></li><% end %></ul></div><% end %>
+<% content_for :title, "Votre activité" %>
+<%= account_page_heading "Votre activité", eyebrow: "Tableau de bord" do %><%= link_to "+ Publier une annonce", new_account_listing_path, class: "btn btn-primary" %><% end %>
+<div class="account-summary-grid">
+  <section class="card account-wallet-tile"><p>Mon portefeuille</p><strong class="account-balance"><%= @account&.balance || 0 %> PS</strong><p>Votre solde disponible pour les échanges.</p><%= link_to "Gagner des points", account_community_path, class: "btn btn-outline" %></section>
+  <section class="card"><p>Votre niveau</p><h2>Membre <%= account_level_name(@level) %></h2><% if @next_level.to_i.positive? %><progress aria-label="Progression vers le prochain niveau" max="<%= @next_level %>" value="<%= [@completed, @next_level].min %>"></progress><p class="account-muted"><%= @level == "gold" ? "Plus haut niveau atteint" : "#{@completed} / #{@next_level} échanges en Points Services" %></p><% else %><p>Votre parcours commence ici.</p><% end %><%= link_to "Comprendre mon niveau", account_points_path %></section>
+  <section class="card"><p>Gardons le lien</p><% if @request %><h2><%= @request.listing.title %></h2><p>Avec <%= public_name @request.other(current_user) %> · <%= human_value @request.current_status %></p><%= link_to "Ouvrir mon échange", account_service_request_path(@request), class: "btn btn-outline" %><% else %><h2>Votre premier échange</h2><p>Trouvez une offre ou un besoin dans la communauté.</p><%= link_to "Voir les annonces", listings_path, class: "btn btn-outline" %><% end %></section>
+</div>
+<section class="card account-chain-banner">
+  <div class="account-section-heading"><div><p>La chaîne d’entraide</p><h2><%= @chain&.name || "Un petit geste peut aller loin" %></h2></div><%= link_to(@chain ? "Voir la chaîne complète →" : "Démarrer une chaîne", @chain ? account_chain_path(@chain) : account_chains_path, class: "btn btn-outline") %></div>
+  <% if @chain %><p><%= @chain.chain_services.where(status: "confirmed").count %> services confirmés dans cette chaîne</p><% end %>
+  <% if @services.any? %><div class="account-chain-members"><% @services.each do |service| %><span><b><%= public_name(service.provider).first.upcase %></b><%= public_name service.provider %><small><%= community_status(service.status) %></small></span><% end %></div><% else %><p>Aidez une personne, qui pourra à son tour transmettre ce coup de main.</p><% end %>
+</section>
+<section class="card"><div class="account-section-heading"><h2>Activité récente</h2><%= link_to "Mon portefeuille", account_points_path, class: "btn btn-outline" %></div><%= render "account/shared/ledger", entries: @entries %></section>
+<% if @organizations.any? %><section class="card"><h2>Mes organisations</h2><div class="actions"><% @organizations.each do |organization| %><%= link_to organization.name, organization_dashboard_path(organization_slug: organization.slug), class: "btn btn-outline" %><% end %></div></section><% end %>

@@ -1,0 +1,3 @@
+<%= account_page_heading "Avis reçus", eyebrow: "Vos échanges, leurs retours" %>
+<p>Les avis apparaissent après les deux réponses ou après le délai de révélation de 14 jours.</p>
+<section class="card account-reviews"><% @reviews.each do |review| %><div><%= render "shared/review", review: review %><%= link_to "Voir l’échange et répondre", account_service_request_path(review.service_request), class: "btn btn-outline" %></div><% end %><% if @reviews.empty? %><p class="account-empty">Vous n’avez pas encore d’avis révélé. Ils seront regroupés ici après vos échanges.</p><% end %></section>

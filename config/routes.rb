@@ -61,7 +61,7 @@ Rails.application.routes.draw do
       resources :messages, only: :create
       resources :reviews, only: :create
     end
-    resources :reviews, only: :update
+    resources :reviews, only: [ :index, :update ]
     resources :notifications, only: [ :index, :update ] do
       patch :preferences, on: :collection
     end

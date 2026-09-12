@@ -13,6 +13,7 @@ module Account
       redirect_to account_service_request_path(request), notice: "Demande envoyée.", status: :see_other
     end
     def show
+      @conversations = ServiceRequest.participating(current_user).includes(:listing, :provider, :requester).order(updated_at: :desc).limit(30)
       @messages = @request.messages.where(removed_at: nil).includes(:sender).order(:created_at)
       @messages.where.not(sender: current_user).where(read_at: nil).update_all(read_at: Time.current)
       @events = @request.request_events.order(:created_at)

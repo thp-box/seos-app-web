@@ -7,7 +7,8 @@ module AccountNavigationHelper
       ] ],
       [ "Annonces et échanges", [
         [ "Mes annonces", account_listings_path, %w[account/listings] ],
-        [ "Mes échanges", account_service_requests_path, %w[account/service_requests account/messages account/reviews] ],
+        [ "Mes échanges", account_service_requests_path, %w[account/service_requests account/messages] ],
+        [ "Avis reçus", account_reviews_path, %w[account/reviews] ],
         [ "Mes favoris", account_favorites_path, %w[account/favorites] ]
       ] ],
       [ "Entraide et points", [

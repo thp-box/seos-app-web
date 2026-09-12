@@ -10,18 +10,18 @@ RSpec.describe "Portefeuille et administration des points", type: :request do
     expect(response).to redirect_to(new_user_session_path)
     login user
     get account_points_path
-    expect(response.body).to include("0 Points Services", "Valider mon accueil")
+    expect(response.body).to include("0 PS", "Valider mon accueil")
     post account_points_path, params: { operation: "welcome", user_id: admin.id, amount: 9000 }
     expect(response).to have_http_status(:see_other)
     get account_points_path
-    expect(response.body).to include("30 Points Services", "Quête d’accueil terminée")
+    expect(response.body).to include("30 PS", "Quête d’accueil terminée")
     expect(response.headers["Cache-Control"]).to include("no-store")
     expect(response.body).not_to include("Valider mon accueil")
     expect(PointAccount.find_by(user: admin)).to be_nil
     post account_points_path, params: { operation: "welcome" }
     expect(PointAccount.for!(user).balance).to eq(30)
     get account_points_path(user_id: admin.id, page: 2)
-    expect(response.body).to include("30 Points Services")
+    expect(response.body).to include("30 PS")
     post account_points_path, params: { operation: "buy" }
     expect(response).to have_http_status(:unprocessable_content)
     delete destroy_user_session_path
@@ -57,7 +57,7 @@ RSpec.describe "Portefeuille et administration des points", type: :request do
     get account_service_request_path(request)
     expect(response.body).to include("Transfert enregistré")
     get account_points_path
-    expect(response.body).to include("20 Points Services", "Transfert de 20 PS", "Voir mon échange")
+    expect(response.body).to include("20 PS", "Transfert de 20 PS", "Voir mon échange")
   end
 
   it "vérifie la preuve sans accepter un montant fourni par le membre et protège sa confidentialité" do
@@ -76,7 +76,7 @@ RSpec.describe "Portefeuille et administration des points", type: :request do
     delete destroy_user_session_path
     login user
     get account_points_path
-    expect(response.body).to include("10 Points Services", "Publication et contexte vérifiés")
+    expect(response.body).to include("10 PS", "Publication et contexte vérifiés")
     get profile_path(user.profile)
     expect(response.body).not_to include("Texte confidentiel du témoignage", "Publication et contexte vérifiés")
   end

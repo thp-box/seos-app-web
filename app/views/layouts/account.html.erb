@@ -1,10 +1,10 @@
 <% content_for :workspace do %>
-  <div class="container dashboard">
+  <div class="container dashboard account-dashboard">
     <aside class="side-menu admin-sidebar account-sidebar" aria-label="Espace personnel">
       <details class="mobile-workspace-navigation"><summary>Navigation de mon compte</summary><%= render "account/shared/navigation", accordion_name: "account-navigation-mobile" %></details>
       <div class="desktop-workspace-navigation"><%= render "account/shared/navigation", accordion_name: "account-navigation-desktop" %></div>
     </aside>
-    <main class="workspace" id="main-content" tabindex="-1"><%= yield %></main>
+    <main class="workspace account-workspace" id="main-content" tabindex="-1"><%= yield %></main>
   </div>
 <% end %>
 <%= render template: "layouts/application" %>

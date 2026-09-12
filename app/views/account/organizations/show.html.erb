@@ -1,5 +1,5 @@
 <div class="community-page network-workspace">
-<h1><%= @organization.name %></h1><p><%= network_label(@organization.status) %> · <%= @organization.published_at ? "Fiche publique publiée" : "Présentation en préparation" %></p>
+<%= account_page_heading @organization.name, eyebrow: "Mon organisation" %><p><%= network_label(@organization.status) %> · <%= @organization.published_at ? "Fiche publique publiée" : "Présentation en préparation" %></p>
 <% access = OrganizationPolicy.new(current_user, @organization) %>
 <div class="card"><h2>Présentation de l’organisation</h2><%= form_with model: @organization, url: account_organization_path(@organization), multipart: true do |form| %><%= hidden_field_tag :operation, "profile", id: nil %><%= form.hidden_field :lock_version %><%= input_field form, :name, "Nom public", required: true %><%= input_field form, :description, "Présentation publique", type: :text_area, required: true %><%= input_field form, :public_location, "Ville ou région publique" %>
 <% if access.owner? %><%= input_field form, :legal_name, "Dénomination légale (privée)" %><%= input_field form, :registration_number, "Numéro d’enregistrement (privé)" %><%= input_field form, :legal_email, "E-mail légal (privé)", type: :email_field %><% end %>

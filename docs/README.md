@@ -119,3 +119,5 @@ Le démarrage du code doit suivre les phases et identifiants du plan feature par
 - [Navigation et catalogue alignés sur la maquette](./27-navigation-et-catalogue-maquette.md).
 
 - [Création d’annonce en quatre étapes](./28-creation-annonce-maquette.md).
+
+- [Dashboard utilisateur : reprise de la maquette](29-dashboard-utilisateur-maquette.md)

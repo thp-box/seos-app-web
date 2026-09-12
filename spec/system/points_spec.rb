@@ -11,13 +11,14 @@ RSpec.describe "Interface Points Services", type: :system do
     expect(page).to have_current_path(account_root_path)
     visit account_points_path
     click_button "Valider mon accueil"
-    expect(page).to have_content("30 Points Services")
+    expect(page).to have_content("30 PS")
     [ 375, 1440 ].each do |width|
       resize_viewport(width)
       expect(page.evaluate_script("document.documentElement.scrollWidth <= window.innerWidth")).to be(true)
       expect(page).to be_axe_clean.according_to(:wcag2a, :wcag2aa, :wcag21aa, :wcag22aa)
       page.save_screenshot(Rails.root.join("tmp/screenshots/points-wallet-#{width}.png"))
     end
+    find("summary", text: "Soumettre une preuve de quête").click
     select "Partage mensuel de SEOS", from: "Quête"
     fill_in "Preuve et contexte (privés, sans coordonnées de tiers)", with: "Publication de présentation du projet dans mon quartier."
     click_button "Demander la validation"
