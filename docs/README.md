@@ -117,3 +117,5 @@ Le démarrage du code doit suivre les phases et identifiants du plan feature par
 - [Quêtes visuelles et configuration](./26-quetes-visuelles.md) — cartes, progression, apparence et aperçu admin.
 
 - [Navigation et catalogue alignés sur la maquette](./27-navigation-et-catalogue-maquette.md).
+
+- [Création d’annonce en quatre étapes](./28-creation-annonce-maquette.md).

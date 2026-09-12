@@ -10,6 +10,7 @@
 @import "./components/site_editor.css";
 @import "./components/quests.css";
 @import "./components/catalogue.css";
+@import "./components/listing_wizard.css";
 .studio-motion { animation: studio-breathe 8s ease-in-out infinite alternate; }
 @keyframes studio-breathe { to { opacity: .65; } }
 @media (prefers-reduced-motion: reduce) { .studio-motion { animation: none; } }

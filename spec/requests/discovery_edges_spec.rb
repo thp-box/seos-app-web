@@ -22,9 +22,9 @@ RSpec.describe "Limites d’accès et transitions de découverte", type: :reques
     login listing.user
     patch transition_account_listing_path(listing), params: { event: "publish" }
     expect(response).to have_http_status(:unprocessable_content)
-    patch account_listing_path(listing, step: 2), params: { listing: { title: "x" * 121 } }
+    patch account_listing_path(listing, step: 3), params: { listing: { title: "x" * 121 } }
     expect(response).to have_http_status(:unprocessable_content)
-    patch account_listing_path(listing, step: 2), params: { listing: { title: "Titre valide", lock_version: -1 } }
+    patch account_listing_path(listing, step: 3), params: { listing: { title: "Titre valide", lock_version: -1 } }
     expect(response).to have_http_status(:unprocessable_content)
     expect(response.body).to include("Ces informations ont changé")
     listing.update!(status: :closed)

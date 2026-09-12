@@ -13,13 +13,14 @@ RSpec.describe "Parcours de découverte et d’échange", type: :system do
     create(:category, name: "Informatique")
     sign_in_browser member
     visit new_account_listing_path
+    click_button "Continuer →"
+    expect(page).to have_content("Comment souhaitez-vous échanger")
+    click_button "Continuer →"
     select "Informatique", from: "Catégorie"
     select "À distance", from: "Comment se déroule le service ?"
-    click_button "Enregistrer et continuer"
     fill_in "Titre", with: "Apprendre à utiliser un ordinateur"
     fill_in "Description publique sans coordonnées", with: "Un atelier patient pour découvrir les outils numériques."
-    click_button "Enregistrer et continuer"
-    click_button "Enregistrer et continuer"
+    click_button "Continuer →"
     check "Les informations publiques et les photos ne contiennent pas mes coordonnées privées."
     click_button "Publier mon annonce"
     expect(page).to have_content("Publié")

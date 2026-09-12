@@ -61,7 +61,9 @@ RSpec.describe "Découverte, publication et confidentialité", :"F-011", :"F-013
     post account_listings_path(step: 1), params: { listing: { category_id: listing.category_id, intent: "offer", exchange_mode: "gift", service_location_mode: "remote", user_id: owner.id, status: "published" } }
     draft = member.listings.last
     expect(draft).to be_draft
-    patch account_listing_path(draft, step: 2), params: { listing: { title: "Cours de français", description: "Nous pratiquons la conversation ensemble.", lock_version: draft.lock_version } }
+    patch account_listing_path(draft, step: 2), params: { listing: { exchange_mode: "gift" } }
+    draft.reload
+    patch account_listing_path(draft, step: 3), params: { listing: { category_id: listing.category_id, service_location_mode: "remote", title: "Cours de français", description: "Nous pratiquons la conversation ensemble.", lock_version: draft.lock_version } }
     expect(response).to have_http_status(:see_other)
     get edit_account_listing_path(draft, step: 4)
     expect(response.body).to include("Cours de français")

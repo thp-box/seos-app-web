@@ -9,3 +9,5 @@ import QuestPreviewController from "./quest_preview_controller"
 application.register("quest-preview", QuestPreviewController)
 import CatalogueController from "./catalogue_controller"
 application.register("catalogue", CatalogueController)
+import ListingWizardController from "./listing_wizard_controller"
+application.register("listing-wizard", ListingWizardController)
