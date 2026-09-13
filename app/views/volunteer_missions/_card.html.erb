@@ -6,5 +6,6 @@
     <strong><%= mission.daily_contribution_points %> PS / jour</strong>
     <p class="travel-inclusions"><%= mission.accommodation %> · <%= mission.meals %></p>
     <small><%= mission.organization.name %></small>
+    <% if local_assigns[:show_action] %><%= link_to "Découvrir la mission →", volunteer_mission_path(mission), class: "btn btn-deep", aria: { label: "Découvrir la mission : #{mission.title}" } %><% end %>
   </div>
 </article>

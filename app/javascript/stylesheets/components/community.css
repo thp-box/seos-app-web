@@ -12,3 +12,74 @@
 .maquette-surface .community-support .support-grid>div:first-child :is(h2,p,.eyebrow){color:var(--white)}
 
 .maquette-surface :is(.community-app,.community-associations) .eyebrow,.maquette-surface .community-association-panel p{color:var(--deep)}
+
+.association-directory { padding-top: 48px; padding-bottom: 80px; }
+.association-directory-heading { max-width: 720px; margin-bottom: 32px; }
+.association-directory-heading h2 { font-size: clamp(1.8rem,3vw,2.6rem); margin-bottom: 14px; }
+.association-directory-heading p { color: var(--muted); }
+.association-directory-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; align-items: start; }
+.association-directory-list { display: grid; gap: 24px; min-width: 0; }
+.association-directory-card { padding: 30px; background: var(--white); border: 1px solid var(--line); border-radius: 28px; box-shadow: 0 12px 35px #00496109; }
+.association-card-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
+.association-card-logo { display: grid; place-items: center; width: 80px; height: 80px; flex-shrink: 0; background: var(--mist); border-radius: 24px 24px 24px 8px; color: var(--deep); font-size: 1.65rem; font-weight: 700; }
+.association-card-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: inherit; }
+.association-verified { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 30px; background: var(--mist); color: var(--deep); font-size: .78rem; font-weight: 700; }
+.association-directory-card h3 { font-size: clamp(1.55rem,2.4vw,2rem); line-height: 1.2; margin-bottom: 12px; overflow-wrap: anywhere; }
+.association-directory-card h3 a { text-decoration: none; }
+.association-directory-card h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.association-location { display: flex; gap: 7px; align-items: center; color: var(--deep); font-size: .9rem; margin-bottom: 18px; }
+.association-description { color: var(--muted); line-height: 1.75; }
+.association-card-footer { border-top: 1px solid var(--line); padding-top: 22px; margin-top: 24px; }
+.association-card-footer .btn { gap: 18px; }
+.association-join { background: var(--deep); color: var(--white); padding: 32px; border-radius: 28px 28px 64px 28px; }
+.association-join .eyebrow { color: #b6e6ec; font-size: .65rem; }
+.association-join h2 { color: var(--white); font-size: 2.05rem; line-height: 1.15; margin-top: 20px; }
+.association-join p { color: #d5e8ed; font-size: .95rem; }
+.association-join .btn { width: 100%; font-size: .87rem; white-space: normal; text-align: center; }
+.association-travel-link { display: block; color: var(--white); margin-top: 18px; font-size: .85rem; padding-block: 8px; }
+.association-directory-empty { border: 1px dashed var(--line); border-radius: 28px; padding: 36px; background: var(--white); }
+@media (max-width: 860px) { .association-directory-layout { grid-template-columns: minmax(0,1fr); } }
+@media (max-width: 480px) {
+  .association-directory-card { padding: 22px; }
+  .association-card-logo { width: 64px; height: 64px; }
+  .association-verified { font-size: .7rem; padding: 6px 9px; }
+  .association-join { padding: 26px; }
+  .association-card-footer .btn { width: 100%; font-size: .85rem; }
+}
+
+.association-profile { padding-bottom: 80px; }
+.association-breadcrumb { padding-block: 22px 30px; font-size: .9rem; }
+.association-breadcrumb a { display: inline-block; padding-block: 8px; text-decoration: none; }
+.association-breadcrumb a:hover { text-decoration: underline; }
+.association-presentation { display: grid; grid-template-columns: 240px minmax(0,1fr); gap: 40px; padding: 36px; border: 1px solid var(--line); border-radius: 30px; background: var(--white); box-shadow: 0 12px 35px #00496109; }
+.association-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; border-right: 1px solid var(--line); padding-right: 24px; }
+.association-identity .association-card-logo { width: 96px; height: 96px; }
+.association-identity p { margin: 0; color: var(--muted); font-size: .9rem; }
+.association-about h2,.association-missions h2 { font-size: clamp(1.8rem,3vw,2.6rem); line-height: 1.15; }
+.association-about p { color: var(--muted); line-height: 1.8; overflow-wrap: anywhere; }
+.association-about p:last-child { margin-bottom: 0; }
+.association-missions { margin-top: 60px; }
+.association-missions-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+.association-missions-heading h2 { margin-bottom: 0; }
+.association-mission-count { border-radius: 24px; padding: 8px 14px; background: var(--mist); color: var(--deep); font-size: .85rem; white-space: nowrap; }
+.association-mission-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+.association-profile .travel-card { display: flex; flex-direction: column; overflow: hidden; border-radius: 26px; border: 1px solid var(--line); background: var(--white); box-shadow: 0 12px 30px #00496109; }
+.association-profile .travel-card .photo { height: 220px; overflow: hidden; background: var(--mist); }
+.association-profile .travel-card .photo img { width: 100%; height: 100%; object-fit: cover; }
+.association-profile .travel-card .body { display: flex; flex-direction: column; gap: 12px; padding: 24px; flex: 1; }
+.association-profile .travel-card .ad-category { color: var(--deep); font-size: .73rem; letter-spacing: .03em; }
+.association-profile .travel-card h3 { font-size: 1.5rem; line-height: 1.2; margin: 0; }
+.association-profile .travel-card h3 a { text-decoration: none; }
+.association-profile .travel-card h3 a:hover { text-decoration: underline; }
+.association-profile .travel-card p { color: var(--muted); font-size: .9rem; margin: 0; }
+.association-profile .travel-card strong { color: var(--deep); }
+.association-profile .travel-card small { color: var(--muted); margin-bottom: 8px; }
+.association-profile .travel-card .btn { margin-top: auto; font-size: .85rem; }
+@media (max-width: 960px) { .association-mission-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 640px) {
+  .association-presentation { grid-template-columns: minmax(0,1fr); padding: 24px; gap: 26px; }
+  .association-identity { border-right: 0; border-bottom: 1px solid var(--line); padding: 0 0 24px; }
+  .association-mission-grid { grid-template-columns: minmax(0,1fr); }
+  .association-missions-heading { align-items: flex-start; flex-direction: column; }
+  .association-profile .travel-card .photo { height: 210px; }
+}

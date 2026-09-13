@@ -1,1 +1,33 @@
-<section class="container section prose"><h1>Association</h1><%= render "profile", organization: @organization %><h2>Ses missions solidaires</h2><% @missions.each do |mission| %><%= render "volunteer_missions/card", mission: mission %><% end %></section>
+<%= render "shared/public_hero", eyebrow: "Association vérifiée", title: @organization.name, description: @organization.public_location %>
+<div class="container association-profile">
+  <nav class="association-breadcrumb" aria-label="Fil d’Ariane"><%= link_to "← Toutes les associations", associations_path %></nav>
+  <section class="association-presentation" aria-labelledby="association-about">
+    <div class="association-identity">
+      <div class="association-card-logo">
+        <% if @organization.logo.attached? %>
+          <%= image_tag media_path(@organization.logo.attachment), alt: "Logo de #{@organization.name}", width: 96, height: 96 %>
+        <% else %>
+          <span aria-hidden="true"><%= @organization.name.split.first(2).map { |word| word.first }.join.upcase %></span>
+        <% end %>
+      </div>
+      <span class="association-verified"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 12 2 2 4-4"/><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/></svg>Association vérifiée</span>
+      <% if @organization.public_location.present? %><p><%= @organization.public_location %></p><% end %>
+    </div>
+    <div class="association-about">
+      <span class="eyebrow">Faire connaissance</span>
+      <h2 id="association-about">À propos de l’association</h2>
+      <%= plain_paragraphs(@organization.description) %>
+    </div>
+  </section>
+  <section class="association-missions" aria-labelledby="association-missions-title">
+    <div class="association-missions-heading">
+      <div><span class="eyebrow">Passer à l’action</span><h2 id="association-missions-title">Ses missions solidaires</h2></div>
+      <% if @missions.any? %><span class="association-mission-count"><%= @missions.size %> <%= @missions.size > 1 ? "missions à découvrir" : "mission à découvrir" %></span><% end %>
+    </div>
+    <% if @missions.any? %>
+      <div class="association-mission-grid"><% @missions.each do |mission| %><%= render "volunteer_missions/card", mission: mission, show_action: true %><% end %></div>
+    <% else %>
+      <div class="association-directory-empty"><h3>Les prochains projets se préparent.</h3><p>Aucune mission n’est publiée pour le moment.</p><%= link_to "Découvrir les autres associations →", associations_path, class: "btn btn-deep" %></div>
+    <% end %>
+  </section>
+</div>
