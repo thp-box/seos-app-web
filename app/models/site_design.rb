@@ -3,7 +3,12 @@ class SiteDesign
   SOURCE = Rails.root.join("config/studio/maquette.json")
   CHROME = {
     "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "La communauté", "url" => "/communaute" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
-    "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "Les petits gestes font les grands liens.", "description" => "L’entraide locale, en France.", "links" => [ { "label" => "Contact", "url" => "/contact" }, { "label" => "Don", "url" => "/decouvrir/don" }, { "label" => "Échange", "url" => "/decouvrir/echange" }, { "label" => "Points Services", "url" => "/decouvrir/points" }, { "label" => "Le journal", "url" => "/journal" } ] }
+    "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "La communauté francophone d’entraide et d’échange de services.", "description" => "", "links" => [
+      { "label" => "Le concept", "url" => "/decouvrir/fonctionnement" }, { "label" => "Les annonces", "url" => "/annonces" }, { "label" => "Chaîne d’entraide", "url" => "/#site-section-home-4" },
+      { "label" => "Publier", "url" => "/compte/annonces/new" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" }, { "label" => "Mon espace", "url" => "/compte" },
+      { "label" => "Sécurité", "url" => "/confiance" }, { "label" => "Règles et CGU", "url" => "/legal/cgu" }, { "label" => "Centre légal", "url" => "/legal" },
+      { "label" => "Mentions légales", "url" => "/legal/mentions-legales" }, { "label" => "Confidentialité & RGPD", "url" => "/legal/confidentialite" }, { "label" => "Cookies", "url" => "/legal/cookies" }, { "label" => "Gérer mes cookies", "url" => "/preferences-confidentialite" }
+    ] }
   }.freeze
   def self.reference = @reference ||= JSON.parse(SOURCE.read)
   def self.templates
@@ -46,7 +51,7 @@ class SiteDesign
       return false unless chrome.is_a?(Hash) && (chrome.keys - CHROME.fetch(area).keys).empty?
       return false unless chrome.all? { |key, value| case key
                                                      when "logo" then image?(value)
-                                                     when "links" then value.is_a?(Array) && value.size <= 12 && value.all? { |link| link.is_a?(Hash) && link.keys.sort == %w[label url] && text?(link["label"]) && link["label"].present? && safe_url?(link["url"]) }
+                                                     when "links" then value.is_a?(Array) && value.size <= 24 && value.all? { |link| link.is_a?(Hash) && link.keys.sort == %w[label url] && text?(link["label"]) && link["label"].present? && safe_url?(link["url"]) }
                                                      else text?(value)
                                                      end }
       return false if chrome.any? { |key, value| key.end_with?("_label") && value.blank? }
@@ -100,6 +105,9 @@ class SiteDesign
       end
     end
     result
+  end
+  def self.home_page
+    { "title" => "Accueil", "blocks" => 11.times.map { |index| { "id" => "home-#{index}", "template" => "home-#{index}", "values" => {} } } }
   end
   def self.default_page(slug)
     if slug == "voyage-solidaire"

@@ -76,6 +76,8 @@ module SiteHelper
     doc = Nokogiri::HTML.fragment(html)
     doc.css("h1").each { |node| node.name = "h2" } if secondary_heading
     if block
+      doc.css(".yoga-separator").remove
+      doc.css(".hero-organic-cut,.page-hero-organic-cut,.public-hero-wave,.hero-wave").remove if block.key?("separator")
       fields = SiteDesign.templates.fetch(block["template"]).fetch("fields")
       values = fields.transform_values { |field| field["default"] }.merge(block["values"])
       doc.css("[data-field]").each do |node|
@@ -98,7 +100,7 @@ module SiteHelper
     doc.css("img").each { |node| node["src"] = site_image_path(node["src"]); node["loading"] = "lazy" }
     slots = { "home-2" => [ ".category-grid", "categories" ], "home-3" => [ ".ad-grid", "listings" ], "home-6" => [ ".testimonial-grid", "testimonials" ] }
     if block && (slot = slots[block["template"]])
-      doc.at_css(slot.first).inner_html = render("site/#{slot.last}")
+      doc.at_css(slot.first).inner_html = render("site/#{slot.last}", section_values: values)
     end
     if block && block["template"] == "travel-missions"
       doc.at_css(".travel-missions-slot").inner_html = render("volunteer_missions/catalogue", values: values, block_id: block["id"])

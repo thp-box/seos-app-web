@@ -1,5 +1,5 @@
 # Les identifiants de démonstration sont réservés au développement.
-# SEOS Default v1 reste la référence de code, sans variante publiée par les seeds.
+# En développement, les seeds assemblent la home de la maquette sans remplacer une home personnalisée.
 if Rails.env.development?
   ApplicationRecord.transaction do
     {
@@ -48,3 +48,6 @@ load Rails.root.join("db/network_seeds.rb")
 load Rails.root.join("db/launch_seeds.rb")
 
 load Rails.root.join("db/travel_seeds.rb")
+
+load Rails.root.join("db/studio_home_seeds.rb")
+load Rails.root.join("db/home_category_seeds.rb")

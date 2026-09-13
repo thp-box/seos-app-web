@@ -68,7 +68,7 @@ module Admin
         raise Exchanges::Invalid, "Zone inconnue" unless %w[header footer].include?(area)
         fields = params.require(:chrome).permit(:logo, :alt, :title, :description, :mobile_join_label, :join_label, :login_label, :account_label).to_h
         fields = fields.slice(*SiteDesign::CHROME.fetch(area).keys)
-        fields["links"] = params.fetch(:links, ActionController::Parameters.new).permit(**12.times.to_h { |i| [ i.to_s, %w[label url] ] }).to_h.values.map { |link| link.slice("label", "url") }.reject { |link| link.values.all?(&:blank?) }
+        fields["links"] = params.fetch(:links, ActionController::Parameters.new).permit(**24.times.to_h { |i| [ i.to_s, %w[label url] ] }).to_h.values.map { |link| link.slice("label", "url") }.reject { |link| link.values.all?(&:blank?) }
         data[area] = fields
       when "tokens"
         tokens = params.require(:tokens).permit(*(StudioVersion::COLORS.keys + StudioVersion::OPTIONS.keys)).to_h.reject { |_key, value| value.blank? }

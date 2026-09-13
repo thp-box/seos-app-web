@@ -282,7 +282,7 @@
     },
     "home-2": {
       "name": "Parcourez les catégories",
-      "html": "<section class=\"section soft\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Explorer</span></span><h2><span data-field=\"text-1\">Parcourez les catégories</span></h2>\n</div>\n<p><span data-field=\"text-2\">Des besoins du quotidien aux savoir-faire créatifs, trouvez rapidement les personnes qui peuvent vous aider.</span></p>\n</div>\n<div class=\"category-grid\" id=\"categoryGrid\"></div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--seos)\"></rect><path class=\"wave-melt-outer\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z\"></path></svg></div>",
+      "html": "<section class=\"section soft\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Explorer</span></span><h2><span data-field=\"text-1\">Parcourez les catégories</span></h2>\n</div>\n<p><span data-field=\"text-2\">Des besoins du quotidien aux savoir-faire créatifs, trouvez rapidement les personnes qui peuvent vous aider.</span></p>\n</div>\n<template><img data-image=\"image-0\" data-alt=\"alt-0\" src=\"maquette/photo-1516589178581-6cd7833ae3b28b76327b.jpg\" alt=\"aide-a-la-personne\"></template><template><img data-image=\"image-1\" data-alt=\"alt-1\" src=\"maquette/photo-1504148455328-c376907d081cef2fbe26.jpg\" alt=\"bricolage\"></template><template><img data-image=\"image-2\" data-alt=\"alt-2\" src=\"maquette/photo-1516321318423-f06f85e504b3f27a878f.jpg\" alt=\"informatique\"></template><template><img data-image=\"image-3\" data-alt=\"alt-3\" src=\"maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg\" alt=\"jardinage\"></template><template><img data-image=\"image-4\" data-alt=\"alt-4\" src=\"maquette/photo-1522202176988-66273c2fd55f262793d0.jpg\" alt=\"apprentissage\"></template><template><img data-image=\"image-5\" data-alt=\"alt-5\" src=\"maquette/photo-1510915361894-db8b60106cb1a1db45e8.jpg\" alt=\"services-creatifs\"></template><template><img data-image=\"image-6\" data-alt=\"alt-6\" src=\"maquette/photo-1518611012118-696072aa579aab892ec2.jpg\" alt=\"bien-etre\"></template><template><img data-image=\"image-7\" data-alt=\"alt-7\" src=\"maquette/photo-1502741338009-cac2772e18bc44ecc9fd.jpg\" alt=\"transport\"></template><div class=\"category-grid\" id=\"categoryGrid\"></div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--seos)\"></rect><path class=\"wave-melt-outer\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z\"></path></svg></div>",
       "fields": {
         "text-0": {
           "type": "text",
@@ -298,6 +298,86 @@
           "type": "text",
           "label": "Des besoins du quotidien aux savoir-faire créatifs, trouvez rapid",
           "default": "Des besoins du quotidien aux savoir-faire créatifs, trouvez rapidement les personnes qui peuvent vous aider."
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Image : aide-a-la-personne",
+          "default": "maquette/photo-1516589178581-6cd7833ae3b28b76327b.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description : aide-a-la-personne",
+          "default": "aide a la personne"
+        },
+        "image-1": {
+          "type": "image",
+          "label": "Image : bricolage",
+          "default": "maquette/photo-1504148455328-c376907d081cef2fbe26.jpg"
+        },
+        "alt-1": {
+          "type": "text",
+          "label": "Description : bricolage",
+          "default": "bricolage"
+        },
+        "image-2": {
+          "type": "image",
+          "label": "Image : informatique",
+          "default": "maquette/photo-1516321318423-f06f85e504b3f27a878f.jpg"
+        },
+        "alt-2": {
+          "type": "text",
+          "label": "Description : informatique",
+          "default": "informatique"
+        },
+        "image-3": {
+          "type": "image",
+          "label": "Image : jardinage",
+          "default": "maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg"
+        },
+        "alt-3": {
+          "type": "text",
+          "label": "Description : jardinage",
+          "default": "jardinage"
+        },
+        "image-4": {
+          "type": "image",
+          "label": "Image : apprentissage",
+          "default": "maquette/photo-1522202176988-66273c2fd55f262793d0.jpg"
+        },
+        "alt-4": {
+          "type": "text",
+          "label": "Description : apprentissage",
+          "default": "apprentissage"
+        },
+        "image-5": {
+          "type": "image",
+          "label": "Image : services-creatifs",
+          "default": "maquette/photo-1510915361894-db8b60106cb1a1db45e8.jpg"
+        },
+        "alt-5": {
+          "type": "text",
+          "label": "Description : services-creatifs",
+          "default": "services creatifs"
+        },
+        "image-6": {
+          "type": "image",
+          "label": "Image : bien-etre",
+          "default": "maquette/photo-1518611012118-696072aa579aab892ec2.jpg"
+        },
+        "alt-6": {
+          "type": "text",
+          "label": "Description : bien-etre",
+          "default": "bien etre"
+        },
+        "image-7": {
+          "type": "image",
+          "label": "Image : transport",
+          "default": "maquette/photo-1502741338009-cac2772e18bc44ecc9fd.jpg"
+        },
+        "alt-7": {
+          "type": "text",
+          "label": "Description : transport",
+          "default": "transport"
         }
       }
     },
@@ -329,7 +409,7 @@
     },
     "home-4": {
       "name": "Votre coup de main déclenche une chaîne\n",
-      "html": "<section class=\"section soft\"><div class=\"container chain-home\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Le cœur du modèle</span></span><h2>\n<span data-field=\"text-1\">Votre coup de main déclenche une </span><span class=\"accent\"><span data-field=\"text-2\">chaîne</span></span>\n</h2>\n<p><span data-field=\"text-3\">La chaîne d’entraide est distincte des annonces : vous pouvez aider une personne de votre entourage, même si elle n’est pas encore membre. Elle valide le service grâce à votre lien, puis aide quelqu’un à son tour.</span></p>\n<p><strong><span data-field=\"text-4\">Chaque validation rapporte 10 PS aux dix derniers membres, dans la limite de 100 PS par personne.</span></strong></p>\n<a class=\"btn btn-deep\" href=\"/decouvrir/fonctionnement\" data-link=\"link-0\"><span data-field=\"text-5\">Comprendre la chaîne d’entraide →</span></a>\n</div>\n<div>\n\n\n</div>\n</div></section><div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--deep)\"></rect><path class=\"wave-melt-outer\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116 L1440 170 L0 170 Z\"></path></svg></div>",
+      "html": "<section class=\"section soft\"><div class=\"container chain-home\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Le cœur du modèle</span></span><h2>\n<span data-field=\"text-1\">Votre coup de main déclenche une </span><span class=\"accent\"><span data-field=\"text-2\">chaîne</span></span>\n</h2>\n<p><span data-field=\"text-3\">La chaîne d’entraide est distincte des annonces : vous pouvez aider une personne de votre entourage, même si elle n’est pas encore membre. Elle valide le service grâce à votre lien, puis aide quelqu’un à son tour.</span></p>\n<p><strong><span data-field=\"text-4\">Chaque validation rapporte 10 PS aux dix derniers membres, dans la limite de 100 PS par personne.</span></strong></p>\n<a class=\"btn btn-deep\" href=\"/decouvrir/fonctionnement\" data-link=\"link-0\"><span data-field=\"text-5\">Comprendre la chaîne d’entraide →</span></a>\n</div>\n<div class=\"chain-example\"><span class=\"chain-example-label\" data-field=\"example-label\">Un exemple de chaîne d’entraide</span><div class=\"chain-example-steps\"><article><span class=\"chain-example-avatar\" aria-hidden=\"true\">1</span><strong data-field=\"example-name-0\">Marc</strong><p data-field=\"example-body-0\">Répare le vélo d’Amina</p><span class=\"chain-example-points\" data-field=\"example-points-0\">10 PS</span></article><article><span class=\"chain-example-avatar\" aria-hidden=\"true\">2</span><strong data-field=\"example-name-1\">Amina</strong><p data-field=\"example-body-1\">Donne un cours à Fatou</p><span class=\"chain-example-points\" data-field=\"example-points-1\">10 PS</span></article><article><span class=\"chain-example-avatar\" aria-hidden=\"true\">3</span><strong data-field=\"example-name-2\">Fatou</strong><p data-field=\"example-body-2\">Aide Lucie au jardin</p><span class=\"chain-example-points\" data-field=\"example-points-2\">10 PS</span></article><article><span class=\"chain-example-avatar\" aria-hidden=\"true\">4</span><strong data-field=\"example-name-3\">Lucie</strong><p data-field=\"example-body-3\">Accompagne un voisin</p><span class=\"chain-example-points\" data-field=\"example-points-3\">10 PS</span></article></div></div>\n</div></section><div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--deep)\"></rect><path class=\"wave-melt-outer\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 118 C126 28 286 22 448 92 C612 164 790 154 930 62 C1082 -34 1260 20 1440 116 L1440 170 L0 170 Z\"></path></svg></div>",
       "fields": {
         "text-0": {
           "type": "text",
@@ -365,12 +445,77 @@
           "type": "url",
           "label": "Destination : Comprendre la chaîne d’entraide →",
           "default": "/decouvrir/fonctionnement"
+        },
+        "example-name-0": {
+          "type": "text",
+          "label": "Marc",
+          "default": "Marc"
+        },
+        "example-body-0": {
+          "type": "text",
+          "label": "Répare le vélo d’Amina",
+          "default": "Répare le vélo d’Amina"
+        },
+        "example-points-0": {
+          "type": "text",
+          "label": "Points illustrés",
+          "default": "10 PS"
+        },
+        "example-name-1": {
+          "type": "text",
+          "label": "Amina",
+          "default": "Amina"
+        },
+        "example-body-1": {
+          "type": "text",
+          "label": "Donne un cours à Fatou",
+          "default": "Donne un cours à Fatou"
+        },
+        "example-points-1": {
+          "type": "text",
+          "label": "Points illustrés",
+          "default": "10 PS"
+        },
+        "example-name-2": {
+          "type": "text",
+          "label": "Fatou",
+          "default": "Fatou"
+        },
+        "example-body-2": {
+          "type": "text",
+          "label": "Aide Lucie au jardin",
+          "default": "Aide Lucie au jardin"
+        },
+        "example-points-2": {
+          "type": "text",
+          "label": "Points illustrés",
+          "default": "10 PS"
+        },
+        "example-name-3": {
+          "type": "text",
+          "label": "Lucie",
+          "default": "Lucie"
+        },
+        "example-body-3": {
+          "type": "text",
+          "label": "Accompagne un voisin",
+          "default": "Accompagne un voisin"
+        },
+        "example-points-3": {
+          "type": "text",
+          "label": "Points illustrés",
+          "default": "10 PS"
+        },
+        "example-label": {
+          "type": "text",
+          "label": "Légende de l’illustration",
+          "default": "Un exemple de chaîne d’entraide"
         }
       }
     },
     "home-5": {
       "name": "Du besoin à la rencontre,en toute simplicité.\n",
-      "html": "<section class=\"section\" id=\"presentation\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Comprendre en 2 minutes</span></span><h2>\n<span data-field=\"text-1\">Du besoin à la rencontre,</span><br><span class=\"accent\"><span data-field=\"text-2\">en toute simplicité.</span></span>\n</h2>\n</div>\n<p><span data-field=\"text-3\">Une courte présentation explique la publication, la messagerie et la manière de définir ensemble les modalités de l’échange.</span></p>\n</div>\n<div class=\"video-testimonial source-inline-1\">\n<video controls=\"\" preload=\"metadata\" poster=\"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&amp;fit=crop&amp;w=1500&amp;q=85\" aria-label=\"Présentation vidéo de SEOS\"></video><span class=\"caption\"><span data-field=\"text-4\">Emplacement vidéo prêt · média final à fournir</span></span>\n</div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120 L1440 170 L0 170 Z\"></path></svg></div>",
+      "html": "<section class=\"section\" id=\"presentation\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Comprendre en 2 minutes</span></span><h2>\n<span data-field=\"text-1\">Du besoin à la rencontre,</span><br><span class=\"accent\"><span data-field=\"text-2\">en toute simplicité.</span></span>\n</h2>\n</div>\n<p><span data-field=\"text-3\">Une courte présentation explique la publication, la messagerie et la manière de définir ensemble les modalités de l’échange.</span></p>\n</div>\n<div class=\"video-testimonial source-inline-1\">\n<img src=\"maquette/photo-1516321318423-f06f85e504b3f27a878f.jpg\" alt=\"Une personne découvre SEOS sur ordinateur\" data-image=\"image-0\" data-alt=\"alt-0\"><span class=\"caption\"><span data-field=\"text-4\">Emplacement vidéo prêt · média final à fournir</span></span>\n</div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120 L1440 170 L0 170 Z\"></path></svg></div>",
       "fields": {
         "text-0": {
           "type": "text",
@@ -395,13 +540,23 @@
         "text-4": {
           "type": "text",
           "label": "Emplacement vidéo prêt · média final à fournir",
-          "default": "Emplacement vidéo prêt · média final à fournir"
+          "default": "Publiez, échangez et rencontrez la communauté."
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Visuel de présentation",
+          "default": "maquette/photo-1516321318423-f06f85e504b3f27a878f.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description du visuel",
+          "default": "Une personne découvre SEOS sur ordinateur"
         }
       }
     },
     "home-6": {
       "name": "Ce que ça change, concrètement",
-      "html": "<section class=\"section soft\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Ils l’ont vécu</span></span><h2><span data-field=\"text-1\">Ce que ça change, concrètement</span></h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/contact\" data-link=\"link-0\"><span data-field=\"text-2\">Partager mon témoignage</span></a>\n</div>\n<div class=\"testimonial-grid\"></div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--seos)\"></rect><path class=\"wave-melt-outer\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62 L1440 170 L0 170 Z\"></path></svg></div>",
+      "html": "<section class=\"section soft\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Ils l’ont vécu</span></span><h2><span data-field=\"text-1\">Ce que ça change, concrètement</span></h2>\n</div>\n<a class=\"btn btn-outline\" href=\"/contact\" data-link=\"link-0\"><span data-field=\"text-2\">Partager mon témoignage</span></a>\n</div>\n<template><article><p data-field=\"example-quote-0\">Un coup de main peut devenir une rencontre et donner envie d’aider à son tour.</p><p data-field=\"example-quote-1\">Partager un savoir-faire, c’est aussi découvrir les personnes de son quartier.</p></article></template><template><img src=\"maquette/photo-1522202176988-66273c2fd55f262793d0.jpg\" alt=\"Un groupe\" data-image=\"image-0\" data-alt=\"alt-0\"></template><div class=\"testimonial-grid\"></div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--seos)\"></rect><path class=\"wave-melt-outer\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 132 C166 86 282 18 474 52 C670 88 772 166 964 130 C1154 96 1262 34 1440 62 L1440 170 L0 170 Z\"></path></svg></div>",
       "fields": {
         "text-0": {
           "type": "text",
@@ -422,6 +577,26 @@
           "type": "url",
           "label": "Destination : Partager mon témoignage",
           "default": "/contact"
+        },
+        "example-quote-0": {
+          "type": "text",
+          "label": "Texte illustratif 1",
+          "default": "Un coup de main peut devenir une rencontre et donner envie d’aider à son tour."
+        },
+        "example-quote-1": {
+          "type": "text",
+          "label": "Texte illustratif 2",
+          "default": "Partager un savoir-faire, c’est aussi découvrir les personnes de son quartier."
+        },
+        "image-0": {
+          "type": "image",
+          "label": "Photo illustrative",
+          "default": "maquette/photo-1522202176988-66273c2fd55f262793d0.jpg"
+        },
+        "alt-0": {
+          "type": "text",
+          "label": "Description de la photo",
+          "default": "Un groupe partage un moment ensemble"
         }
       }
     },

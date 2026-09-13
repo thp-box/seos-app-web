@@ -1,0 +1,5 @@
+<%= render "shared/public_hero", eyebrow: "Transparence & confiance", title: "Le centre légal de SEOS.", description: "Retrouvez les règles du service, la gestion de vos données et vos choix de confidentialité." %>
+<div class="container legal-layout section">
+  <nav class="legal-sidebar" aria-label="Documents juridiques"><% FooterHelper::LEGAL_LABELS.each do |slug, label| %><%= link_to label, legal_path(slug), aria: { current: ("page" if @content&.slug == slug) } %><% end %><%= link_to "Gérer mes cookies", privacy_preferences_path %></nav>
+  <div class="legal-documents"><% documents.each do |document| %><article class="card legal-document"><span class="eyebrow">Documents SEOS</span><h2><%= document.title %></h2><p class="badge">Version <%= document.version %> · <%= l document.published_at.to_date %></p><p><%= document.summary %></p><% document.body.split(/\n\n+/).each do |paragraph| %><% if paragraph.start_with?("## ") %><h3><%= paragraph.delete_prefix("## ") %></h3><% else %><%= plain_paragraphs paragraph %><% end %><% end %></article><% end %><% if documents.empty? %><p>Les documents seront disponibles après leur publication.</p><% end %></div>
+</div>

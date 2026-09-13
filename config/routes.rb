@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get "medias/:id", to: "media#show", as: :media
   get "journal", to: "contents#index", as: :journal
   get "journal/:slug", to: "contents#show", defaults: { kind: "article" }, as: :article
+  get "legal", to: "legal_center#show", as: :legal_center
   get "legal/:slug", to: "contents#show", defaults: { kind: "legal" }, as: :legal
   get "decouvrir/:slug", to: "contents#show", defaults: { kind: "page" }, as: :explanation
   get "contact", to: "contact_requests#new", as: :contact

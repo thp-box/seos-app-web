@@ -80,7 +80,7 @@ RSpec.describe "Glisser-déposer dans la vraie page", type: :system do
       select "Deux vagues superposées", from: "Séparation décorative"
     end
     within_frame(find("iframe")) do
-      expect(page).to have_css(".wave_double")
+      expect(page).to have_css('[data-transition="wave_double"]')
       expect(page.evaluate_script("getComputedStyle(document.querySelector('[data-studio-block]')).animationName")).to eq("site-breathe")
     end
     page.driver.browser.execute_cdp("Emulation.setEmulatedMedia", features: [ { name: "prefers-reduced-motion", value: "reduce" } ])
@@ -169,10 +169,10 @@ RSpec.describe "Édition sans confirmation périodique", type: :system do
       find("summary", text: "Taille, espacement et effets de la section").click
       select "Deux vagues superposées", from: "Séparation décorative"
     end
-    within_frame(find("iframe")) { expect(page).to have_css(".wave_double") }
+    within_frame(find("iframe")) { expect(page).to have_css('[data-transition="wave_double"]') }
     admin.login_sessions.last.update!(reauthenticated_at: 2.hours.ago)
     within(".visual-inspector") { select "Dégradé léger", from: "Séparation décorative" }
-    within_frame(find("iframe")) { expect(page).to have_css(".mist_fade"); expect(page).to have_content("Jardinage") }
+    within_frame(find("iframe")) { expect(page).to have_css('[data-transition="mist_fade"]'); expect(page).to have_content("Jardinage") }
     expect(page).not_to have_link("Confirmer mon mot de passe dans un autre onglet")
     click_button "Enregistrer", exact: true
     expect(page).to have_content("Copie enregistrée. Elle n’est pas encore en ligne.")

@@ -1,6 +1,9 @@
 # Only application-owned CSS can be selected in the visual editor.
 class SiteSectionStyle
   OPTIONS = {
+    "wave_motion" => { "normal" => "Animation du modèle", "none" => "Vague immobile", "gentle" => "Ondulation douce" },
+    "orbs" => { "normal" => "Orbes animées du modèle", "none" => "Orbes immobiles", "gentle" => "Orbes en mouvement" },
+    "tone" => { "normal" => "Fond du modèle", "cream" => "Crème", "mist" => "Brume", "seos" => "Bleu SEOS", "deep" => "Bleu profond" },
     "size" => { "normal" => "Taille d’origine", "small" => "Plus petit", "large" => "Plus grand" },
     "space" => { "normal" => "Espacement d’origine", "compact" => "Rapproché", "airy" => "Aéré" },
     "shape" => { "normal" => "Forme d’origine", "rounded" => "Arrondie", "organic" => "Organique" },

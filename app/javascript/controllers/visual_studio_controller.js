@@ -206,13 +206,13 @@ export default class extends Controller {
     }
     const style = this.details(this.inspectorTarget, "Taille, espacement et effets de la section")
     this.styleFields(style, block.style || {}, values => { block.style = values }, true)
-    this.field(style, "Séparation décorative", block.separator || "none", [["Aucune", "none"], ...this.config.presets.map(key => [({ wave_single: "Vague douce", wave_double: "Deux vagues superposées", soft_curve: "Courbe douce", asymmetric_blob: "Forme organique", scallop: "Petites ondulations", diagonal_soft: "Diagonale douce", mist_fade: "Dégradé léger" })[key] || key.replaceAll("-", " "), key])], value => this.change(() => { block.separator = value }))
+    this.field(style, "Séparation décorative", block.separator || "model", [["Présentation du modèle", "model"], ["Aucune", "none"], ...this.config.presets.map(key => [({ wave_single: "Vague douce", wave_double: "Deux vagues superposées", soft_curve: "Courbe douce", asymmetric_blob: "Forme organique", scallop: "Petites ondulations", diagonal_soft: "Diagonale douce", mist_fade: "Dégradé léger" })[key] || key.replaceAll("-", " "), key])], value => this.change(() => { if (value === "model") delete block.separator; else block.separator = value }))
     this.field(style, "Position de la séparation", block.placement || "bottom", [["Après la section", "bottom"], ["Avant la section", "top"]], value => this.change(() => { block.placement = value }))
   }
   styleFields(parent, style, setter, section, image = false) {
-    const labels = { size: section ? "Taille des titres" : "Taille de l’élément", space: "Espace autour du contenu", shape: "Forme des images", animation: "Animation" }
+    const labels = { wave_motion: "Animation de la vague", orbs: "Animation des orbes", tone: "Fond de la section", size: section ? "Taille des titres" : "Taille de l’élément", space: "Espace autour du contenu", shape: "Forme des images", animation: "Animation" }
     Object.entries(this.config.styles).forEach(([key, options]) => {
-      if (!section && (key === "space" || (key === "shape" && !image))) return
+      if (!section && (key === "wave_motion" || key === "orbs" || key === "tone" || key === "space" || (key === "shape" && !image))) return
       this.field(parent, labels[key], style[key] || (key === "animation" ? "none" : "normal"), Object.entries(options).map(([value, label]) => [label, value]), value => this.change(() => { style[key] = value; setter(style) }))
     })
   }
@@ -234,7 +234,7 @@ export default class extends Controller {
       this.button("Retirer ce lien", () => { this.change(() => { chrome.links.splice(index, 1); this.doc.site[area] = chrome }); this.inspectChrome(area) }, group)
     })
     this.button("Ajouter un lien", () => {
-      if (chrome.links.length >= 12) return
+      if (chrome.links.length >= 24) return
       this.change(() => { chrome.links.push({ label: "Nouveau lien", url: "/contact" }); this.doc.site[area] = chrome }); this.inspectChrome(area)
     }, links)
   }

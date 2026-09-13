@@ -1,0 +1,13 @@
+<% shape = preset.presence || "wave_single" %>
+<div class="site-transition <%= 'site-transition-top' if local_assigns[:top] %> <%= 'site-transition-fade' if shape == 'mist_fade' %>" aria-hidden="true" data-transition="<%= shape %>" data-animated="<%= local_assigns[:animated] == true %>">
+  <% unless shape == "mist_fade" %>
+  <% curve = case shape
+     when "diagonal_soft" then "M0 28 L1440 142"
+     when "soft_curve" then "M0 35 Q720 235 1440 35"
+     when "scallop" then "M0 65 Q180 140 360 65 T720 65 T1080 65 T1440 65"
+     when "asymmetric_blob" then "M0 100 C300 145 450 25 800 45 S1200 140 1440 95"
+     else "M0 75 C240 150 480 150 720 75 S1200 0 1440 75"
+     end %>
+  <svg viewBox="0 0 1440 170" preserveAspectRatio="none"><rect width="1440" height="170" fill="var(--wave-from)"/><g class="site-wave-layers"><% if shape == "wave_double" %><path class="site-wave-accent" d="<%= curve %> L1440 170 L0 170 Z" fill="color-mix(in srgb,var(--wave-to) 55%,var(--turq))" transform="translate(0,-13)"/><% end %><path class="site-wave-main" d="<%= curve %> L1440 190 L0 190 Z" fill="var(--wave-to)"/></g></svg>
+  <% end %>
+</div>

@@ -1,8 +1,11 @@
 <% chrome = site_chrome("footer") %>
-<footer>
-  <div class="container footer-row">
-    <div><%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag site_image_path(chrome["logo"]), alt: chrome["alt"], width: 108, height: 38, loading: "lazy" %><% end %><p><%= chrome["title"] %></p></div>
-    <p><%= chrome["description"] %></p>
-    <%= link_to "Retour en haut", "#main-content" %>
+<footer class="site-footer">
+  <svg class="site-footer-wave" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true"><path fill="var(--cream)" d="M0 0H1440V18C1200 0 950 98 720 92S240 0 0 18Z"/><path fill="var(--mist)" opacity=".8" d="M0 18C240 0 490 86 720 84S1200 0 1440 18V28C1200 10 950 108 720 102S240 10 0 28Z"/></svg>
+  <div class="container">
+    <div class="site-footer-grid">
+      <div class="site-footer-brand"><%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag site_image_path(chrome["logo"]), alt: chrome["alt"], width: 108, height: 38, loading: "lazy" %><% end %><p><%= chrome["title"] %></p><p><%= chrome["description"] %></p></div>
+      <% footer_groups(chrome).each do |title, links| %><nav aria-label="<%= title %> — pied de page"><h2><%= title %></h2><% links.each do |label, url| %><%= link_to label, url %><% end %></nav><% end %>
+    </div>
+    <div class="site-footer-bottom"><small>© <%= Date.current.year %> SEOS</small><%= link_to "Retour en haut", "#main-content" %></div>
   </div>
-<nav class="container actions" aria-label="Informations SEOS"><%= link_to "Confidentialité et cookies", privacy_preferences_path %><% chrome["links"].each do |link| %><%= link_to link["label"], link["url"] %><% end %></nav></footer>
+</footer>
