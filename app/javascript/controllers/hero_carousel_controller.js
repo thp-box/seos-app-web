@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["slide", "label", "pause"]
+  static targets = ["slide", "label"]
   connect() {
     this.index = 0
     this.reduced = window.matchMedia("(prefers-reduced-motion: reduce)")
@@ -9,7 +9,6 @@ export default class extends Controller {
     this.timer = window.setInterval(() => {
       if (!this.paused && !this.reduced.matches && !document.hidden && !this.element.contains(document.activeElement)) this.advance()
     }, 6000)
-    this.updateButton()
   }
   disconnect() { window.clearInterval(this.timer) }
   advance() {
@@ -20,10 +19,5 @@ export default class extends Controller {
     slide.classList.add("active")
     slide.setAttribute("aria-hidden", "false")
     this.labelTarget.textContent = slide.dataset.label
-  }
-  toggle() { this.paused = !this.paused; this.updateButton() }
-  updateButton() {
-    this.pauseTarget.hidden = this.slideTargets.length < 2
-    this.pauseTarget.textContent = this.paused ? "Lancer le diaporama" : "Mettre le diaporama en pause"
   }
 }

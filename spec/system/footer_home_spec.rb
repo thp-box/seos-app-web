@@ -14,7 +14,7 @@ RSpec.describe "Footer et navigation légale", type: :system do
       expect(page).to be_axe_clean.within(".site-footer").according_to(:wcag2a, :wcag2aa)
       page.save_screenshot(Rails.root.join("tmp/screenshots/footer-#{width}.png"))
       within(".site-footer") { click_link "Règles et CGU" }
-      expect(page).to have_current_path(legal_path("cgu"))
+      expect(page).to have_current_path(%r{/legal#legal-cgu$}, url: true)
       expect(page).to have_css("h2", text: "Conditions générales d’utilisation")
       expect(page).to be_axe_clean.according_to(:wcag2a, :wcag2aa)
       expect(page.evaluate_script("document.documentElement.scrollWidth <= innerWidth")).to be(true)

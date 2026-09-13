@@ -1,5 +1,12 @@
 module FooterHelper
   LEGAL_LABELS = { "cgu" => "Règles et CGU", "confidentialite" => "Confidentialité & RGPD", "cookies" => "Cookies", "mentions-legales" => "Mentions légales" }.freeze
+  def unified_legal_url(url)
+    return legal_center_path(anchor: "legal-securite") if url == trust_explanation_path
+    return legal_center_path(anchor: "legal-introduction") if url == legal_center_path
+    return privacy_preferences_path if url == privacy_preferences_path
+    slug = url.delete_prefix("/legal/")
+    ContentVersion::LEGAL_SLUGS.include?(slug) ? legal_center_path(anchor: "legal-#{slug}") : url
+  end
   def footer_groups(chrome)
     groups = {
       "Découvrir" => [ [ "Le concept", "/#presentation" ], [ "Les annonces", "/annonces" ], [ "Chaîne d’entraide", "/#site-section-home-4" ] ],
@@ -18,6 +25,6 @@ module FooterHelper
       end
     end
     removed = (site_version&.deleted_pages || []).flat_map { |slug| SiteDesign.page_paths(slug) }
-    groups.transform_values { |links| links.reject { |_label, url| removed.include?(url.split(/[?#]/).first) || (url == volunteer_missions_path && !FeatureFlag.voyage_enabled?) } }
+    groups.transform_values { |links| links.map { |label, url| [ label, unified_legal_url(url) ] }.reject { |_label, url| removed.include?(url.split(/[?#]/).first) || (url == volunteer_missions_path && !FeatureFlag.voyage_enabled?) } }
   end
 end

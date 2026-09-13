@@ -12,7 +12,7 @@ class SiteDesign
   }.freeze
   def self.reference = @reference ||= JSON.parse(SOURCE.read)
   def self.templates
-    reference.fetch("sections").merge(JSON.parse(Rails.root.join("config/studio/travel.json").read)).merge("spacer" => { "name" => "Section vide", "html" => "", "fields" => {
+    reference.fetch("sections").merge(JSON.parse(Rails.root.join("config/studio/legal.json").read)).merge(JSON.parse(Rails.root.join("config/studio/travel.json").read)).merge("spacer" => { "name" => "Section vide", "html" => "", "fields" => {
       "height" => { "type" => "height", "label" => "Hauteur sur ordinateur (px)", "default" => "96" },
       "mobile_height" => { "type" => "height", "label" => "Hauteur sur téléphone (px)", "default" => "48" }
     } }).merge(JSON.parse(Rails.root.join("config/studio/community.json").read)).merge("text" => { "name" => "Texte et bouton", "fields" => {
@@ -24,7 +24,7 @@ class SiteDesign
   end
   def self.page_paths(slug)
     paths = [ "/pages/#{slug}", "/decouvrir/#{slug}" ]
-    paths << "/#{slug}" if %w[communaute voyage-solidaire].include?(slug)
+    paths << "/#{slug}" if %w[communaute voyage-solidaire legal].include?(slug)
     paths
   end
   def self.safe_url?(value)
@@ -119,6 +119,7 @@ class SiteDesign
     { "title" => "Accueil", "blocks" => 11.times.map { |index| { "id" => "home-#{index}", "template" => "home-#{index}", "values" => {} } } }
   end
   def self.default_page(slug)
+    return { "title" => "Confiance et informations légales", "blocks" => [ { "id" => "legal-center", "template" => "legal-center", "values" => {} } ] } if slug == "legal"
     if %w[don echange points].include?(slug)
       template = slug == "echange" ? "exchange" : slug
       return { "title" => { "don" => "Le don", "echange" => "L’échange", "points" => "Les Points Services" }.fetch(slug), "blocks" => 2.times.map { |i| { "id" => "#{template}-#{i}", "template" => "#{template}-#{i}", "values" => {} } } }

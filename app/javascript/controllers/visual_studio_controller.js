@@ -80,7 +80,14 @@ export default class extends Controller {
   }
   change(callback) {
     const before = JSON.stringify(this.doc)
+    const fallback = this.doc.site.pages[this.page] ? null : this.config.pages[this.page]
+    const original = fallback ? JSON.stringify(fallback) : null
     callback()
+    // First edits of an initial template must become part of the draft.
+    if (fallback && !this.doc.site.pages[this.page] && JSON.stringify(fallback) !== original) {
+      this.doc.site.pages[this.page] = fallback
+      this.config.pages[this.page] = JSON.parse(original)
+    }
     if (JSON.stringify(this.doc) === before) return
     this.past.push(before); if (this.past.length > 40) this.past.shift(); this.future = []
     this.renderLayers()

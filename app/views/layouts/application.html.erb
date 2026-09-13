@@ -11,14 +11,15 @@
     <% if @visual_preview %><%= tag.meta name: "studio-preview-revision", content: @visual_revision %><% end %>
     <%= favicon_link_tag "seos-logo.png", type: "image/png" %>
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <%# A new response nonce requires a new document CSP before Studio styles can run. %>
+    <%= csp_meta_tag data: { turbo_track: "reload" } %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <% studio = @studio_version || StudioVersion.current %>
     <%= tag.meta name: "seos-theme", content: studio&.id || "default", data: { turbo_track: "reload" } %>
     <% if studio %><%= tag.style studio.css, nonce: content_security_policy_nonce %><% end %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
-  <body class="app-shell">
+  <body class="app-shell" data-controller="cookie-preferences">
     <a class="skip-link" href="#main-content" data-turbo="false">Aller au contenu</a>
     <%= render "shared/header" %>
     <%= render "shared/flash" %>
@@ -28,5 +29,8 @@
       <main id="main-content" tabindex="-1"><%= yield %></main>
     <% end %>
     <%= render "shared/footer" %>
+    <button type="button" class="back-to-top" data-controller="back-to-top" data-action="back-to-top#scroll" aria-label="Remonter en haut de la page" title="Remonter en haut de la page" hidden>
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-7 7 7-7 7 7"/></svg>
+    </button>
   </body>
 </html>

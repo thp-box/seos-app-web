@@ -3,14 +3,14 @@ RSpec.describe "Parcours de confidentialité et pilotage", type: :request do
   let(:user) { create(:user) }
   let(:admin) { create(:user, :super_admin) }
   it "permet un refus puis un retrait versionnés sans traceur" do
-    get privacy_preferences_path
+    get privacy_preferences_path, params: { popup: "1" }
     expect(response).to have_http_status(:ok)
     post privacy_preferences_path, params: { choice: "accept" }
     expect(CookieConsent.last.analytics).to be(true)
     post privacy_preferences_path, params: { choice: "reject" }
     expect(CookieConsent.last.analytics).to be(false)
     expect(CookieConsent.count).to eq(2)
-    get privacy_preferences_path
+    get privacy_preferences_path, params: { popup: "1" }
     expect(response.headers["Cache-Control"]).to include("no-store")
     post privacy_preferences_path, params: { choice: "invalid" }
     expect(response).to have_http_status(:unprocessable_entity)

@@ -11,6 +11,10 @@ class SiteSectionEditor
     @doc = Nokogiri::HTML.fragment(template.fetch("html"))
     @groups = { "Titre de cette partie" => [] }
     template.fetch("fields").each do |key, field|
+      if field["group"]
+        (@groups[field["group"]] ||= []) << field.merge("key" => key)
+        next
+      end
       next if template["fields"].key?("video-url") && key == "text-4"
       next if template["fields"].key?("slides") && (key.match?(/\A(image|alt)-/) || key == "text-0")
       if %w[slides video].include?(field["type"])

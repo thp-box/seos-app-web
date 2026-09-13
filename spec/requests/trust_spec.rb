@@ -16,6 +16,7 @@ RSpec.describe "Parcours confiance et parrainage", type: :request do
     expect(response.body).to include("Score provisoire", "53/100", "Données limitées")
     expect(response.body).not_to include("Identité privée du parrain", "referral_cycle", "AggregateRating")
     get trust_explanation_path
+    follow_redirect!
     expect(response).to have_http_status(:ok)
     expect(response.body).to include("Version active")
     login user
@@ -27,6 +28,7 @@ RSpec.describe "Parcours confiance et parrainage", type: :request do
 
   it "affiche l’absence de note et la préparation d’une version sans inventer de données" do
     get trust_explanation_path
+    follow_redirect!
     expect(response.body).to include("aucune version")
     get profile_path(user.profile)
     expect(response.body).to include("données insuffisantes")

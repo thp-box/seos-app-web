@@ -1,0 +1,21 @@
+<dialog class="cookie-modal" aria-labelledby="cookie-modal-title" aria-describedby="cookie-modal-description">
+  <button type="button" class="cookie-modal-close" data-cookie-close aria-label="Fermer les préférences">×</button>
+  <div class="cookie-modal-heading">
+    <div><h2 id="cookie-modal-title"><%= values["preferences-title"] %></h2><p id="cookie-modal-description"><%= values["preferences-intro"] %></p></div>
+    <div class="actions">
+      <%= button_to values["cookie-reject"], privacy_preferences_path, params: { choice: "reject" }, class: "btn btn-light", form: { data: { turbo: false } } %>
+      <button type="button" class="btn btn-light" data-cookie-customize><%= values["cookie-legend"] %></button>
+      <%= button_to values["cookie-accept"], privacy_preferences_path, params: { choice: "accept" }, class: "btn btn-light", form: { data: { turbo: false } } %>
+    </div>
+  </div>
+  <%= form_with url: privacy_preferences_path, data: { turbo: false }, class: "cookie-custom-form" do |form| %>
+    <%= hidden_field_tag :choice, "custom", id: nil %>
+    <div class="cookie-modal-options">
+      <label class="cookie-modal-option"><span><strong><%= values["cookie-necessary-title"] %></strong><span><%= values["cookie-necessary-body"] %></span></span><input type="checkbox" checked disabled aria-label="<%= values['cookie-necessary-badge'] %>"></label>
+      <label class="cookie-modal-option"><span><strong><%= values["cookie-analytics-title"] %></strong><span><%= values["cookie-analytics-help"] %></span></span><%= form.check_box :analytics, checked: @consent&.analytics %></label>
+      <label class="cookie-modal-option"><span><strong><%= values["cookie-media-title"] %></strong><span><%= values["cookie-media-help"] %></span></span><%= form.check_box :external_media, checked: @consent&.external_media %></label>
+    </div>
+    <%= form.button values["cookie-save"], class: "btn btn-primary" %>
+  <% end %>
+  <p class="cookie-modal-feedback" role="status" aria-live="polite"></p>
+</dialog>

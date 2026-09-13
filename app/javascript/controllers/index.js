@@ -19,3 +19,10 @@ import HeroCarouselController from "./hero_carousel_controller"
 application.register("hero-carousel", HeroCarouselController)
 import ChainPathController from "./chain_path_controller"
 application.register("chain-path", ChainPathController)
+import LegalTabsController from "./legal_tabs_controller"
+application.register("legal-tabs", LegalTabsController)
+import CookiePreferencesController from "./cookie_preferences_controller"
+application.register("cookie-preferences", CookiePreferencesController)
+
+import BackToTopController from "./back_to_top_controller"
+application.register("back-to-top", BackToTopController)

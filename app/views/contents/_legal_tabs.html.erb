@@ -1,0 +1,37 @@
+<% tabs = LegalCenterHelper::LEGAL_TABS %>
+<div class="legal-layout" data-controller="legal-tabs">
+  <nav class="legal-sidebar" aria-label="Documents juridiques">
+    <% tabs.each do |tab| %>
+      <%= link_to values["tab-#{tab}"], "#legal-#{tab}", data: { legal_tabs_target: "tab", tab: tab, action: "click->legal-tabs#open" } %>
+    <% end %>
+  </nav>
+  <div class="legal-documents">
+    <% tabs.each do |tab| %>
+      <section class="card legal-document" id="legal-<%= tab %>" tabindex="-1" data-legal-tabs-target="panel" data-tab="<%= tab %>">
+        <span class="eyebrow"><%= values["eyebrow-#{tab}"] %></span>
+        <% if tab == "securite" %>
+          <h2><%= values["security-title"] %></h2>
+          <%= legal_rich_text values["security-body"] %>
+          <% algorithm = TrustAlgorithmVersion.find_by(status: "active") %>
+          <% if algorithm %><p>Version active : <strong><%= algorithm.version %></strong>. <%= algorithm.explanation %></p><% else %><p><%= values["security-empty"] %></p><% end %>
+          <%= link_to values["security-action"], account_trust_path, class: "btn btn-primary" %>
+        <% else %>
+          <% document = ContentVersion.current("legal", tab) || LegalExample.document(tab) %>
+          <% if document %>
+            <h2><%= document.title %></h2>
+            <p class="badge"><% if document.published_at %>Version <%= document.version %> · <%= l document.published_at.to_date %><% else %>Version de travail · Exemple de la maquette<% end %></p>
+            <% if document.summary.present? %><p><%= document.summary %></p><% end %>
+            <%= legal_rich_text document.body %>
+          <% else %><h2><%= values["tab-#{tab}"] %></h2><p><%= values["empty"] %></p><% end %>
+          <% if current_user&.super_admin? && !@visual_preview %>
+            <p class="legal-edit-action"><%= link_to(document ? "Modifier ce document" : "Rédiger ce document", new_admin_workbench_path(kind: "contenus", from: document&.id, document: tab), class: "btn btn-outline") %></p>
+          <% end %>
+          <% if tab == "cookies" %>
+            <p class="notice" data-cookie-status <%= "hidden" unless @consent %>><% if @consent %>Choix enregistré le <%= l @consent.created_at.to_date %> · audience <%= @consent.analytics ? "acceptée" : "refusée" %> · médias <%= @consent.external_media ? "acceptés" : "refusés" %><% end %></p>
+            <%= link_to values["tab-preferences"], privacy_preferences_path, class: "btn btn-deep" %>
+          <% end %>
+        <% end %>
+      </section>
+    <% end %>
+  </div>
+</div>

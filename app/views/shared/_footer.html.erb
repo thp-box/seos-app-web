@@ -4,7 +4,7 @@
   <div class="container">
     <div class="site-footer-grid">
       <div class="site-footer-brand"><%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag site_image_path(chrome["logo"]), alt: chrome["alt"], width: 108, height: 38, loading: "lazy" %><% end %><p><%= chrome["title"] %></p><p><%= chrome["description"] %></p></div>
-      <% footer_groups(chrome).each do |title, links| %><nav aria-label="<%= title %> — pied de page"><h2><%= title %></h2><% links.each do |label, url| %><%= link_to label, url %><% end %></nav><% end %>
+      <% footer_groups(chrome).each do |title, links| %><nav aria-label="<%= title %> — pied de page"><h2><%= title %></h2><% links.each do |label, url| %><%= link_to label, url, data: { turbo: (false if url.start_with?("/legal")) } %><% end %></nav><% end %>
     </div>
     <div class="site-footer-bottom"><small>© <%= Date.current.year %> SEOS</small><%= link_to "Retour en haut", "#main-content" %></div>
   </div>

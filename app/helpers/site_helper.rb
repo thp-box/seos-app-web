@@ -1,6 +1,6 @@
 module SiteHelper
-  PAGE_NAMES = { "voyage-solidaire" => "Voyage solidaire", "communaute" => "La communauté", "home" => "Accueil", "don" => "Le don", "echange" => "L’échange", "points" => "Les Points Services", "fonctionnement" => "Comment ça marche ?" }.freeze
-  SECTION_NAMES = { "travel-hero" => "Voyage solidaire : présentation", "travel-missions" => "Voyage solidaire : missions et filtre", "spacer" => "Section vide", "community-app" => "La communauté : l’application", "community-associations" => "La communauté : les associations", "community-support" => "La communauté : participer", "home-0" => "Grande présentation avec photo", "home-1" => "Les trois façons de s’entraider", "home-2" => "Catégories d’annonces", "home-3" => "Annonces récentes", "home-4" => "La chaîne d’entraide", "home-5" => "Présentation de SEOS", "home-6" => "Témoignages de membres", "home-7" => "Confiance et sécurité", "home-8" => "La communauté francophone", "home-9" => "Invitation à nous rejoindre", "home-10" => "Soutenir SEOS", "don-0" => "Présentation du don", "don-1" => "Le don en trois étapes", "exchange-0" => "Présentation de l’échange", "exchange-1" => "L’échange en trois étapes", "points-0" => "Présentation des Points Services", "points-1" => "Les Points Services en trois étapes", "text" => "Texte libre" }.freeze
+  PAGE_NAMES = { "legal" => "Confiance et informations légales", "voyage-solidaire" => "Voyage solidaire", "communaute" => "La communauté", "home" => "Accueil", "don" => "Le don", "echange" => "L’échange", "points" => "Les Points Services", "fonctionnement" => "Comment ça marche ?" }.freeze
+  SECTION_NAMES = { "legal-center" => "Centre de confiance et documents légaux", "travel-hero" => "Voyage solidaire : présentation", "travel-missions" => "Voyage solidaire : missions et filtre", "spacer" => "Section vide", "community-app" => "La communauté : l’application", "community-associations" => "La communauté : les associations", "community-support" => "La communauté : participer", "home-0" => "Grande présentation avec photo", "home-1" => "Les trois façons de s’entraider", "home-2" => "Catégories d’annonces", "home-3" => "Annonces récentes", "home-4" => "La chaîne d’entraide", "home-5" => "Présentation de SEOS", "home-6" => "Témoignages de membres", "home-7" => "Confiance et sécurité", "home-8" => "La communauté francophone", "home-9" => "Invitation à nous rejoindre", "home-10" => "Soutenir SEOS", "don-0" => "Présentation du don", "don-1" => "Le don en trois étapes", "exchange-0" => "Présentation de l’échange", "exchange-1" => "L’échange en trois étapes", "points-0" => "Présentation des Points Services", "points-1" => "Les Points Services en trois étapes", "text" => "Texte libre" }.freeze
   COLOR_NAMES = { "deep" => "Bleu principal", "seos" => "Bleu des liens et accents", "turq" => "Turquoise", "gold" => "Doré des boutons", "cream" => "Fond des pages", "mist" => "Fond des encadrés", "ink" => "Textes principaux", "muted" => "Textes secondaires", "line" => "Bordures", "white" => "Surfaces claires", "danger" => "Alertes", "ok" => "Confirmations", "footer" => "Fond du bas de page" }.freeze
   def site_kit_screen_name(key)
     { "home" => "Accueil", "don" => "Don", "exchange" => "Échange", "points" => "Points Services", "listings" => "Liste des annonces", "detail" => "Détail d’une annonce", "publish" => "Création d’une annonce", "auth" => "Connexion et inscription", "dashboard" => "Espace membre", "chain" => "Chaîne d’entraide", "travel" => "Voyage solidaire", "admin" => "Gestion du site", "chain-validation" => "Confirmation d’un service", "legal" => "Informations légales" }.fetch(key)
@@ -67,6 +67,7 @@ module SiteHelper
     value.start_with?("asset:") ? media_path(StudioAsset.find(value.delete_prefix("asset:")).image.attachment) : image_path(value)
   end
   def site_public_path(slug)
+    return legal_center_path if slug == "legal"
     return volunteer_missions_path if slug == "voyage-solidaire"
     return community_path if slug == "communaute"
     return root_path if slug == "home"
@@ -102,7 +103,6 @@ module SiteHelper
         label = doc.at_css(".hero-label [data-field='text-0']")
         label["data-hero-carousel-target"] = "label"
         label.content = slides.first["label"]
-        doc.at_css(".hero-quick").add_child('<button type="button" class="btn btn-outline" data-action="hero-carousel#toggle" data-hero-carousel-target="pause">Mettre le diaporama en pause</button>')
         link = doc.at_css('[data-link="link-1"]')
         link["href"] = "/#presentation" if link["href"] == "/decouvrir/fonctionnement"
         link["data-turbo"] = "false" if link["href"] == "/#presentation"
@@ -132,6 +132,10 @@ module SiteHelper
     end
     if block && block["template"] == "travel-missions"
       doc.at_css(".travel-missions-slot").inner_html = render("volunteer_missions/catalogue", values: values, block_id: block["id"])
+    end
+    if block && block["template"] == "legal-center"
+      doc.at_css(".legal-center-heading")["id"] = "legal-introduction"
+      doc.at_css(".legal-tabs-slot").inner_html = render("contents/legal_tabs", values: values, block_id: block["id"])
     end
     # All markup comes from the checked-in reference. User values enter through text/attribute setters.
     doc.to_html.html_safe

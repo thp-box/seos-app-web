@@ -13,6 +13,7 @@ module Admin
     def new
       raise Pundit::NotAuthorizedError unless %w[categories restrictions contenus].include?(@kind)
       @record = @model.new
+      @record.assign_attributes(LegalExample.attributes_for(params[:document]).merge(kind: "legal", slug: params[:document])) if @kind == "contenus" && ContentVersion::LEGAL_SLUGS.include?(params[:document])
       if params[:from].present? && @kind == "contenus"
         source = @model.find(params[:from])
         @record.assign_attributes(source.attributes.slice("kind", "slug", "title", "summary", "body", "decorations"))

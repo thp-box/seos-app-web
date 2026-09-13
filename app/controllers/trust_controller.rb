@@ -1,5 +1,5 @@
 class TrustController < ApplicationController
   def show
-    @version = TrustAlgorithmVersion.find_by(status: "active")
+    redirect_to legal_center_path(anchor: "legal-securite"), status: :moved_permanently
   end
 end

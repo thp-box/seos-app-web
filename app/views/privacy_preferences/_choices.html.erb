@@ -1,0 +1,25 @@
+  <div class="card">
+    <div class="privacy-required"><strong><%= values["cookie-necessary-title"] %></strong><span class="badge"><%= values["cookie-necessary-badge"] %></span></div>
+    <p><%= values["cookie-necessary-body"] %></p>
+    <div class="actions privacy-quick-choices">
+      <%= button_to values["cookie-accept"], privacy_preferences_path, params: { choice: "accept" }, class: "btn btn-outline", form: { data: { turbo: false } } %>
+      <%= button_to values["cookie-reject"], privacy_preferences_path, params: { choice: "reject" }, class: "btn btn-outline", form: { data: { turbo: false } } %>
+    </div>
+    <%= form_with url: privacy_preferences_path, data: { turbo: false } do |form| %>
+      <%= hidden_field_tag :choice, "custom", id: nil %>
+      <fieldset class="privacy-options">
+        <legend><%= values["cookie-legend"] %></legend>
+        <label class="privacy-option" for="analytics">
+          <%= form.check_box :analytics, checked: @consent&.analytics, aria: { describedby: "analytics-help" } %>
+          <span><strong><%= values["cookie-analytics-title"] %></strong><span id="analytics-help"><%= values["cookie-analytics-help"] %></span></span>
+        </label>
+        <label class="privacy-option" for="external_media">
+          <%= form.check_box :external_media, checked: @consent&.external_media, aria: { describedby: "external-media-help" } %>
+          <span><strong><%= values["cookie-media-title"] %></strong><span id="external-media-help"><%= values["cookie-media-help"] %></span></span>
+        </label>
+      </fieldset>
+      <%= form.button values["cookie-save"], class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <p class="privacy-retention"><%= values["cookie-retention"] %></p>
+  <p><%= link_to values["cookie-rights"], account_privacy_path %></p>
