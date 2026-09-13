@@ -4,7 +4,7 @@ class SiteDesign
   CHROME = {
     "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "La communauté", "url" => "/communaute" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
     "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "La communauté francophone d’entraide et d’échange de services.", "description" => "", "links" => [
-      { "label" => "Le concept", "url" => "/decouvrir/fonctionnement" }, { "label" => "Les annonces", "url" => "/annonces" }, { "label" => "Chaîne d’entraide", "url" => "/#site-section-home-4" },
+      { "label" => "Le concept", "url" => "/#presentation" }, { "label" => "Les annonces", "url" => "/annonces" }, { "label" => "Chaîne d’entraide", "url" => "/#site-section-home-4" },
       { "label" => "Publier", "url" => "/compte/annonces/new" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" }, { "label" => "Mon espace", "url" => "/compte" },
       { "label" => "Sécurité", "url" => "/confiance" }, { "label" => "Règles et CGU", "url" => "/legal/cgu" }, { "label" => "Centre légal", "url" => "/legal" },
       { "label" => "Mentions légales", "url" => "/legal/mentions-legales" }, { "label" => "Confidentialité & RGPD", "url" => "/legal/confidentialite" }, { "label" => "Cookies", "url" => "/legal/cookies" }, { "label" => "Gérer mes cookies", "url" => "/preferences-confidentialite" }
@@ -37,6 +37,13 @@ class SiteDesign
   end
   def self.image?(value)
     value == "seos-logo.png" || reference.fetch("images").value?(value) || (value.is_a?(String) && value.match?(/\Aasset:\d+\z/) && StudioAsset.joins(:image_attachment).exists?(id: value.delete_prefix("asset:")))
+  end
+  def self.slides?(value)
+    return false unless text?(value)
+    slides = JSON.parse(value)
+    slides.is_a?(Array) && slides.size.between?(1, 20) && slides.all? { |slide| slide.is_a?(Hash) && slide.keys.sort == %w[alt image label] && text?(slide["label"]) && slide["label"].present? && text?(slide["alt"]) && slide["alt"].present? && image?(slide["image"]) }
+  rescue JSON::ParserError
+    false
   end
   def self.text?(value) = value.is_a?(String) && value.size <= 15_000 && !value.include?("\u0000")
   def self.valid?(data)
@@ -74,6 +81,8 @@ class SiteDesign
     return false unless template && values.is_a?(Hash) && (values.keys - template["fields"].keys).empty?
     values.all? do |key, value|
       case template["fields"][key]["type"]
+      when "slides" then slides?(value)
+      when "video" then value == "" || (safe_url?(value) && value.match?(/\.(mp4|webm)(\?[^#]*)?\z/i))
       when "height" then value.is_a?(String) && value.match?(/\A[0-9]{1,4}\z/) && value.to_i.between?(8, 1200)
       when "url" then safe_url?(value)
       when "image" then image?(value)
@@ -110,6 +119,10 @@ class SiteDesign
     { "title" => "Accueil", "blocks" => 11.times.map { |index| { "id" => "home-#{index}", "template" => "home-#{index}", "values" => {} } } }
   end
   def self.default_page(slug)
+    if %w[don echange points].include?(slug)
+      template = slug == "echange" ? "exchange" : slug
+      return { "title" => { "don" => "Le don", "echange" => "L’échange", "points" => "Les Points Services" }.fetch(slug), "blocks" => 2.times.map { |i| { "id" => "#{template}-#{i}", "template" => "#{template}-#{i}", "values" => {} } } }
+    end
     if slug == "voyage-solidaire"
       return { "title" => "Voyage solidaire", "blocks" => [
         { "id" => "travel-intro", "template" => "travel-hero", "values" => {} },

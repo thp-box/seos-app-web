@@ -1,7 +1,7 @@
 <% if @content.kind == "legal" %>
 <% content_for :title, @content.title %><%= render "contents/legal_layout", documents: [@content] %>
 <% else %>
-<% if @content.kind == "page" && (composed_page = site_version&.site&.dig("pages", @content.slug)) %>
+<% if @content.kind == "page" && (composed_page = (site_version&.site&.dig("pages", @content.slug) || (SiteDesign.default_page(@content.slug) if %w[don echange points].include?(@content.slug)))) %>
 <% content_for :title, composed_page["title"] %><%= render "site/page", page: composed_page, slug: @content.slug %>
 <% else %>
 <% if @content.kind == "page" %><%= render "site/edit_link", slug: @content.slug %><% end %>

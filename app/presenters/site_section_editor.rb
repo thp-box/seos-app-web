@@ -11,6 +11,12 @@ class SiteSectionEditor
     @doc = Nokogiri::HTML.fragment(template.fetch("html"))
     @groups = { "Titre de cette partie" => [] }
     template.fetch("fields").each do |key, field|
+      next if template["fields"].key?("video-url") && key == "text-4"
+      next if template["fields"].key?("slides") && (key.match?(/\A(image|alt)-/) || key == "text-0")
+      if %w[slides video].include?(field["type"])
+        (@groups["Diaporama et vidéo"] ||= []) << field.merge("key" => key, "help" => field["type"] == "video" ? "Adresse directe du fichier MP4 ou WebM. Laissez vide pour afficher seulement l’affiche." : "Chaque diapositive associe une phrase et une image.")
+        next
+      end
       node = @doc.at_css("[data-field='#{key}'],[data-image='#{key}'],[data-alt='#{key}'],[data-link='#{key}']")
       next if decorative?(node, field)
       group, label, help = describe(node, key, field)

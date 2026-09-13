@@ -45,12 +45,13 @@
     "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1300&q=88": "maquette/photo-1469571486292-0ba58a3f068b18bed5e9.jpg",
     "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=700&q=85": "maquette/photo-1416879595882-3373a0480b5be3d794ff.jpg",
     "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=700&q=85": "maquette/photo-1488521787991-ed7bbaae773c85b4eae3.jpg",
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=85": "maquette/photo-1500530855697-b586d89ba3ee69246eaa.jpg"
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=85": "maquette/photo-1500530855697-b586d89ba3ee69246eaa.jpg",
+    "local:luxembourg": "maquette/luxembourg.svg"
   },
   "sections": {
     "home-0": {
       "name": "Faites circulerl’entraide.\n",
-      "html": "<section class=\"hero\">\n        <div class=\"hero-media\" id=\"heroMedia\">\n          <div class=\"hero-slide active\"><img src=\"maquette/photo-1581578731548-c64695cc695294a873d9.jpg\" alt=\"Entraide à domicile\" data-image=\"image-0\" data-alt=\"alt-0\"></div>\n          <div class=\"hero-slide\"><img src=\"maquette/photo-1522202176988-66273c2fd55f262793d0.jpg\" alt=\"Partage de compétences\" data-image=\"image-1\" data-alt=\"alt-1\"></div>\n          <div class=\"hero-slide\"><img src=\"maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg\" alt=\"Entraide au jardin\" data-image=\"image-2\" data-alt=\"alt-2\"></div>\n        </div>\n        <div class=\"container hero-content\">\n<span class=\"hero-label\"><i class=\"live-dot\"></i><span id=\"heroServiceLabel\"><span data-field=\"text-0\">Aide à la personne</span></span><span data-field=\"text-1\"> · la communauté en action</span></span><span class=\"eyebrow source-inline-0\"><span data-field=\"text-2\">Bienvenue sur SEOS</span></span><h1>\n<span data-field=\"text-3\">Faites circuler</span><br><span class=\"accent\"><span data-field=\"text-4\">l’entraide.</span></span>\n</h1>\n<p><span data-field=\"text-5\">Proposez un savoir-faire, trouvez un coup de main et créez des liens dans toute la communauté francophone.</span></p>\n</div>\n        <div class=\"container hero-search-wrap\">\n<form class=\"search-bar\" action=\"/annonces\" method=\"get\">\n<label class=\"search-field\"><span data-field=\"text-6\">⌕ </span><input id=\"homeKeyword\" placeholder=\"Bricolage, informatique, cours…\" name=\"q\" aria-label=\"Rechercher un service\"></label><label class=\"search-field\"><span data-field=\"text-7\">⌖ </span><input id=\"homeLocation\" placeholder=\"Ville ou code postal\" name=\"city\" aria-label=\"Ville ou code postal\"></label><button class=\"btn btn-deep\" type=\"submit\"><span data-field=\"text-8\">Chercher</span></button>\n</form>\n<div class=\"hero-quick\">\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\" data-link=\"link-0\"><span data-field=\"text-9\">＋ Publier une annonce</span></a><a class=\"btn btn-light\" href=\"/decouvrir/fonctionnement\" data-link=\"link-1\"><span data-field=\"text-10\">▶ Comprendre en 2 minutes</span></a>\n</div>\n</div>\n<div class=\"hero-wave\"></div>\n      <div class=\"hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"cut-gold\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>",
+      "html": "<section class=\"hero\">\n        <div class=\"hero-media\" id=\"heroMedia\">\n          <div class=\"hero-slide active\"><img src=\"maquette/photo-1581578731548-c64695cc695294a873d9.jpg\" alt=\"Entraide à domicile\" data-image=\"image-0\" data-alt=\"alt-0\"></div>\n          <div class=\"hero-slide\"><img src=\"maquette/photo-1522202176988-66273c2fd55f262793d0.jpg\" alt=\"Partage de compétences\" data-image=\"image-1\" data-alt=\"alt-1\"></div>\n          <div class=\"hero-slide\"><img src=\"maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg\" alt=\"Entraide au jardin\" data-image=\"image-2\" data-alt=\"alt-2\"></div>\n        </div>\n        <div class=\"container hero-content\">\n<span class=\"hero-label\"><i class=\"live-dot\"></i><span id=\"heroServiceLabel\"><span data-field=\"text-0\">Aide à la personne</span></span><span data-field=\"text-1\"> · la communauté en action</span></span><span class=\"eyebrow source-inline-0\"><span data-field=\"text-2\">Bienvenue sur SEOS</span></span><h1>\n<span data-field=\"text-3\">Faites circuler</span><br><span class=\"accent\"><span data-field=\"text-4\">l’entraide.</span></span>\n</h1>\n<p><span data-field=\"text-5\">Proposez un savoir-faire, trouvez un coup de main et créez des liens dans toute la communauté francophone.</span></p>\n</div>\n        <div class=\"container hero-search-wrap\">\n<form class=\"search-bar\" action=\"/annonces\" method=\"get\">\n<label class=\"search-field\"><span data-field=\"text-6\">⌕ </span><input id=\"homeKeyword\" placeholder=\"Bricolage, informatique, cours…\" name=\"q\" aria-label=\"Rechercher un service\"></label><label class=\"search-field\"><span data-field=\"text-7\">⌖ </span><input id=\"homeLocation\" placeholder=\"Ville ou code postal\" name=\"city\" aria-label=\"Ville ou code postal\"></label><button class=\"btn btn-deep\" type=\"submit\"><span data-field=\"text-8\">Chercher</span></button>\n</form>\n<div class=\"hero-quick\">\n<a class=\"btn btn-primary\" href=\"/compte/annonces/new\" data-link=\"link-0\"><span data-field=\"text-9\">＋ Publier une annonce</span></a><a class=\"btn btn-light\" href=\"/decouvrir/fonctionnement\" data-link=\"link-1\"><span data-field=\"text-10\">▶ Comprendre en 2 minutes</span></a>\n</div>\n</div>\n<div class=\"hero-wave\"></div>\n      <div class=\"hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"cut-gold\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section><template><span data-field=\"slides\"></span></template>",
       "fields": {
         "text-0": {
           "type": "text",
@@ -145,7 +146,12 @@
         "link-1": {
           "type": "url",
           "label": "Destination : ▶ Comprendre en 2 minutes",
-          "default": "/decouvrir/fonctionnement"
+          "default": "/#presentation"
+        },
+        "slides": {
+          "type": "slides",
+          "label": "Diaporama — phrases et images",
+          "default": "[{\"label\": \"Aide à la personne\", \"image\": \"maquette/photo-1581578731548-c64695cc695294a873d9.jpg\", \"alt\": \"Entraide à domicile\"}, {\"label\": \"Partage de compétences\", \"image\": \"maquette/photo-1522202176988-66273c2fd55f262793d0.jpg\", \"alt\": \"Partage de compétences\"}, {\"label\": \"Jardinage\", \"image\": \"maquette/photo-1416879595882-3373a0480b5bb49d6a91.jpg\", \"alt\": \"Entraide au jardin\"}]"
         }
       }
     },
@@ -515,7 +521,7 @@
     },
     "home-5": {
       "name": "Du besoin à la rencontre,en toute simplicité.\n",
-      "html": "<section class=\"section\" id=\"presentation\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Comprendre en 2 minutes</span></span><h2>\n<span data-field=\"text-1\">Du besoin à la rencontre,</span><br><span class=\"accent\"><span data-field=\"text-2\">en toute simplicité.</span></span>\n</h2>\n</div>\n<p><span data-field=\"text-3\">Une courte présentation explique la publication, la messagerie et la manière de définir ensemble les modalités de l’échange.</span></p>\n</div>\n<div class=\"video-testimonial source-inline-1\">\n<img src=\"maquette/photo-1516321318423-f06f85e504b3f27a878f.jpg\" alt=\"Une personne découvre SEOS sur ordinateur\" data-image=\"image-0\" data-alt=\"alt-0\"><span class=\"caption\"><span data-field=\"text-4\">Emplacement vidéo prêt · média final à fournir</span></span>\n</div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120 L1440 170 L0 170 Z\"></path></svg></div>",
+      "html": "<section class=\"section\" id=\"presentation\"><div class=\"container\">\n<div class=\"section-head\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Comprendre en 2 minutes</span></span><h2>\n<span data-field=\"text-1\">Du besoin à la rencontre,</span><br><span class=\"accent\"><span data-field=\"text-2\">en toute simplicité.</span></span>\n</h2>\n</div>\n<p><span data-field=\"text-3\">Une courte présentation explique la publication, la messagerie et la manière de définir ensemble les modalités de l’échange.</span></p>\n</div>\n<div class=\"video-testimonial source-inline-1\">\n<img src=\"maquette/photo-1516321318423-f06f85e504b3f27a878f.jpg\" alt=\"Une personne découvre SEOS sur ordinateur\" data-image=\"image-0\" data-alt=\"alt-0\"><span class=\"caption\"><span data-field=\"text-4\">Emplacement vidéo prêt · média final à fournir</span></span>\n</div>\n</div></section><div class=\"yoga-separator\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--cream)\"></rect><path class=\"wave-melt-outer\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120\" fill=\"none\" stroke=\"var(--seos)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--seos)\" d=\"M0 46 C214 20 322 158 522 126 C714 96 802 12 1006 44 C1192 72 1306 154 1440 120 L1440 170 L0 170 Z\"></path></svg></div><template><span data-field=\"video-url\"></span></template>",
       "fields": {
         "text-0": {
           "type": "text",
@@ -551,6 +557,11 @@
           "type": "text",
           "label": "Description du visuel",
           "default": "Une personne découvre SEOS sur ordinateur"
+        },
+        "video-url": {
+          "type": "video",
+          "label": "Adresse du fichier vidéo (MP4 ou WebM)",
+          "default": ""
         }
       }
     },
@@ -678,7 +689,7 @@
     },
     "home-8": {
       "name": "L’entraide dépasse les frontières.",
-      "html": "<section class=\"section francophone\"><div class=\"container section-head source-inline-2\">\n<div>\n<span class=\"eyebrow source-inline-3\"><span data-field=\"text-0\">Une communauté francophone</span></span><h2 class=\"source-inline-4\"><span data-field=\"text-1\">L’entraide dépasse les frontières.</span></h2>\n<p class=\"source-inline-5\"><span data-field=\"text-2\">SEOS s’adresse aux membres francophones de quatre pays.</span></p>\n</div>\n<figure class=\"francophone-visual\" role=\"img\" aria-label=\"Photographies des drapeaux de la France, de la Belgique, de la Suisse et du Luxembourg\"><div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1571175475562-83600102a315601d8f2f.jpg\" alt=\"Drapeau français flottant sur un bâtiment à Paris\" data-image=\"image-0\" data-alt=\"alt-0\"><span><span data-field=\"text-3\">🇫🇷 France</span></span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1663697697070-13f1502bd6f1e09bef29.jpg\" alt=\"Drapeau belge flottant dans le ciel\" data-image=\"image-1\" data-alt=\"alt-1\"><span><span data-field=\"text-4\">🇧🇪 Belgique</span></span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1742716569164-644f62dff2304f45d775.jpg\" alt=\"Drapeau suisse devant les montagnes\" data-image=\"image-2\" data-alt=\"alt-2\"><span><span data-field=\"text-5\">🇨🇭 Suisse</span></span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"seos-logo.png\" alt=\"Drapeau luxembourgeois flottant dans le ciel\" data-image=\"image-3\" data-alt=\"alt-3\"><span><span data-field=\"text-6\">🇱🇺 Luxembourg</span></span>\n</div></figure>\n</div></section><div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--deep)\"></rect><path class=\"wave-melt-outer\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z\"></path></svg></div>",
+      "html": "<section class=\"section francophone\"><div class=\"container section-head\">\n<div>\n<span class=\"eyebrow source-inline-3\"><span data-field=\"text-0\">Une communauté francophone</span></span><h2 class=\"source-inline-4\"><span data-field=\"text-1\">L’entraide dépasse les frontières.</span></h2>\n<p class=\"source-inline-5\"><span data-field=\"text-2\">SEOS s’adresse aux membres francophones de quatre pays.</span></p>\n</div>\n<figure class=\"francophone-visual\" role=\"img\" aria-label=\"Photographies des drapeaux de la France, de la Belgique, de la Suisse et du Luxembourg\"><div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1571175475562-83600102a315601d8f2f.jpg\" alt=\"Drapeau français flottant sur un bâtiment à Paris\" data-image=\"image-0\" data-alt=\"alt-0\"><span data-field=\"text-3\">🇫🇷 France</span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1663697697070-13f1502bd6f1e09bef29.jpg\" alt=\"Drapeau belge flottant dans le ciel\" data-image=\"image-1\" data-alt=\"alt-1\"><span data-field=\"text-4\">🇧🇪 Belgique</span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"maquette/photo-1742716569164-644f62dff2304f45d775.jpg\" alt=\"Drapeau suisse devant les montagnes\" data-image=\"image-2\" data-alt=\"alt-2\"><span data-field=\"text-5\">🇨🇭 Suisse</span>\n</div>\n<div class=\"francophone-flag-photo\">\n<img src=\"seos-logo.png\" alt=\"Drapeau luxembourgeois flottant dans le ciel\" data-image=\"image-3\" data-alt=\"alt-3\"><span data-field=\"text-6\">🇱🇺 Luxembourg</span>\n</div></figure>\n</div></section><div class=\"yoga-separator deep-transition\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 170\" preserveaspectratio=\"none\" overflow=\"visible\"><rect width=\"1440\" height=\"170\" fill=\"var(--deep)\"></rect><path class=\"wave-melt-outer\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--turq)\" stroke-width=\"28\" stroke-linecap=\"round\"></path><path class=\"wave-melt-inner\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74\" fill=\"none\" stroke=\"var(--cream)\" stroke-width=\"14\" stroke-linecap=\"round\"></path><path fill=\"var(--cream)\" d=\"M0 112 C190 18 356 -12 526 72 C700 158 858 170 1018 66 C1178 -36 1320 8 1440 74 L1440 170 L0 170 Z\"></path></svg></div>",
       "fields": {
         "text-0": {
           "type": "text",
@@ -698,22 +709,22 @@
         "text-3": {
           "type": "text",
           "label": "🇫🇷 France",
-          "default": "🇫🇷 France"
+          "default": "FR · France"
         },
         "text-4": {
           "type": "text",
           "label": "🇧🇪 Belgique",
-          "default": "🇧🇪 Belgique"
+          "default": "BE · Belgique"
         },
         "text-5": {
           "type": "text",
           "label": "🇨🇭 Suisse",
-          "default": "🇨🇭 Suisse"
+          "default": "CH · Suisse"
         },
         "text-6": {
           "type": "text",
           "label": "🇱🇺 Luxembourg",
-          "default": "🇱🇺 Luxembourg"
+          "default": "LU · Luxembourg"
         },
         "image-0": {
           "type": "image",
@@ -748,7 +759,7 @@
         "image-3": {
           "type": "image",
           "label": "Drapeau luxembourgeois flottant dans le ciel",
-          "default": "seos-logo.png"
+          "default": "maquette/luxembourg.svg"
         },
         "alt-3": {
           "type": "text",
@@ -835,7 +846,7 @@
     },
     "home-10": {
       "name": "Tu as envie d’être utile et de participer à ta façon ?",
-      "html": "<section class=\"section soft\"><div class=\"container support-grid\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Soutenir SEOS</span></span><h2><span data-field=\"text-1\">Tu as envie d’être utile et de participer à ta façon ?</span></h2>\n<p><strong><span data-field=\"text-2\">SEOS a fait le choix d’être gratuit pour tous afin d’être accessible à ceux qui en ont le plus besoin.</span></strong></p>\n<p><span data-field=\"text-3\">Parlez du projet autour de vous, invitez de nouveaux membres ou contribuez à son développement.</span></p>\n<p><strong><span data-field=\"text-4\">Tu aides SEOS → SEOS aide la communauté → La communauté s’entraide</span></strong></p>\n</div>\n<div class=\"support-actions\">\n<article class=\"support-card\"><h3><span data-field=\"text-5\">Faire connaître SEOS</span></h3>\n<p><span data-field=\"text-6\">Partagez le projet et gagnez 10 PS une fois par mois.</span></p>\n<div class=\"share-buttons\">\n<a class=\"icon-btn\" href=\"/contact\" data-link=\"link-0\"><span data-field=\"text-7\">◎</span></a><a class=\"icon-btn\" href=\"/contact\" data-link=\"link-1\"><span data-field=\"text-8\">f</span></a><a class=\"icon-btn\" href=\"/contact\" data-link=\"link-2\"><span data-field=\"text-9\">in</span></a>\n</div></article><article class=\"support-card gold\"><h3><span data-field=\"text-10\">Participer autrement</span></h3>\n<p><span data-field=\"text-11\">Un soutien matériel nous aide à maintenir SEOS accessible.</span></p>\n<a class=\"btn btn-light\" href=\"/contact\" data-link=\"link-3\"><span data-field=\"text-12\">Soutenir SEOS</span></a></article>\n</div>\n</div></section>",
+      "html": "<section class=\"section soft\"><div class=\"container support-grid\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Soutenir SEOS</span></span><h2><span data-field=\"text-1\">Tu as envie d’être utile et de participer à ta façon ?</span></h2>\n<p><strong><span data-field=\"text-2\">SEOS a fait le choix d’être gratuit pour tous afin d’être accessible à ceux qui en ont le plus besoin.</span></strong></p>\n<p><span data-field=\"text-3\">Parlez du projet autour de vous, invitez de nouveaux membres ou contribuez à son développement.</span></p>\n<p><strong><span data-field=\"text-4\">Tu aides SEOS → SEOS aide la communauté → La communauté s’entraide</span></strong></p>\n</div>\n<div class=\"support-actions\">\n<article class=\"support-card\"><h3><span data-field=\"text-5\">Faire connaître SEOS</span></h3>\n<p><span data-field=\"text-6\">Partagez le projet et gagnez 10 PS une fois par mois.</span></p>\n<div class=\"share-buttons\">\n<a class=\"icon-btn\" href=\"/contact\" data-link=\"link-0\" aria-label=\"Instagram\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.5\" cy=\"6.5\" r=\".8\" fill=\"currentColor\" stroke=\"none\"/></svg><span hidden data-field=\"text-7\">Instagram</span></a><a class=\"icon-btn\" href=\"/contact\" data-link=\"link-1\" aria-label=\"Facebook\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M14 21v-8h3l.5-4H14V7c0-1 .5-2 2-2h2V2h-3c-3 0-5 2-5 5v2H7v4h3v8\"/></svg><span hidden data-field=\"text-8\">Facebook</span></a><a class=\"icon-btn\" href=\"/contact\" data-link=\"link-2\" aria-label=\"LinkedIn\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><rect x=\"3\" y=\"9\" width=\"4\" height=\"12\" rx=\".5\"/><circle cx=\"5\" cy=\"4\" r=\"2\"/><path d=\"M11 21V9h4v2c1-3 6-3 6 2v8h-4v-7c0-2-2-2-2 0v7Z\"/></svg><span hidden data-field=\"text-9\">LinkedIn</span></a>\n</div></article><article class=\"support-card gold\"><h3><span data-field=\"text-10\">Participer autrement</span></h3>\n<p><span data-field=\"text-11\">Un soutien matériel nous aide à maintenir SEOS accessible.</span></p>\n<a class=\"btn btn-light\" href=\"/contact\" data-link=\"link-3\"><span data-field=\"text-12\">Soutenir SEOS</span></a></article>\n</div>\n</div></section>",
       "fields": {
         "text-0": {
           "type": "text",
@@ -875,17 +886,17 @@
         "text-7": {
           "type": "text",
           "label": "◎",
-          "default": "◎"
+          "default": "Instagram"
         },
         "text-8": {
           "type": "text",
           "label": "f",
-          "default": "f"
+          "default": "Facebook"
         },
         "text-9": {
           "type": "text",
           "label": "in",
-          "default": "in"
+          "default": "LinkedIn"
         },
         "text-10": {
           "type": "text",
@@ -904,17 +915,17 @@
         },
         "link-0": {
           "type": "url",
-          "label": "Destination : ◎",
+          "label": "Destination : Instagram",
           "default": "/contact"
         },
         "link-1": {
           "type": "url",
-          "label": "Destination : f",
+          "label": "Destination : Facebook",
           "default": "/contact"
         },
         "link-2": {
           "type": "url",
-          "label": "Destination : in",
+          "label": "Destination : LinkedIn",
           "default": "/contact"
         },
         "link-3": {

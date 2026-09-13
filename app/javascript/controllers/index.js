@@ -15,3 +15,7 @@ import CopyLinkController from "./copy_link_controller"
 application.register("copy-link", CopyLinkController)
 import NotificationBadgesController from "./notification_badges_controller"
 application.register("notification-badges", NotificationBadgesController)
+import HeroCarouselController from "./hero_carousel_controller"
+application.register("hero-carousel", HeroCarouselController)
+import ChainPathController from "./chain_path_controller"
+application.register("chain-path", ChainPathController)

@@ -55,6 +55,25 @@ export default class extends Controller {
     input.addEventListener(choices ? "change" : "input", () => callback(input.value))
     wrapper.append(input); parent.append(wrapper); return input
   }
+  slideFields(parent, block, key, defaults) {
+    const slides = JSON.parse(block.values[key] ?? defaults)
+    if (!Object.hasOwn(block.values, key)) slides.forEach((slide, index) => {
+      slide.image = block.values[`image-${index}`] ?? slide.image
+      slide.alt = block.values[`alt-${index}`] ?? slide.alt
+      if (index === 0) slide.label = block.values["text-0"] ?? slide.label
+    })
+    const save = () => this.change(() => { block.values[key] = JSON.stringify(slides) })
+    slides.forEach((slide, index) => {
+      const group = this.details(parent, `Diapositive ${index + 1}`, true, "slides")
+      this.field(group, "Phrase", slide.label, null, value => { slide.label = value; save() })
+      this.field(group, "Image", slide.image, this.config.images, value => { slide.image = value; save() })
+      this.field(group, "Description de l’image", slide.alt, null, value => { slide.alt = value; save() })
+      if (slides.length > 1) this.button("Supprimer cette diapositive", () => { slides.splice(index, 1); save(); this.inspect() }, group)
+    })
+    if (slides.length < 20) this.button("Ajouter une diapositive", () => {
+      slides.push({ label: "Une nouvelle façon de s’entraider", image: slides[0].image, alt: slides[0].alt }); save(); this.inspect()
+    }, parent)
+  }
   details(parent, title, open = false, name = "visual-inspector") {
     const details = this.node("details"); details.open = open; details.name = name
     details.append(this.node("summary", title)); parent.append(details); return details
@@ -190,6 +209,7 @@ export default class extends Controller {
       const group = this.details(this.inspectorTarget, title, this.selectedField ? fields.some(field => field.key === this.selectedField) : index === 0)
       fields.forEach(field => {
         const key = field.key
+        if (field.type === "slides") { this.slideFields(group, block, key, field.default); return }
         this.field(group, field.label, block.values[key] ?? (block.template === "text" && ["url", "label"].includes(key) ? "" : field.default), field.type === "image" ? this.config.images : null,
           value => this.change(() => {
             block.values[key] = value

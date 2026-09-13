@@ -144,7 +144,6 @@
 .maquette-surface .home-category span { position: absolute; z-index: 1; bottom: 16px; left: 16px; right: 12px; color: white; font-weight: 700; }
 .maquette-surface .chain-example-label { display: block; color: white; margin-bottom: 20px; }
 .maquette-surface .chain-example-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; position: relative; }
-.maquette-surface .chain-example-steps::before { content: ""; height: 2px; background: var(--turq); position: absolute; top: 50%; width: 100%; }
 .maquette-surface .chain-example-steps article { z-index: 1; background: white; color: var(--deep); border-radius: 48% 48% 20px 20px; padding: 20px 12px; text-align: center; }
 .maquette-surface .chain-example-steps p { font-size: .8rem; }
 .maquette-surface .chain-example-avatar,.maquette-surface .chain-example-points { display: block; border-radius: 999px; padding: 6px; background: var(--mist); margin: 0 auto 8px; }
@@ -169,3 +168,65 @@
 .maquette-surface .chain-example-avatar { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; }
 .maquette-surface .chain-example-steps article { display: flex; flex-direction: column; align-items: center; }
 .maquette-surface .chain-example-steps p { flex: 1; }
+
+/* Keep the illustration content grouped and the layout inside the page grid. */
+.maquette-surface .security-orb { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:0; line-height:1.2; padding:35px; }
+.maquette-surface .security-orb br { display:none; }
+.maquette-surface .security-orb [data-field="text-0"] { margin-bottom:18px; }
+.maquette-surface .francophone > .container { margin-inline:auto; align-items:center; gap:48px; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); }
+.maquette-surface .francophone-visual { margin:0; min-width:0; width:100%; }
+.maquette-surface .francophone-flag-photo > span > span { position:static; padding:0; border:0; background:none; box-shadow:none; backdrop-filter:none; }
+.maquette-surface .join-art { min-width:0; min-height:520px; }
+.maquette-surface .join-art::before,.maquette-surface .join-art::after { width:62%; height:56%; inset:22% 19%; }
+.maquette-surface .join-bubble { width:clamp(70px,8vw,112px); height:auto; aspect-ratio:1; }
+.maquette-surface .video-testimonial > video { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; background:var(--deep); }
+#presentation { scroll-margin-top:100px; }
+.maquette-surface .hero-slide { transition:opacity 1.2s ease; }
+.maquette-surface .hero-slide.active img { animation:hero-photo-drift 12s ease-out both; }
+@keyframes hero-photo-drift { from { transform:scale(1.06); } to { transform:scale(1); } }
+/* A pulse passes from each member to the next, then the chain begins again. */
+.maquette-surface .chain-example { padding:24px 8px; }
+.maquette-surface .chain-example-steps { gap:28px; isolation:isolate; }
+.maquette-surface .chain-example-steps article { position:relative; overflow:visible; animation:chain-card-breathe 8s ease-in-out infinite; border:1px solid var(--line); box-shadow:0 16px 40px #002f4033; }
+.maquette-surface .chain-example-steps article:nth-child(2) { animation-delay:2s; }
+.maquette-surface .chain-example-steps article:nth-child(3) { animation-delay:4s; }
+.maquette-surface .chain-example-steps article:nth-child(4) { animation-delay:6s; }
+@keyframes chain-card-breathe { 0%,24%,100% { transform:translateY(0); box-shadow:0 16px 40px #002f4033; } 10%,17% { transform:translateY(-10px); box-shadow:0 0 0 5px #cdae4f44,0 16px 40px #21a2af55; border-color:var(--gold); } }
+.maquette-surface .site-transition[data-animated="true"] .site-wave-layers { transform-origin:center; animation:studio-wave-drift 5s ease-in-out infinite alternate; }
+@keyframes studio-wave-drift { from { transform:translateY(-7px) scaleX(1.02); } to { transform:translateY(9px) scaleX(1.24); } }
+@media(max-width:760px) {
+  .maquette-surface .francophone > .container { grid-template-columns:1fr; gap:32px; }
+  .maquette-surface .chain-example-steps { grid-template-columns:1fr; gap:30px; }
+  .maquette-surface .join-art { min-height:420px; }
+  .maquette-surface .join-copy { padding:32px 24px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .maquette-surface .chain-example-steps article,.maquette-surface .chain-example-steps article::after,.maquette-surface .hero-slide.active img { animation:none!important; }
+  .maquette-surface .hero-slide { transition:none; }
+}
+
+/* The single SVG stroke follows the two ends; no fixed line remains underneath. */
+.maquette-surface .chain-connections { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0; }
+.maquette-surface .chain-connections path { fill:none; stroke:var(--turq); stroke-width:3; stroke-linecap:round; animation:chain-link-pulse 8s ease-in-out infinite; }
+.maquette-surface .chain-connections path:nth-child(2) { animation-delay:2s; }
+.maquette-surface .chain-connections path:nth-child(3) { animation-delay:4s; }
+@keyframes chain-link-pulse { 0%,28%,100% { stroke:var(--turq); } 15%,20% { stroke:var(--gold); } }
+/* Only the water's outline deforms. The words remain anchored in the centre. */
+.maquette-surface .site-section[data-orbs] .security-orb { position:relative; isolation:isolate; background:transparent; box-shadow:none; animation:none; transform:none; }
+.maquette-surface .security-orb::before { content:""; position:absolute; inset:0; z-index:-1; border-radius:58% 42% 46% 54% / 41% 61% 39% 59%; background:linear-gradient(130deg,#99dce6,#55a9bc,#79c8d4); background-size:180% 180%; box-shadow:0 0 0 24px #edf8fa; }
+.maquette-surface .site-section:not([data-orbs="none"]) .security-orb::before { animation:studio-water-morph 10s ease-in-out infinite; }
+@keyframes studio-water-morph {
+  0%,100% { border-radius:58% 42% 46% 54% / 41% 61% 39% 59%; background-position:0% 30%; }
+  25% { border-radius:42% 58% 64% 36% / 56% 38% 62% 44%; background-position:60% 0%; }
+  50% { border-radius:54% 46% 37% 63% / 65% 53% 47% 35%; background-position:100% 80%; }
+  75% { border-radius:65% 35% 55% 45% / 43% 64% 36% 57%; background-position:30% 100%; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .maquette-surface .chain-connections path,.maquette-surface .security-orb::before { animation:none!important; }
+}
+
+.maquette-surface .support-card .share-buttons .icon-btn { color:var(--deep); width:44px; height:44px; flex-shrink:0; }
+.maquette-surface .support-card .share-buttons .icon-btn svg { display:block; width:20px; height:20px; }
+.maquette-surface .support-card .share-buttons .icon-btn [hidden] { display:none; }
+.maquette-surface .support-card .share-buttons .icon-btn:hover { background:var(--mist); }
+.maquette-surface .support-card .share-buttons .icon-btn:focus-visible { outline:2px solid var(--deep); outline-offset:3px; }

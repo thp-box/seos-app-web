@@ -89,6 +89,29 @@ module SiteHelper
       end
       doc.css("[data-link]").each { |node| node["href"] = values.fetch(node["data-link"]) }
       doc.css("[data-image]").each { |node| node["src"] = values.fetch(node["data-image"]); node["alt"] = values.fetch(node["data-alt"]) }
+      if block["template"] == "home-0"
+        hero = doc.at_css(".hero")
+        hero["data-controller"] = "hero-carousel"
+        slides = JSON.parse(values["slides"])
+        # Retain existing photo/text customizations until slides are explicitly edited.
+        unless block["values"].key?("slides")
+          slides.each_with_index { |slide, i| slide["image"] = values["image-#{i}"]; slide["alt"] = values["alt-#{i}"] }
+          slides.first["label"] = values["text-0"]
+        end
+        doc.at_css(".hero-media").inner_html = render("site/hero_slides", slides: slides)
+        label = doc.at_css(".hero-label [data-field='text-0']")
+        label["data-hero-carousel-target"] = "label"
+        label.content = slides.first["label"]
+        doc.at_css(".hero-quick").add_child('<button type="button" class="btn btn-outline" data-action="hero-carousel#toggle" data-hero-carousel-target="pause">Mettre le diaporama en pause</button>')
+        link = doc.at_css('[data-link="link-1"]')
+        link["href"] = "/#presentation" if link["href"] == "/decouvrir/fonctionnement"
+        link["data-turbo"] = "false" if link["href"] == "/#presentation"
+      end
+      doc.at_css(".chain-example-steps")["data-controller"] = "chain-path" if block["template"] == "home-4"
+      if block["template"] == "home-5"
+        frame = doc.at_css(".video-testimonial")
+        frame.inner_html = render("site/presentation_video", values: values)
+      end
       identifiers = doc.css("[id]").to_h { |node| [ node["id"], "#{block['id']}-#{node['id']}" ] }
       doc.css("*").each do |node|
         node.attribute_nodes.each do |attribute|
@@ -97,6 +120,11 @@ module SiteHelper
         node["id"] = identifiers.fetch(node["id"]) if node["id"]
       end
     end
+    if block && block["template"] == "home-5" && !@presentation_anchor_used
+      doc.at_css("section")["id"] = "presentation"
+      @presentation_anchor_used = true
+    end
+    doc.css("template").remove unless @visual_preview
     doc.css("img").each { |node| node["src"] = site_image_path(node["src"]); node["loading"] = "lazy" }
     slots = { "home-2" => [ ".category-grid", "categories" ], "home-3" => [ ".ad-grid", "listings" ], "home-6" => [ ".testimonial-grid", "testimonials" ] }
     if block && (slot = slots[block["template"]])

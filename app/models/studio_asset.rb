@@ -7,6 +7,6 @@ class StudioAsset < ApplicationRecord
     site = settings.fetch("site", {})
     chrome = %w[header footer].any? { |area| site.dig(area, "logo") == "asset:#{id}" }
     blocks = site.fetch("pages", {}).values.flat_map { |page| page.fetch("blocks") }.reject { |block| block["hidden"] }
-    legacy || chrome || blocks.any? { |block| block["values"].any? { |key, value| key.start_with?("image-") && value == "asset:#{id}" } }
+    legacy || chrome || blocks.any? { |block| block["values"].any? { |key, value| (key.start_with?("image-") && value == "asset:#{id}") || (key == "slides" && JSON.parse(value).any? { |slide| slide["image"] == "asset:#{id}" }) } }
   end
 end

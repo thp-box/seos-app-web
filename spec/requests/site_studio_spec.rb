@@ -141,16 +141,16 @@ RSpec.describe "Régressions du kit de maquette", type: :request do
     expect(response.body).to include("Aucune annonce", "témoignages publiés")
     expect(response.body).not_to include("Amina B.", "63 échanges", "40 Points Services en circulation")
   end
-  it "importe un contenu éditorial existant avec un identifiant stable" do
+  it "édite le modèle de don avec un identifiant stable" do
     content = ContentVersion.create!(author: admin, kind: "page", slug: "don", title: "Donner", summary: "Librement", body: "Aucune contrepartie", version: 1, published_at: Time.current)
     first = SiteDesign.default_page("don")
     expect(first).to eq(SiteDesign.default_page("don"))
     version = Studio.change!(actor: admin, name: "Page", settings: {})
     login admin
-    patch admin_site_path(version), params: { operation: "page", page: "don", block_id: first["blocks"].first["id"], block_action: "save", values: { title: "Un nouveau titre", body: content.body }, separator: "wave_double", placement: "top" }
+    patch admin_site_path(version), params: { operation: "page", page: "don", block_id: first["blocks"].first["id"], block_action: "save", values: { "text-1" => "Un nouveau titre", "text-3" => content.body }, separator: "wave_double", placement: "top" }
     expect(response).to have_http_status(:see_other)
     version = StudioVersion.last
-    expect(version.site.dig("pages", "don", "blocks", 0, "values", "title")).to eq("Un nouveau titre")
+    expect(version.site.dig("pages", "don", "blocks", 0, "values", "text-1")).to eq("Un nouveau titre")
     get preview_admin_studio_path(version, page: "don", canvas: "1")
     expect(response.body).to include("Un nouveau titre", "wave_double")
   end
