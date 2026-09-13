@@ -15,3 +15,11 @@ Vérifications : permissions, isolation du brouillon, publication, aperçu Studi
 Toutes les pages du Studio peuvent être supprimées, sauf l’accueil et les annonces. Dans l’éditeur visuel : **Créer ou retirer une page → Retirer cette page**. Dans l’éditeur guidé : **Supprimer cette page**. Enregistrer puis publier pour rendre la suppression effective.
 
 La suppression est conservée dans la version du site : elle empêche le retour automatique au contenu initial, retire les liens correspondants de la navigation et du pied de page et rend l’URL publique indisponible (404). Les missions, candidatures et autres données métier restent conservées. Une ancienne sauvegarde peut être reprise et publiée pour restaurer la page. Les liens saisis dans le contenu d’autres sections restent à adapter par l’administrateur.
+
+## Présentation maquette et Points Services
+
+Le bandeau utilise la photo des mains réunies, le titre en deux parties et la vague de la maquette. Les missions apparaissent en cartes illustrées sur trois colonnes (une sur téléphone), avec contribution en PS par jour, hébergement et repas. Les textes, la photo du bandeau et les sections restent éditables dans le Studio.
+
+`daily_contribution_points` est un entier distinct des anciens montants monétaires. Le champ est éditable dans les formulaires de mission ; aucune conversion euros/points n’est appliquée aux données historiques. Les anciens champs monétaires ne sont plus acceptés dans les formulaires métier. La candidature ne déclenche pas de transfert de points.
+
+`db/travel_seeds.rb`, chargé par `db/seeds.rb` uniquement en développement, crée trois missions publiées de l’association fictive « Entraide solidaire — Démo » : éco-lieu (10 PS/jour), projet éducatif (0), refuge (15). Les photos sont locales. Les slugs stables évitent les doublons ; relancer les seeds ne remplace pas les missions existantes modifiées manuellement. Ces missions sont explicitement des données de démonstration, jamais créées en production.

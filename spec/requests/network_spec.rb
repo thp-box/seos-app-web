@@ -60,7 +60,7 @@ RSpec.describe "Organisations, Voyage et partenaires", type: :request do
 
   it "prépare une mission, publie exclusivement comme super-admin et protège les candidatures" do
     login owner
-    patch account_organization_path(organization), params: { operation: "mission", mission: mission_attributes.merge(status: "published", daily_contribution_cents: 1501) }
+    patch account_organization_path(organization), params: { operation: "mission", mission: mission_attributes.merge(status: "published", daily_contribution_points: 100001) }
     expect(response).to have_http_status(:unprocessable_content)
     patch account_organization_path(organization), params: { operation: "mission", mission: mission_attributes }
     expect(response).to have_http_status(:see_other)

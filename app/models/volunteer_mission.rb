@@ -1,6 +1,6 @@
 class VolunteerMission < ApplicationRecord
   include PublicText
-  FIELDS = %i[title description country_code region public_location private_address starts_on ends_on minimum_stay_days help_hours_per_day days_off_per_week languages daily_contribution_cents daily_contribution_euros volunteer_capacity accommodation meals].freeze
+  FIELDS = %i[title description country_code region public_location private_address starts_on ends_on minimum_stay_days help_hours_per_day days_off_per_week languages daily_contribution_points volunteer_capacity accommodation meals].freeze
   belongs_to :organization
   belongs_to :published_by, class_name: "User", optional: true
   has_many_attached :photos
@@ -14,6 +14,7 @@ class VolunteerMission < ApplicationRecord
   validates :country_code, format: { with: /\A[A-Z]{2}\z/ }, allow_blank: true
   validates :status, inclusion: { in: %w[draft pending_review published paused archived] }
   validates :daily_contribution_cents, numericality: { only_integer: true, in: 0..1500 }
+  validates :daily_contribution_points, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100000 }
   validates :volunteer_capacity, numericality: { only_integer: true, in: 1..100 }
   validates :minimum_stay_days, numericality: { only_integer: true, greater_than: 0 }
   validates :help_hours_per_day, numericality: { only_integer: true, in: 1..8 }

@@ -1,28 +1,48 @@
 {
   "travel-hero": {
     "name": "Voyage solidaire : présentation",
-    "html": "<section class=\"public-hero\">\n  <div class=\"container\"><span class=\"eyebrow\"><span data-field=\"text-0\">S’engager ensemble</span></span><h1><span data-field=\"text-1\">Voyage solidaire</span></h1><p><span data-field=\"text-2\">Participez aux projets d’associations vérifiées, avec des conditions d’accueil transparentes.</span></p></div>\n  <svg class=\"public-hero-wave\" viewBox=\"0 0 1440 100\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path class=\"public-hero-wave-gold\" d=\"M0 25C220 100 350 90 540 42S830 8 1030 65S1270 85 1440 45V100H0Z\"/><path d=\"M0 44C220 110 350 95 540 52S830 15 1030 71S1270 95 1440 61V100H0Z\"/></svg>\n</section>\n",
+    "html": "<section class=\"travel-hero\"><div class=\"travel-copy\">\n<span class=\"eyebrow source-inline-104\"><span data-field=\"text-0\">Voyage solidaire</span></span><h1><span data-field=\"text-1\">Voyager,</span><br><span class=\"accent\"><span data-field=\"text-3\">aider, rencontrer.</span></span>\n</h1>\n<p class=\"source-inline-105\"><span data-field=\"text-2\">Des missions publiées exclusivement par des associations vérifiées par SEOS.</span></p>\n<div class=\"notice\"><span data-field=\"text-4\">Une contribution en Points Services, précisée pour chaque mission.</span></div>\n</div>\n<div class=\"travel-photo\"><img data-image=\"image-0\" data-alt=\"alt-0\" src=\"maquette/photo-1469571486292-0ba58a3f068b18bed5e9.jpg\" alt=\"Voyage solidaire\"></div>\n<div class=\"page-hero-organic-cut\" aria-hidden=\"true\"><svg viewbox=\"0 0 1440 286\" preserveaspectratio=\"none\"><path class=\"page-cut-soft\" fill=\"var(--gold)\" d=\"M0 62 C158 190 326 224 506 128 C682 34 818 18 978 122 C1132 222 1296 208 1440 112 L1440 286 L0 286 Z\"></path><path fill=\"var(--cream)\" d=\"M0 112 C180 238 354 224 536 132 C706 46 842 42 1016 142 C1178 234 1318 216 1440 154 L1440 286 L0 286 Z\"></path></svg></div></section>",
     "fields": {
       "text-0": {
-        "type": "text",
-        "label": "S’engager ensemble",
-        "default": "S’engager ensemble"
-      },
-      "text-1": {
         "type": "text",
         "label": "Voyage solidaire",
         "default": "Voyage solidaire"
       },
+      "text-1": {
+        "type": "text",
+        "label": "Voyager,",
+        "default": "Voyager,"
+      },
       "text-2": {
         "type": "text",
-        "label": "Participez aux projets d’associations vérifiées, avec des conditions d’accueil transparentes.",
-        "default": "Participez aux projets d’associations vérifiées, avec des conditions d’accueil transparentes."
+        "label": "Des missions publiées exclusivement par des associations vérifiées par SEOS.",
+        "default": "Des missions publiées exclusivement par des associations vérifiées par SEOS."
+      },
+      "text-3": {
+        "type": "text",
+        "label": "aider, rencontrer.",
+        "default": "aider, rencontrer."
+      },
+      "text-4": {
+        "type": "text",
+        "label": "Une contribution en Points Services, précisée pour chaque mission.",
+        "default": "Une contribution en Points Services, précisée pour chaque mission."
+      },
+      "alt-0": {
+        "type": "text",
+        "label": "Des mains réunies autour d’un cœur rouge",
+        "default": "Des mains réunies autour d’un cœur rouge"
+      },
+      "image-0": {
+        "type": "image",
+        "label": "Photo de présentation",
+        "default": "maquette/photo-1469571486292-0ba58a3f068b18bed5e9.jpg"
       }
     }
   },
   "travel-missions": {
     "name": "Voyage solidaire : missions et filtre",
-    "html": "<section class=\"container section prose travel-missions\"><div class=\"travel-missions-slot\"><label data-field=\"text-0\">Filtrer par pays (code à deux lettres)</label><button data-field=\"text-1\">Filtrer les missions</button><p data-field=\"text-2\">Aucune mission publiée ne correspond pour le moment.</p></div></section>",
+    "html": "<section class=\"container section travel-missions\"><div class=\"section-head\"><div><span class=\"eyebrow\" data-field=\"text-3\">Missions ouvertes</span><h2><span data-field=\"text-4\">Donnez un peu de temps, vivez beaucoup.</span></h2></div><p data-field=\"text-5\">Découvrez les conditions d’accueil.</p></div><div class=\"travel-missions-slot\"><label data-field=\"text-0\">Filtrer par pays (code à deux lettres)</label><button data-field=\"text-1\">Filtrer les missions</button><p data-field=\"text-2\">Aucune mission publiée ne correspond pour le moment.</p></div></section>",
     "fields": {
       "text-0": {
         "type": "text",
@@ -38,6 +58,21 @@
         "type": "text",
         "label": "Aucune mission publiée ne correspond pour le moment.",
         "default": "Aucune mission publiée ne correspond pour le moment."
+      },
+      "text-3": {
+        "type": "text",
+        "label": "Missions ouvertes",
+        "default": "Missions ouvertes"
+      },
+      "text-4": {
+        "type": "text",
+        "label": "Donnez un peu de temps, vivez beaucoup.",
+        "default": "Donnez un peu de temps, vivez beaucoup."
+      },
+      "text-5": {
+        "type": "text",
+        "label": "Découvrez les conditions d’accueil et échangez avec l’association avant de proposer votre candidature.",
+        "default": "Découvrez les conditions d’accueil et échangez avec l’association avant de proposer votre candidature."
       }
     }
   }

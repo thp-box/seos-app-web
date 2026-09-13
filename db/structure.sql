@@ -611,16 +611,6 @@ CREATE INDEX "index_organization_invitations_on_organization_id" ON "organizatio
 CREATE INDEX "index_organization_invitations_on_invited_by_id" ON "organization_invitations" ("invited_by_id") /*application='SeosFrance'*/;
 CREATE INDEX "index_organization_invitations_on_accepted_by_id" ON "organization_invitations" ("accepted_by_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_organization_invitations_on_token_digest" ON "organization_invitations" ("token_digest") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "volunteer_missions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "organization_id" integer NOT NULL, "slug" varchar NOT NULL, "title" varchar NOT NULL, "description" text, "private_address" text, "accommodation" text, "meals" text, "country_code" varchar, "region" varchar, "public_location" varchar, "languages" varchar, "starts_on" date, "ends_on" date, "minimum_stay_days" integer DEFAULT 1 NOT NULL, "help_hours_per_day" integer DEFAULT 4 NOT NULL, "days_off_per_week" integer DEFAULT 2 NOT NULL, "daily_contribution_cents" integer DEFAULT 0 NOT NULL, "volunteer_capacity" integer DEFAULT 1 NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "published_at" datetime(6), "published_by_id" integer, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_14b84d8711"
-FOREIGN KEY ("published_by_id")
-  REFERENCES "users" ("id")
-, CONSTRAINT "fk_rails_c23ee83819"
-FOREIGN KEY ("organization_id")
-  REFERENCES "organizations" ("id")
-, CONSTRAINT mission_bounds CHECK (daily_contribution_cents BETWEEN 0 AND 1500 AND volunteer_capacity BETWEEN 1 AND 100 AND minimum_stay_days >= 1 AND help_hours_per_day BETWEEN 1 AND 8 AND days_off_per_week BETWEEN 1 AND 6));
-CREATE INDEX "index_volunteer_missions_on_organization_id" ON "volunteer_missions" ("organization_id") /*application='SeosFrance'*/;
-CREATE UNIQUE INDEX "index_volunteer_missions_on_slug" ON "volunteer_missions" ("slug") /*application='SeosFrance'*/;
-CREATE INDEX "index_volunteer_missions_on_published_by_id" ON "volunteer_missions" ("published_by_id") /*application='SeosFrance'*/;
 CREATE TABLE IF NOT EXISTS "mission_applications" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "volunteer_mission_id" integer NOT NULL, "user_id" integer NOT NULL, "message" text NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "starts_on" date NOT NULL, "ends_on" date NOT NULL, "decided_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_af5a48c5df"
 FOREIGN KEY ("volunteer_mission_id")
   REFERENCES "volunteer_missions" ("id")
@@ -783,7 +773,18 @@ CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_pas
 CREATE INDEX "index_users_on_role_and_status" ON "users" ("role", "status") /*application='SeosFrance'*/;
 CREATE INDEX "index_users_on_pending_referral_link_id" ON "users" ("pending_referral_link_id") /*application='SeosFrance'*/;
 CREATE INDEX "notification_unread_categories" ON "notifications" ("user_id", "read_at", "category") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "volunteer_missions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "organization_id" integer NOT NULL, "slug" varchar NOT NULL, "title" varchar NOT NULL, "description" text, "private_address" text, "accommodation" text, "meals" text, "country_code" varchar, "region" varchar, "public_location" varchar, "languages" varchar, "starts_on" date, "ends_on" date, "minimum_stay_days" integer DEFAULT 1 NOT NULL, "help_hours_per_day" integer DEFAULT 4 NOT NULL, "days_off_per_week" integer DEFAULT 2 NOT NULL, "daily_contribution_cents" integer DEFAULT 0 NOT NULL, "volunteer_capacity" integer DEFAULT 1 NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "published_at" datetime(6), "published_by_id" integer, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "daily_contribution_points" integer DEFAULT 0 NOT NULL, CONSTRAINT "fk_rails_c23ee83819"
+FOREIGN KEY ("organization_id")
+  REFERENCES "organizations" ("id")
+, CONSTRAINT "fk_rails_14b84d8711"
+FOREIGN KEY ("published_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT mission_bounds CHECK (daily_contribution_cents BETWEEN 0 AND 1500 AND volunteer_capacity BETWEEN 1 AND 100 AND minimum_stay_days >= 1 AND help_hours_per_day BETWEEN 1 AND 8 AND days_off_per_week BETWEEN 1 AND 6), CONSTRAINT mission_nonnegative_points CHECK (daily_contribution_points >= 0));
+CREATE INDEX "index_volunteer_missions_on_organization_id" ON "volunteer_missions" ("organization_id") /*application='SeosFrance'*/;
+CREATE UNIQUE INDEX "index_volunteer_missions_on_slug" ON "volunteer_missions" ("slug") /*application='SeosFrance'*/;
+CREATE INDEX "index_volunteer_missions_on_published_by_id" ON "volunteer_missions" ("published_by_id") /*application='SeosFrance'*/;
 INSERT INTO "schema_migrations" (version) VALUES
+('20260913090000'),
 ('20260912190000'),
 ('20260912180000'),
 ('20260911090000'),

@@ -46,3 +46,5 @@ load Rails.root.join("db/community_seeds.rb")
 load Rails.root.join("db/network_seeds.rb")
 
 load Rails.root.join("db/launch_seeds.rb")
+
+load Rails.root.join("db/travel_seeds.rb")

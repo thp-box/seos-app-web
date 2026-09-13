@@ -1,1 +1,10 @@
-<article class="card"><h2><%= link_to mission.title, volunteer_mission_path(mission) %></h2><p><%= mission.organization.name %> · <%= mission.public_location %>, <%= mission.country_code %></p><p><%= truncate(mission.description, length: 200) %></p><p><%= number_to_currency(mission.daily_contribution_cents / 100.0, unit: "€") %> par jour</p></article>
+<article class="travel-card">
+  <div class="photo"><% if mission.photos.attached? %><%= image_tag media_path(mission.photos.first), alt: mission.title, loading: "lazy", width: 640, height: 420 %><% else %><div class="travel-photo-placeholder" aria-hidden="true">SEOS</div><% end %></div>
+  <div class="body"><span class="ad-category">Association vérifiée · <%= mission.region.presence || mission.public_location %></span>
+    <h3><%= link_to mission.title, volunteer_mission_path(mission) %></h3>
+    <p><%= truncate(mission.description, length: 150) %></p>
+    <strong><%= mission.daily_contribution_points %> PS / jour</strong>
+    <p class="travel-inclusions"><%= mission.accommodation %> · <%= mission.meals %></p>
+    <small><%= mission.organization.name %></small>
+  </div>
+</article>
