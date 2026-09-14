@@ -69,6 +69,7 @@ Rails.application.routes.draw do
     resources :notifications, only: [ :index, :update ] do
       get :counts, on: :collection
       patch :read_all, on: :collection
+      patch :read_page, on: :collection
       patch :open, on: :member
       patch :preferences, on: :collection
     end

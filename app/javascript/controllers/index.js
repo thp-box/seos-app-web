@@ -32,3 +32,6 @@ application.register("directory-display", DirectoryDisplayController)
 
 import OrganizationRequestController from "./organization_request_controller"
 application.register("organization-request", OrganizationRequestController)
+
+import NotificationReadController from "./notification_read_controller"
+application.register("notification-read", NotificationReadController)

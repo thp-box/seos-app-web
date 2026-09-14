@@ -16,6 +16,16 @@ module Account
         balance: PointAccount.find_by(user: current_user)&.balance || 0 }
     end
 
+    def read_page
+      payload = Rails.application.message_verifier(:notification_page_read).verified(params[:token].to_s, purpose: "page_read")
+      raise Pundit::NotAuthorizedError unless payload && payload["user_id"] == current_user.id
+      scope = current_user.notifications.unread.where(category: payload["categories"], id: ..payload["through"])
+      scope = scope.where.not(category: %w[messages reviews]).or(scope.where(category: %w[messages reviews], service_request_id: nil))
+      scope = scope.or(current_user.notifications.unread.where(id: payload["review_ids"] || []))
+      scope.update_all(read_at: Time.current)
+      counts
+    end
+
     def update
       current_user.notifications.find(params[:id]).update!(read_at: Time.current)
       redirect_to account_notifications_path(category: params[:category].presence), status: :see_other

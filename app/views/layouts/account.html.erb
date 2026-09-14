@@ -4,6 +4,9 @@
       <details class="mobile-workspace-navigation"><summary>Navigation de mon compte</summary><%= render "account/shared/navigation", accordion_name: "account-navigation-mobile" %></details>
       <div class="desktop-workspace-navigation"><%= render "account/shared/navigation", accordion_name: "account-navigation-desktop" %></div>
     </aside>
+    <% if (read_token = notification_page_read_token) %>
+      <div hidden data-controller="notification-read" data-notification-read-url-value="<%= read_page_account_notifications_path %>" data-notification-read-token-value="<%= read_token %>"></div>
+    <% end %>
     <main class="workspace account-workspace" id="main-content" tabindex="-1"><%= render "account/shared/notification_context" %><%= yield %></main>
   </div>
 <% end %>

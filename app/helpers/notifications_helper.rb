@@ -1,4 +1,22 @@
 module NotificationsHelper
+  def notification_page_read_token
+    return unless current_user && controller_path != "account/notifications"
+    categories = Notification::CATEGORIES.keys.select { |category| notification_category_path(category) == request.path }
+    scope = current_user.notifications.unread.where(category: categories)
+    # Conversation-specific notices are read only in their own conversation.
+    scope = scope.where.not(category: %w[messages reviews]).or(scope.where(category: %w[messages reviews], service_request_id: nil))
+    review_ids = []
+    if controller_path == "account/service_requests" && action_name == "show" && @reviews
+      review_ids = current_user.notifications.unread.where(category: "reviews", event_key: @reviews.map { |review| "review:#{review.id}" }).pluck(:id)
+    end
+    through = [ scope.maximum(:id), review_ids.max ].compact.max
+    return unless through
+    Rails.application.message_verifier(:notification_page_read).generate(
+      { "user_id" => current_user.id, "categories" => categories, "through" => through, "review_ids" => review_ids },
+      expires_in: 1.hour, purpose: "page_read"
+    )
+  end
+
   def notification_counts
     @notification_counts ||= current_user ? current_user.notifications.unread.group(:category).count : {}
   end
