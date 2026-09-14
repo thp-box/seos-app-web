@@ -1,5 +1,5 @@
-# Local demonstration only: never publish fictitious missions in production.
-if Rails.env.development?
+# Demonstration missions for the client presentation, including the production deployment.
+if Rails.env.development? || Rails.env.production?
   association = Organization.find_by!(slug: "entraide-solidaire-demo")
   admin = User.find_by!(email: "superadmin@seos.test")
   [

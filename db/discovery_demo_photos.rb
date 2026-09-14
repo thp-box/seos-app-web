@@ -1,5 +1,5 @@
-# Only complete the known local demo listings; never replace an existing photo.
-if Rails.env.development?
+# Only complete the known demo listings; never replace an existing photo.
+if Rails.env.development? || Rails.env.production?
   {
     "demo-bricolage" => "photo-1586023492125-27b2c045efd7a8d3f02d.jpg",
     "demo-numerique" => "photo-1516321318423-f06f85e504b3f27a878f.jpg",
