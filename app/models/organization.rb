@@ -11,7 +11,11 @@ class Organization < ApplicationRecord
   validates :legal_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
   validate -> { validate_public_text(:name, :description, :public_location) }
   def publicly_visible? = verified? && published_at.present?
-  enum :kind, { association: "association", company: "company", institution: "institution", collective: "collective" }, validate: true
+  enum :kind, { association: "association", company: "company", micro_company: "micro_company", institution: "institution", collective: "collective" }, validate: true
+  validates :request_kind, inclusion: { in: %w[partnership community_mission] }, allow_nil: true
+  validate on: :create do
+    errors.add(:kind, "doit être une association pour une mission communautaire") if request_kind == "community_mission" && kind != "association"
+  end
   enum :status, { pending: "pending", verified: "verified", rejected: "rejected", suspended: "suspended" }, validate: true
   has_many :organization_memberships, dependent: :restrict_with_exception
   validates :name, presence: true, length: { maximum: 150 }

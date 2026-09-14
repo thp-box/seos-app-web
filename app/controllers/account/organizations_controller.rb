@@ -14,7 +14,7 @@ module Account
       @partnership = params[:partnership_id] ? @partnerships.find(params[:partnership_id]) : @organization.partnerships.new
     end
     def create
-      organization = OrganizationWorkflow.create!(actor: current_user, attributes: params.require(:organization).permit(:name, :slug, :kind, :description, :public_location, :legal_name, :registration_number, :legal_email).to_h)
+      organization = OrganizationWorkflow.create!(actor: current_user, attributes: params.require(:organization).permit(:name, :slug, :request_kind, :kind, :description, :public_location, :legal_name, :registration_number, :legal_email).to_h)
       redirect_to account_organization_path(organization), notice: "Votre organisation est en attente de vérification.", status: :see_other
     end
     def update

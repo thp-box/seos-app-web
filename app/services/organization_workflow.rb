@@ -2,7 +2,7 @@ class OrganizationWorkflow
   def self.create!(actor:, attributes:)
     Chains.active!(actor)
     Organization.transaction do
-      organization = Organization.create!(attributes.merge(status: "pending"))
+      organization = Organization.create!({ request_kind: attributes.to_h.with_indifferent_access[:kind] == "association" ? "community_mission" : "partnership" }.merge(attributes.symbolize_keys).merge(status: "pending"))
       organization.organization_memberships.create!(user: actor, role: "owner")
       AuditLog.create!(actor: actor, target: organization, action: "organization.request", reason: "Demande de création d’une organisation")
       organization

@@ -9,7 +9,7 @@ module FooterHelper
   end
   def footer_groups(chrome)
     groups = {
-      "Découvrir" => [ [ "Le concept", "/#presentation" ], [ "Les annonces", "/annonces" ], [ "Chaîne d’entraide", "/#site-section-home-4" ] ],
+      "Découvrir" => [ [ "Le concept", "/#presentation" ], [ "Les annonces", "/annonces" ], [ "Associations", associations_path ], [ "Partenariats", partnerships_path ], [ "Chaîne d’entraide", "/#site-section-home-4" ] ],
       "Participer" => [ [ "Publier", new_account_listing_path ], [ "Voyage solidaire", volunteer_missions_path ], [ "Mon espace", account_root_path ] ],
       "Confiance" => [ [ "Sécurité", trust_explanation_path ], [ "Règles et CGU", legal_path("cgu") ], [ "Centre légal", legal_center_path ] ],
       "Informations légales" => [ [ "Mentions légales", legal_path("mentions-legales") ], [ "Confidentialité & RGPD", legal_path("confidentialite") ], [ "Cookies", legal_path("cookies") ], [ "Gérer mes cookies", privacy_preferences_path ] ]
@@ -25,6 +25,6 @@ module FooterHelper
       end
     end
     removed = (site_version&.deleted_pages || []).flat_map { |slug| SiteDesign.page_paths(slug) }
-    groups.transform_values { |links| links.map { |label, url| [ label, unified_legal_url(url) ] }.reject { |_label, url| removed.include?(url.split(/[?#]/).first) || (url == volunteer_missions_path && !FeatureFlag.voyage_enabled?) } }
+    groups.transform_values { |links| links.map { |label, url| [ label, unified_legal_url(url) ] }.reject { |_label, url| removed.include?(url.split(/[?#]/).first) || (url == volunteer_missions_path && !FeatureFlag.voyage_enabled?) || (url == partnerships_path && !FeatureFlag.partnerships_enabled?) } }
   end
 end

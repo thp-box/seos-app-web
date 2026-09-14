@@ -591,12 +591,6 @@ FOREIGN KEY ("created_by_id")
 CREATE INDEX "index_community_policy_versions_on_created_by_id" ON "community_policy_versions" ("created_by_id") /*application='SeosFrance'*/;
 CREATE TRIGGER community_policy_no_update BEFORE UPDATE ON community_policy_versions BEGIN SELECT RAISE(ABORT, 'immutable community policy'); END;
 CREATE TRIGGER community_policy_no_delete BEFORE DELETE ON community_policy_versions BEGIN SELECT RAISE(ABORT, 'immutable community policy'); END;
-CREATE TABLE IF NOT EXISTS "organizations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "slug" varchar NOT NULL, "kind" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "description" text, "public_location" varchar, "legal_name" text, "registration_number" text, "legal_email" text, "published_at" datetime(6), "verified_at" datetime(6), "verified_by_id" integer, "lock_version" integer DEFAULT 0 NOT NULL /*application='SeosFrance'*/, CONSTRAINT "fk_rails_ae6c29827f"
-FOREIGN KEY ("verified_by_id")
-  REFERENCES "users" ("id")
-, CONSTRAINT organizations_kind CHECK (kind IN ('association', 'company', 'institution', 'collective')), CONSTRAINT organizations_status CHECK (status IN ('pending', 'verified', 'rejected', 'suspended')));
-CREATE UNIQUE INDEX "index_organizations_on_slug" ON "organizations" ("slug") /*application='SeosFrance'*/;
-CREATE INDEX "index_organizations_on_verified_by_id" ON "organizations" ("verified_by_id") /*application='SeosFrance'*/;
 CREATE TABLE IF NOT EXISTS "organization_invitations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "organization_id" integer NOT NULL, "invited_by_id" integer NOT NULL, "accepted_by_id" integer, "email" text NOT NULL, "role" varchar NOT NULL, "token_digest" varchar NOT NULL, "expires_at" datetime(6) NOT NULL, "accepted_at" datetime(6), "revoked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_3046f3efef"
 FOREIGN KEY ("organization_id")
   REFERENCES "organizations" ("id")
@@ -783,7 +777,14 @@ FOREIGN KEY ("published_by_id")
 CREATE INDEX "index_volunteer_missions_on_organization_id" ON "volunteer_missions" ("organization_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_volunteer_missions_on_slug" ON "volunteer_missions" ("slug") /*application='SeosFrance'*/;
 CREATE INDEX "index_volunteer_missions_on_published_by_id" ON "volunteer_missions" ("published_by_id") /*application='SeosFrance'*/;
+CREATE TABLE IF NOT EXISTS "organizations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "slug" varchar NOT NULL, "kind" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "description" text, "public_location" varchar, "legal_name" text, "registration_number" text, "legal_email" text, "published_at" datetime(6), "verified_at" datetime(6), "verified_by_id" integer, "lock_version" integer DEFAULT 0 NOT NULL, "request_kind" varchar, CONSTRAINT "fk_rails_ae6c29827f"
+FOREIGN KEY ("verified_by_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT organizations_status CHECK (status IN ('pending', 'verified', 'rejected', 'suspended')), CONSTRAINT organizations_request_kind CHECK (request_kind IS NULL OR request_kind IN ('partnership', 'community_mission')), CONSTRAINT organizations_kind CHECK (kind IN ('association', 'company', 'micro_company', 'institution', 'collective')));
+CREATE UNIQUE INDEX "index_organizations_on_slug" ON "organizations" ("slug") /*application='SeosFrance'*/;
+CREATE INDEX "index_organizations_on_verified_by_id" ON "organizations" ("verified_by_id") /*application='SeosFrance'*/;
 INSERT INTO "schema_migrations" (version) VALUES
+('20260913190000'),
 ('20260913090000'),
 ('20260912190000'),
 ('20260912180000'),

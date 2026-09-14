@@ -1,7 +1,16 @@
 <%= account_page_heading "Mes organisations" %><p>Créez votre espace et soumettez son identité à vérification. Les missions monde seront publiées après décision du super-admin.</p>
-<% @organizations.each do |organization| %><div class="card"><h2><%= organization.name %></h2><p><%= network_label(organization.status) %></p><% unless organization.suspended? %><%= link_to "Ouvrir l’espace", account_organization_path(organization), class: "btn btn-outline" %><% end %></div><% end %>
-<div class="card"><h2>Demander un espace organisation</h2><%= form_with url: account_organizations_path, scope: :organization do |form| %>
-<%= input_field form, :name, "Nom public", required: true, maxlength: 150 %><%= input_field form, :slug, "Adresse courte de la fiche", required: true, pattern: "[a-z0-9]+(-[a-z0-9]+)*" %><%= select_field form, :kind, "Type", [["Association", "association"], ["Entreprise", "company"], ["Institution", "institution"], ["Collectif", "collective"]] %>
+<% @organizations.each do |organization| %><div class="card"><h2><%= organization.name %></h2><p><%= network_label(organization.status) %><% if organization.request_kind %> · <%= network_label(organization.request_kind) %><% end %></p><% unless organization.suspended? %><%= link_to "Ouvrir l’espace", account_organization_path(organization), class: "btn btn-outline" %><% end %></div><% end %>
+<div class="card"><h2>Présenter votre projet</h2><%= form_with url: account_organizations_path, scope: :organization, data: { controller: "organization-request" } do |form| %>
+<div class="form-field">
+  <%= form.label :request_kind, "Type de demande" %>
+  <%= form.select :request_kind, network_choices(%w[partnership community_mission]), { selected: params[:request_kind] == "community_mission" ? "community_mission" : "partnership" }, class: "control", required: true, data: { organization_request_target: "request", action: "organization-request#update" } %>
+</div>
+<div class="form-field">
+  <%= form.label :kind, "Type de structure" %>
+  <%= form.select :kind, network_choices(Organization.kinds.keys), {}, class: "control", required: true, data: { organization_request_target: "kind" }, aria: { describedby: "organization-request-help" } %>
+  <p id="organization-request-help" data-organization-request-target="help">Les missions communautaires sont réservées aux associations. Toute demande est examinée avant publication.</p>
+</div>
+<%= input_field form, :name, "Nom public", required: true, maxlength: 150 %><%= input_field form, :slug, "Adresse courte de la fiche", required: true, pattern: "[a-z0-9]+(-[a-z0-9]+)*" %>
 <%= input_field form, :description, "Présentation publique", type: :text_area, required: true, maxlength: 5000 %><%= input_field form, :public_location, "Ville ou région publique", maxlength: 150 %>
 <%= input_field form, :legal_name, "Dénomination légale (privée)", required: true %><%= input_field form, :registration_number, "Numéro d’enregistrement (privé)", required: true %><%= input_field form, :legal_email, "E-mail légal (privé)", type: :email_field, required: true %>
 <%= form.button "Demander la vérification", class: "btn btn-primary" %><% end %></div>

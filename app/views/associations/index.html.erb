@@ -1,10 +1,11 @@
 <%= render "shared/public_hero", eyebrow: "La communauté", title: "Les associations", description: "Découvrez les associations vérifiées et leurs projets d’entraide." %>
-<section class="container section association-directory">
+<section class="container section association-directory" data-controller="directory-display">
   <div class="association-directory-heading">
     <span class="eyebrow">Agir ensemble</span>
     <h2>Des rencontres qui font du bien.</h2>
     <p>Découvrez les structures qui font vivre l’entraide et les initiatives qu’elles portent.</p>
   </div>
+  <%= render "shared/display_options" %>
   <div class="association-directory-layout">
     <div class="association-directory-list">
       <% @organizations.each do |organization| %>
@@ -35,7 +36,7 @@
       <span class="eyebrow">Votre association a sa place ici</span>
       <h2>Ensemble, allons plus loin.</h2>
       <p>Présentez votre structure et faites découvrir vos projets à la communauté SEOS.</p>
-      <%= link_to "Proposer mon association", account_organizations_path, class: "btn btn-primary" %>
+      <%= link_to "Proposer mon association", account_organizations_path(request_kind: "community_mission"), class: "btn btn-primary" %>
       <% if FeatureFlag.voyage_enabled? %><%= link_to "Découvrir le voyage solidaire →", volunteer_missions_path, class: "association-travel-link" %><% end %>
     </aside>
   </div>

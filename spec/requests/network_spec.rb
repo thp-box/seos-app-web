@@ -30,7 +30,7 @@ RSpec.describe "Organisations, Voyage et partenaires", type: :request do
     expect(response.body).to include("Le jardin")
     get association_path(record)
     expect(response.body).not_to include("IDENTITE-PRIVEE", "W1234", "legal@example.test")
-    expect(response.body).to include("Organisation vérifiée")
+    expect(response.body).to include("Association vérifiée")
   end
 
   it "retourne à l’invitation après connexion et limite un éditeur aux contenus de son équipe" do

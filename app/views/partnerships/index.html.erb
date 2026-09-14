@@ -1,1 +1,22 @@
-<section class="container section prose"><h1>Nos partenaires</h1><p>Des organisations qui soutiennent le projet, sans accès aux données privées des membres.</p><% @partnerships.each do |record| %><article class="card"><h2><%= link_to record.public_title, partnership_path(record) %></h2><p><%= record.organization.name %></p></article><% end %><% if @partnerships.empty? %><p>Les premiers partenariats seront présentés après validation.</p><% end %></section>
+<%= render "shared/public_hero", eyebrow: "La communauté", title: "Nos partenariats", description: "Des organisations qui soutiennent SEOS et contribuent à faire grandir l’entraide." %>
+<section class="container section association-directory" data-controller="directory-display">
+  <div class="association-directory-heading"><span class="eyebrow">À nos côtés</span><h2>Des engagements qui nous rapprochent.</h2><p>Découvrez les partenaires du projet et leur contribution à la communauté.</p></div>
+  <div class="partnership-directory-actions"><%= link_to "Devenir partenaire →", account_organizations_path(request_kind: "partnership"), class: "btn btn-primary" %><%= render "shared/display_options" %></div>
+  <div class="partnership-directory-list">
+    <% @partnerships.each do |record| %>
+      <article class="association-directory-card">
+        <div class="association-card-heading">
+          <div class="association-card-logo">
+            <% if record.logo.attached? %><%= image_tag media_path(record.logo.attachment), alt: "Logo de #{record.organization.name}", width: 80, height: 80, loading: "lazy" %><% else %><span aria-hidden="true"><%= record.organization.name.split.first(2).map { |word| word.first }.join.upcase %></span><% end %>
+          </div>
+          <span class="association-verified"><%= network_label(record.kind) %></span>
+        </div>
+        <h3><%= link_to record.public_title, partnership_path(record) %></h3>
+        <p class="association-location"><%= record.organization.name %></p>
+        <p class="association-description"><%= truncate(record.public_description, length: 250) %></p>
+        <div class="association-card-footer"><%= link_to "Découvrir le partenariat →", partnership_path(record), class: "btn btn-deep" %></div>
+      </article>
+    <% end %>
+  </div>
+  <% if @partnerships.empty? %><div class="association-directory-empty"><h3>Les prochaines collaborations se préparent.</h3><p>Les premiers partenariats seront présentés après validation.</p><%= link_to "Découvrir les associations →", associations_path, class: "btn btn-deep" %></div><% end %>
+</section>

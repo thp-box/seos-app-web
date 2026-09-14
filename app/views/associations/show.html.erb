@@ -19,12 +19,13 @@
       <%= plain_paragraphs(@organization.description) %>
     </div>
   </section>
-  <section class="association-missions" aria-labelledby="association-missions-title">
+  <section class="association-missions" data-controller="directory-display" aria-labelledby="association-missions-title">
     <div class="association-missions-heading">
       <div><span class="eyebrow">Passer à l’action</span><h2 id="association-missions-title">Ses missions solidaires</h2></div>
       <% if @missions.any? %><span class="association-mission-count"><%= @missions.size %> <%= @missions.size > 1 ? "missions à découvrir" : "mission à découvrir" %></span><% end %>
     </div>
     <% if @missions.any? %>
+      <%= render "shared/display_options" %>
       <div class="association-mission-grid"><% @missions.each do |mission| %><%= render "volunteer_missions/card", mission: mission, show_action: true %><% end %></div>
     <% else %>
       <div class="association-directory-empty"><h3>Les prochains projets se préparent.</h3><p>Aucune mission n’est publiée pour le moment.</p><%= link_to "Découvrir les autres associations →", associations_path, class: "btn btn-deep" %></div>

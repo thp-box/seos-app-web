@@ -26,3 +26,9 @@ application.register("cookie-preferences", CookiePreferencesController)
 
 import BackToTopController from "./back_to_top_controller"
 application.register("back-to-top", BackToTopController)
+
+import DirectoryDisplayController from "./directory_display_controller"
+application.register("directory-display", DirectoryDisplayController)
+
+import OrganizationRequestController from "./organization_request_controller"
+application.register("organization-request", OrganizationRequestController)
