@@ -1,6 +1,6 @@
-# Les identifiants de démonstration sont réservés au développement.
-# En développement, les seeds assemblent la home de la maquette sans remplacer une home personnalisée.
-if Rails.env.development?
+# Les identifiants de démonstration sont disponibles en développement et en production pour la présentation cliente.
+# Les seeds assemblent la home de la maquette sans remplacer une home personnalisée.
+if Rails.env.development? || Rails.env.production?
   ApplicationRecord.transaction do
     {
       "membre@seos.test" => :member,
@@ -34,7 +34,7 @@ if Rails.env.development?
 
   puts "Jeu de démonstration disponible : 5 comptes et une association (identifiants dans README.md)."
 else
-  puts "Aucune donnée de démonstration créée hors développement."
+  puts "Aucune donnée de démonstration créée dans cet environnement."
 end
 
 load Rails.root.join("db/discovery_seeds.rb")

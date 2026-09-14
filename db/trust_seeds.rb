@@ -1,5 +1,5 @@
 # No automatic public activation or founder exemption, including on repeated seeds.
-if Rails.env.development?
+if Rails.env.development? || Rails.env.production?
   admin = User.find_by!(email: "superadmin@seos.test")
   TrustAlgorithmVersion.find_or_create_by!(version: "v1.0") do |version|
     version.created_by = admin

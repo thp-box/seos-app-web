@@ -1,7 +1,7 @@
 %w[voyage_enabled partnerships_enabled].each do |key|
   FeatureFlag.find_or_create_by!(key: key) { |flag| flag.enabled = true }
 end
-if Rails.env.development?
+if Rails.env.development? || Rails.env.production?
   organization = Organization.find_by(slug: "entraide-solidaire-demo")
   if organization
     organization.update!(description: "Une association de démonstration pour préparer des actions solidaires.", public_location: "Lyon", legal_name: "Association de démonstration SEOS", legal_email: "association@seos.test", registration_number: "DEMO-NON-OFFICIEL") if organization.description.blank?

@@ -1,4 +1,4 @@
-if Rails.env.development?
+if Rails.env.development? || Rails.env.production?
   admin = User.find_by!(email: "superadmin@seos.test")
   source = StudioVersion.current
   unless source&.site&.dig("pages", "home")

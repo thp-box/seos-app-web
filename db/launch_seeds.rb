@@ -1,4 +1,4 @@
-if Rails.env.development?
+if Rails.env.development? || Rails.env.production?
   admin = User.find_by!(email: "admin@seos.test")
   super_admin = User.find_by!(email: "superadmin@seos.test")
   %w[users.read reports.manage content.manage operations.read privacy.manage].each do |permission|
@@ -6,7 +6,7 @@ if Rails.env.development?
       grant.granted_by = super_admin
       grant.granted_at = Time.current
       grant.expires_at = 30.days.from_now
-      grant.reason = "Démonstration locale de la phase 7"
+      grant.reason = "Démonstration de la phase 7"
     end
   end
   organization = Organization.find_or_create_by!(slug: "partenaire-demo") do |record|

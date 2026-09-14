@@ -7,7 +7,7 @@
 end
 FeatureFlag.find_or_create_by!(key: "public_map_enabled")
 
-if Rails.env.development?
+if Rails.env.development? || Rails.env.production?
   ApplicationRecord.transaction do
     categories = { "bricolage" => "Bricolage", "jardinage" => "Jardinage", "informatique" => "Informatique", "apprentissage" => "Apprentissage" }.map do |slug, name|
       Category.find_or_create_by!(slug: slug) { |category| category.name = name }

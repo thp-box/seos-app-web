@@ -46,7 +46,7 @@ Mot de passe initial des trois comptes : **`SeosDemo2026!`**. Ils sont actifs et
 
 L’association **Entraide solidaire — Démo** est vérifiée. Son responsable est un membre avec une adhésion propriétaire active ; son espace se trouve sur `/organisations/entraide-solidaire-demo/espace` et est accessible depuis `/compte`.
 
-Les identités de démonstration sont réservées au développement : aucun compte n’est créé en test ou en production. Les seeds ajoutent aussi les profils, quatre catégories, trois annonces et des pages explicatives en développement. Les critères d’avis et le flag carte sont des références chargées dans tous les environnements. Elles peuvent être relancées sans doublons et conservent les mots de passe, rôles, statuts et données déjà modifiés.
+Pour la présentation cliente, les identités de démonstration sont créées en développement et en production ; elles restent exclues en test. Les seeds ajoutent aussi les profils, quatre catégories, trois annonces et des pages explicatives dans ces deux environnements. Les critères d’avis et le flag carte sont des références chargées dans tous les environnements. Elles peuvent être relancées sans doublons et conservent les mots de passe, rôles, statuts et données déjà modifiés.
 
 ### Initialisation manuelle du super-admin
 
@@ -109,6 +109,27 @@ La [phase 6 — Organisations, Voyage et partenariats](docs/20-suivi-phase-6.md)
 
 Après `bundle install`, `bin/rails db:migrate`, `bin/rails db:seed` et `yarn build`, redémarrer l’application et les workers. Nouveaux espaces : `/compte/confidentialite`, `/admin/confidentialite`, `/admin/operations`, `/admin/studio` et `/preferences-confidentialite`.
 
-Les comptes locaux `admin@seos.test` et `partenaire@seos.test` complètent les trois comptes existants, avec `SeosDemo2026!`. L’admin reçoit des droits de démonstration limités à 30 jours ; le partenaire possède une organisation en attente de revue. Aucun de ces comptes n’est créé en production.
+Les comptes locaux `admin@seos.test` et `partenaire@seos.test` complètent les trois comptes existants, avec `SeosDemo2026!`. L’admin reçoit des droits de démonstration limités à 30 jours ; le partenaire possède une organisation en attente de revue. Ces comptes sont également créés en production pour la présentation cliente.
 
 Voir [le suivi de phase 7](docs/21-suivi-phase-7.md) et [le guide d’exploitation](docs/22-exploitation-et-recette.md) pour Google/Gmail, sauvegardes, recette et limites de lancement. Le logiciel livré ne vaut pas validation juridique des durées de conservation ou de l’ouverture au public.
+
+### Démonstration sur Coolify
+
+Après déploiement de cette version, dans le terminal du conteneur Rails :
+
+```sh
+cd /rails
+RAILS_ENV=production bin/rails db:seed
+```
+
+Le jeu de démonstration inclut les cinq comptes ci-dessus, les annonces illustrées,
+l’association, les missions Voyage et la maquette de l’accueil. Les mots de passe
+initiaux sont `SeosDemo2026!` ; les comptes existants ne sont pas réinitialisés.
+Les seeds peuvent être relancées et conservent un accueil déjà personnalisé.
+Le démarrage Docker exécute `db:prepare` : sur une base neuve, Rails charge aussi
+les seeds automatiquement.
+
+Le volume `/rails/storage` conserve la base et les médias après redéploiement.
+Redéployer l’image ne retire donc pas la démonstration. Avant l’ouverture réelle,
+retirer l’activation de ces seeds en production et préparer une base de production
+sans les comptes et contenus fictifs.
