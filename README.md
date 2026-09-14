@@ -133,3 +133,11 @@ Le volume `/rails/storage` conserve la base et les médias après redéploiement
 Redéployer l’image ne retire donc pas la démonstration. Avant l’ouverture réelle,
 retirer l’activation de ces seeds en production et préparer une base de production
 sans les comptes et contenus fictifs.
+
+Les seeds suspendent tous les envois de jobs pendant leur chargement : aucune
+récompense, notification ni analyse asynchrone de média n’est déclenchée par les
+exemples. Cette suspension cesse à la fin du chargement, même en cas d’erreur.
+L’accueil complet (11 sections) est chargé en fin de parcours : après un échec,
+relancer `bin/rails db:seed` termine les éléments manquants sans doublons.
+Cette indépendance des seeds ne remplace pas la préparation de Solid Queue pour
+les actions normales des utilisateurs.
