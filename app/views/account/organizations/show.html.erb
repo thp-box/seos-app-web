@@ -1,0 +1,51 @@
+<% access = OrganizationPolicy.new(current_user, @organization) %>
+<% mission_space = organization_project_kind(@organization) == "community_mission" %>
+<% primary = mission_space ? "missions" : "partnerships" %>
+<% secondary = mission_space && @partnerships.reject(&:new_record?).any? %>
+<% tabs = [["overview", "Vue d’ensemble"]] %>
+<% tabs << [primary, mission_space ? "Mes missions" : "Mes partenariats"] if access.edit_content? %>
+<% tabs << ["profile", mission_space ? "Mon association" : "Ma structure"] %>
+<% tabs << ["team", "Mon équipe"] if access.manage_team? %>
+<% tabs << ["partnerships", "Partenariats associés"] if secondary && access.edit_content? %>
+<% extra_missions = !mission_space && @organization.association? && @mission_total.positive? %>
+<% tabs << ["missions", "Missions associées"] if extra_missions && access.edit_content? %>
+<% initial = (@mission_editor || params[:mission_id].present? || params[:new_mission] == "1") ? "missions" : (params[:partnership_id].present? ? "partnerships" : "overview") %>
+<div class="organization-hub <%= mission_space ? 'organization-hub-mission' : 'organization-hub-partner' %>" data-controller="workspace-tabs" data-workspace-tabs-default-value="<%= initial %>">
+  <%= link_to "← Mes projets et organisations", account_organizations_path, class: "organization-back" %>
+  <header class="organization-banner">
+    <div><span class="account-eyebrow"><%= mission_space ? "Espace missions communautaires" : "Espace partenaire" %></span><h1><%= @organization.name %></h1><p><%= mission_space ? "Faites vivre vos projets associatifs et accueillez celles et ceux qui veulent aider." : "Donnez de la visibilité à votre engagement et construisez votre collaboration avec SEOS." %></p></div>
+    <span class="organization-status"><%= network_label(@organization.status) %></span>
+  </header>
+  <nav class="workspace-tabs" aria-label="Rubriques de mon espace" data-workspace-tabs-target="navigation">
+    <% tabs.each do |key, label| %><button type="button" id="workspace-tab-<%= key %>" data-workspace-tabs-target="tab" data-key="<%= key %>" data-action="workspace-tabs#select keydown->workspace-tabs#keyboard"><%= label %></button><% end %>
+  </nav>
+  <section id="workspace-overview" data-workspace-tabs-target="panel" data-key="overview">
+    <div class="organization-overview">
+      <article class="organization-next"><span class="account-eyebrow">Votre prochaine étape</span><h2><%= @organization.verified? ? (mission_space ? "Votre prochaine mission commence ici." : "Donnons forme à votre engagement.") : "Préparons votre arrivée." %></h2><p><%= organization_next_step(@organization) %></p>
+        <% if mission_space && access.edit_content? %>
+          <%= link_to "Préparer une mission →", account_organization_path(@organization, tab: "missions", new_mission: "1"), class: "btn btn-primary" %>
+        <% else %>
+        <button type="button" class="btn btn-primary" data-action="workspace-tabs#select" data-key="<%= access.edit_content? ? primary : 'profile' %>"><%= access.edit_content? ? (mission_space ? "Préparer une mission →" : "Proposer un partenariat →") : "Compléter ma présentation →" %></button>
+        <% end %>
+      </article>
+      <aside class="organization-snapshot">
+        <span class="account-eyebrow">Votre espace en bref</span>
+        <div><strong><%= mission_space ? @mission_total : @partnerships.reject(&:new_record?).size %></strong><span><%= mission_space ? "missions préparées" : "partenariats préparés" %></span></div>
+        <div><strong><%= @memberships.size %></strong><span><%= @memberships.size == 1 ? "membre dans l’équipe" : "membres dans l’équipe" %></span></div>
+        <% if mission_space && @organization.publicly_visible? %><%= link_to "Voir ma fiche publique ↗", association_path(@organization), class: "btn btn-outline" %><% end %>
+        <% if mission_space && access.edit_content? %><%= link_to "Gérer les candidatures →", account_mission_applications_path, class: "btn btn-outline" %><% end %>
+      </aside>
+    </div>
+    <ol class="organization-steps" aria-label="Les étapes de votre projet">
+      <li><span>01</span><h3>Présenter votre structure</h3><p>Une présentation publique et une identité légale réservée à la vérification.</p></li>
+      <li><span>02</span><h3>Obtenir la vérification</h3><p>L’équipe SEOS examine votre demande avant de vous ouvrir la préparation des projets.</p></li>
+      <li><span>03</span><h3><%= mission_space ? "Accueillir des bénévoles" : "Partager votre engagement" %></h3><p><%= mission_space ? "Préparez votre mission, faites-la valider puis suivez les candidatures." : "Rédigez votre partenariat, soumettez-le à validation puis retrouvez-le dans l’annuaire." %></p></li>
+    </ol>
+  </section>
+  <% if access.edit_content? %>
+    <% if mission_space || extra_missions %><section id="workspace-missions" data-workspace-tabs-target="panel" data-key="missions"><%= render "missions", access: access %></section><% end %>
+    <% if !mission_space || secondary %><section id="workspace-partnerships" data-workspace-tabs-target="panel" data-key="partnerships"><%= render "partnerships", access: access %></section><% end %>
+  <% end %>
+  <section id="workspace-profile" data-workspace-tabs-target="panel" data-key="profile"><p class="organization-panel-intro">Votre présentation aide la communauté à vous connaître. Les coordonnées légales restent privées. Une modification de la fiche nécessite une nouvelle revue avant sa publication.</p><%= render "profile", access: access %></section>
+  <% if access.manage_team? %><section id="workspace-team" data-workspace-tabs-target="panel" data-key="team"><%= render "team", access: access %></section><% end %>
+</div>

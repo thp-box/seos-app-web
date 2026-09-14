@@ -1,0 +1,26 @@
+<% chrome = site_chrome("header") %>
+<% navigation_links = chrome["links"].reject { |link| link["url"] == volunteer_missions_path && !FeatureFlag.voyage_enabled? } %>
+<header class="topbar">
+  <nav class="container nav" aria-label="Navigation principale">
+    <%= link_to root_path, class: "brand", aria: { label: "SEOS — Accueil" } do %><%= image_tag site_image_path(chrome["logo"]), alt: chrome["alt"], width: 108, height: 38 %><% end %>
+    <div class="nav-links"><% navigation_links.each do |link| %><%= link_to link["label"], link["url"], aria: { current: ("page" if current_page?(link["url"]) || (link["url"] != "/" && request.path.start_with?("#{link["url"]}/"))) } %><% end %></div>
+    <div class="nav-actions">
+      <% unless user_signed_in? %><%= link_to chrome["login_label"], new_user_session_path, class: "btn btn-outline login-link" %><% end %>
+      <%= link_to "+ Publier une annonce", new_account_listing_path, class: "btn btn-primary nav-publish" %>
+      <% if user_signed_in? %>
+        <details class="disclosure profile-navigation" data-controller="disclosure notification-badges" data-notification-badges-url-value="<%= counts_account_notifications_path %>" data-action="keydown@window->disclosure#close click@window->disclosure#close toggle->notification-badges#refresh visibilitychange@document->notification-badges#refresh focus@window->notification-badges#refresh notifications:read@document->notification-badges#read">
+          <summary aria-label="<%= chrome["account_label"] %>"><span class="nav-avatar" aria-hidden="true"><% if current_user.profile&.avatar&.attached? %><%= image_tag media_path(current_user.profile.avatar.attachment), alt: "" %><% else %><%= public_name(current_user).first.upcase %><% end %></span><span class="sr-only"><%= chrome["account_label"] %></span><%= notification_badge("all", extra_class: "nav-notification-count") %></summary>
+          <%= render "shared/profile_menu" %>
+        </details>
+      <% end %>
+      <details class="disclosure mobile-navigation" data-controller="disclosure" data-action="keydown@window->disclosure#close click@window->disclosure#close">
+        <summary>Menu</summary>
+        <div class="menu-panel">
+          <%= link_to "+ Publier une annonce", new_account_listing_path %>
+          <% navigation_links.each do |link| %><%= link_to link["label"], link["url"], aria: { current: ("page" if current_page?(link["url"]) || (link["url"] != "/" && request.path.start_with?("#{link["url"]}/"))) } %><% end %>
+          <% unless user_signed_in? %><%= link_to chrome["login_label"], new_user_session_path %><%= link_to chrome["mobile_join_label"], new_user_registration_path %><% end %>
+        </div>
+      </details>
+    </div>
+  </nav>
+</header>

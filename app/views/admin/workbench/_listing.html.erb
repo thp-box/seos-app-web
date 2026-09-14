@@ -1,0 +1,14 @@
+<div class="admin-console">
+  <header class="admin-console-heading"><div><span class="account-eyebrow">Annonce #<%= listing.id %> · <%= human_value listing.status %></span><h1><%= listing.title %></h1><p><%= listing.category&.name %> · <%= listing.location_label %></p>
+    <% if current_user.permission?("users.read") %><%= link_to "Consulter le membre ##{listing.user_id}", admin_user_path(listing.user_id), class: "btn btn-outline" %><% end %>
+  </div></header>
+  <section class="card"><h2>Contenu de l’annonce</h2><%= plain_paragraphs listing.description %><% if listing.photos.attached? %><div class="admin-moderation-photos"><% listing.photos.each do |photo| %><%= image_tag photo, alt: "Photo de l’annonce", loading: "lazy" %><% end %></div><% end %></section>
+  <% if current_user.permission?("reports.manage") %><p><%= link_to "Consulter les signalements sur cette annonce", admin_workbench_index_path(kind: "signalements", listing_id: listing.id), class: "btn btn-outline" %></p><% end %>
+  <section class="card"><h2>Décision de modération</h2><p>Une mise en pause ou un retrait empêche l’auteur de republier lui-même cette annonce. Le membre est notifié et le motif est conservé dans le journal d’audit.</p>
+    <%= form_with url: admin_workbench_path(listing.id, kind: "annonces"), method: :patch do |form| %>
+      <%= select_field form, :status, "Action à appliquer", [["Suspendre la diffusion", "paused"], ["Retirer pour abus", "removed"], ["Remettre en ligne après examen", "published"], ["Placer sous examen", "pending_review"]] %>
+      <%= input_field form, :reason, "Motif de modération", type: :text_area, required: true, maxlength: 500 %>
+      <%= form.button "Appliquer et notifier le membre", class: "btn btn-deep" %>
+    <% end %>
+  </section>
+</div>

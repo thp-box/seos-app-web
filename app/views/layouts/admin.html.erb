@@ -1,0 +1,15 @@
+<% content_for :workspace do %>
+  <div class="container dashboard admin-shell">
+    <aside class="side-menu admin-sidebar" aria-label="Administration SEOS">
+      <div class="admin-sidebar-brand"><span class="admin-brand-symbol"><%= admin_ui_icon("network") %></span><div><strong>SEOS</strong><span>L’espace équipe</span></div></div>
+      <div class="admin-role-tag"><span aria-hidden="true"></span><%= current_user.super_admin? ? "Super administration" : "Administration" %></div>
+      <details class="mobile-workspace-navigation"><summary>Navigation de cet espace</summary><%= render "admin/shared/navigation", accordion_name: "admin-navigation-mobile" %></details>
+      <div class="desktop-workspace-navigation"><%= render "admin/shared/navigation", accordion_name: "admin-navigation-desktop" %></div>
+    </aside>
+    <main class="workspace admin-workspace <%= 'admin-editor-workspace' if %w[admin/site admin/studio admin/visual_studio].include?(controller_path) %>" id="main-content" tabindex="-1">
+      <div class="admin-workspace-bar"><div><span>Espace équipe</span><span aria-hidden="true">/</span><strong><%= admin_current_section %></strong></div><%= link_to root_path, class: "admin-return-site" do %>Voir le site <%= admin_ui_icon("arrow") %><% end %></div>
+      <%= yield %>
+    </main>
+  </div>
+<% end %>
+<%= render template: "layouts/application" %>

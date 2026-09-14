@@ -1,0 +1,25 @@
+<% if current_user.super_admin? %><p><%= link_to "Mon site — Éditeur de pages et kit UI/UX", admin_site_index_path, class: "btn btn-deep" %></p><% end %>
+<% content_for :title, "Studio UI et contenus" %>
+<h1>Studio UI et contenus</h1><p>Le défaut <strong>SEOS Default v1</strong> reste immuable. Chaque reset crée une proposition ; la publication conserve les versions précédentes.</p>
+<%= form_with url: admin_studio_index_path, class: "card" do |f| %>
+  <%= hidden_field_tag :operation, "draft", id: nil %>
+  <%= input_field f, :name, "Nom de la proposition", required: true %>
+  <%= select_field f, :source_id, "Version de départ", [["Défaut SEOS", ""]] + @versions.map { |v| ["##{v.id} — #{v.name}", v.id] }, selected: StudioVersion.current&.id %>
+  <% if current_user.super_admin? %><details><summary>Couleurs et formes du thème</summary>
+    <% StudioVersion::COLORS.each do |token, default| %><div class="form-field"><%= label_tag "token-#{token}", "Couleur #{token} (défaut #{default})" %><%= text_field_tag "tokens[#{token}]", nil, id: "token-#{token}", placeholder: default, pattern: "#[0-9a-fA-F]{6}", class: "control" %></div><% end %>
+    <% StudioVersion::OPTIONS.each do |token, values| %><div class="form-field"><%= label_tag "token-#{token}", human_value(token) %><%= select_tag "tokens[#{token}]", options_for_select([["Conserver", ""]] + values.map { |v| [v, v] }), id: "token-#{token}", class: "control" %></div><% end %>
+  </details><% end %>
+  <% StudioVersion::PAGES.each do |slug| %><details><summary>Page : <%= slug == "home" ? "Accueil" : human_value(slug) %></summary>
+    <% { "title" => "Titre", "description" => "Description", "alt" => "Description de l’image pour les lecteurs d’écran" }.each do |field, label| %><div class="form-field"><%= label_tag "#{slug}-#{field}", label %><%= text_field_tag "pages[#{slug}][#{field}]", nil, id: "#{slug}-#{field}", class: "control" %></div><% end %>
+    <div class="form-field"><%= label_tag "#{slug}-image", "Image" %><%= select_tag "pages[#{slug}][image]", options_for_select([["Conserver", ""], ["Logo SEOS", "seos-logo.png"]] + @assets.map { |asset| ["Image ##{asset.id}", "asset:#{asset.id}"] }), id: "#{slug}-image", class: "control" %></div>
+    <div class="form-field"><%= label_tag "#{slug}-separator", "Séparateur décoratif" %><%= select_tag "pages[#{slug}][separator]", options_for_select([["Conserver", ""]] + ContentVersion::PRESETS.map { |p| [human_value(p), p] }), id: "#{slug}-separator", class: "control" %></div>
+    <div class="form-field"><%= label_tag "#{slug}-animated", "Animation du séparateur" %><%= select_tag "pages[#{slug}][animated]", options_for_select([["Conserver", ""], ["Statique", "0"], ["Animé, sauf mouvement réduit", "1"]]), id: "#{slug}-animated", class: "control" %></div>
+  </details><% end %>
+  <% if current_user.super_admin? %><%= select_field f, :reset, "Retour au défaut (prioritaire sur les modifications)", [["Aucun", ""], ["Tout le site administrable", "site"], ["Thème complet", "tokens"], ["Toutes les pages", "pages"]] + StudioVersion::PAGES.flat_map { |p| [["Page #{p}", "pages.#{p}"]] + %w[title description image alt separator animated].map { |field| ["#{p} : #{human_value(field)}", "pages.#{p}.#{field}"] } } + (StudioVersion::COLORS.keys + StudioVersion::OPTIONS.keys).map { |token| ["Thème : #{token}", "tokens.#{token}"] } %><% end %>
+  <%= f.button "Créer le brouillon", class: "btn btn-deep" %>
+<% end %>
+<% @versions.each do |version| %><article class="card"><h2>#<%= version.id %> · <%= version.name %></h2><p><%= human_value(version.status) %></p><details><summary>Valeurs modifiées</summary><p><%= version.settings.to_json %></p></details>
+  <div class="actions"><% [375, 768, 1440].each do |width| %><%= link_to "Prévisualiser — #{width} px", preview_admin_studio_path(version, width: width), class: "btn btn-outline", target: "_blank", rel: "noopener" %><% end %></div>
+  <% if current_user.super_admin? && version.status != "published" %><%= form_with url: admin_studio_index_path do |f| %><%= hidden_field_tag :record_id, version.id, id: nil %><%= hidden_field_tag :operation, version.status == "validated" ? "publish" : "validate", id: nil %><%= input_field f, :reason, "Motif", id: "studio-reason-#{version.id}", required: true %><%= f.button version.status == "validated" ? "Publier cette version" : "Valider après prévisualisation", class: "btn btn-deep" %><% end %><% end %>
+</article><% end %>
+<h2>Images</h2><%= form_with url: admin_studio_index_path, multipart: true do |f| %><%= hidden_field_tag :operation, "upload", id: nil %><%= input_field f, :image, "Image JPEG, PNG ou WebP (5 Mo maximum)", type: :file_field, accept: "image/jpeg,image/png,image/webp" %><%= f.button "Ajouter une image", class: "btn btn-outline" %><% end %>

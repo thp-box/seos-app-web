@@ -1,0 +1,27 @@
+<div class="admin-console">
+  <%= link_to "← Tous les membres", admin_users_path, class: "organization-back" %>
+  <header class="admin-console-heading"><div><span class="account-eyebrow">Fiche de modération · membre #<%= @user.id %></span><h1><%= @user.profile&.display_name || "Membre ##{@user.id}" %></h1><p><%= t("roles.#{@user.role}") %> · <%= t("statuses.#{@user.status}") %> · Inscrit le <%= l @user.created_at.to_date %></p></div></header>
+  <nav class="admin-section-links" aria-label="Rubriques du membre"><a href="#member-profile">Profil public</a><a href="#member-trust">Trust Score</a><a href="#member-reviews">Avis reçus</a><a href="#member-actions">Modération</a></nav>
+  <div class="admin-summary-grid">
+    <article class="card"><strong><%= @listing_counts.values.sum %></strong><span>Annonces</span><% if current_user.permission?("listings.moderate") %><%= link_to "Examiner ses annonces →", admin_workbench_index_path(kind: "annonces", user_id: @user.id) %><% end %></article>
+    <article class="card"><strong><%= @total %></strong><span>Avis révélés</span><a href="#member-reviews">Consulter les avis →</a></article>
+    <article class="card"><strong><%= t("statuses.#{@user.status}") %></strong><span>État du compte</span><p>Les coordonnées et les conversations privées restent masquées.</p></article>
+  </div>
+  <section id="member-profile" class="card"><h2>Présentation publique</h2>
+    <% if @user.profile %><p><%= @user.profile.public_city %> · Profil <%= human_value @user.profile.status %></p><%= plain_paragraphs @user.profile.bio %><dl><dt>Compétences</dt><dd><%= @user.profile.skills.presence || "Non renseignées" %></dd><dt>Langues</dt><dd><%= @user.profile.languages.presence || "Non renseignées" %></dd></dl>
+    <% if current_user.permission?("listings.moderate") %><%= link_to "Modérer la visibilité du profil", admin_workbench_path(@user.profile.id, kind: "profils"), class: "btn btn-outline" %><% end %>
+    <% else %><p>Ce membre n’a pas encore renseigné son profil public.</p><% end %>
+  </section>
+  <div id="member-trust"><%= render "shared/trust_score", user: @user %></div>
+  <section id="member-actions" class="card"><h2>Modérer le compte</h2><p>La suspension bloque la connexion et la visibilité des annonces. Les données et les décisions antérieures sont conservées. La réactivation rend au membre l’accès à son compte.</p>
+    <% if current_user.permission?("users.moderate") && @user.member? && %w[active suspended].include?(@user.status) %>
+      <%= form_with url: admin_user_path(@user), method: :patch do |form| %><%= hidden_field_tag :status, @user.suspended? ? "active" : "suspended" %><%= input_field form, :reason, "Motif de la décision", type: :text_area, required: true, maxlength: 500 %><%= form.button @user.suspended? ? "Réactiver le compte" : "Suspendre le compte", class: "btn btn-deep", data: { turbo_confirm: "Confirmer cette décision pour ce membre ?" } %><% end %>
+    <% else %><p>Cette action requiert le droit de modération des membres et un compte membre actif ou suspendu.</p><% end %>
+  </section>
+  <section id="member-reviews"><h2>Avis reçus</h2><p>Seuls les avis dont la date de révélation est atteinte sont consultables. Masquer un texte et invalider sa contribution au score sont deux décisions distinctes.</p>
+    <% @reviews.each do |review| %><article class="card"><h3>Avis #<%= review.id %> · <%= review.author.profile&.display_name || "Membre ##{review.author_id}" %></h3><p><%= l review.reveal_at.to_date %> · <%= review.invalidated_at ? "Invalidé pour le score" : (review.removed_at ? "Texte masqué" : "Visible") %></p><p>Service réalisé : <%= {"yes" => "Oui", "partially" => "Partiellement", "no" => "Non"}[review.completion_answer] %> · Souhaite refaire un échange : <%= review.would_reengage? ? "Oui" : "Non" %></p><ul><% review.review_ratings.each do |rating| %><li><%= rating.label_snapshot %> : <%= rating.not_applicable? ? "Non applicable" : "#{rating.rating}/5" %></li><% end %></ul><%= plain_paragraphs review.factual_body %><% if review.response.present? %><h4>Réponse du membre</h4><%= plain_paragraphs review.response %><% end %>
+    <% if current_user.permission?("reports.manage") %><details><summary>Modérer cet avis</summary><%= form_with url: admin_user_path(@user), method: :patch do |form| %><%= hidden_field_tag :operation, "review", id: nil %><%= hidden_field_tag :review_id, review.id, id: nil %><%= select_field form, :decision, "Décision", [["Masquer le texte", "hide"], ["Restaurer le texte", "restore"], ["Invalider pour le score", "invalidate"]], id: "review-#{review.id}-decision" %><%= input_field form, :reason, "Motif concernant cet avis", required: true, maxlength: 500, id: "review-#{review.id}-reason" %><%= form.button "Appliquer la décision", class: "btn btn-outline" %><% end %></details><% end %></article><% end %>
+    <% if @reviews.empty? %><p class="card">Aucun avis révélé pour ce membre.</p><% end %>
+    <%= render "shared/pagination", page: @page, total: @total %>
+  </section>
+</div>

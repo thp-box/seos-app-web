@@ -1,6 +1,20 @@
 # Dossier de conception SEOS
 
-Ce dossier transforme la maquette et les user stories existantes en une base de travail exploitable pour construire l'application Rails. Il s'agit d'une spécification : aucun modèle, contrôleur, scaffold ou composant n'a encore été généré.
+**Édition autonome du site : [guide Mon site et kit de la maquette](./24-studio-mon-site-et-kit-maquette.md).**
+
+**Reste à faire consolidé après la phase 7 : [checklist des réalisations et vérifications](./23-reste-a-faire-et-verifier.md).**
+
+Confidentialité, Studio et exploitation : [suivi de phase 7](./21-suivi-phase-7.md) · [guide de recette et exploitation](./22-exploitation-et-recette.md).
+
+Organisations, missions et partenaires : [suivi de la phase 6](./20-suivi-phase-6.md).
+
+Engagement, chaînes et soutien dormant : [suivi de la phase 5](./19-suivi-phase-5.md).
+
+Registre et barèmes Points Services : [suivi de la phase 4](./18-suivi-phase-4.md).
+
+État du chantier confiance et parrainage : [suivi de la phase 3](./17-suivi-phase-3.md).
+
+Ce dossier transforme la maquette et les user stories existantes en une base de travail exploitable pour construire l'application Rails. Il s'agit de la spécification établie le 4 septembre 2026. Le code a commencé depuis : voir le [suivi des phases 1 et 2](./15-suivi-phases-1-et-2.md) pour l’état actuel de livraison, et le [bilan initial du socle](./14-analyse-et-suivi-phase-0.md) pour son historique.
 
 ## Sources analysées
 
@@ -29,7 +43,7 @@ Ce dossier transforme la maquette et les user stories existantes en une base de 
 - RSpec est la suite canonique de toutes les features, y compris autorisations, concurrence, JavaScript et non-régression visuelle.
 - Une seule commande `yarn build` doit produire les sorties JavaScript et CSS de l'application.
 - Toutes les annonces actives et sûres alimentent le SEO/GEO via URL canonique, sitemap et JSON-LD Schema.org généré, sans donnée privée.
-- Lancement France/français ; Devise, Gmail API, Google OmniAuth, Geocoder/Leaflet, vidéo interne et analytics tiers désactivés.
+- Lancement France/français ; Devise, Gmail API, Google OmniAuth, Geocoder/Leaflet et vidéo interne retenus ; analytics tiers désactivés.
 - Valorisation PS, bonus/niveaux et chaînes sont versionnés par le super-admin ; chaîne illimitée par défaut.
 - Le visiteur contacte uniquement l'équipe ; la blacklist catégories est administrable ; Stripe reste dormant et totalement séparé des PS.
 - Aucune conservation globale de données personnelles « à vie » : une politique par finalité doit être juridiquement validée.
@@ -58,7 +72,7 @@ Les documents utilisent trois niveaux pour ne pas confondre démonstration et d�
 - **Inclus par la maquette** : présent dans le prototype et donc à prendre en compte, avec une règle métier encore à préciser si nécessaire.
 - **Recommandé / à arbitrer** : proposition de conception à confirmer avant développement.
 
-## Photo technique actuelle
+## Photo technique au 4 septembre 2026 (avant implémentation)
 
 | Élément | État constaté |
 |---|---|
@@ -97,3 +111,15 @@ Avant de générer le code, valider successivement :
 Une fois ces points arbitrés, le plan de scaffolds peut servir de checklist d'implémentation.
 
 Le démarrage du code doit suivre les phases et identifiants du plan feature par feature, de F-001 à F-073 avec les identifiants volontairement non continus. Une feature est livrée verticalement avec son équivalent visiteur, membre, association, partenaire, admin et super-admin applicable ; elle ne doit pas être reportée dans un « admin à faire plus tard ».
+
+[Studio admin — éditeur visuel, glisser-déposer et effets organiques](25-studio-visuel.md).
+
+- [Quêtes visuelles et configuration](./26-quetes-visuelles.md) — cartes, progression, apparence et aperçu admin.
+
+- [Navigation et catalogue alignés sur la maquette](./27-navigation-et-catalogue-maquette.md).
+
+- [Création d’annonce en quatre étapes](./28-creation-annonce-maquette.md).
+
+- [Dashboard utilisateur : reprise de la maquette](29-dashboard-utilisateur-maquette.md)
+- [Parrainage : liens personnels permanents](30-parrainage-liens-permanents.md)
+- [Menu profil et notifications par rubrique](31-menu-profil-notifications.md)

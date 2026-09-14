@@ -1,0 +1,6 @@
+<% testimonials = Testimonial.where(status: "published", removed_at: nil).includes(:user).order(id: :desc).limit(30).select(&:publicly_visible?).first(3) %>
+<% if testimonials.empty? %>
+  <% 2.times do |index| %><article class="testimonial"><span class="quote" aria-hidden="true">“</span><p data-field="example-quote-<%= index %>"><%= section_values.fetch("example-quote-#{index}") %></p><small>Illustration · les témoignages publiés des membres seront présentés ici.</small></article><% end %>
+  <div class="testimonial home-testimonial-image"><%= image_tag site_image_path(section_values.fetch("image-0")), alt: section_values.fetch("alt-0"), loading: "lazy", width: 480, height: 320, data: { image: "image-0", alt: "alt-0" } %></div>
+<% end %>
+<% testimonials.each do |testimonial| %><article class="testimonial"><div class="quote" aria-hidden="true">“</div><p><%= testimonial.quote %></p><div class="provider"><div><strong><%= testimonial.display_name_snapshot %></strong><small><%= testimonial.public_location_snapshot %></small></div></div></article><% end %>

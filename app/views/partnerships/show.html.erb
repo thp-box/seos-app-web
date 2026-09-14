@@ -1,0 +1,19 @@
+<%= render "shared/public_hero", eyebrow: "Partenariat · #{network_label(@partnership.kind)}", title: @partnership.public_title, description: @partnership.organization.name %>
+<div class="container association-profile">
+  <nav class="association-breadcrumb" aria-label="Fil d’Ariane"><%= link_to "← Tous les partenariats", partnerships_path %></nav>
+  <section class="association-presentation" aria-labelledby="partnership-about">
+    <div class="association-identity">
+      <div class="association-card-logo">
+        <% if @partnership.logo.attached? %><%= image_tag media_path(@partnership.logo.attachment), alt: "Logo de #{@partnership.organization.name}", width: 96, height: 96 %><% else %><span aria-hidden="true"><%= @partnership.organization.name.split.first(2).map { |word| word.first }.join.upcase %></span><% end %>
+      </div>
+      <span class="association-verified"><%= network_label(@partnership.kind) %></span>
+      <p><%= @partnership.organization.name %></p>
+      <% if @partnership.starts_on && @partnership.ends_on %><p>Du <%= l @partnership.starts_on %><br>au <%= l @partnership.ends_on %></p><% end %>
+    </div>
+    <div class="association-about">
+      <span class="eyebrow">Un engagement partagé</span><h2 id="partnership-about">À propos du partenariat</h2>
+      <%= plain_paragraphs @partnership.public_description %>
+      <% if @partnership.cta_url.present? && @partnership.safe_link? %><%= link_to @partnership.cta_label, @partnership.cta_url, rel: "external noopener noreferrer", class: "btn btn-deep" %><% end %>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,46 @@
+<% if @organization.association? %>
+  <% editor = @mission_editor || @mission.persisted? || params[:new_mission] == "1" %>
+  <% filters = { tab: "missions", mission_search: @mission_search.presence, mission_status: @mission_status, mission_sort: @mission_sort, mission_page: @mission_page } %>
+  <% if editor %>
+    <%= link_to "← Retour au suivi des missions", account_organization_path(@organization, **filters), class: "organization-back" %>
+    <%= render "mission_editor", mission: @mission %>
+    <% if @mission.persisted? %><details class="card"><summary>Aperçu de la mission</summary><%= render "volunteer_missions/details", mission: @mission %></details><% end %>
+  <% else %>
+    <div class="mission-tracking-heading"><div><h2>Suivre mes missions</h2><p><%= @mission_total %> missions au total. Retrouvez un projet et gérez-le depuis sa ligne.</p></div><%= link_to "+ Créer une mission", account_organization_path(@organization, tab: "missions", new_mission: "1"), class: "btn btn-primary" %></div>
+    <nav class="mission-status-filters" aria-label="Statut des missions">
+      <%= link_to "Toutes (#{@mission_total})", account_organization_path(@organization, **filters.merge(mission_status: nil, mission_page: nil)), aria: { current: ("page" unless @mission_status) } %>
+      <% %w[draft pending_review published paused archived].each do |status| %><%= link_to "#{network_label(status)} (#{@mission_counts.fetch(status, 0)})", account_organization_path(@organization, **filters.merge(mission_status: status, mission_page: nil)), aria: { current: ("page" if @mission_status == status) } %><% end %>
+    </nav>
+    <%= form_with url: account_organization_path(@organization), method: :get, class: "mission-search" do |form| %>
+      <%= hidden_field_tag :tab, "missions" %><%= hidden_field_tag :mission_status, @mission_status %>
+      <div class="form-field"><%= form.label :mission_search, "Rechercher par titre ou lieu" %><%= form.search_field :mission_search, value: @mission_search, class: "control", maxlength: 150 %></div>
+      <div class="form-field"><%= form.label :mission_sort, "Trier par" %><%= form.select :mission_sort, [["Dernières modifications", "recent"], ["Titre", "title"], ["Date de début", "starts_on"]], { selected: @mission_sort }, class: "control" %></div>
+      <%= form.button "Rechercher", class: "btn btn-deep" %>
+    <% end %>
+    <p class="mission-result-count"><%= @mission_matches %> résultats · Page <%= @mission_page %> sur <%= @mission_pages %> · 15 missions maximum par page</p>
+    <% if @missions.any? %>
+      <div class="mission-table-wrap" tabindex="0" role="region" aria-label="Tableau de suivi des missions">
+        <table class="mission-tracking-table"><thead><tr><th scope="col">Mission</th><th scope="col">Statut</th><th scope="col">Période</th><th scope="col">Candidatures</th><th scope="col">Actions</th></tr></thead><tbody>
+          <% @missions.each do |mission| %>
+            <% ready = %w[draft paused].include?(mission.status) && mission.valid?(:publication) %>
+            <tr><th scope="row"><%= link_to mission.title, account_organization_path(@organization, **filters.merge(mission_id: mission.id)) %><span><%= mission.public_location.presence || "Lieu à compléter" %></span></th>
+              <td><span class="organization-status"><%= network_label(mission.status) %></span></td>
+              <td><% if mission.starts_on && mission.ends_on %><%= l mission.starts_on %><br><%= l mission.ends_on %><% else %>Dates à compléter<% end %></td>
+              <td><% if access.manage_team? %><%= link_to @mission_application_counts.fetch(mission.id, 0), account_mission_applications_path(mission_id: mission.id), aria: { label: "Candidatures pour #{mission.title}" } %><% else %><%= @mission_application_counts.fetch(mission.id, 0) %><% end %></td>
+              <td><div class="mission-row-actions"><%= link_to (mission.status == "draft" && !ready ? "Compléter" : "Ouvrir"), account_organization_path(@organization, **filters.merge(mission_id: mission.id)), class: "btn btn-outline" %>
+                <% if ready %><%= button_to "Envoyer à SEOS", account_organization_path(@organization), method: :patch, params: filters.merge(operation: "mission_transition", record_id: mission.id, status: "pending_review", reason: "Mission proposée à SEOS par l’association"), class: "btn btn-deep" %><% end %>
+                <% if access.manage_team? && mission.status == "published" %><%= button_to "Mettre en pause", account_organization_path(@organization), method: :patch, params: filters.merge(operation: "mission_transition", record_id: mission.id, status: "paused", reason: "Mise en pause demandée par l’association"), class: "btn btn-outline" %><% end %>
+                <% if access.manage_team? && mission.status != "archived" %><details><summary>Plus</summary><%= button_to "Archiver", account_organization_path(@organization), method: :patch, params: filters.merge(operation: "mission_transition", record_id: mission.id, status: "archived", reason: "Archivage demandé par l’association"), class: "btn btn-outline", form: { data: { turbo_confirm: "Archiver cette mission ? Elle ne sera plus affichée publiquement." } } %></details><% end %>
+              </div></td>
+            </tr>
+          <% end %>
+        </tbody></table>
+      </div>
+      <nav class="mission-pagination" aria-label="Pages des missions">
+        <% if @mission_page > 1 %><%= link_to "← Précédente", account_organization_path(@organization, **filters.merge(mission_page: @mission_page - 1)), class: "btn btn-outline" %><% end %>
+        <span>Page <%= @mission_page %> / <%= @mission_pages %></span>
+        <% if @mission_page < @mission_pages %><%= link_to "Suivante →", account_organization_path(@organization, **filters.merge(mission_page: @mission_page + 1)), class: "btn btn-outline" %><% end %>
+      </nav>
+    <% else %><div class="card"><h3><%= @mission_total.zero? ? "Votre première mission commence ici." : "Aucune mission ne correspond à ces critères." %></h3><p><%= @mission_total.zero? ? "Créez un brouillon, complétez-le à votre rythme puis envoyez-le à SEOS." : "Essayez un autre titre, un autre lieu ou choisissez un autre statut." %></p></div><% end %>
+  <% end %>
+<% end %>

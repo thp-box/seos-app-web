@@ -1,0 +1,43 @@
+<%= render "shared/public_hero", eyebrow: "La communauté", title: "Les associations", description: "Découvrez les associations vérifiées et leurs projets d’entraide." %>
+<section class="container section association-directory" data-controller="directory-display">
+  <div class="association-directory-heading">
+    <span class="eyebrow">Agir ensemble</span>
+    <h2>Des rencontres qui font du bien.</h2>
+    <p>Découvrez les structures qui font vivre l’entraide et les initiatives qu’elles portent.</p>
+  </div>
+  <%= render "shared/display_options" %>
+  <div class="association-directory-layout">
+    <div class="association-directory-list">
+      <% @organizations.each do |organization| %>
+        <article class="association-directory-card">
+          <div class="association-card-heading">
+            <div class="association-card-logo">
+              <% if organization.logo.attached? %>
+                <%= image_tag media_path(organization.logo.attachment), alt: "Logo de #{organization.name}", width: 80, height: 80, loading: "lazy" %>
+              <% else %>
+                <span aria-hidden="true"><%= organization.name.split.first(2).map { |word| word.first }.join.upcase %></span>
+              <% end %>
+            </div>
+            <span class="association-verified"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 12 2 2 4-4"/><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/></svg>Association vérifiée</span>
+          </div>
+          <h3><%= link_to organization.name, association_path(organization) %></h3>
+          <% if organization.public_location.present? %>
+            <p class="association-location"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><%= organization.public_location %></p>
+          <% end %>
+          <p class="association-description"><%= truncate(organization.description, length: 250) %></p>
+          <div class="association-card-footer"><%= link_to association_path(organization), class: "btn btn-deep", aria: { label: "Découvrir #{organization.name}" } do %>Découvrir l’association <span aria-hidden="true">→</span><% end %></div>
+        </article>
+      <% end %>
+      <% if @organizations.empty? %>
+        <div class="association-directory-empty"><h3>La communauté se prépare.</h3><p>Les premières associations seront présentées après vérification.</p></div>
+      <% end %>
+    </div>
+    <aside class="association-join">
+      <span class="eyebrow">Votre association a sa place ici</span>
+      <h2>Ensemble, allons plus loin.</h2>
+      <p>Présentez votre structure et faites découvrir vos projets à la communauté SEOS.</p>
+      <%= link_to "Proposer mon association", account_organizations_path(request_kind: "community_mission"), class: "btn btn-primary" %>
+      <% if FeatureFlag.voyage_enabled? %><%= link_to "Découvrir le voyage solidaire →", volunteer_missions_path, class: "association-travel-link" %><% end %>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,4 @@
+<div class="account-ledger">
+<% entries.each do |entry| %><article class="account-ledger-row"><div><strong><%= entry.point_operation.reason %></strong><small><%= l entry.created_at, format: :short %> · Solde après opération : <%= entry.balance_after %> PS</small><% if entry.point_operation.source_type == "ServiceRequest" %><%= link_to "Voir mon échange", account_service_request_path(entry.point_operation.source_id) %><% end %></div><b class="<%= entry.amount.positive? ? 'account-credit' : 'account-debit' %>"><%= entry.amount.positive? ? "+" : "−" %><%= entry.amount.abs %> PS</b></article><% end %>
+<% if entries.empty? %><p class="account-empty">Votre historique apparaîtra ici après votre première opération.</p><% end %>
+</div>

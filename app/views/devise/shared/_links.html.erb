@@ -1,0 +1,6 @@
+<nav class="auth-links" aria-label="Aide à la connexion">
+  <%= link_to "Se connecter", new_user_session_path unless controller_name == "sessions" %>
+  <%= link_to "Créer un compte", new_user_registration_path unless controller_name == "registrations" %>
+  <%= link_to "Mot de passe oublié ?", new_user_password_path unless controller_name == "passwords" %>
+  <%= link_to "Renvoyer l’e-mail de confirmation", new_user_confirmation_path unless controller_name == "confirmations" %>
+</nav>

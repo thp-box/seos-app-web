@@ -1,0 +1,1 @@
+<%= account_page_heading "Mes favoris" %><p>Cette liste est privée.</p><% if @listings.empty? %><p>Aucune annonce disponible dans vos favoris.</p><% end %><div class="account-listing-grid"><% @listings.each do |listing| %><div><%= render "listings/card", listing: listing %></div><% end %></div>

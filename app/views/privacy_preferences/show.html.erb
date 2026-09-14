@@ -1,0 +1,7 @@
+<section class="container section privacy-preferences">
+  <header>
+    <h1><%= @values["preferences-title"] %></h1>
+    <p><%= @values["preferences-intro"] %></p>
+  </header>
+  <%= render "privacy_preferences/choices", values: @values %>
+</section>

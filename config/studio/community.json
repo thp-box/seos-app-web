@@ -1,0 +1,215 @@
+{
+  "community-app": {
+    "name": "L’application SEOS",
+    "fields": {
+      "text-0": {
+        "type": "text",
+        "label": "L’application SEOS",
+        "default": "L’application SEOS"
+      },
+      "text-1": {
+        "type": "text",
+        "label": "Un coup de main, à votre façon.",
+        "default": "Un coup de main, à votre façon."
+      },
+      "text-2": {
+        "type": "text",
+        "label": "Une application pour proposer votre aide, exprimer un besoin et organiser vos échanges avec la communauté.",
+        "default": "Une application pour proposer votre aide, exprimer un besoin et organiser vos échanges avec la communauté."
+      },
+      "text-3": {
+        "type": "text",
+        "label": "Donner",
+        "default": "Donner"
+      },
+      "text-4": {
+        "type": "text",
+        "label": "Partagez votre temps ou une compétence, sans contrepartie.",
+        "default": "Partagez votre temps ou une compétence, sans contrepartie."
+      },
+      "text-5": {
+        "type": "text",
+        "label": "Échanger",
+        "default": "Échanger"
+      },
+      "text-6": {
+        "type": "text",
+        "label": "Définissez ensemble un échange de savoir-faire ou de services.",
+        "default": "Définissez ensemble un échange de savoir-faire ou de services."
+      },
+      "text-7": {
+        "type": "text",
+        "label": "Les Points Services",
+        "default": "Les Points Services"
+      },
+      "text-8": {
+        "type": "text",
+        "label": "Convenez des modalités de votre échange avec les Points Services.",
+        "default": "Convenez des modalités de votre échange avec les Points Services."
+      },
+      "text-9": {
+        "type": "text",
+        "label": "Comprendre le don",
+        "default": "Comprendre le don"
+      },
+      "text-10": {
+        "type": "text",
+        "label": "Découvrir l’échange",
+        "default": "Découvrir l’échange"
+      },
+      "text-11": {
+        "type": "text",
+        "label": "Comprendre les points",
+        "default": "Comprendre les points"
+      },
+      "link-0": {
+        "type": "url",
+        "label": "Destination 1",
+        "default": "/decouvrir/don"
+      },
+      "link-1": {
+        "type": "url",
+        "label": "Destination 2",
+        "default": "/decouvrir/echange"
+      },
+      "link-2": {
+        "type": "url",
+        "label": "Destination 3",
+        "default": "/decouvrir/points"
+      }
+    },
+    "html": "<section class=\"section community-app\"><div class=\"container\"><span class=\"eyebrow\"><span data-field=\"text-0\"></span></span><h2><span data-field=\"text-1\"></span></h2><p><span data-field=\"text-2\"></span></p><div class=\"community-cards\"><article class=\"community-card\"><span class=\"community-number\" aria-hidden=\"true\">01</span><h3><span data-field=\"text-3\"></span></h3><p><span data-field=\"text-4\"></span></p><a class=\"btn btn-deep\" data-link=\"link-0\"><span data-field=\"text-9\"></span></a></article><article class=\"community-card\"><span class=\"community-number\" aria-hidden=\"true\">02</span><h3><span data-field=\"text-5\"></span></h3><p><span data-field=\"text-6\"></span></p><a class=\"btn btn-deep\" data-link=\"link-1\"><span data-field=\"text-10\"></span></a></article><article class=\"community-card\"><span class=\"community-number\" aria-hidden=\"true\">03</span><h3><span data-field=\"text-7\"></span></h3><p><span data-field=\"text-8\"></span></p><a class=\"btn btn-deep\" data-link=\"link-2\"><span data-field=\"text-11\"></span></a></article></div></div></section>"
+  },
+  "community-associations": {
+    "name": "Les associations",
+    "fields": {
+      "text-0": {
+        "type": "text",
+        "label": "Agir ensemble",
+        "default": "Agir ensemble"
+      },
+      "text-1": {
+        "type": "text",
+        "label": "Les associations ont leur place ici.",
+        "default": "Les associations ont leur place ici."
+      },
+      "text-2": {
+        "type": "text",
+        "label": "Découvrez les associations vérifiées et leurs projets d’entraide. Vous représentez une association ? Présentez votre structure pour rejoindre la communauté.",
+        "default": "Découvrez les associations vérifiées et leurs projets d’entraide. Vous représentez une association ? Présentez votre structure pour rejoindre la communauté."
+      },
+      "text-3": {
+        "type": "text",
+        "label": "Découvrir les associations",
+        "default": "Découvrir les associations"
+      },
+      "text-4": {
+        "type": "text",
+        "label": "Proposer mon association",
+        "default": "Proposer mon association"
+      },
+      "link-0": {
+        "type": "url",
+        "label": "Destination 1",
+        "default": "/associations"
+      },
+      "link-1": {
+        "type": "url",
+        "label": "Destination 2",
+        "default": "/compte/organisations"
+      }
+    },
+    "html": "<section class=\"section community-associations\"><div class=\"container\"><div class=\"community-association-panel\"><div><span class=\"eyebrow\"><span data-field=\"text-0\"></span></span><h2><span data-field=\"text-1\"></span></h2><p><span data-field=\"text-2\"></span></p></div><div class=\"community-links\"><a class=\"btn btn-deep\" data-link=\"link-0\"><span data-field=\"text-3\"></span></a><a class=\"btn btn-deep\" data-link=\"link-1\"><span data-field=\"text-4\"></span></a></div></div></div></section>"
+  },
+  "community-support": {
+    "name": "Tu as envie d’être utile et de participer à ta façon ?",
+    "html": "<section class=\"section soft community-support\"><div class=\"container support-grid\">\n<div>\n<span class=\"eyebrow\"><span data-field=\"text-0\">Soutenir SEOS</span></span><h2><span data-field=\"text-1\">Tu as envie d’être utile et de participer à ta façon ?</span></h2>\n<p><strong><span data-field=\"text-2\">SEOS a fait le choix d’être gratuit pour tous afin d’être accessible à ceux qui en ont le plus besoin.</span></strong></p>\n<p><span data-field=\"text-3\">Parlez du projet autour de vous, invitez de nouveaux membres ou contribuez à son développement.</span></p>\n<p><strong><span data-field=\"text-4\">Tu aides SEOS → SEOS aide la communauté → La communauté s’entraide</span></strong></p>\n</div>\n<div class=\"support-actions\">\n<article class=\"support-card\"><h3><span data-field=\"text-5\">Faire connaître SEOS</span></h3>\n<p><span data-field=\"text-6\">Partagez le projet et gagnez 10 PS une fois par mois.</span></p>\n<div class=\"share-buttons\">\n<a class=\"btn btn-light\" href=\"/contact\" data-link=\"link-0\"><span data-field=\"text-7\">◎</span></a><a class=\"btn btn-light\" href=\"/contact\" data-link=\"link-1\"><span data-field=\"text-8\">f</span></a><a class=\"btn btn-light\" href=\"/contact\" data-link=\"link-2\"><span data-field=\"text-9\">in</span></a>\n</div></article><article class=\"support-card gold\"><h3><span data-field=\"text-10\">Participer autrement</span></h3>\n<p><span data-field=\"text-11\">Un soutien matériel nous aide à maintenir SEOS accessible.</span></p>\n<a class=\"btn btn-light\" href=\"/contact\" data-link=\"link-3\"><span data-field=\"text-12\">Soutenir SEOS</span></a></article>\n</div>\n</div></section>",
+    "fields": {
+      "text-0": {
+        "type": "text",
+        "label": "Soutenir SEOS",
+        "default": "Soutenir SEOS"
+      },
+      "text-1": {
+        "type": "text",
+        "label": "Tu as envie d’être utile et de participer à ta façon ?",
+        "default": "Tu as envie d’être utile et de participer à ta façon ?"
+      },
+      "text-2": {
+        "type": "text",
+        "label": "SEOS a fait le choix d’être gratuit pour tous afin d’être accessi",
+        "default": "SEOS a fait le choix d’être gratuit pour tous afin d’être accessible à ceux qui en ont le plus besoin."
+      },
+      "text-3": {
+        "type": "text",
+        "label": "Parlez du projet autour de vous, invitez de nouveaux membres ou c",
+        "default": "Parlez du projet autour de vous, invitez de nouveaux membres ou contribuez à son développement."
+      },
+      "text-4": {
+        "type": "text",
+        "label": "Tu aides SEOS → SEOS aide la communauté → La communauté s’entraid",
+        "default": "Tu aides SEOS → SEOS aide la communauté → La communauté s’entraide"
+      },
+      "text-5": {
+        "type": "text",
+        "label": "Faire connaître SEOS",
+        "default": "Faire connaître SEOS"
+      },
+      "text-6": {
+        "type": "text",
+        "label": "Parlez de SEOS autour de vous, invitez vos proches ou participez aux quêtes de la communauté.",
+        "default": "Parlez de SEOS autour de vous, invitez vos proches ou participez aux quêtes de la communauté."
+      },
+      "text-7": {
+        "type": "text",
+        "label": "Inviter",
+        "default": "Inviter"
+      },
+      "text-8": {
+        "type": "text",
+        "label": "Les quêtes",
+        "default": "Les quêtes"
+      },
+      "text-9": {
+        "type": "text",
+        "label": "Témoigner",
+        "default": "Témoigner"
+      },
+      "text-10": {
+        "type": "text",
+        "label": "Participer autrement",
+        "default": "Participer autrement"
+      },
+      "text-11": {
+        "type": "text",
+        "label": "Un soutien matériel nous aide à maintenir SEOS accessible.",
+        "default": "Un soutien matériel nous aide à maintenir SEOS accessible."
+      },
+      "text-12": {
+        "type": "text",
+        "label": "Soutenir SEOS",
+        "default": "Soutenir SEOS"
+      },
+      "link-0": {
+        "type": "url",
+        "label": "/compte/confiance",
+        "default": "/compte/confiance"
+      },
+      "link-1": {
+        "type": "url",
+        "label": "/compte/engagement",
+        "default": "/compte/engagement"
+      },
+      "link-2": {
+        "type": "url",
+        "label": "/compte/temoignages",
+        "default": "/compte/temoignages"
+      },
+      "link-3": {
+        "type": "url",
+        "label": "Destination : Soutenir SEOS",
+        "default": "/contact"
+      }
+    }
+  }
+}

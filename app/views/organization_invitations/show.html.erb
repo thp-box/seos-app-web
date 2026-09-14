@@ -1,0 +1,1 @@
+<section class="container section prose"><h1>Rejoindre <%= @invitation.organization.name %></h1><p>Vous êtes invité comme <%= t("membership_roles.#{@invitation.role}") %>. Votre accès sera limité à cette organisation.</p><%= button_to "Accepter l’invitation", organization_invitation_path, class: "btn btn-primary" %></section>

@@ -1,0 +1,3 @@
+<% listings = Catalogue.call({}).first(4) %>
+<% listings.each do |listing| %><%= render "listings/card", listing: listing %><% end %>
+<% if listings.empty? %><p>Aucune annonce disponible pour le moment.</p><% end %>

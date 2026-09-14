@@ -1,0 +1,8 @@
+<% categories = Category.available.select(&:publishable?) %>
+<% slots = %w[aide-a-la-personne bricolage informatique jardinage apprentissage services-creatifs bien-etre transport] %>
+<% categories.each_with_index do |category, index| %>
+  <% slot = slots.index(category.slug) || index %>
+  <% field = "image-#{slot % 8}"; defaults = SiteDesign.templates.fetch("home-2")["fields"] %>
+  <%= link_to listings_path(category_id: category.id), class: "category home-category" do %><%= image_tag site_image_path(section_values.fetch(field, defaults.fetch(field)["default"])), alt: "", loading: "lazy", width: 480, height: 320 %><span><%= category.name %></span><% end %>
+<% end %>
+<% if categories.empty? %><p>Les catégories seront bientôt disponibles.</p><% end %>

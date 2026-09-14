@@ -1,0 +1,22 @@
+<%= render "site/edit_link", slug: slug %>
+<% hero_template = page["blocks"].find { |block| !block["hidden"] && %w[home-0 don-0 exchange-0 points-0].include?(block["template"]) }&.fetch("template") %>
+<div class="maquette-surface"><div class="page active" data-maquette-page="<%= hero_template ? hero_template.delete_suffix("-0") : slug %>">
+  <% if page["blocks"].none? { |block| !block["hidden"] && SiteDesign.templates.fetch(block["template"])["html"].to_s.include?("<h1") } %><div class="container section"><h1><%= page["title"] %></h1></div><% end %>
+  <%= tag.style page["blocks"].map { |block| SiteSectionStyle.css(block) }.join, nonce: content_security_policy_nonce %>
+  <% heading_used = false %>
+  <% visible_blocks = page["blocks"].reject { |block| block["hidden"] } %>
+  <%= tag.style SiteSectionSurface.css(visible_blocks), nonce: content_security_policy_nonce %>
+  <% visible_blocks.each_with_index do |block, index| %>
+    <div id="site-section-<%= block['id'] %>" data-studio-block="<%= block['id'] %>" class="site-section" data-surface-tone="<%= SiteSectionSurface.tone(block) %>" data-orbs="<%= block.dig("style", "orbs") || "normal" %>">
+    <% if block["placement"] == "top" && ContentVersion::PRESETS.include?(block["separator"]) %><%= render "site/transition", preset: block["separator"], top: true, animated: SiteSectionSurface.motion(block) %><% end %>
+    <% if block["template"] == "spacer" %><div class="site-spacer" aria-hidden="true"><% if @visual_preview %><span>Section vide</span><% end %></div>
+    <% elsif block["template"] == "text" %><section class="section"><div class="container"><h2 data-field="title"><%= block["values"].fetch("title", "Votre titre") %></h2><div data-field="body"><%= plain_paragraphs block["values"].fetch("body", "Votre contenu") %></div><% if block["values"]["url"].present? && block["values"]["label"].present? %><%= link_to block["values"]["label"], block["values"]["url"], class: "btn btn-deep" %><% end %></div></section>
+    <% else %><%= maquette_html SiteDesign.templates.fetch(block["template"])["html"], block: block, secondary_heading: heading_used %><% heading_used ||= SiteDesign.templates.fetch(block["template"])["html"].to_s.include?("<h1") %><% end %>
+    <% next_block = visible_blocks[index + 1] %>
+    <% explicit = block["placement"] != "top" && ContentVersion::PRESETS.include?(block["separator"]) %>
+    <% automatic = block["separator"].nil? && (SiteSectionSurface.automatic?(block) || (next_block.nil? && SiteSectionSurface.tone(block) != "cream")) %>
+    <% next_has_top = next_block && next_block["placement"] == "top" && ContentVersion::PRESETS.include?(next_block["separator"]) %>
+    <% if !next_has_top && (explicit || automatic) %><%= render "site/transition", preset: explicit ? block["separator"] : SiteSectionSurface.shape(block), animated: SiteSectionSurface.motion(block) %><% end %>
+    </div>
+  <% end %>
+</div></div>

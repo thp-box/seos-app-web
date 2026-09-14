@@ -1,0 +1,19 @@
+<% content_for :title, "Mes quêtes" %>
+<div class="quest-page">
+<%= account_page_heading "Mes quêtes", eyebrow: "Gagner des Points Services" do %><span class="badge"><%= @achievements.count { |quest| @quest_progress[quest.id] >= quest.target_count } %> / <%= @achievements.size %> objectifs atteints</span><% end %>
+<div class="account-section-heading"><p>Choisissez votre prochain coup de main. Votre progression suit vos actions validées.</p><%= link_to "Mon portefeuille →", account_points_path, class: "btn btn-outline" %></div>
+<div class="quest-grid"><%= render partial: "quest", collection: @achievements, as: :quest %></div>
+<% if @achievements.empty? %><p class="card">De nouvelles quêtes arrivent bientôt. En attendant, découvrez les annonces et les chaînes d’entraide.</p><% end %>
+<p class="quest-note"><% if @rule %>Niveau <%= community_level(Points::Rewards.level(current_user, @rule)) %> · Plafond mensuel : <%= @rule.configuration["monthly_cap"] %> PS. <% end %>Les récompenses suivent le barème publié et ses plafonds, après les vérifications prévues. Un objectif atteint ne garantit pas un nouveau versement.</p>
+<% if @records.any? %><h2>Le suivi de mes preuves</h2><% end %>
+<% @records.each do |record| %><div class="card"><h2><%= record.achievement.name %> — <%= record.period_key %></h2><p><%= community_status(record.status) %> · <%= record.points %> PS selon <%= record.point_rule_version.name %></p><p><%= record.decision %></p><p><%= record.evidence %></p><% if record.proof.attached? %><%= link_to "Voir ma preuve", media_path(record.proof.attachment) %><% end %></div><% end %>
+<div class="card"><h2>Demander une mise en avant</h2><p>Réservée aux annonces publiques : niveau Argent ou Or, ou preuve de partage validée ce mois-ci. Une personne de l’équipe examine chaque demande. Aucun paiement n’intervient.</p>
+<%= form_with url: account_community_path do |form| %>
+  <%= hidden_field_tag :operation, "top", id: nil %>
+  <%= select_field form, :listing_id, "Annonce à proposer", @listings.map { |listing| [listing.title, listing.id] }, prompt: "Choisir une annonce" %>
+  <%= form.submit "Demander une mise en avant", class: "btn btn-primary" %>
+<% end %>
+<% @tops.each do |top| %><p><%= top.listing.title %> : <%= community_status(top.status) %><% if top.ends_at %>, jusqu’au <%= l(top.ends_at, format: :short) %><% end %>. <%= top.reason %></p><% if %w[pending approved].include?(top.status) %><%= button_to "Retirer la demande", account_community_path, params: { operation: "withdraw_top", record_id: top.id }, class: "btn btn-outline" %><% end %><% end %>
+</div>
+
+</div>

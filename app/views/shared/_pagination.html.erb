@@ -1,0 +1,7 @@
+<% if total > 20 %>
+  <nav class="pagination" aria-label="Pagination">
+    <% if page > 1 %><%= link_to "Page précédente", url_for(request.query_parameters.except("page").merge(page: page - 1)) %><% end %>
+    <span>Page <%= page %> sur <%= (total / 20.0).ceil %></span>
+    <% if page * 20 < total %><%= link_to "Page suivante", url_for(request.query_parameters.except("page").merge(page: page + 1)) %><% end %>
+  </nav>
+<% end %>

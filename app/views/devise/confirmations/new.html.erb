@@ -1,0 +1,7 @@
+<% content_for :title, "Renvoyer la confirmation" %>
+<%= render "devise/shared/shell_start" %><h1>Renvoyer la confirmation</h1>
+<%= render "devise/shared/error_messages", resource: resource %>
+<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |form| %>
+  <%= render "shared/form_field", form: form, attribute: :email, label: "E-mail", kind: :email_field, options: { autocomplete: "email", required: true } %>
+  <%= form.submit "Envoyer les instructions", class: "btn btn-deep btn-block" %>
+<% end %><%= render "devise/shared/links" %><%= render "devise/shared/shell_end" %>

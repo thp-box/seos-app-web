@@ -1,0 +1,9 @@
+<% categories.each do |category| %>
+  <% children = @categories.select { |child| child.parent_id == category.id } %>
+  <details name="catalogue-category-<%= category.parent_id || 'root' %>" <%= "open" if @categories.any? { |item| selected_categories.include?(item.id.to_s) && item.lineage.include?(category) } %>>
+    <summary><%= category.name %></summary>
+    <label><%= check_box_tag "category_ids[]", category.id, selected_categories.include?(category.id.to_s), form: "catalogue-search", id: "category-#{category.id}" %> Tout : <%= category.name %></label>
+    <% children.each do |child| %><label><%= check_box_tag "category_ids[]", child.id, selected_categories.include?(child.id.to_s), form: "catalogue-search", id: "category-#{child.id}" %> <%= child.name %></label><% end %>
+    <% children.each do |child| %><%= render "category_filters", categories: @categories.select { |item| item.parent_id == child.id }, selected_categories: selected_categories %><% end %>
+  </details>
+<% end %>

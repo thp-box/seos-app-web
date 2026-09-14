@@ -1,0 +1,12 @@
+<% title = @area == "kit" ? "Apparence du site" : { "header" => "Haut du site", "footer" => "Bas du site", "images" => "Bibliothèque d’images" }.fetch(@area) { site_page_name(@slug, @version) } %>
+<% content_for :title, title %>
+<%= link_to @area == "kit" ? "← Vue d’ensemble de l’apparence" : "← Toutes les pages", admin_site_index_path(area: @area == "kit" ? "kit" : "pages") %>
+<div class="editor-heading"><div><h1><%= title %></h1><p><%= @version.status == "published" ? "Cette sauvegarde a déjà été mise en ligne. Vos prochains changements seront enregistrés à part." : "Vous travaillez sur une copie privée. Les visiteurs ne voient pas encore vos modifications." %></p></div>
+<% unless @section %><%= link_to "Voir le résultat", review_admin_site_path(@version, page: @slug, area: @area), class: "btn btn-deep" %><% end %></div>
+<%= link_to "Ouvrir l’éditeur visuel", visual_admin_site_path(@version, page: @slug, area: @area), class: "btn btn-deep", data: { turbo: false } %>
+<p class="editor-help">Enregistrez votre contenu avant de voir le résultat. La mise en ligne vous sera proposée sur l’écran suivant.</p>
+<% if @area == "pages" %><%= render @section ? "section" : "page_editor" %>
+<% elsif %w[header footer].include?(@area) %><%= render "chrome" %>
+<% elsif @area == "kit" %><%= render "kit_controls" %>
+<% else %><%= render "images" %><% end %>
+<% unless @area == "images" || @section %><details class="card editor-advanced"><summary>Revenir à la présentation de départ</summary><p>Cela prépare une copie avec les réglages de départ pour cette page ou cet élément. Vous pourrez vérifier le résultat avant de le mettre en ligne.</p><%= button_to "Préparer le retour à la présentation de départ", admin_site_path(@version), method: :patch, params: { operation: "reset", area: @area, page: @slug }, class: "btn btn-outline" %></details><% end %>

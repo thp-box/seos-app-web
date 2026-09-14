@@ -1,5 +1,17 @@
 # Profils publics, vie privée et cadre RGPD/CNIL
 
+## Complément technique — phase 3, 5 septembre 2026
+
+Ce complément décrit le traitement construit pour préparer l’AIPD ; il ne constitue ni une AIPD terminée ni une validation juridique de lancement. La version livrée est créée en brouillon, sans activation publique automatique.
+
+Le moteur utilise les identifiants internes des participants, catégories de service, dates de réalisation, confirmations, notes structurées révélées et soutiens valides. Les textes libres, conversations, coordonnées, solde de points et signaux techniques sont exclus du calcul. Les scores affichés sont entiers et accompagnés de leur incertitude ; aucune décision sur les droits ou le statut du compte n’en découle automatiquement.
+
+Le détecteur interne utilise uniquement des compteurs d’échanges/parrainages et des chemins d’identifiants dans le graphe de soutiens. Il ne collecte aucun identifiant d’appareil ni empreinte IP. Les signaux sont accessibles via `trust.risk`, chaque consultation est auditée, et les lignes expirent puis sont supprimées après 30 jours. Un foyer ou une association reste une explication possible ; classer un faux positif n’affecte ni score ni droits.
+
+Les codes sont condensés, les motifs de retrait, déclarations de recours, décisions et corrections de preuves sont chiffrés au repos. Les identités des parrains et le risque interne sont absents des profils, annonces et JSON-LD. Les espaces privés répondent avec `no-store` et `noindex` ; les paramètres contenant codes et déclarations sont filtrés des journaux.
+
+Les preuves et corrections ont un historique append-only. Avant une activation de production, il reste à arrêter les durées de conservation des preuves/snapshots/audits, la procédure d’effacement ou de dissociation compatible avec les contraintes SQL, les textes d’information, la base retenue, les responsabilités et les comparaisons d’effets entre cohortes. Les écrans de gouvernance enregistrent une approbation, sans prétendre accomplir ces validations humaines. Les recours sont ouverts au membre et traités avec motif ; leur délai initial de sept jours est une règle opérationnelle de cette livraison.
+
 ## Statut du document
 
 Ce document fixe une conception « protection des données dès la conception » pour SEOS. Il ne remplace pas l'avis d'un DPO ou d'un juriste. Bases légales, durées, textes d'information, contrats de sous-traitance et analyse d'impact doivent être validés avant mise en production.

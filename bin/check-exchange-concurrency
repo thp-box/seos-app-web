@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require "tmpdir"
+require "fileutils"
+
+Dir.chdir(File.expand_path("..", __dir__)) do
+  Dir.mktmpdir("seos-concurrency-") do |directory|
+    environment = { "RAILS_ENV" => "test", "DATABASE_URL" => "sqlite3:#{directory}/check.sqlite3" }
+    abort "La préparation de la base isolée a échoué" unless system(environment, "bin/rails", "db:prepare", out: File::NULL)
+    abort "La vérification de concurrence a échoué" unless system(environment, "bin/rails", "runner", "scripts/check-exchange-concurrency.rb")
+  end
+end

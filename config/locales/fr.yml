@@ -1,0 +1,20 @@
+fr:
+  roles:
+    member: Membre
+    admin: Administrateur
+    super_admin: Super-administrateur
+  statuses:
+    pending: En attente
+    active: Actif
+    suspended: Suspendu
+    anonymized: Anonymisé
+  membership_roles:
+    owner: Propriétaire
+    manager: Gestionnaire
+    editor: Éditeur
+  audit_actions:
+    user:
+      role_changed: Changement de rôle
+    permission:
+      granted: Permission attribuée
+      revoked: Permission révoquée

@@ -1,0 +1,212 @@
+{
+  "legal-center": {
+    "name": "Centre de confiance et documents légaux",
+    "html": "<section class=\"section legal-center\"><div class=\"container\"><header class=\"legal-center-heading\" id=\"legal-introduction\"><h1><span data-field=\"title\"></span></h1><p><span data-field=\"intro\"></span></p></header><div class=\"legal-tabs-slot\"></div></div></section><template><span data-field=\"tab-securite\"></span><span data-field=\"tab-cgu\"></span><span data-field=\"tab-confidentialite\"></span><span data-field=\"tab-cookies\"></span><span data-field=\"tab-mentions-legales\"></span><span data-field=\"tab-preferences\"></span><span data-field=\"eyebrow-securite\"></span><span data-field=\"eyebrow-cgu\"></span><span data-field=\"eyebrow-confidentialite\"></span><span data-field=\"eyebrow-cookies\"></span><span data-field=\"eyebrow-mentions-legales\"></span><span data-field=\"eyebrow-preferences\"></span><span data-field=\"security-title\"></span><span data-field=\"security-body\"></span><span data-field=\"preferences-title\"></span><span data-field=\"preferences-intro\"></span><span data-field=\"empty\"></span><span data-field=\"security-empty\"></span><span data-field=\"cookie-necessary-title\"></span><span data-field=\"cookie-necessary-badge\"></span><span data-field=\"cookie-necessary-body\"></span><span data-field=\"cookie-accept\"></span><span data-field=\"cookie-reject\"></span><span data-field=\"cookie-legend\"></span><span data-field=\"cookie-analytics-title\"></span><span data-field=\"cookie-analytics-help\"></span><span data-field=\"cookie-media-title\"></span><span data-field=\"cookie-media-help\"></span><span data-field=\"cookie-save\"></span><span data-field=\"cookie-retention\"></span><span data-field=\"cookie-rights\"></span><span data-field=\"security-action\"></span></template>",
+    "fields": {
+      "title": {
+        "type": "text",
+        "label": "Titre du centre",
+        "default": "Confiance et informations légales",
+        "group": "Présentation"
+      },
+      "intro": {
+        "type": "text",
+        "label": "Introduction",
+        "default": "Les règles de SEOS, vos données et vos choix, au même endroit.",
+        "group": "Présentation"
+      },
+      "tab-securite": {
+        "type": "text",
+        "label": "Onglet : Sécurité",
+        "default": "Sécurité",
+        "group": "Menu des onglets"
+      },
+      "tab-cgu": {
+        "type": "text",
+        "label": "Onglet : Conditions d’utilisation",
+        "default": "Conditions d’utilisation",
+        "group": "Menu des onglets"
+      },
+      "tab-confidentialite": {
+        "type": "text",
+        "label": "Onglet : Confidentialité & RGPD",
+        "default": "Confidentialité & RGPD",
+        "group": "Menu des onglets"
+      },
+      "tab-cookies": {
+        "type": "text",
+        "label": "Onglet : Cookies",
+        "default": "Cookies",
+        "group": "Menu des onglets"
+      },
+      "tab-mentions-legales": {
+        "type": "text",
+        "label": "Onglet : Mentions légales",
+        "default": "Mentions légales",
+        "group": "Menu des onglets"
+      },
+      "tab-preferences": {
+        "type": "text",
+        "label": "Onglet : Gérer mes cookies",
+        "default": "Gérer mes cookies",
+        "group": "Menu des onglets"
+      },
+      "eyebrow-securite": {
+        "type": "text",
+        "label": "Sur-titre : securite",
+        "default": "Confiance",
+        "group": "Sur-titres"
+      },
+      "eyebrow-cgu": {
+        "type": "text",
+        "label": "Sur-titre : cgu",
+        "default": "CGU",
+        "group": "Sur-titres"
+      },
+      "eyebrow-confidentialite": {
+        "type": "text",
+        "label": "Sur-titre : confidentialite",
+        "default": "RGPD",
+        "group": "Sur-titres"
+      },
+      "eyebrow-cookies": {
+        "type": "text",
+        "label": "Sur-titre : cookies",
+        "default": "Préférences",
+        "group": "Sur-titres"
+      },
+      "eyebrow-mentions-legales": {
+        "type": "text",
+        "label": "Sur-titre : mentions-legales",
+        "default": "Éditeur",
+        "group": "Sur-titres"
+      },
+      "eyebrow-preferences": {
+        "type": "text",
+        "label": "Sur-titre : preferences",
+        "default": "Vos choix",
+        "group": "Sur-titres"
+      },
+      "security-title": {
+        "type": "text",
+        "label": "Titre sécurité",
+        "default": "Un cadre clair, parce que l’entraide ne s’improvise pas",
+        "group": "Sécurité"
+      },
+      "security-body": {
+        "type": "text",
+        "label": "Texte sécurité",
+        "default": "SEOS met des inconnus en relation : la prudence et la transparence font partie du service.\n\n## Profils vérifiés\n\nE-mail et téléphone confirmés. Pièce d’identité demandée pour les services auprès de publics vulnérables.\n\n## Avis après échange\n\nSeuls les membres ayant réellement échangé peuvent publier un avis.\n\n## Messagerie interne\n\nVos coordonnées restent privées jusqu’à ce que vous décidiez de les transmettre.\n\n## Signalement en un clic\n\nChaque signalement est examiné par l’équipe sous 48 heures ouvrées.",
+        "group": "Sécurité"
+      },
+      "preferences-title": {
+        "type": "text",
+        "label": "Titre des préférences",
+        "default": "Mes préférences de confidentialité",
+        "group": "Préférences de cookies"
+      },
+      "preferences-intro": {
+        "type": "text",
+        "label": "Introduction des préférences",
+        "default": "Les cookies nécessaires protègent la connexion et vos formulaires. Les fonctionnalités facultatives restent désactivées sans votre accord.",
+        "group": "Préférences de cookies"
+      },
+      "empty": {
+        "type": "text",
+        "label": "Document non publié",
+        "default": "Ce document sera disponible après sa publication.",
+        "group": "Présentation"
+      },
+      "security-empty": {
+        "type": "text",
+        "label": "Texte sans version de confiance active",
+        "default": "Le moteur est en préparation : aucune version n’est encore activée publiquement.",
+        "group": "Sécurité"
+      },
+      "cookie-necessary-title": {
+        "type": "text",
+        "label": "Cookies nécessaires",
+        "default": "Cookies nécessaires",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-necessary-badge": {
+        "type": "text",
+        "label": "Toujours actifs",
+        "default": "Toujours actifs",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-necessary-body": {
+        "type": "text",
+        "label": "Ils permettent de vous connecter et de sécuriser vos actions sur le site.",
+        "default": "Ils permettent de vous connecter et de sécuriser vos actions sur le site.",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-accept": {
+        "type": "text",
+        "label": "Tout accepter",
+        "default": "Tout accepter",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-reject": {
+        "type": "text",
+        "label": "Tout refuser",
+        "default": "Tout refuser",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-legend": {
+        "type": "text",
+        "label": "Personnaliser",
+        "default": "Personnaliser",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-analytics-title": {
+        "type": "text",
+        "label": "Mesure d’audience facultative",
+        "default": "Mesure d’audience facultative",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-analytics-help": {
+        "type": "text",
+        "label": "Autoriser les outils de statistiques facultatifs. Aucun outil d’analyse tiers n’est chargé actuellement.",
+        "default": "Autoriser les outils de statistiques facultatifs. Aucun outil d’analyse tiers n’est chargé actuellement.",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-media-title": {
+        "type": "text",
+        "label": "Médias externes facultatifs",
+        "default": "Médias externes facultatifs",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-media-help": {
+        "type": "text",
+        "label": "Autoriser les contenus intégrés depuis d’autres services. Aucun média externe n’est chargé actuellement.",
+        "default": "Autoriser les contenus intégrés depuis d’autres services. Aucun média externe n’est chargé actuellement.",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-save": {
+        "type": "text",
+        "label": "Enregistrer mes préférences",
+        "default": "Enregistrer mes préférences",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-retention": {
+        "type": "text",
+        "label": "Votre choix est conservé six mois. Vous pouvez le modifier à tout moment.",
+        "default": "Votre choix est conservé six mois. Vous pouvez le modifier à tout moment.",
+        "group": "Formulaire des cookies"
+      },
+      "cookie-rights": {
+        "type": "text",
+        "label": "Exercer mes droits sur mes données",
+        "default": "Exercer mes droits sur mes données",
+        "group": "Formulaire des cookies"
+      },
+      "security-action": {
+        "type": "text",
+        "label": "Bouton vers le score personnel",
+        "default": "Mon score et mes recours",
+        "group": "Sécurité"
+      }
+    }
+  }
+}

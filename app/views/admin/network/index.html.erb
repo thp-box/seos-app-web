@@ -1,0 +1,18 @@
+<div class="admin-console network-console">
+<header class="admin-console-heading"><div><span class="account-eyebrow">Développer la communauté</span><h1>Associations & partenariats</h1><p>Des projets à accompagner. Des décisions qui font avancer l’entraide.</p></div><span class="admin-hero-mark" aria-hidden="true"><%= admin_ui_icon("network") %></span></header>
+<nav class="network-tabs" aria-label="Gestion des organisations"><% @sections.each do |key, label| %><%= link_to label, admin_network_index_path(section: key), aria: { current: ("page" if @section == key) } %><% end %></nav>
+<% if @section == "settings" %><%= render "settings" %><% else %>
+  <div class="network-section-heading"><div><span class="account-eyebrow">Votre espace de suivi</span><h2><%= @sections.fetch(@section) %></h2><p>Les demandes en attente apparaissent en premier. Ouvrez un dossier pour l’examiner.</p></div><span class="network-total"><strong><%= @counts.values.sum %></strong> dossiers</span></div>
+  <nav class="network-statuses" aria-label="Filtrer les dossiers par statut"><%= link_to "Tous · #{@counts.values.sum}", admin_network_index_path(section: @section, request_kind: params[:request_kind]), aria: { current: ("page" unless @status) } %><% @counts.each do |status, count| %><%= link_to "#{network_label(status)} · #{count}", admin_network_index_path(section: @section, status: status, request_kind: params[:request_kind]), aria: { current: ("page" if status == @status) } %><% end %></nav>
+  <%= form_with url: admin_network_index_path, method: :get, class: "admin-filter-bar" do |form| %><%= hidden_field_tag :section, @section %><%= hidden_field_tag :status, @status %><%= input_field form, :q, "Rechercher un nom ou un numéro", value: @query %><% if @section == "organizations" %><%= select_field form, :request_kind, "Projet", [["Tous les projets", ""], ["Mission communautaire", "community_mission"], ["Partenariat", "partnership"]], selected: params[:request_kind] %><% end %><%= form.button "Rechercher", class: "btn btn-deep" %><% end %>
+  <div class="network-list-meta"><span><strong><%= @total %></strong> résultats</span><span>20 dossiers par page · Page <%= @page %></span></div>
+  <div class="network-dossiers">
+  <% @records.each do |record| %>
+    <% title = network_record_title(record) %>
+    <article class="network-dossier"><div class="network-avatar" aria-hidden="true"><%= title.first(2).upcase %></div><div class="network-dossier-main"><span class="network-dossier-type">#<%= record.id %> · <%= record.is_a?(Organization) ? network_label(organization_project_kind(record)) : record.organization.name %></span><h3><%= link_to title, admin_network_path(record.id, section: @section) %></h3><p><%= record.is_a?(Organization) ? network_label(record.kind) : "Mis à jour le #{l record.updated_at.to_date}" %></p></div><span class="network-badge network-badge-<%= record.status %>"><%= network_label(record.status) %></span><%= link_to admin_network_path(record.id, section: @section), class: "network-open", aria: { label: "Examiner #{title}" } do %>Examiner <span aria-hidden="true">↗</span><% end %></article>
+  <% end %>
+  <% if @records.empty? %><div class="network-empty"><%= admin_ui_icon("network") %><h3>Aucun dossier dans cette sélection</h3><p>Essayez un autre nom ou revenez à l’ensemble des dossiers.</p><%= link_to "Voir tous les dossiers", admin_network_index_path(section: @section), class: "btn btn-outline" %></div><% end %>
+  </div>
+  <%= render "shared/pagination", page: @page, total: @total %>
+<% end %>
+</div>

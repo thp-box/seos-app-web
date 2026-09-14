@@ -1,0 +1,2 @@
+<%= render "shared/public_hero", eyebrow: "La vie de la communauté", title: "Le journal SEOS" %>
+<section class="container section"><div class="card-grid"><% @articles.each do |article| %><article class="card"><h2><%= link_to article.title, article_path(article.slug) %></h2><p><%= article.summary %></p><time><%= l article.published_at.to_date %></time></article><% end %></div><% if @articles.empty? %><p>Les premiers articles arrivent bientôt.</p><% end %></section>

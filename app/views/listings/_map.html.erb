@@ -1,0 +1,4 @@
+<% if FeatureFlag.map_enabled? %>
+  <%= stylesheet_link_tag "map" %><%= javascript_include_tag "map", type: "module" %>
+  <div class="public-map" data-public-map data-markers="<%= listings.filter_map { |listing| coords = listing.public_coordinates; { coordinates: coords, title: listing.title, url: listing_path(listing) } if coords }.to_json %>" data-tiles="<%= FeatureFlag.tile_url %>" role="region" aria-label="Zones approximatives des annonces"><p>Chargement de la carte. La liste complète reste disponible ci-dessous.</p></div>
+<% end %>

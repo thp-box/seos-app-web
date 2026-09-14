@@ -1,0 +1,21 @@
+<% content_for :title, "Mes témoignages" %>
+<%= account_page_heading "Mes témoignages", eyebrow: "Partager mon expérience" %>
+<p>Racontez une rencontre utile à la communauté et suivez ici la publication de vos témoignages.</p>
+<div class="card"><h2>Partager mon expérience</h2><p>Un témoignage écrit ou une vidéo avec transcription, publié après revue. Utilisez un pseudonyme si vous préférez. La récompense éventuelle fait l’objet d’une revue distincte.</p>
+<%= form_with url: account_testimonials_path, multipart: true do |form| %>
+  <%= hidden_field_tag :operation, "testimonial", id: nil %>
+  <div class="form-field"><%= form.label :kind, "Format" %><%= form.select :kind, [["Écrit", "written"], ["Vidéo", "video"]], {}, class: "control" %></div>
+  <%= input_field form, :quote, "Votre témoignage public", type: :text_area, required: true, maxlength: 3000 %>
+  <%= input_field form, :display_name_snapshot, "Nom ou pseudonyme à afficher", required: true, maxlength: 100 %>
+  <%= input_field form, :public_location_snapshot, "Ville à afficher (facultative)", maxlength: 100 %>
+  <%= input_field form, :video, "Vidéo MP4 (25 Mo, 3 minutes maximum)", type: :file_field, accept: "video/mp4" %>
+  <%= input_field form, :transcript, "Transcription accessible de la vidéo", type: :text_area, maxlength: 3000 %>
+  <div class="testimonial-consent"><%= form.check_box :consent, required: true %><%= form.label :consent, "J’autorise la publication de ce témoignage et de son nom affiché sur SEOS France. Je peux retirer cet accord à tout moment depuis cette page." %></div>
+  <div class="testimonial-actions">
+    <%= form.submit "Proposer mon témoignage", class: "btn btn-primary" %>
+    <%= link_to "Lire les témoignages publiés", testimonials_path, class: "btn btn-outline" %>
+  </div>
+<% end %>
+<% @testimonials.each do |record| %><article class="testimonial-submission"><h3><%= record.display_name_snapshot %> · <%= community_status(record.status) %></h3><p><%= record.quote %></p><p><%= record.decision %></p><% unless record.status == "removed" %><%= button_to "Retirer mon consentement", account_testimonials_path, params: { operation: "withdraw_testimonial", record_id: record.id }, class: "btn btn-outline" %><% end %></article><% end %>
+</div>
+

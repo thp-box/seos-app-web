@@ -1,0 +1,43 @@
+<section class="account-partnerships">
+  <h2>Mes propositions de partenariat</h2>
+  <p class="organization-panel-intro">Présentez votre projet, enregistrez votre brouillon puis envoyez-le à l’équipe SEOS. C’est l’équipe qui valide sa publication.</p>
+  <% records = @partnerships.reject(&:new_record?) %>
+  <% records.each do |record| %>
+    <article class="card partnership-proposal">
+      <div class="partnership-proposal-heading"><h3><%= record.public_title %></h3><span class="organization-status"><%= { "draft" => "Brouillon privé", "pending_review" => "Envoyé à SEOS", "published" => "Validé par SEOS", "archived" => "Archivé" }.fetch(record.status) %></span></div>
+      <% if record.status == "draft" %>
+        <p>Votre proposition est enregistrée, mais elle n’a pas encore été envoyée. Elle n’est pas visible dans la liste publique.</p>
+      <% elsif record.status == "pending_review" %>
+        <p>Votre proposition attend l’examen de l’équipe SEOS. Vous n’avez rien d’autre à faire pour le moment.</p>
+      <% elsif record.status == "published" %>
+        <p>Votre partenariat a été validé. Son affichage public dépend des dates prévues et de la vérification de votre structure.</p>
+      <% elsif record.status == "archived" %>
+        <p>Ce partenariat n’est plus affiché publiquement.</p>
+      <% end %>
+      <div class="actions">
+        <% unless record.status == "archived" %>
+          <%= link_to record.status == "draft" ? "Modifier mon brouillon" : "Modifier ma proposition", account_organization_path(@organization, partnership_id: record.id, tab: "partnerships", anchor: "partnership-editor"), class: "btn btn-outline" %>
+        <% end %>
+        <% if record.status == "draft" %>
+          <% if record.valid?(:publication) %>
+            <%= button_to "Envoyer à l’équipe SEOS", account_organization_path(@organization), method: :patch, params: { operation: "partnership_transition", record_id: record.id, status: "pending_review" }, class: "btn btn-primary" %>
+          <% else %>
+            <span class="partnership-completion">Complétez la présentation et les dates de validité dans le brouillon avant de l’envoyer.</span>
+          <% end %>
+        <% end %>
+        <% if record.publicly_visible? %><%= link_to "Voir la fiche publique ↗", partnership_path(record), class: "btn btn-deep" %><% end %>
+      </div>
+      <% if %w[pending_review published].include?(record.status) %><p class="partnership-edit-note">Enregistrer une modification remet cette proposition en brouillon : vous devrez l’envoyer à nouveau à SEOS.</p><% end %>
+    </article>
+  <% end %>
+  <div id="partnership-editor">
+    <% if @partnership.persisted? %>
+      <%= render "partnerships/form", record: @partnership, url: account_organization_path(@organization), method: :patch, admin: false %>
+      <details class="card"><summary>Voir l’aperçu de ma proposition</summary><%= render "partnerships/details", record: @partnership %></details>
+    <% elsif records.any? %>
+      <details class="card partnership-new"><summary>+ Proposer un autre partenariat</summary><%= render "partnerships/form", record: @partnership, url: account_organization_path(@organization), method: :patch, admin: false %></details>
+    <% else %>
+      <%= render "partnerships/form", record: @partnership, url: account_organization_path(@organization), method: :patch, admin: false %>
+    <% end %>
+  </div>
+</section>

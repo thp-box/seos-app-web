@@ -1,0 +1,139 @@
+# A declarative document: user content never supplies HTML, CSS or JavaScript.
+class SiteDesign
+  SOURCE = Rails.root.join("config/studio/maquette.json")
+  CHROME = {
+    "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "La communauté", "url" => "/communaute" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
+    "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "La communauté francophone d’entraide et d’échange de services.", "description" => "", "links" => [
+      { "label" => "Le concept", "url" => "/#presentation" }, { "label" => "Les annonces", "url" => "/annonces" }, { "label" => "Chaîne d’entraide", "url" => "/#site-section-home-4" },
+      { "label" => "Publier", "url" => "/compte/annonces/new" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" }, { "label" => "Mon espace", "url" => "/compte" }, { "label" => "Contact", "url" => "/contact" },
+      { "label" => "Sécurité", "url" => "/confiance" }, { "label" => "Règles et CGU", "url" => "/legal/cgu" }, { "label" => "Centre légal", "url" => "/legal" },
+      { "label" => "Mentions légales", "url" => "/legal/mentions-legales" }, { "label" => "Confidentialité & RGPD", "url" => "/legal/confidentialite" }, { "label" => "Cookies", "url" => "/legal/cookies" }, { "label" => "Gérer mes cookies", "url" => "/preferences-confidentialite" }
+    ] }
+  }.freeze
+  def self.reference = @reference ||= JSON.parse(SOURCE.read)
+  def self.templates
+    reference.fetch("sections").merge(JSON.parse(Rails.root.join("config/studio/legal.json").read)).merge(JSON.parse(Rails.root.join("config/studio/travel.json").read)).merge("spacer" => { "name" => "Section vide", "html" => "", "fields" => {
+      "height" => { "type" => "height", "label" => "Hauteur sur ordinateur (px)", "default" => "96" },
+      "mobile_height" => { "type" => "height", "label" => "Hauteur sur téléphone (px)", "default" => "48" }
+    } }).merge(JSON.parse(Rails.root.join("config/studio/community.json").read)).merge("text" => { "name" => "Texte et bouton", "fields" => {
+      "title" => { "type" => "text", "label" => "Titre", "default" => "Votre titre" },
+      "body" => { "type" => "text", "label" => "Contenu", "default" => "Votre contenu" },
+      "label" => { "type" => "text", "label" => "Bouton", "default" => "En savoir plus" },
+      "url" => { "type" => "url", "label" => "Destination", "default" => "/contact" }
+    } })
+  end
+  def self.page_paths(slug)
+    paths = [ "/pages/#{slug}", "/decouvrir/#{slug}" ]
+    paths << "/#{slug}" if %w[communaute voyage-solidaire legal].include?(slug)
+    paths
+  end
+  def self.safe_url?(value)
+    return false unless value.is_a?(String) && value.size <= 2000 && !value.match?(/[\s\\\x00-\x1f]/)
+    return true if value.match?(/\A\/(?!\/)/) || value.match?(/\A#[a-zA-Z][\w-]*\z/)
+    uri = URI.parse(value)
+    uri.is_a?(URI::HTTPS) && uri.host.present? && uri.userinfo.nil?
+  rescue URI::InvalidURIError
+    false
+  end
+  def self.image?(value)
+    value == "seos-logo.png" || reference.fetch("images").value?(value) || (value.is_a?(String) && value.match?(/\Aasset:\d+\z/) && StudioAsset.joins(:image_attachment).exists?(id: value.delete_prefix("asset:")))
+  end
+  def self.slides?(value)
+    return false unless text?(value)
+    slides = JSON.parse(value)
+    slides.is_a?(Array) && slides.size.between?(1, 20) && slides.all? { |slide| slide.is_a?(Hash) && slide.keys.sort == %w[alt image label] && text?(slide["label"]) && slide["label"].present? && text?(slide["alt"]) && slide["alt"].present? && image?(slide["image"]) }
+  rescue JSON::ParserError
+    false
+  end
+  def self.text?(value) = value.is_a?(String) && value.size <= 15_000 && !value.include?("\u0000")
+  def self.valid?(data)
+    return false unless data.is_a?(Hash) && (data.keys - %w[pages header footer deleted_pages]).empty?
+    deleted = data.fetch("deleted_pages", [])
+    return false unless deleted.is_a?(Array) && deleted.size <= 50 && deleted.uniq == deleted && deleted.all? { |slug| slug.is_a?(String) && slug.match?(/\A[a-z][a-z0-9-]{0,70}\z/) && !%w[home accueil annonces listings].include?(slug) }
+    return false unless data.fetch("pages", {}).is_a?(Hash)
+    return false if (data.fetch("pages", {}).keys & deleted).any?
+    %w[header footer].each do |area|
+      next unless data.key?(area)
+      chrome = data[area]
+      return false unless chrome.is_a?(Hash) && (chrome.keys - CHROME.fetch(area).keys).empty?
+      return false unless chrome.all? { |key, value| case key
+                                                     when "logo" then image?(value)
+                                                     when "links" then value.is_a?(Array) && value.size <= 24 && value.all? { |link| link.is_a?(Hash) && link.keys.sort == %w[label url] && text?(link["label"]) && link["label"].present? && safe_url?(link["url"]) }
+                                                     else text?(value)
+                                                     end }
+      return false if chrome.any? { |key, value| key.end_with?("_label") && value.blank? }
+      return false if chrome["logo"].present? && chrome["alt"].blank?
+    end
+    pages = data.fetch("pages", {})
+    return false unless pages.is_a?(Hash) && pages.size <= 50
+    pages.all? do |slug, page|
+      slug.match?(/\A[a-z][a-z0-9-]{0,70}\z/) && page.is_a?(Hash) && (page.keys - %w[title blocks]).empty? && text?(page["title"]) && page["title"].present? && page["blocks"].is_a?(Array) && page["blocks"].size <= 40 && page["blocks"].map { |b| b.is_a?(Hash) ? b["id"] : nil }.uniq.size == page["blocks"].size && page["blocks"].all? { |block| valid_block?(block) }
+    end
+  end
+  def self.valid_block?(block)
+    return false unless block.is_a?(Hash) && (block.keys - %w[id template values hidden separator placement style elements]).empty? && block["id"].is_a?(String) && block["id"].match?(/\A[a-z0-9-]{1,50}\z/) && [ true, false, nil ].include?(block["hidden"])
+    return false unless [ nil, "none", *ContentVersion::PRESETS ].include?(block["separator"]) && [ nil, "top", "bottom" ].include?(block["placement"])
+    template = templates[block["template"]]
+    return false unless SiteSectionStyle.valid?(block.fetch("style", {}))
+    elements = block.fetch("elements", {})
+    return false unless elements.is_a?(Hash) && template && elements.all? { |field, style| template["fields"].key?(field) && SiteSectionStyle.valid?(style) }
+    values = block["values"]
+    return false unless template && values.is_a?(Hash) && (values.keys - template["fields"].keys).empty?
+    values.all? do |key, value|
+      case template["fields"][key]["type"]
+      when "slides" then slides?(value)
+      when "video" then value == "" || (safe_url?(value) && value.match?(/\.(mp4|webm)(\?[^#]*)?\z/i))
+      when "height" then value.is_a?(String) && value.match?(/\A[0-9]{1,4}\z/) && value.to_i.between?(8, 1200)
+      when "url" then safe_url?(value)
+      when "image" then image?(value)
+      else text?(value)
+      end
+    end && template["fields"].keys.grep(/\Aimage-/).all? { |key| values.fetch(key.sub("image-", "alt-"), template["fields"][key.sub("image-", "alt-")]["default"]).present? }
+  end
+  def self.community_page
+    { "title" => "La communauté", "blocks" => [
+      { "id" => "community-intro", "template" => "don-0", "values" => {
+        "text-0" => "La communauté", "text-1" => "Les petits gestes", "text-2" => "font les grands liens.",
+        "text-3" => "SEOS réunit les personnes et les associations qui veulent s’entraider. Partagez vos savoir-faire, trouvez un coup de main et créez des liens, près de chez vous ou à distance.",
+        "text-4" => "Découvrir les annonces", "link-0" => "/annonces" } },
+      { "id" => "community-application", "template" => "community-app", "values" => {} },
+      { "id" => "community-associations", "template" => "community-associations", "values" => {} },
+      { "id" => "community-support", "template" => "community-support", "values" => {} }
+    ] }
+  end
+  # Upgrade only the original menu item; preserve any administrator customization.
+  def self.chrome(area, overrides = {})
+    result = CHROME.fetch(area).merge(overrides).deep_dup
+    if area == "header"
+      result["links"].map! do |link|
+        if link == { "label" => "L’association", "url" => "/associations" }
+          { "label" => "La communauté", "url" => "/communaute" }
+        else
+          link
+        end
+      end
+    end
+    result
+  end
+  def self.home_page
+    { "title" => "Accueil", "blocks" => 11.times.map { |index| { "id" => "home-#{index}", "template" => "home-#{index}", "values" => {} } } }
+  end
+  def self.default_page(slug)
+    return { "title" => "Confiance et informations légales", "blocks" => [ { "id" => "legal-center", "template" => "legal-center", "values" => {} } ] } if slug == "legal"
+    if %w[don echange points].include?(slug)
+      template = slug == "echange" ? "exchange" : slug
+      return { "title" => { "don" => "Le don", "echange" => "L’échange", "points" => "Les Points Services" }.fetch(slug), "blocks" => 2.times.map { |i| { "id" => "#{template}-#{i}", "template" => "#{template}-#{i}", "values" => {} } } }
+    end
+    if slug == "voyage-solidaire"
+      return { "title" => "Voyage solidaire", "blocks" => [
+        { "id" => "travel-intro", "template" => "travel-hero", "values" => {} },
+        { "id" => "travel-list", "template" => "travel-missions", "values" => {} }
+      ] }
+    end
+    return community_page if slug == "communaute"
+    title = slug == "home" ? "Accueil" : ContentVersion.current("page", slug)&.title || slug.humanize
+    content = ContentVersion.current("page", slug)
+    blocks = content ? [ { "id" => "initial-#{slug}", "template" => "text", "values" => { "title" => title, "body" => [ content.summary, content.body ].compact.join("\n\n") } } ] : []
+    { "title" => title, "blocks" => blocks }
+  end
+end

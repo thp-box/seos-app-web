@@ -1,0 +1,2 @@
+<% if fields["image"] %><div class="container"><%= image_tag(fields["image"].start_with?("asset:") ? media_path(StudioAsset.find(fields["image"].delete_prefix("asset:")).image.attachment) : fields["image"], alt: fields["alt"], width: 216, height: 76, loading: "lazy") %></div><% end %>
+<% if fields["separator"] %><div class="section-decoration <%= fields["separator"] %> <%= "studio-motion" if fields["animated"] %>" aria-hidden="true"></div><% end %>

@@ -1,0 +1,18 @@
+<div class="admin-console network-console">
+<%= link_to "← Retour aux dossiers", admin_network_index_path(section: @section), class: "organization-back" %>
+<header class="admin-console-heading network-detail-heading"><div><span class="account-eyebrow"><%= @sections.fetch(@section) %> · Dossier #<%= @record.id %></span><h1><%= network_record_title(@record) %></h1><span class="network-badge network-badge-<%= @record.status %>"><%= network_label(@record.status) %></span></div><span class="admin-hero-mark" aria-hidden="true"><%= admin_ui_icon("network") %></span></header>
+<% case @record; when Organization %>
+  <div class="network-detail-grid"><section class="card"><span class="account-eyebrow">Présentation du projet</span><h2><%= network_label(organization_project_kind(@record)) %></h2><p><%= network_label(@record.kind) %> · <%= @record.public_location.presence || "Localisation non renseignée" %></p><%= plain_paragraphs @record.description %><div class="network-detail-facts"><span>Création<strong><%= l @record.created_at.to_date %></strong></span><span>Propriétaires<strong><%= @record.organization_memberships.active.where(role: "owner").pluck(:user_id).map { |id| "##{id}" }.join(", ") %></strong></span></div></section>
+  <aside class="network-guidance"><%= admin_ui_icon("shield") %><h2>Une décision, un suivi clair</h2><p>Examinez la présentation, puis validez le dossier ou précisez ce qui empêche son acceptation.</p><p>Le motif est journalisé et l’équipe de la structure reçoit une notification.</p><small>Les coordonnées légales restent masquées sans permission spécifique.</small></aside></div>
+  <% if @revealed %><section class="card"><h2>Identité légale de <%= @revealed.name %></h2><p><%= @revealed.legal_name %></p><p><%= @revealed.registration_number %></p><p><%= @revealed.legal_email %></p></section><% end %>
+  <section class="card network-decision"><span class="account-eyebrow">Examen du dossier</span><h2>Votre décision</h2><%= render "organization_actions", organization: @record %></section>
+<% when Partnership %>
+  <section class="card"><%= render "partnerships/details", record: @record %></section>
+  <section class="card network-decision"><span class="account-eyebrow">Revue du partenariat</span><h2>Décider de la publication</h2><%= render "transition", url: admin_network_index_path, method: :post, record: @record, operation: "partnership_transition", statuses: %w[published archived] %></section>
+  <details class="card"><summary>Modifier la présentation, l’ordre ou les dates</summary><%= render "partnerships/form", record: @record, url: admin_network_index_path, method: :post, admin: true %></details>
+<% when VolunteerMission %>
+  <section class="card"><%= render "volunteer_missions/details", mission: @record %></section>
+  <section class="card network-decision"><span class="account-eyebrow">Suivi de la mission</span><h2>Décider de la diffusion</h2><%= render "transition", url: admin_network_index_path, method: :post, record: @record, operation: "mission_transition", statuses: current_user.super_admin? ? %w[published paused archived] : %w[paused archived] %></section>
+  <% if current_user.super_admin? %><details class="card"><summary>Modifier le brouillon</summary><%= render "volunteer_missions/form", mission: @record, url: admin_network_index_path, method: :post, admin: true %></details><% end %>
+<% end %>
+</div>

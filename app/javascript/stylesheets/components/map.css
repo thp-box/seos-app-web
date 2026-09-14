@@ -1,0 +1,3 @@
+.public-map { height: 380px; width: 100%; border-radius: 26px; overflow: hidden; margin-block: 24px; z-index: 0; background: var(--mist); }
+.public-map .leaflet-control-zoom a { min-width: 44px; min-height: 44px; line-height: 44px; }
+.map-notice { background: var(--white); padding: 12px; max-width: 240px; }
