@@ -29,13 +29,15 @@ module AdminNavigationHelper
         workbench_navigation("Catégories d’annonces", "categories"), workbench_navigation("Restrictions de catégories", "restrictions")
       ] ],
       [ "Administration", [
-        [ "Pilotage et registres", admin_operations_path, OperationsCatalogue::RESOURCES.values.map { |entry| entry[1] }.uniq, "admin/operations" ],
+        [ "Supervision et registres", admin_operations_path, OperationsCatalogue::RESOURCES.values.map { |entry| entry[1] }.uniq, "admin/operations" ],
         [ "Confidentialité", admin_privacy_index_path, %w[privacy.manage privacy.rules], "admin/privacy" ],
         [ "Journal d’audit", admin_audit_logs_path, %w[audit.read], "admin/audit_logs" ]
       ] ]
     ]
     definitions.each do |label, entries|
+      next if label == "Gestion du site" && !current_user.super_admin?
       links = entries.filter_map do |text, path, permissions, controller, action, kind|
+        next if controller == "admin/operations" && !current_user.super_admin?
         next unless permissions.any? { |permission| current_user.permission?(permission) }
         active = controller_path == controller && (!action || action_name == action) && (!kind || params[:kind] == kind)
         admin_nav_item(text, path, active)
@@ -47,10 +49,6 @@ module AdminNavigationHelper
         admin_nav_item("Carte publique", edit_super_admin_map_setting_path, controller_path == "super_admin/map_settings"),
         admin_nav_item("Administrateurs", super_admin_administrators_path, controller_path == "super_admin/administrators")
       ]
-    elsif current_user.permission?("content.manage") || current_user.permission?("studio.preview")
-      group = groups.find { |item| item[:label] == "Gestion du site" }
-      group ||= { label: "Gestion du site", links: [] }.tap { |item| groups << item }
-      group[:links] << admin_nav_item("Propositions éditoriales", admin_studio_index_path, controller_path == "admin/studio")
     end
     groups
   end

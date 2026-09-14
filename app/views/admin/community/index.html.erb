@@ -1,5 +1,5 @@
 <div class="community-page">
-<h1>Engagement et chaînes</h1><p>Les décisions sont motivées et auditées. Les montants proviennent des barèmes publiés ; aucune auto-attribution n’est autorisée.</p>
+<%= render "admin/shared/heading", title: "Engagement et chaînes", description: "Les décisions sont motivées et auditées. Les montants proviennent des barèmes publiés ; aucune auto-attribution n’est autorisée." %>
 <% if current_user.permission?("community.manage") %>
 <section class="quest-admin-catalog"><div class="quest-section-heading"><div><h2>Le catalogue des quêtes</h2><p>Choisissez une quête pour modifier son texte et son apparence. L’aperçu réagit à vos choix.</p></div><span class="quest-pill"><%= @achievements.count(&:active?) %> quêtes visibles</span></div>
 <details class="card quest-admin-item"><summary>Créer une quête avec preuve</summary><%= render "quest_form", quest: Achievement.new %></details>

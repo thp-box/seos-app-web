@@ -41,3 +41,6 @@ application.register("workspace-tabs", WorkspaceTabsController)
 
 import MissionFormController from "./mission_form_controller"
 application.register("mission-form", MissionFormController)
+
+import DashboardActivityController from "./dashboard_activity_controller"
+application.register("dashboard-activity", DashboardActivityController)

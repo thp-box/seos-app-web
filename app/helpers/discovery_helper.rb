@@ -20,7 +20,9 @@ module DiscoveryHelper
     end
   end
   def select_field(form, name, label, choices, **options)
-    tag.div(class: "form-field") { safe_join([ form.label(name, label), form.select(name, choices, options, class: "control") ]) }
+    html_options = { class: "control" }
+    html_options[:id] = options.delete(:id) if options[:id]
+    tag.div(class: "form-field") { safe_join([ form.label(name, label, for: html_options[:id] || form.field_id(name)), form.select(name, choices, options, html_options) ]) }
   end
   def plain_paragraphs(text) = simple_format(h(text))
   def public_name(user) = user.profile&.display_name.presence || "Membre SEOS"

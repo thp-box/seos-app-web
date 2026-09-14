@@ -1,0 +1,20 @@
+<div class="admin-console">
+  <header class="admin-console-heading"><div><span class="account-eyebrow">Modération de la communauté</span><h1>Annonces des membres</h1><p>Les annonces ordinaires sont publiées sans validation préalable. Intervenez en cas d’abus : suspension, retrait ou remise en ligne après examen.</p></div></header>
+  <nav class="admin-section-links" aria-label="Sélections d’annonces">
+    <%= link_to "Toutes les annonces", admin_workbench_index_path(kind: "annonces") %>
+    <%= link_to "Annonces signalées", admin_workbench_index_path(kind: "annonces", reported: "1") %>
+    <%= link_to "Sous modération", admin_workbench_index_path(kind: "annonces", held: "1") %>
+  </nav>
+  <%= form_with url: admin_workbench_index_path(kind: "annonces"), method: :get, class: "admin-filter-bar" do |form| %>
+    <%= input_field form, :q, "Titre ou numéro d’annonce", value: params[:q] %>
+    <%= input_field form, :user_id, "Numéro du membre", type: :number_field, value: params[:user_id], min: 1 %>
+    <%= select_field form, :status, "Statut", [["Tous", ""]] + choices_for(Listing.statuses.keys - (current_user.super_admin? ? [] : ["draft"])), selected: params[:status] %>
+    <%= hidden_field_tag :reported, params[:reported] %><%= hidden_field_tag :held, params[:held] %>
+    <%= form.button "Filtrer", class: "btn btn-deep" %>
+  <% end %>
+  <p><%= @total %> annonces · 20 maximum par page</p>
+  <div class="card table-scroll" tabindex="0" role="region" aria-label="Annonces à modérer"><table><thead><tr><th>Annonce</th><th>Membre</th><th>Statut</th><th>Signalements ouverts</th><th>Action</th></tr></thead><tbody>
+    <% @records.each do |listing| %><tr><th scope="row"><%= listing.title %><small>#<%= listing.id %> · <%= listing.category&.name %></small></th><td><% if current_user.permission?("users.read") %><%= link_to listing.user.profile&.display_name || "Membre ##{listing.user_id}", admin_user_path(listing.user_id) %><% else %>Membre #<%= listing.user_id %><% end %></td><td><%= human_value listing.status %><%= " · Blocage de modération" if listing.moderation_hold? %></td><td><%= @report_counts.fetch(listing.id, 0) %></td><td><%= link_to "Examiner", admin_workbench_path(listing.id, kind: "annonces"), class: "btn btn-outline" %></td></tr><% end %>
+  </tbody></table><% if @records.empty? %><p>Aucune annonce ne correspond à ces filtres.</p><% end %></div>
+  <%= render "shared/pagination", page: @page, total: @total %>
+</div>

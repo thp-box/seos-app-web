@@ -13,9 +13,9 @@
     <% end %>
   <% end %></div>
   <% if @selected.admin? %>
-    <div class="card"><h2>Attribuer une permission</h2>
+    <div class="card"><h2>Attribuer une permission</h2><p>Gestion des membres : <strong>users.read</strong> pour consulter les fiches, <strong>users.moderate</strong> pour suspendre ou réactiver. La modération des annonces est incluse automatiquement dans le rôle admin (<strong>listings.moderate</strong>) ; celle des avis utilise <strong>reports.manage</strong>. La gestion des demandes d’association et de partenariat est également incluse dans le rôle admin. La gestion du site et la supervision restent réservées aux super administrateurs ; les anciennes permissions éditoriales ne les ouvrent plus aux admins.</p>
     <%= form_with url: super_admin_administrator_permission_grants_path(@selected) do |form| %>
-      <div class="form-field"><%= form.label :permission, "Permission" %><%= form.select :permission, AdminPermissionGrant::PERMISSIONS, {}, class: "control" %></div>
+      <div class="form-field"><%= form.label :permission, "Permission" %><%= form.select :permission, (AdminPermissionGrant::PERMISSIONS - User::SITE_SUPER_ADMIN_PERMISSIONS - User::ADMIN_CORE_PERMISSIONS), {}, class: "control" %></div>
       <div class="form-field"><%= form.label :expires_at, "Expiration (heure de Paris)" %><%= form.datetime_local_field :expires_at, class: "control", required: true %></div>
       <div class="form-field"><%= form.label :reason, "Motif (sans donnée personnelle)" %><%= form.text_field :reason, class: "control", required: true, maxlength: 500 %></div>
       <%= form.submit "Attribuer la permission", class: "btn btn-deep" %>

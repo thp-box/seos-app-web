@@ -39,8 +39,7 @@ RSpec.describe "Navigation d’administration", type: :request do
     expect(response).to have_http_status(:forbidden)
     grant(admin, "studio.preview")
     get admin_studio_index_path
-    expect(desktop_navigation.text).to include("Propositions éditoriales")
-    expect(desktop_navigation.text).not_to include("Personnalisation")
+    expect(response).to have_http_status(:forbidden)
   end
 
   it "ouvre la rubrique d’une sous-page en conservant son lien actif unique" do

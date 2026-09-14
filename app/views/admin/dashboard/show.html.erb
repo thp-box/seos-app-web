@@ -1,8 +1,24 @@
-<% content_for :title, "Studio admin" %>
-<h1>Studio admin</h1><p>Bienvenue dans votre espace de gestion. Que souhaitez-vous faire aujourd’hui ?</p>
-<% links = admin_navigation_groups.flat_map { |group| group[:links] } %>
-<div class="card-grid">
-<% if current_user.super_admin? %><article class="card"><h2>Modifier les pages</h2><p>Créez une page ou changez ses textes et ses images. Vous pourrez voir le résultat avant de le mettre en ligne.</p><%= link_to "Gérer les pages", admin_site_index_path, class: "btn btn-deep" %></article><article class="card"><h2>Changer l’apparence</h2><p>Personnalisez les couleurs, les polices et les formes du site.</p><%= link_to "Ouvrir le kit UI/UX", admin_site_index_path(area: "kit"), class: "btn btn-outline" %></article><% end %>
-<% links.reject { |link| link[:path].include?("/admin/site") }.first(current_user.super_admin? ? 1 : 3).each do |link| %><article class="card"><h2><%= link[:label] %></h2><p>Retrouvez les éléments à consulter ou à gérer dans cette rubrique.</p><%= link_to "Accéder à #{link[:label].downcase}", link[:path], class: "btn btn-outline" %></article><% end %>
-</div><p>Le menu regroupe les outils auxquels vous avez accès. Les autres rubriques peuvent être ouvertes selon vos besoins.</p>
-<% if links.empty? %><p class="notice">Aucun outil ne vous a encore été attribué. Demandez à la responsable du site de vous donner les accès nécessaires.</p><% end %>
+<% content_for :title, "Administration" %>
+<div class="admin-console">
+<header class="admin-console-heading admin-dashboard-hero"><div><span class="account-eyebrow"><%= current_user.super_admin? ? "Super administration" : "Modération et accompagnement" %></span><h1>Votre espace de gestion</h1><p>Retrouvez les outils utiles pour accompagner les membres et intervenir sur les contenus signalés.</p></div><span class="admin-hero-mark" aria-hidden="true"><%= admin_ui_icon("network") %></span></header>
+<nav class="admin-section-links" aria-label="Accès rapides aux outils">
+<% if current_user.permission?("organizations.manage") %><%= link_to "Associations et partenariats", admin_network_index_path %><% end %>
+<% if current_user.permission?("listings.moderate") %><%= link_to "Voir les annonces", admin_workbench_index_path(kind: "annonces") %><% end %>
+<% if current_user.permission?("users.read") %><%= link_to "Voir les membres", admin_users_path %><% end %>
+<% if current_user.permission?("reports.manage") %><%= link_to "Voir les signalements", admin_workbench_index_path(kind: "signalements") %><% end %>
+</nav>
+<%= render "activity", activity: @activity %>
+<h2>Vos outils de gestion</h2>
+<div class="card-grid admin-tools-grid">
+<% if current_user.permission?("organizations.manage") %><article class="card"><h2>Demandes d’association et de partenariat</h2><p>Examinez les demandes des structures, validez ou refusez leur dossier, puis gérez les propositions de partenariat.</p><%= link_to "Gérer les demandes", admin_network_index_path, class: "btn btn-deep" %></article><% end %>
+<% if current_user.permission?("listings.moderate") %><article class="card"><h2>Modérer les annonces</h2><p>Examinez les annonces en ligne, retrouvez celles qui sont signalées et intervenez avec un motif.</p><%= link_to "Gérer les annonces", admin_workbench_index_path(kind: "annonces"), class: "btn btn-deep" %></article><% end %>
+<% if current_user.permission?("users.read") %><article class="card"><h2>Accompagner les membres</h2><p>Consultez le profil public, les annonces, le score de confiance et les avis d’un membre.</p><%= link_to "Consulter les membres", admin_users_path, class: "btn btn-outline" %></article><% end %>
+<% if current_user.permission?("reports.manage") %><article class="card"><h2>Traiter les signalements</h2><p>Examinez les abus signalés et consignez votre décision.</p><%= link_to "Ouvrir les signalements", admin_workbench_index_path(kind: "signalements"), class: "btn btn-outline" %></article><% end %>
+<% if current_user.super_admin? %>
+<article class="card"><h2>Superviser la plateforme</h2><p>Indicateurs d’activité, registres et opérations sensibles réservés aux super administrateurs.</p><%= link_to "Supervision et registres", admin_operations_path, class: "btn btn-deep" %></article>
+<article class="card"><h2>Modifier les pages</h2><p>Modifiez les textes et les images, puis vérifiez le résultat avant publication.</p><%= link_to "Gérer les pages", admin_site_index_path, class: "btn btn-outline" %></article>
+<article class="card"><h2>Changer l’apparence</h2><p>Personnalisez les couleurs, les polices et les formes du site.</p><%= link_to "Ouvrir le kit UI/UX", admin_site_index_path(area: "kit"), class: "btn btn-outline" %></article>
+<% end %>
+</div>
+<% if admin_navigation_groups.empty? %><p class="notice">Aucun outil ne vous a encore été attribué. Un super administrateur peut vous donner les accès nécessaires.</p><% else %><p>Le menu présente les rubriques correspondant à vos permissions.</p><% end %>
+</div>

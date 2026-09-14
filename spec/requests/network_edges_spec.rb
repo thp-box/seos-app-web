@@ -101,7 +101,9 @@ RSpec.describe "Droits et médias des organisations", type: :request do
     record = Partnership.last
     post admin_network_index_path, params: { operation: "partnership", record_id: record.id, partnership: { public_title: "Nouveau titre", position: 2 } }
     expect(response).to have_http_status(:see_other)
-    get admin_network_index_path
-    expect(response.body).to include("Mission monde créée par l’équipe", "Nouveau titre")
+    get admin_network_index_path(section: "missions")
+    expect(response.body).to include("Mission monde créée par l’équipe")
+    get admin_network_index_path(section: "partnerships")
+    expect(response.body).to include("Nouveau titre")
   end
 end

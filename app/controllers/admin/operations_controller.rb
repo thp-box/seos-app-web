@@ -1,6 +1,7 @@
 require "csv"
 module Admin
   class OperationsController < BaseController
+    before_action -> { authorize :administration, :super_admin? }
     def index
       @resources = OperationsCatalogue.visible_to(current_user)
       raise Pundit::NotAuthorizedError if @resources.empty?
@@ -9,11 +10,14 @@ module Admin
       records = @model.order(id: :desc)
       records = records.where(id: params[:q].to_s.delete_prefix("#")) if params[:q].present?
       @count = records.count
-      @records = records.limit(100)
+      @page = [ [ params[:page].to_i, 1 ].max, [ (@count / 20.0).ceil, 1 ].max ].min
+      @records = records.limit(20).offset((@page - 1) * 20)
+      @metrics = { members: User.member.count, listings: Listing.published.count, reports: Report.where.not(status: "resolved").count, organizations: Organization.where(status: "pending").count }
       @operations = BulkOperation.order(id: :desc).limit(20) if current_user.permission?("operations.manage")
       if params[:format] == "csv"
         raise Exchanges::Invalid, "Un motif est requis pour exporter." if params[:reason].blank?
         AuditLog.create!(actor: current_user, target: current_user, action: "operations.export", reason: params[:reason])
+        @records = records.limit(100)
         send_data CSV.generate { |csv| csv << %w[id status created_at]; @records.each { |row| csv << [ row.id, row.attributes["status"], row.created_at ] } }, filename: "#{@kind}.csv", type: "text/csv"
       end
     end
@@ -39,7 +43,7 @@ module Admin
         end
       else raise Exchanges::Invalid, "Action inconnue."
       end
-      redirect_to admin_operations_path, notice: "Action enregistrée.", status: :see_other
+      redirect_to admin_operations_path(tab: "actions"), notice: "Action enregistrée.", status: :see_other
     end
     def user
       raise Pundit::NotAuthorizedError unless current_user.permission?("users.read")

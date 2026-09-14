@@ -97,7 +97,7 @@ Rails.application.routes.draw do
       get :preview, on: :member
     end
     resources :privacy, path: "confidentialite", only: [ :index, :create ]
-    resources :network, path: "organisations", only: [ :index, :create ]
+    resources :network, path: "organisations", only: [ :index, :show, :create ]
     resources :community, path: "engagement", only: [ :index, :create ]
     resources :financial_support, path: "soutien", only: [ :index, :create ]
     resources :points, path: "points", only: [ :index, :create ]
@@ -108,7 +108,7 @@ Rails.application.routes.draw do
       post :reveal, on: :member
     end
     root "dashboard#show"
-    resources :users, path: "membres", only: :index
+    resources :users, path: "membres", only: [ :index, :show, :update ]
     resources :audit_logs, path: "audit", only: :index
   end
   namespace :super_admin do

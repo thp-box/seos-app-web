@@ -8,7 +8,25 @@ module Admin
     }.freeze
     before_action :resource_access
     def index
-      @records = @model.order(id: :desc).limit(100)
+      scope = @model.order(id: :desc)
+      if @kind == "annonces"
+        scope = scope.where.not(status: "draft") unless current_user.super_admin?
+        scope = scope.where(user_id: params[:user_id]) if params[:user_id].present?
+        scope = scope.where(status: params[:status]) if Listing.statuses.key?(params[:status])
+        if params[:q].present?
+          query = params[:q].to_s.strip.first(120)
+          scope = query.match?(/\A#?\d+\z/) ? scope.where(id: query.delete_prefix("#")) : scope.where("title LIKE ?", "%#{Listing.sanitize_sql_like(query)}%")
+        end
+        scope = scope.where(moderation_hold: true) if params[:held] == "1"
+        scope = scope.where(id: Report.where(reportable_type: "Listing").where.not(status: "resolved").select(:reportable_id)) if params[:reported] == "1"
+        @total = scope.count
+        @page = [ [ params[:page].to_i, 1 ].max, [ (@total / 20.0).ceil, 1 ].max ].min
+        @records = scope.includes(:category, user: :profile).limit(20).offset((@page - 1) * 20)
+        @report_counts = Report.where(reportable_type: "Listing", reportable_id: @records.select(:id)).where.not(status: "resolved").group(:reportable_id).count
+      else
+        scope = scope.where(reportable_type: "Listing", reportable_id: params[:listing_id]) if @kind == "signalements" && params[:listing_id].present?
+        @records = scope.limit(100)
+      end
     end
     def new
       raise Pundit::NotAuthorizedError unless %w[categories restrictions contenus].include?(@kind)
@@ -36,9 +54,11 @@ module Admin
     end
     def show
       @record = @model.find(params[:id])
+      raise Pundit::NotAuthorizedError if @record.is_a?(Listing) && @record.draft? && !current_user.super_admin?
     end
     def update
       @record = @model.find(params[:id])
+      raise Pundit::NotAuthorizedError if @record.is_a?(Listing) && @record.draft? && !current_user.super_admin?
       @model.transaction do
         case @record
         when Category, CategoryRestriction
@@ -71,6 +91,7 @@ module Admin
     end
     def reveal
       @record = @model.find(params[:id])
+      raise Pundit::NotAuthorizedError if @record.is_a?(Listing) && @record.draft? && !current_user.super_admin?
       if @record.is_a?(Profile)
         raise Pundit::NotAuthorizedError unless current_user.super_admin?
       elsif @record.is_a?(ServiceRequest)
@@ -88,6 +109,7 @@ module Admin
     private
     def resource_access
       @kind = params[:kind]
+      raise Pundit::NotAuthorizedError if %w[categories restrictions contenus].include?(@kind) && !current_user.super_admin?
       @model, permission = RESOURCES.fetch(@kind) { raise ActiveRecord::RecordNotFound }
       raise Pundit::NotAuthorizedError unless current_user.permission?(permission)
     end

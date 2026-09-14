@@ -16,10 +16,10 @@ RSpec.describe "Administration", :"F-004", :"F-005", type: :request do
     end
   end
 
-  it "affiche le dashboard mais refuse chaque section sans permission" do
+  it "ouvre la modération des annonces et protège les autres sections sans permission" do
     login(create(:user, :admin))
     get admin_root_path
-    expect(response.body).to include("Aucun outil")
+    expect(response.body).to include("Gérer les annonces")
     [ admin_users_path, admin_audit_logs_path, super_admin_root_path ].each do |path|
       get path
       expect(response).to have_http_status(:forbidden)
@@ -36,7 +36,7 @@ RSpec.describe "Administration", :"F-004", :"F-005", type: :request do
     expect(response.body).to include("21 membres", "Page suivante", "role=member")
     expect(response.body).not_to include(members.first.email)
     get admin_users_path, params: { page: 2, role: "member", status: "active" }
-    expect(response.body).to include("Page précédente", members.first.masked_email)
+    expect(response.body).to include("Page précédente", "Ouvrir ##{members.first.id}")
     get admin_users_path, params: { q: "##{members.last.id}" }
     expect(response.body).to include("1 membres")
     get admin_users_path, params: { q: "inconnu" }

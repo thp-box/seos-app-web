@@ -5,7 +5,7 @@ class SiteDesign
     "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "La communauté", "url" => "/communaute" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
     "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "La communauté francophone d’entraide et d’échange de services.", "description" => "", "links" => [
       { "label" => "Le concept", "url" => "/#presentation" }, { "label" => "Les annonces", "url" => "/annonces" }, { "label" => "Chaîne d’entraide", "url" => "/#site-section-home-4" },
-      { "label" => "Publier", "url" => "/compte/annonces/new" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" }, { "label" => "Mon espace", "url" => "/compte" },
+      { "label" => "Publier", "url" => "/compte/annonces/new" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" }, { "label" => "Mon espace", "url" => "/compte" }, { "label" => "Contact", "url" => "/contact" },
       { "label" => "Sécurité", "url" => "/confiance" }, { "label" => "Règles et CGU", "url" => "/legal/cgu" }, { "label" => "Centre légal", "url" => "/legal" },
       { "label" => "Mentions légales", "url" => "/legal/mentions-legales" }, { "label" => "Confidentialité & RGPD", "url" => "/legal/confidentialite" }, { "label" => "Cookies", "url" => "/legal/cookies" }, { "label" => "Gérer mes cookies", "url" => "/preferences-confidentialite" }
     ] }

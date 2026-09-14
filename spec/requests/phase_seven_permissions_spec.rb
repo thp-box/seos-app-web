@@ -46,8 +46,15 @@ RSpec.describe "Délégations et garde-fous de la phase 7", type: :request do
     grant(admin, "operations.manage")
     login admin
     post admin_operations_path, params: { operation: "preview", ids: user.id, reason: "Abus" }
+    expect(response).to have_http_status(:forbidden)
+    delete destroy_user_session_path
+    preparer = create(:user, :super_admin)
+    login preparer
+    post admin_operations_path, params: { operation: "preview", ids: user.id, reason: "Abus" }
     operation = BulkOperation.last
     expect(operation).to be_present
+    delete destroy_user_session_path
+    login admin
     %w[block crawlers].each do |action|
       post admin_operations_path, params: { operation: action }
       expect(response).to have_http_status(:forbidden)
@@ -86,11 +93,19 @@ RSpec.describe "Délégations et garde-fous de la phase 7", type: :request do
     expect(response).to have_http_status(:forbidden)
     grant(admin, "content.manage")
     post admin_studio_index_path, params: { operation: "draft", name: "Page", pages: { home: { title: "Nouveau titre", animated: "1" } } }
+    expect(response).to have_http_status(:forbidden)
+    delete destroy_user_session_path
+    login super_admin
+    post admin_studio_index_path, params: { operation: "draft", name: "Page", pages: { home: { title: "Nouveau titre", animated: "1" } } }
     expect(response).to have_http_status(:see_other)
     version = StudioVersion.last
     expect(version.page("home")["animated"]).to be(true)
+    delete destroy_user_session_path
+    login admin
     post admin_studio_index_path, params: { operation: "publish", record_id: version.id, reason: "Tentative" }
     expect(response).to have_http_status(:forbidden)
+    delete destroy_user_session_path
+    login super_admin
     post admin_studio_index_path, params: { operation: "draft", name: "Code", settings: "not JSON" }
     expect(response).to have_http_status(:unprocessable_content)
     get preview_admin_studio_path(version, width: 999)

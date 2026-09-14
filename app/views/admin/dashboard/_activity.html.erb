@@ -1,0 +1,33 @@
+<section class="dashboard-activity" aria-label="Activité de la plateforme">
+  <div class="activity-heading"><div><h2>L’activité en un regard</h2><p>Du <%= l activity.dates.first %> au <%= l activity.dates.last %> · Heure de Paris · Aujourd’hui est en cours.</p></div>
+  <%= form_with url: admin_root_path, method: :get, class: "activity-period" do |form| %><%= select_field form, :period, "Période", [["7 derniers jours", 7], ["30 derniers jours", 30], ["90 derniers jours", 90]], selected: activity.days %><%= form.button "Actualiser", class: "btn btn-deep" %><% end %></div>
+  <div class="activity-metrics">
+    <article class="card"><span>Inscriptions sur la période</span><strong><%= number_with_delimiter activity.registrations %></strong><small><%= activity_comparison(activity.registrations, activity.previous_registrations) %></small></article>
+    <article class="card"><span>Premières publications</span><strong><%= number_with_delimiter activity.publications %></strong><small><%= activity_comparison(activity.publications, activity.previous_publications) %></small></article>
+    <article class="card"><span>Comptes enregistrés au total</span><strong><%= number_with_delimiter activity.accounts %></strong><small>Comptes présents, tous rôles et statuts.</small></article>
+    <article class="card"><span>Annonces au statut publié</span><strong><%= number_with_delimiter activity.listing_statuses.fetch("published", 0) %></strong><small>État actuel, toutes dates de publication.</small></article>
+  </div>
+  <div class="activity-visual-grid"><article class="card activity-chart" data-controller="dashboard-activity" data-dashboard-activity-points-value="<%= activity.series.to_json %>">
+    <div class="activity-heading"><h3>Inscriptions et annonces, jour après jour</h3><div class="activity-legend"><span class="activity-signups">Inscriptions</span><span class="activity-publications">Premières publications</span></div></div>
+    <p>Les publications sont comptées à leur première date de mise en ligne, même si l’annonce a changé de statut depuis.</p>
+    <% if activity.registrations.zero? && activity.publications.zero? %><p class="activity-empty">Aucune inscription ni première publication sur cette période.</p><% end %>
+    <svg viewBox="0 0 760 266" aria-hidden="true" class="activity-plot" data-action="pointermove->dashboard-activity#point click->dashboard-activity#point">
+      <% max = activity_chart_max(activity) %>
+      <% [0, (max / 2.0).ceil, max].uniq.each do |value| %><% y = 220 - value * 180.0 / max %><line x1="48" y1="<%= y %>" x2="744" y2="<%= y %>" class="activity-gridline"/><text x="36" y="<%= y + 5 %>" text-anchor="end"><%= value %></text><% end %>
+      <path d="<%= activity_chart_path(activity, :registrations) %>" class="activity-line-signups"/>
+      <path d="<%= activity_chart_path(activity, :publications) %>" class="activity-line-publications"/>
+      <line x1="744" x2="744" y1="32" y2="220" class="activity-marker" data-dashboard-activity-target="marker"/>
+      <% [0, (activity.days - 1) / 2, activity.days - 1].each do |index| %><text x="<%= 48 + index * 696.0 / (activity.days - 1) %>" y="252" text-anchor="<%= index.zero? ? 'start' : (index == activity.days - 1 ? 'end' : 'middle') %>"><%= activity.dates[index].strftime("%d/%m") %></text><% end %>
+    </svg>
+    <div class="activity-day-summary" role="status" aria-live="polite" data-dashboard-activity-target="summary"><%= l activity.dates.last %> · <%= activity.series.last[:registrations] %> inscriptions · <%= activity.series.last[:publications] %> premières publications</div>
+    <div class="activity-day-control" data-dashboard-activity-target="control" hidden><label for="activity-day">Explorer un jour avec le curseur</label><input id="activity-day" type="range" min="0" max="<%= activity.days - 1 %>" value="<%= activity.days - 1 %>" data-dashboard-activity-target="slider" data-action="input->dashboard-activity#select"></div>
+    <details><summary>Consulter les chiffres par jour</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Données quotidiennes"><table><caption>Jours calendaires à Paris</caption><thead><tr><th scope="col">Date</th><th scope="col">Inscriptions</th><th scope="col">Premières publications</th></tr></thead><tbody><% activity.series.reverse_each do |row| %><tr><th scope="row"><%= l Date.iso8601(row[:date]) %></th><td><%= row[:registrations] %></td><td><%= row[:publications] %></td></tr><% end %></tbody></table></div></details>
+    <p class="activity-note">Comparaison avec les <%= activity.days %> jours précédents. Le jour en cours est incomplet. Les inscriptions correspondent aux créations de comptes, même non confirmés. Données calculées au chargement ; les comptes et annonces définitivement supprimés ne sont plus comptés.</p>
+  </article>
+  <article class="card"><h3>Répartition actuelle des annonces</h3><p>Cette vue décrit les statuts actuels, indépendamment de la période sélectionnée.</p><% total = activity.listing_statuses.values.sum %>
+    <% if total.zero? %><p>Aucune annonce à comptabiliser.</p><% end %>
+    <div class="activity-distribution"><% Listing.statuses.keys.each do |status| %><% next if status == "draft" && !current_user.super_admin? %><% count = activity.listing_statuses.fetch(status, 0) %><div><label for="activity-status-<%= status %>"><%= human_value status %></label><progress id="activity-status-<%= status %>" value="<%= count %>" max="<%= [total, 1].max %>"><%= count %></progress><strong><%= count %></strong></div><% end %></div>
+  </article>
+  </div>
+  <% if activity.supervision %><div class="admin-summary-grid"><% [["Organisations à vérifier", activity.supervision[:organizations_pending]], ["Missions au statut publié", activity.supervision[:published_missions]], ["Signalements ouverts", activity.supervision[:open_reports]]].each do |label, count| %><article class="card"><strong><%= count %></strong><span><%= label %></span><small>Situation actuelle · Super administration</small></article><% end %></div><% end %>
+</section>

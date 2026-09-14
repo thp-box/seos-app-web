@@ -28,8 +28,15 @@ class User < ApplicationRecord
     suspended? || anonymized? ? :inactive : super
   end
 
+  ADMIN_CORE_PERMISSIONS = %w[listings.moderate organizations.read organizations.manage partnerships.manage].freeze
+  SITE_SUPER_ADMIN_PERMISSIONS = %w[content.manage categories.manage studio.read studio.preview studio.manage seo.manage].freeze
+
   def permission?(key)
-    active? && confirmed? && (super_admin? || (admin? && admin_permission_grants.effective.exists?(permission: key)))
+    return false unless active? && confirmed?
+    return true if super_admin?
+    return false unless admin?
+    return false if SITE_SUPER_ADMIN_PERMISSIONS.include?(key)
+    ADMIN_CORE_PERMISSIONS.include?(key) || admin_permission_grants.effective.exists?(permission: key)
   end
 
   def administrative?

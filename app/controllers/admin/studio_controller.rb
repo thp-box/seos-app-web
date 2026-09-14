@@ -1,6 +1,6 @@
 module Admin
   class StudioController < BaseController
-    before_action { raise Pundit::NotAuthorizedError unless current_user.permission?("content.manage") || current_user.permission?("studio.preview") }
+    before_action { raise Pundit::NotAuthorizedError unless current_user.super_admin? }
     def index
       @assets = StudioAsset.order(id: :desc).limit(30)
       @versions = StudioVersion.order(id: :desc).limit(30)
