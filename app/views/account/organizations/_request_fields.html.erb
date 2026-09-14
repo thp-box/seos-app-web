@@ -1,0 +1,10 @@
+<fieldset class="organization-form-group"><legend>1. Votre structure</legend>
+<div class="form-field">
+  <%= form.label :kind, "Type de structure" %>
+  <%= form.select :kind, network_choices(Organization.kinds.keys), {}, class: "control", required: true, data: { organization_request_target: "kind" }, aria: { describedby: "organization-request-help" } %>
+  <p id="organization-request-help" data-organization-request-target="help">Les missions communautaires sont réservées aux associations. Toute demande est examinée avant publication.</p>
+</div>
+</fieldset><fieldset class="organization-form-group"><legend>2. Votre présentation publique</legend><p>Ces informations présenteront votre structure à la communauté après validation.</p><%= input_field form, :name, "Nom public", required: true, maxlength: 150 %><%= input_field form, :slug, "Adresse courte de la fiche", required: true, pattern: "[a-z0-9]+(-[a-z0-9]+)*" %>
+<%= input_field form, :description, "Présentation publique", type: :text_area, required: true, maxlength: 5000 %><%= input_field form, :public_location, "Ville ou région publique", maxlength: 150 %>
+</fieldset><fieldset class="organization-form-group"><legend>3. Vérification de la structure</legend><p>Ces informations restent privées et servent à l’examen de votre demande.</p><%= input_field form, :legal_name, "Dénomination légale (privée)", required: true %><%= input_field form, :registration_number, "Numéro d’enregistrement (privé)", required: true %><%= input_field form, :legal_email, "E-mail légal (privé)", type: :email_field, required: true %>
+</fieldset>

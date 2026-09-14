@@ -9,10 +9,10 @@ RSpec.describe "Choix du projet et de la structure", type: :system do
     expect(page).to have_current_path(account_root_path)
     visit account_organizations_path(request_kind: "partnership")
     select "Micro-entreprise", from: "Type de structure"
-    select "Mission communautaire", from: "Type de demande"
+    choose "organization_request_kind_community_mission"
     expect(page).to have_select("Type de structure", selected: "Association")
     expect(page).to have_css('#organization_kind option[value="micro_company"][disabled]', visible: :all)
-    select "Partenariat", from: "Type de demande"
+    choose "organization_request_kind_partnership"
     select "Micro-entreprise", from: "Type de structure"
     expect(page).to have_select("Type de structure", selected: "Micro-entreprise")
   end

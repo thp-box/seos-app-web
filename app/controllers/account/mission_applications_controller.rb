@@ -2,7 +2,9 @@ module Account
   class MissionApplicationsController < BaseController
     def index
       ids = OrganizationMembership.active.where(user: current_user, role: %w[owner manager]).joins(:organization).where.not(organizations: { status: "suspended" }).select(:organization_id)
-      @applications = MissionApplication.where(user: current_user).or(MissionApplication.where(volunteer_mission: VolunteerMission.where(organization_id: ids))).includes(:volunteer_mission).order(id: :desc).limit(100)
+      scope = MissionApplication.where(user: current_user).or(MissionApplication.where(volunteer_mission: VolunteerMission.where(organization_id: ids))).includes(:volunteer_mission).order(id: :desc)
+      scope = scope.where(volunteer_mission_id: params[:mission_id]) if params[:mission_id].present?
+      @applications = scope.limit(100)
     end
     def show
       @application = MissionApplication.find(params[:id])

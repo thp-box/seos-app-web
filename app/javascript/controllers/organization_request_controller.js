@@ -4,7 +4,9 @@ export default class extends Controller {
   static targets = ["request", "kind", "help"]
   connect() { this.update() }
   update() {
-    const mission = this.requestTarget.value === "community_mission"
+    const selected = this.requestTargets.find(input => input.checked) || this.requestTarget
+    const mission = selected.value === "community_mission"
+    this.element.dataset.project = mission ? "mission" : "partner"
     Array.from(this.kindTarget.options).forEach(option => {
       option.hidden = mission && option.value !== "association"
       option.disabled = option.hidden

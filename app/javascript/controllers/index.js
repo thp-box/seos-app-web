@@ -35,3 +35,9 @@ application.register("organization-request", OrganizationRequestController)
 
 import NotificationReadController from "./notification_read_controller"
 application.register("notification-read", NotificationReadController)
+
+import WorkspaceTabsController from "./workspace_tabs_controller"
+application.register("workspace-tabs", WorkspaceTabsController)
+
+import MissionFormController from "./mission_form_controller"
+application.register("mission-form", MissionFormController)

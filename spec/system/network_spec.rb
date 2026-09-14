@@ -43,6 +43,7 @@ RSpec.describe "Interfaces des organisations et Voyage", type: :system do
     browser_login(owner)
     visit account_organization_path(organization)
     check_page("organization-workspace")
+    click_button "Mon équipe"
     fill_in "E-mail du compte destinataire", with: "equipe@example.test"
     click_button "Créer une invitation privée"
     expect(page).to have_content("Invitation prête")

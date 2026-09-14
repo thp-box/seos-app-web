@@ -55,7 +55,7 @@ RSpec.describe "Droits et médias des organisations", type: :request do
     record = Partnership.last
     expect(record.logo).to be_attached
     get account_organization_path(organization, mission_id: mission.id, partnership_id: record.id)
-    expect(response.body).to include("Aperçu de la mission", "Aperçu du partenariat")
+    expect(response.body).to include("Aperçu de la mission", "Voir l’aperçu de ma proposition")
     [ mission.photos.first, record.logo.attachment ].each do |attachment|
       get media_path(attachment)
       expect(response).to have_http_status(:ok)

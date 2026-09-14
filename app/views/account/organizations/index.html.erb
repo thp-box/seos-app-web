@@ -1,17 +1,38 @@
-<%= account_page_heading "Mes organisations" %><p>Créez votre espace et soumettez son identité à vérification. Les missions monde seront publiées après décision du super-admin.</p>
-<% @organizations.each do |organization| %><div class="card"><h2><%= organization.name %></h2><p><%= network_label(organization.status) %><% if organization.request_kind %> · <%= network_label(organization.request_kind) %><% end %></p><% unless organization.suspended? %><%= link_to "Ouvrir l’espace", account_organization_path(organization), class: "btn btn-outline" %><% end %></div><% end %>
-<div class="card"><h2>Présenter votre projet</h2><%= form_with url: account_organizations_path, scope: :organization, data: { controller: "organization-request" } do |form| %>
-<div class="form-field">
-  <%= form.label :request_kind, "Type de demande" %>
-  <%= form.select :request_kind, network_choices(%w[partnership community_mission]), { selected: params[:request_kind] == "community_mission" ? "community_mission" : "partnership" }, class: "control", required: true, data: { organization_request_target: "request", action: "organization-request#update" } %>
+<div class="organization-hub" data-controller="workspace-tabs" data-workspace-tabs-default-value="<%= params[:request_kind].present? || @organizations.empty? ? 'new' : 'spaces' %>">
+  <header class="organization-intro"><span class="account-eyebrow">Votre place dans la communauté</span><h1>Des projets à faire grandir ensemble.</h1><p>Mobilisez des bénévoles autour d’une mission ou engagez votre structure dans un partenariat avec SEOS.</p></header>
+  <nav class="workspace-tabs" aria-label="Mes projets et demandes" data-workspace-tabs-target="navigation">
+    <button type="button" id="workspace-tab-spaces" data-workspace-tabs-target="tab" data-key="spaces" data-action="workspace-tabs#select keydown->workspace-tabs#keyboard">Mes espaces <span><%= @organizations.size %></span></button>
+    <button type="button" id="workspace-tab-new" data-workspace-tabs-target="tab" data-key="new" data-action="workspace-tabs#select keydown->workspace-tabs#keyboard">Démarrer un projet</button>
+  </nav>
+  <section id="workspace-spaces" data-key="spaces" data-workspace-tabs-target="panel">
+    <div class="organization-space-grid">
+      <% @organizations.each do |organization| %>
+        <% mission = organization_project_kind(organization) == "community_mission" %>
+        <article class="organization-space-card <%= mission ? 'organization-space-mission' : 'organization-space-partner' %>">
+          <div class="organization-space-top"><span class="account-eyebrow"><%= mission ? "Missions communautaires" : "Partenariat" %></span><span class="organization-status"><%= network_label(organization.status) %></span></div>
+          <h2><%= organization.name %></h2><p><%= organization_next_step(organization) %></p>
+          <% unless organization.suspended? %><%= link_to mission ? "Ouvrir mon espace associatif →" : "Ouvrir mon espace partenaire →", account_organization_path(organization), class: "btn btn-deep" %><% end %>
+        </article>
+      <% end %>
+    </div>
+    <% if @organizations.empty? %><article class="organization-next"><h2>Votre premier projet vous attend.</h2><p>Choisissez votre manière de contribuer. Nous vous accompagnons de la présentation de votre structure à la publication de votre projet.</p><button class="btn btn-primary" data-key="new" data-action="workspace-tabs#select">Démarrer un projet →</button></article><% end %>
+  </section>
+  <section id="workspace-new" data-key="new" data-workspace-tabs-target="panel">
+    <%= form_with url: account_organizations_path, scope: :organization, class: "organization-request-form", data: { controller: "organization-request" } do |form| %>
+      <fieldset class="organization-project-choice"><legend>Comment souhaitez-vous participer ?</legend>
+        <label class="organization-choice organization-choice-mission">
+          <%= form.radio_button :request_kind, "community_mission", checked: params[:request_kind] == "community_mission", data: { organization_request_target: "request", action: "organization-request#update" } %>
+          <span><strong>Mission communautaire</strong><span>Accueillez des bénévoles et faites avancer un projet associatif.</span><small>Pour les associations · Missions et candidatures</small></span>
+        </label>
+        <label class="organization-choice organization-choice-partner">
+          <%= form.radio_button :request_kind, "partnership", checked: params[:request_kind] != "community_mission", data: { organization_request_target: "request", action: "organization-request#update" } %>
+          <span><strong>Partenariat</strong><span>Présentez votre engagement et contribuez au développement de SEOS.</span><small>Associations, entreprises, micro-entreprises, institutions et collectifs</small></span>
+        </label>
+      </fieldset>
+      <div class="organization-request-note"><strong>De votre idée à sa publication</strong><span>Présentation de la structure → Vérification SEOS → Préparation du projet → Validation et publication</span></div>
+      <%= render "request_fields", form: form %>
+      <div class="organization-form-submit"><p>Votre demande crée un espace privé. Aucune fiche ni aucun projet n’est publié automatiquement.</p><%= form.button "Envoyer ma demande de vérification", class: "btn btn-primary" %></div>
+    <% end %>
+  </section>
+  <nav class="organization-discover" aria-label="Découvrir les projets publics"><%= link_to "Les associations ↗", associations_path %><% if FeatureFlag.voyage_enabled? %><%= link_to "Les missions solidaires ↗", volunteer_missions_path %><% end %><% if FeatureFlag.partnerships_enabled? %><%= link_to "Les partenariats ↗", partnerships_path %><% end %></nav>
 </div>
-<div class="form-field">
-  <%= form.label :kind, "Type de structure" %>
-  <%= form.select :kind, network_choices(Organization.kinds.keys), {}, class: "control", required: true, data: { organization_request_target: "kind" }, aria: { describedby: "organization-request-help" } %>
-  <p id="organization-request-help" data-organization-request-target="help">Les missions communautaires sont réservées aux associations. Toute demande est examinée avant publication.</p>
-</div>
-<%= input_field form, :name, "Nom public", required: true, maxlength: 150 %><%= input_field form, :slug, "Adresse courte de la fiche", required: true, pattern: "[a-z0-9]+(-[a-z0-9]+)*" %>
-<%= input_field form, :description, "Présentation publique", type: :text_area, required: true, maxlength: 5000 %><%= input_field form, :public_location, "Ville ou région publique", maxlength: 150 %>
-<%= input_field form, :legal_name, "Dénomination légale (privée)", required: true %><%= input_field form, :registration_number, "Numéro d’enregistrement (privé)", required: true %><%= input_field form, :legal_email, "E-mail légal (privé)", type: :email_field, required: true %>
-<%= form.button "Demander la vérification", class: "btn btn-primary" %><% end %></div>
-<p><%= link_to "Découvrir les associations", associations_path %> · <%= link_to "Voyage solidaire", volunteer_missions_path if FeatureFlag.voyage_enabled? %> · <%= link_to "Partenaires", partnerships_path if FeatureFlag.partnerships_enabled? %></p>
