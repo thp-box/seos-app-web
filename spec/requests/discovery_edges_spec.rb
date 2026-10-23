@@ -175,11 +175,4 @@ RSpec.describe "Limites d’accès et transitions de découverte", type: :reques
     expect(response.body).to include('"@type":"Demand"')
   end
 
-  it "refuse un réglage carte non motivé" do
-    login admin
-    get edit_super_admin_map_setting_path
-    patch super_admin_map_setting_path, params: { lock_version: FeatureFlag.find_by!(key: "public_map_enabled").lock_version, enabled: "0" }
-    expect(response).to have_http_status(:unprocessable_content)
-    expect(FeatureFlag.map_enabled?).to be(true)
-  end
 end

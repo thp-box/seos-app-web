@@ -17,6 +17,7 @@ FactoryBot.define do
     city { "Lyon" }
     status { "published" }
     published_at { Time.current }
+    expires_at { 1.year.from_now }
     service_location_mode { "remote" }
   end
   factory :service_request do

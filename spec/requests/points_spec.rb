@@ -81,65 +81,17 @@ RSpec.describe "Portefeuille et administration des points", type: :request do
     expect(response.body).not_to include("Texte confidentiel du témoignage", "Publication et contexte vérifiés")
   end
 
-  it "sépare lecture, ajustements, récompenses et règles, y compris dans le journal d’audit" do
+  it "réserve l’onglet administratif aux preuves de récompense" do
     manager = create(:user, :admin)
     login manager
     get admin_points_path
     expect(response).to have_http_status(:forbidden)
-    grant(manager, "points.read")
+    grant(manager, "points.rewards")
     get admin_points_path
     expect(response).to have_http_status(:ok)
-    post admin_points_path, params: { operation: "preview", user_id: user.id, amount: 10, reason: "Test" }
-    expect(response).to have_http_status(:forbidden)
-    grant(manager, "points.adjust")
-    post admin_points_path, params: { operation: "preview", user_id: user.id, amount: 10, reason: "Soutien motivé" }
-    expect(response).to have_http_status(:see_other)
-    adjustment = PointAdjustment.last
-    get admin_points_path
-    expect(response.body).to include("0 → 10 PS")
-    post admin_points_path, params: { operation: "commit", record_id: adjustment.id, amount: 9999 }
-    expect(PointAccount.for!(user).balance).to eq(10)
-    post admin_points_path, params: { operation: "reverse", record_id: adjustment.reload.point_operation_id, reason: "Interdit" }
-    expect(response).to have_http_status(:forbidden)
-    grant(manager, "points.rules")
+    expect(response.body).to include("Preuves de récompense")
+    expect(response.body).not_to include("Créer un barème", "Versions des barèmes", "Préparer un ajustement", "Version du calcul")
     post admin_points_path, params: { operation: "version", family: "engagement", name: "Interdit" }
-    expect(response).to have_http_status(:forbidden)
-    delete destroy_user_session_path
-    auditor = create(:user, :admin)
-    grant(auditor, "audit.read")
-    login auditor
-    get admin_audit_logs_path
-    expect(response.body).not_to include("Soutien motivé")
-  end
-
-  it "prépare, simule, planifie et restaure les barèmes depuis la super-administration" do
-    login admin
-    effective = 1.hour.from_now.change(usec: 0)
-    post admin_points_path, params: { operation: "version", family: "engagement", name: "Barème V2", configuration: PointRuleVersion::DEFAULT_ENGAGEMENT.to_json, effective_at: effective.iso8601, reason: "Préparation" }
-    expect(response).to have_http_status(:see_other)
-    version = PointRuleVersion.last
-    %w[simulate publish].each do |action|
-      post admin_points_path, params: { operation: action, record_id: version.id, reason: "Contrôles validés" }
-      expect(response).to have_http_status(:see_other)
-    end
-    get admin_points_path
-    expect(response.body).to include("Barème V2", "maximum_monthly_rewards")
-    post admin_points_path, params: { operation: "rollback", record_id: version.id, reason: "Retour choisi" }
-    expect(response).to have_http_status(:see_other)
-    post admin_points_path, params: { operation: "version", family: "valuation", name: "Invalide", configuration: "non-json", effective_at: effective.iso8601, reason: "Test" }
     expect(response).to have_http_status(:unprocessable_content)
-    post admin_points_path, params: { operation: "delete" }
-    expect(response).to have_http_status(:unprocessable_content)
-  end
-
-  it "permet la compensation super-admin et conserve les deux opérations" do
-    operation = fund_points(user, 50)
-    login admin
-    post admin_points_path, params: { operation: "reverse", record_id: operation.id, reason: "Erreur confirmée après médiation" }
-    expect(response).to have_http_status(:see_other)
-    expect(PointAccount.for!(user).balance).to eq(0)
-    get admin_points_path
-    expect(response.body).to include("Erreur confirmée après médiation")
-    expect(PointOperation.where(id: operation.id)).to exist
   end
 end

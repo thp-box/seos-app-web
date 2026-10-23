@@ -55,7 +55,7 @@ module Points
           grant!(user: user, amount: rule.configuration["responses"], key: "responses:#{user.id}", kind: "achievement_reward", source: user, rule: rule, reason: "Quête : trois demandes acceptées par des membres distincts", defer: true)
         end
         Referral.valid_support.where(referrer: user, primary_referrer: true).where.not(qualified_at: nil).order(:qualified_at, :id).each do |referral|
-          next unless referral.referred_user.active? && referral.referred_user.confirmed? && referral.referred_user.created_at <= 30.days.ago
+          next unless referral.referred_user.active? && referral.referred_user.confirmed?
           next unless (Referrals.partners(referral.referred_user) - Referral.where(referred_user: referral.referred_user).pluck(:referrer_id)).size >= 2
           key = referral.referral_link_id ? "referral:#{referral.id}" : "referral_quest:#{user.id}"
           grant!(user: user, amount: 15, key: key, kind: "referral_reward", source: referral, rule: rule, reason: "Quête de parrain principal qualifiée", defer: true)

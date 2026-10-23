@@ -21,12 +21,11 @@ module AdminNavigationHelper
       [ "Confiance et finances", [
         [ "Confiance et recours", admin_trust_index_path, %w[trust.read trust.manage], "admin/trust", "index" ],
         [ "Signaux à examiner", risks_admin_trust_index_path, %w[trust.risk], "admin/trust", "risks" ],
-        [ "Points Services", admin_points_path, %w[points.read points.adjust points.rewards points.rules], "admin/points" ],
-        [ "Soutien financier", admin_financial_support_index_path, %w[financial.read financial.manage], "admin/financial_support" ]
+        [ "Preuves de récompense", admin_points_path, %w[points.rewards], "admin/points" ]
       ] ],
       [ "Gestion du site", [
         workbench_navigation("Journal et textes légaux", "contenus"),
-        workbench_navigation("Catégories d’annonces", "categories"), workbench_navigation("Restrictions de catégories", "restrictions")
+        workbench_navigation("Catégories d’annonces", "categories")
       ] ],
       [ "Administration", [
         [ "Supervision et registres", admin_operations_path, OperationsCatalogue::RESOURCES.values.map { |entry| entry[1] }.uniq, "admin/operations" ],
@@ -46,7 +45,6 @@ module AdminNavigationHelper
     end
     if current_user.super_admin?
       groups.last[:links] += [
-        admin_nav_item("Carte publique", edit_super_admin_map_setting_path, controller_path == "super_admin/map_settings"),
         admin_nav_item("Administrateurs", super_admin_administrators_path, controller_path == "super_admin/administrators")
       ]
     end

@@ -50,6 +50,6 @@ module NotificationsHelper
       "chains" => account_chains_path, "trust" => account_trust_path,
       "organizations" => account_organizations_path, "missions" => account_mission_applications_path,
       "privacy" => account_privacy_path, "security" => account_login_sessions_path
-    }.fetch(category) { category == "support" && FeatureFlag.support_enabled? ? account_support_path : account_notifications_path }
+    }.fetch(category, account_notifications_path)
   end
 end

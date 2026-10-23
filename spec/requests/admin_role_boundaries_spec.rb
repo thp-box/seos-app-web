@@ -22,7 +22,7 @@ RSpec.describe "Accès inclus dans le rôle admin", type: :request do
     login admin
     get admin_root_path
     expect(response.body).not_to include("Gestion du site", "Propositions éditoriales", "Kit UI/UX")
-    paths = [ admin_site_index_path, admin_studio_index_path ] + %w[categories restrictions contenus].map { |kind| admin_workbench_index_path(kind: kind) }
+    paths = [ admin_site_index_path, admin_studio_index_path ] + %w[categories contenus].map { |kind| admin_workbench_index_path(kind: kind) }
     paths.each do |path|
       get path
       expect(response).to have_http_status(:forbidden), path

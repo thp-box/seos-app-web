@@ -62,12 +62,10 @@ RSpec.describe "Cas limites des services métier", type: :service do
     expect(listing.reload.latitude).to be_nil
   end
 
-  it "traite uniquement les annonces qui correspondent à une restriction de pause" do
-    listing = create(:listing)
-    unaffected = create(:listing, title: "Apprendre une langue", description: "Conversation en français")
-    restriction = CategoryRestriction.create!(category: listing.category, created_by: create(:user, :super_admin), starts_at: Time.current, reason: "Revue", existing_action: "pause")
-    expect(restriction.matches?(Listing.new)).to be_falsey
-    ApplyCategoryRestrictionsJob.perform_now
+  it "retire uniquement les annonces arrivées à leur échéance annuelle" do
+    listing = create(:listing, expires_at: 1.minute.ago)
+    unaffected = create(:listing, title: "Apprendre une langue", description: "Conversation en français", expires_at: 1.month.from_now)
+    ExpireListingsJob.perform_now
     expect(listing.reload).to be_paused
     expect(unaffected.reload).to be_published
     expect(Catalogue.call(ActionController::Parameters.new(intent: "offer"))).to eq([ unaffected ])

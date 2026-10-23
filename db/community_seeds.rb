@@ -1,4 +1,3 @@
-FeatureFlag.find_or_create_by!(key: "financial_support_enabled") { |flag| flag.enabled = false }
 unless ChainRuleVersion.exists?(status: "published")
   version = ChainRuleVersion.new(name: "Chaînes V1 — prestataire, longueur illimitée", status: "published", effective_at: Time.utc(2026, 9, 5), published_at: Time.current)
   version.simulation = { "fingerprint" => version.fingerprint, "maximum_per_validation" => 10, "hundred_validations" => 1000, "length" => "unlimited" }

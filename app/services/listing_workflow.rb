@@ -12,7 +12,10 @@ class ListingWorkflow
         end
         listing.status = listing.category.sensitive? ? "pending_review" : "published"
         listing.moderation_hold = listing.category.sensitive?
-        listing.published_at ||= Time.current if listing.published?
+        if listing.published?
+          listing.published_at = Time.current
+          listing.expires_at = 1.year.from_now
+        end
       when "pause"
         raise Exchanges::Invalid, "L’annonce n’est pas publiée" unless listing.published?
         listing.status = "paused"

@@ -11,13 +11,13 @@
 <% end %>
 <section class="card"><h2>Parrainer de nouveaux membres</h2>
 <p>Partagez votre lien personnel avec autant de personnes que vous le souhaitez. Il reste identique et n’expire pas.</p>
-<p>Conditions : compte actif, e-mail confirmé et <%= @minimum_age_days %> jours d’ancienneté, sauf exemption administrative. Aucun échange préalable n’est nécessaire pour parrainer.</p>
+<p>Conditions : compte actif et e-mail confirmé. Aucune ancienneté ni aucun échange préalable ne sont nécessaires pour parrainer.</p>
 <% if Referrals.eligible?(current_user) %>
   <% if @referral_link %><div class="form-field referral-link-box" data-controller="copy-link"><%= label_tag :personal_referral_link, "Votre lien de parrainage" %><%= text_field_tag :personal_referral_link, referral_invitation_url(token: @referral_link.token), readonly: true, class: "control", data: { copy_link_target: "input" } %><button type="button" class="btn btn-outline" data-action="copy-link#copy">Copier mon lien</button><p role="status" data-copy-link-target="status"></p></div>
   <% else %><%= button_to "Créer mon lien de parrainage", account_trust_path, params: { operation: "issue" }, class: "btn btn-primary" %><% end %>
-<% else %><p class="account-note">Votre lien sera disponible lorsque les conditions ci-dessus seront remplies. Ancienneté requise atteinte le <%= l((current_user.created_at + @minimum_age_days.days).to_date) %>.</p><% end %>
+<% else %><p class="account-note">Votre lien sera disponible dès que votre compte sera actif et votre e-mail confirmé.</p><% end %>
 <p><strong><%= @total %> inscriptions confirmées</strong> · <%= @qualified_count %> parrainages qualifiés</p>
-<p>La qualification des récompenses reste liée à l’activité réelle du filleul : 30 jours d’ancienneté et deux partenaires distincts hors parrains. Chaque filleul qualifié via votre lien peut vous rapporter 15 PS, une seule fois par filleul. Les plafonds mensuels de Points Services s’appliquent.</p></section>
+<p>La qualification des récompenses reste liée à l’activité réelle du filleul : deux partenaires distincts hors parrains. Chaque filleul qualifié via votre lien peut vous rapporter 15 PS, une seule fois par filleul. Les plafonds mensuels de Points Services s’appliquent.</p></section>
 <% @sponsorships.each do |referral| %>
   <div class="card"><p><%= public_name referral.referred_user %> · Parrainage n° <%= referral.id %> · <%= human_value referral.status %><%= " · qualifié — consultez la récompense dans votre portefeuille" if referral.qualified_at && referral.status == "confirmed" %></p>
   <% if referral.status == "provisional" && referral.objection_deadline_at > Time.current %>

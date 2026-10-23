@@ -3,11 +3,7 @@ require "rails_helper"
 RSpec.describe "Parrainage et Trust", :"F-030", :"F-031", :"F-032", :"F-033" do
   let(:user) { create(:profile).user }
 
-  it "n’émet que pour un membre actif confirmé et expérimenté, ou exempté explicitement" do
-    expect(Referrals.eligible?(user)).to be(false)
-    expect { Referrals.issue!(user) }.to raise_error(Exchanges::Invalid)
-    user.update!(created_at: 31.days.ago)
-    2.times { completed_exchange(user) }
+  it "n’émet que pour un membre actif et confirmé, sans condition d’ancienneté" do
     expect(Referrals.eligible?(user)).to be(true)
     user.update!(status: :suspended)
     expect(Referrals.eligible?(user)).to be(false)

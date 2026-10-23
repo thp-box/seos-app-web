@@ -24,7 +24,6 @@ class Privacy
         memberships: OrganizationMembership.where(user: user).map { |item| item.attributes.slice("id", "organization_id", "role", "status", "created_at") },
         rewards: PointRewardClaim.where(user: user).map { |item| item.attributes.slice("id", "kind", "status", "amount", "level", "created_at") },
         achievements: UserAchievement.where(user: user).map { |item| item.attributes.slice("id", "achievement_id", "status", "points", "created_at") },
-        contributions: FinancialContribution.where(user: user).map { |item| item.attributes.slice("id", "amount_cents", "currency", "status", "created_at") },
         favorites: Favorite.where(user: user).map { |item| item.attributes.slice("listing_id", "created_at") },
         notifications: Notification.where(user: user).map { |item| item.attributes.slice("id", "title", "created_at", "read_at") },
         sessions: LoginSession.where(user: user).map { |item| item.attributes.slice("id", "user_agent_summary", "last_seen_at", "expires_at", "revoked_at") },
@@ -74,7 +73,7 @@ class Privacy
             user.listings.find_each { |listing| listing.photos.purge_later; listing.update!(title: "Annonce retirée", description: nil, address_line: nil, availability: nil, city: nil, latitude: nil, longitude: nil) }
             user.skip_reconfirmation!
             user.update!(status: "anonymized", unconfirmed_email: nil, email: "removed-#{SecureRandom.hex(16)}@deleted.invalid", password: SecureRandom.hex(32), reset_password_token: nil, confirmation_token: nil, email_notifications: false)
-            %w[google stripe backups].each { |provider| request.provider_erasure_tasks.find_or_create_by!(provider: provider) }
+            %w[google backups].each { |provider| request.provider_erasure_tasks.find_or_create_by!(provider: provider) }
           else
             user.update!(status: "suspended")
           end

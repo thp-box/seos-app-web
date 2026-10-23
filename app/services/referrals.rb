@@ -4,13 +4,12 @@ class Referrals
   end
 
   def self.eligible?(user)
-    user.active? && user.confirmed? &&
-      ((user.created_at <= ReferralSetting.minimum_age_days.days.ago) || ReferralExemption.where(user: user).where("expires_at > ?", Time.current).exists?)
+    user.active? && user.confirmed?
   end
 
   def self.link_for!(user)
     user.with_lock do
-      raise Exchanges::Invalid, "Votre compte doit être actif, confirmé et avoir #{ReferralSetting.minimum_age_days} jours d’ancienneté, sauf exemption administrative." unless eligible?(user)
+      raise Exchanges::Invalid, "Votre compte doit être actif et votre e-mail confirmé." unless eligible?(user)
       ReferralLink.find_by(owner: user) || ReferralLink.create!(owner: user)
     end
   end
@@ -99,7 +98,7 @@ class Referrals
         referral.update!(status: "confirmed", confirmed_at: Time.current) if referral.status == "provisional" && referral.objection_deadline_at <= Time.current
         user = referral.referred_user
         sponsors = Referral.where(referred_user: user).pluck(:referrer_id)
-        if referral.status == "confirmed" && referral.primary_referrer? && referral.qualified_at.nil? && user.active? && user.confirmed? && user.created_at <= 30.days.ago && (partners(user) - sponsors).size >= 2
+        if referral.status == "confirmed" && referral.primary_referrer? && referral.qualified_at.nil? && user.active? && user.confirmed? && (partners(user) - sponsors).size >= 2
           referral.update!(qualified_at: Time.current)
           # Eligibility only; the points job rechecks it and credits the sponsor's lifetime quest.
           Notification.notify!(user: referral.referrer, key: "referral:#{referral.id}:qualified", title: "Parrainage qualifié. La récompense est examinée par le registre Points Services.")

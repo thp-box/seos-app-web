@@ -66,6 +66,23 @@ RSpec.describe "Modération quotidienne", type: :request do
     expect(response).to have_http_status(:forbidden)
   end
 
+  it "permet au super-admin de voir les coordonnées, gérer les points et promouvoir un membre" do
+    super_admin = create(:user, :super_admin)
+    member = create(:profile, phone: "0612345678").user
+    login super_admin
+    get admin_user_path(member)
+    expect(response.body).to include(member.email, "0612345678", "0", "Points Services")
+    patch admin_user_path(member), params: { operation: "point_preview", amount: 25, reason: "Correction validée" }
+    expect(response).to have_http_status(:see_other)
+    adjustment = PointAdjustment.last
+    patch admin_user_path(member), params: { operation: "point_commit", adjustment_id: adjustment.id }
+    expect(PointAccount.for!(member).balance).to eq(25)
+    patch admin_user_path(member), params: { operation: "promote_admin", reason: "Renfort de l’équipe" }
+    expect(response).to have_http_status(:see_other)
+    expect(member.reload).to be_admin
+    expect(AuditLog.where(target: member, action: "user.promoted_admin")).to exist
+  end
+
   it "ne révèle pas les avis différés et journalise la modération des avis révélés" do
     allow_permission("users.read")
     allow_permission("reports.manage")

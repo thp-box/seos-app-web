@@ -33,9 +33,9 @@ class Listing < ApplicationRecord
   scope :public_candidates, -> { published.joins(:user, :category).where(users: { status: :active }, categories: { active: true }).where.not(users: { confirmed_at: nil }) }
   def publicly_visible?
     published? && !moderation_hold? && user.active_for_authentication? && user.profile&.published? && category&.publishable? &&
-      (!organization || organization.verified?) && !restricted?
+      (!organization || organization.verified?) && !expired?
   end
-  def restricted? = CategoryRestriction.effective.any? { |restriction| restriction.matches?(self) }
+  def expired? = expires_at.present? && expires_at <= Time.current
   def public_coordinates
     return unless publicly_visible? && !service_location_mode_remote? && city.present? && latitude && longitude
     [ latitude.round(2), longitude.round(2) ]
@@ -49,7 +49,7 @@ class Listing < ApplicationRecord
   def publication_rules
     errors.add(:base, "Complétez et publiez votre profil avant votre annonce") unless user.profile&.published?
     errors.add(:category, "est indisponible") unless category&.publishable?
-    errors.add(:base, "Cette annonce nécessite une revue de modération") if restricted? || (category&.sensitive? && validation_context != :moderated_publication)
+    errors.add(:base, "Cette annonce nécessite une revue de modération") if category&.sensitive? && validation_context != :moderated_publication
     errors.add(:city, "doit être renseignée") unless service_location_mode_remote? || city.present?
     errors.add(:estimated_points, "doit être renseigné en mode points") if exchange_mode_points? && estimated_points.nil?
     errors.add(:organization, "doit être une association vérifiée") if organization && !(organization.association? && organization.verified?)

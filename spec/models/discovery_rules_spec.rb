@@ -12,21 +12,16 @@ RSpec.describe "Règles de découverte et d’avis", type: :model do
     expect { create(:service_request, listing: listing, requester: listing.user) }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
-  it "borne les restrictions et applique leur période sans republiquer silencieusement" do
-    listing = create(:listing)
-    restriction = CategoryRestriction.create!(created_by: create(:user, :super_admin), category: listing.category, term: "jardin", reason: "Revue", starts_at: 1.day.from_now, ends_at: 2.days.from_now)
-    expect(listing).not_to be_restricted
-    travel_to 25.hours.from_now do
-      expect(listing).to be_restricted
-      ApplyCategoryRestrictionsJob.perform_now
-      expect(listing.reload).to be_pending_review
-      expect(listing.moderation_hold).to be(true)
-      expect { ApplyCategoryRestrictionsJob.perform_now }.not_to change(AuditLog, :count)
-    end
-    restriction.starts_at = 4.days.from_now
-    expect(restriction).not_to be_valid
-    empty = CategoryRestriction.new(created_by: restriction.created_by, starts_at: Time.current, reason: "Sans portée")
-    expect(empty).not_to be_valid
+  it "expire une annonce après un an sans la supprimer et permet sa republication" do
+    listing = create(:listing, published_at: 1.year.ago, expires_at: 1.minute.ago)
+    expect(listing).to be_expired
+    expect { ExpireListingsJob.perform_now }.not_to change(Listing, :count)
+    expect(listing.reload).to be_paused
+    expect(listing.moderation_hold).to be(false)
+    expect(Notification.where(user: listing.user, category: "listings")).to exist
+    ListingWorkflow.call(listing: listing, actor: listing.user, action: "publish")
+    expect(listing.reload).to be_published
+    expect(listing.expires_at).to be_within(2.seconds).of(1.year.from_now)
   end
 
   it "filtre stablement le catalogue et garde le distanciel lors d’une recherche géographique" do

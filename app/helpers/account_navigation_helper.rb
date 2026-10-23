@@ -28,9 +28,6 @@ module AccountNavigationHelper
         [ "Mes données et mes droits", account_privacy_path, %w[account/privacy] ]
       ] ]
     ]
-    if FeatureFlag.support_enabled?
-      groups[2][1] << [ "Soutenir SEOS", account_support_path, %w[account/support] ]
-    end
     groups.map do |label, entries|
       { label: label, links: entries.map do |text, path, controllers|
         { label: text, path: path, category: notification_category_for(controllers), active: controllers.include?(controller_path) }

@@ -26,15 +26,20 @@ production:
   primary:
     <<: *default
     database: storage/production.sqlite3
+  # Les bases Solid utilisent les schémas Ruby fournis dans db/ ;
+  # la base principale conserve le format SQL défini dans application.rb.
   cache:
     <<: *default
+    schema_format: ruby
     database: storage/production_cache.sqlite3
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
+    schema_format: ruby
     database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
+    schema_format: ruby
     database: storage/production_cable.sqlite3
     migrations_paths: db/cable_migrate

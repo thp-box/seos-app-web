@@ -46,38 +46,18 @@ RSpec.describe "Parrainage par lien permanent", type: :request do
     expect(response.body).not_to include("Votre invitation de parrainage est enregistrée")
   end
 
-  it "réserve le réglage au super-admin et synchronise texte, durée réelle et exemption" do
+  it "autorise le parrainage sans condition d’ancienneté" do
     user = create(:user, created_at: 5.days.ago)
-    admin = create(:user, :super_admin)
-    login(admin)
-    post admin_trust_index_path, params: { operation: "referral_settings", minimum_age_days: 4 }
-    expect(response).to have_http_status(:see_other)
     expect(Referrals.eligible?(user)).to be(true)
-    expect(AuditLog.last.action).to eq("referral.settings")
-    post admin_trust_index_path, params: { operation: "referral_settings", minimum_age_days: -1 }
-    expect(response).to have_http_status(:unprocessable_content)
-    expect(ReferralSetting.minimum_age_days).to eq(4)
-    post admin_trust_index_path, params: { operation: "referral_settings", minimum_age_days: 10 }
-    expect(Referrals.eligible?(user)).to be(false)
-    exempt_sponsor(user)
-    expect(Referrals.eligible?(user)).to be(true)
-    delete destroy_user_session_path
     login(user)
     get account_trust_path
-    expect(response.body).to include("10 jours d’ancienneté")
-    post admin_trust_index_path, params: { operation: "referral_settings", minimum_age_days: 0 }
-    expect(response).to have_http_status(:forbidden)
-    expect(ReferralSetting.minimum_age_days).to eq(10)
+    expect(response.body).to include("Aucune ancienneté")
+    expect(response.body).not_to include("jours d’ancienneté", "exemption")
   end
 
-  it "interdit le réglage à un administrateur délégué et ne rattache pas un compte connecté par simple visite" do
+  it "ne rattache pas un compte connecté par simple visite" do
     admin = create(:user, role: :admin)
-    super_admin = create(:user, :super_admin)
-    AdminPermissionGrant.create!(user: admin, granted_by: super_admin, permission: "trust.manage", reason: "Gestion des recours", granted_at: Time.current)
     login(admin)
-    post admin_trust_index_path, params: { operation: "referral_settings", minimum_age_days: 0 }
-    expect(response).to have_http_status(:forbidden)
-    expect(ReferralSetting.minimum_age_days).to eq(30)
     link = Referrals.link_for!(create(:user, created_at: 31.days.ago))
     expect { get referral_invitation_path(token: link.token) }.not_to change(Referral, :count)
     expect(response).to redirect_to(account_trust_path)

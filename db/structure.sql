@@ -58,22 +58,13 @@ FOREIGN KEY ("user_id")
 , CONSTRAINT profiles_status_values CHECK (status IN ('draft','published','restricted','anonymized')), CONSTRAINT profiles_phone_sharing_policy_values CHECK (phone_sharing_policy IN ('per_exchange','nobody')));
 CREATE UNIQUE INDEX "index_profiles_on_user_id" ON "profiles" ("user_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_profiles_on_public_slug" ON "profiles" ("public_slug") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "parent_id" integer, "name" varchar NOT NULL, "slug" varchar NOT NULL, "position" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT TRUE NOT NULL, "sensitive" boolean DEFAULT FALSE NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_82f48f7407"
+CREATE TABLE IF NOT EXISTS "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "parent_id" integer, "name" varchar NOT NULL, "slug" varchar NOT NULL, "position" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT TRUE NOT NULL, "sensitive" boolean DEFAULT FALSE NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "deleted_at" datetime(6), CONSTRAINT "fk_rails_82f48f7407"
 FOREIGN KEY ("parent_id")
   REFERENCES "categories" ("id")
 );
 CREATE INDEX "index_categories_on_parent_id" ON "categories" ("parent_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_categories_on_slug" ON "categories" ("slug") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "category_restrictions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "created_by_id" integer NOT NULL, "term" varchar, "reason" varchar NOT NULL, "starts_at" datetime(6) NOT NULL, "ends_at" datetime(6), "active" boolean DEFAULT TRUE NOT NULL, "existing_action" varchar DEFAULT 'review' NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d2e54ed452"
-FOREIGN KEY ("created_by_id")
-  REFERENCES "users" ("id")
-, CONSTRAINT "fk_rails_d4026942dc"
-FOREIGN KEY ("category_id")
-  REFERENCES "categories" ("id")
-, CONSTRAINT category_restrictions_existing_action_values CHECK (existing_action IN ('review','pause')));
-CREATE INDEX "index_category_restrictions_on_category_id" ON "category_restrictions" ("category_id") /*application='SeosFrance'*/;
-CREATE INDEX "index_category_restrictions_on_created_by_id" ON "category_restrictions" ("created_by_id") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "listings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "organization_id" integer, "category_id" integer, "slug" varchar NOT NULL, "title" varchar, "description" text, "availability" text, "address_line" text, "intent" varchar DEFAULT 'offer' NOT NULL, "exchange_mode" varchar DEFAULT 'gift' NOT NULL, "estimated_points" integer, "service_location_mode" varchar DEFAULT 'in_person' NOT NULL, "city" varchar, "latitude" float, "longitude" float, "priority" varchar DEFAULT 'standard' NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "wizard_step" integer DEFAULT 1 NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "published_at" datetime(6), "closed_at" datetime(6), "removed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "moderation_hold" boolean DEFAULT FALSE NOT NULL /*application='SeosFrance'*/, "urgent_until" datetime(6) /*application='SeosFrance'*/, CONSTRAINT "fk_rails_baa008bfd2"
+CREATE TABLE IF NOT EXISTS "listings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "organization_id" integer, "category_id" integer, "slug" varchar NOT NULL, "title" varchar, "description" text, "availability" text, "address_line" text, "intent" varchar DEFAULT 'offer' NOT NULL, "exchange_mode" varchar DEFAULT 'gift' NOT NULL, "estimated_points" integer, "service_location_mode" varchar DEFAULT 'in_person' NOT NULL, "city" varchar, "latitude" float, "longitude" float, "priority" varchar DEFAULT 'standard' NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "wizard_step" integer DEFAULT 1 NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "published_at" datetime(6), "closed_at" datetime(6), "removed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "moderation_hold" boolean DEFAULT FALSE NOT NULL /*application='SeosFrance'*/, "urgent_until" datetime(6) /*application='SeosFrance'*/, "expires_at" datetime(6), CONSTRAINT "fk_rails_baa008bfd2"
 FOREIGN KEY ("user_id")
   REFERENCES "users" ("id")
 , CONSTRAINT "fk_rails_e41ea99bf4"
@@ -215,15 +206,6 @@ CREATE TRIGGER request_events_no_update BEFORE UPDATE ON request_events BEGIN SE
 CREATE TRIGGER request_events_no_delete BEFORE DELETE ON request_events BEGIN SELECT RAISE(ABORT, 'request history is append-only'); END;
 CREATE TRIGGER published_content_no_update BEFORE UPDATE ON content_versions WHEN OLD.published_at IS NOT NULL BEGIN SELECT RAISE(ABORT, 'published content is immutable'); END;
 CREATE TRIGGER published_content_no_delete BEFORE DELETE ON content_versions WHEN OLD.published_at IS NOT NULL BEGIN SELECT RAISE(ABORT, 'published content is immutable'); END;
-CREATE TABLE IF NOT EXISTS "referral_exemptions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "granted_by_id" integer NOT NULL, "reason" text NOT NULL, "expires_at" datetime(6) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f52d65295b"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-, CONSTRAINT "fk_rails_1859fb3ba5"
-FOREIGN KEY ("granted_by_id")
-  REFERENCES "users" ("id")
-);
-CREATE UNIQUE INDEX "index_referral_exemptions_on_user_id" ON "referral_exemptions" ("user_id") /*application='SeosFrance'*/;
-CREATE INDEX "index_referral_exemptions_on_granted_by_id" ON "referral_exemptions" ("granted_by_id") /*application='SeosFrance'*/;
 CREATE TABLE IF NOT EXISTS "referral_codes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "owner_id" integer NOT NULL, "code_digest" varchar NOT NULL, "expires_at" datetime(6) NOT NULL, "claimed_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_271698188c"
 FOREIGN KEY ("owner_id")
   REFERENCES "users" ("id")
@@ -559,29 +541,12 @@ CREATE INDEX "index_chain_rewards_on_recipient_id" ON "chain_rewards" ("recipien
 CREATE INDEX "index_chain_rewards_on_chain_rule_version_id" ON "chain_rewards" ("chain_rule_version_id") /*application='SeosFrance'*/;
 CREATE INDEX "index_chain_rewards_on_point_operation_id" ON "chain_rewards" ("point_operation_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_chain_rewards_on_chain_service_id_and_recipient_id" ON "chain_rewards" ("chain_service_id", "recipient_id") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "financial_contributions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "request_key" varchar NOT NULL, "amount_cents" integer NOT NULL, "currency" varchar DEFAULT 'eur' NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "stripe_session_id" varchar, "payment_intent_id" varchar, "stripe_refund_id" varchar, "refunded_cents" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "refund_requested_at" datetime(6) /*application='SeosFrance'*/, CONSTRAINT "fk_rails_3f6378ff61"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-, CONSTRAINT financial_amount_bounds CHECK (amount_cents BETWEEN 100 AND 100000 AND currency = 'eur' AND refunded_cents BETWEEN 0 AND amount_cents));
-CREATE INDEX "index_financial_contributions_on_user_id" ON "financial_contributions" ("user_id") /*application='SeosFrance'*/;
-CREATE UNIQUE INDEX "index_financial_contributions_on_stripe_session_id" ON "financial_contributions" ("stripe_session_id") /*application='SeosFrance'*/;
-CREATE UNIQUE INDEX "index_financial_contributions_on_payment_intent_id" ON "financial_contributions" ("payment_intent_id") /*application='SeosFrance'*/;
-CREATE UNIQUE INDEX "index_financial_contributions_on_user_id_and_request_key" ON "financial_contributions" ("user_id", "request_key") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "payment_events" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "stripe_event_id" varchar NOT NULL, "financial_contribution_id" integer, "event_type" varchar NOT NULL, "created_at" datetime(6) NOT NULL, "refund_data" json DEFAULT '{}' NOT NULL /*application='SeosFrance'*/, CONSTRAINT "fk_rails_0fa16b380a"
-FOREIGN KEY ("financial_contribution_id")
-  REFERENCES "financial_contributions" ("id")
-);
-CREATE UNIQUE INDEX "index_payment_events_on_stripe_event_id" ON "payment_events" ("stripe_event_id") /*application='SeosFrance'*/;
-CREATE INDEX "index_payment_events_on_financial_contribution_id" ON "payment_events" ("financial_contribution_id") /*application='SeosFrance'*/;
 CREATE TRIGGER chain_rewards_no_update BEFORE UPDATE ON chain_rewards BEGIN SELECT RAISE(ABORT, 'immutable community history'); END;
 CREATE TRIGGER chain_rewards_no_delete BEFORE DELETE ON chain_rewards BEGIN SELECT RAISE(ABORT, 'immutable community history'); END;
-CREATE TRIGGER payment_events_no_update BEFORE UPDATE ON payment_events BEGIN SELECT RAISE(ABORT, 'immutable community history'); END;
-CREATE TRIGGER payment_events_no_delete BEFORE DELETE ON payment_events BEGIN SELECT RAISE(ABORT, 'immutable community history'); END;
 CREATE TRIGGER chain_rules_no_update BEFORE UPDATE ON chain_rule_versions WHEN OLD.status = 'published' BEGIN SELECT RAISE(ABORT, 'immutable chain rule'); END;
 CREATE TRIGGER chain_rules_no_delete BEFORE DELETE ON chain_rule_versions WHEN OLD.status = 'published' BEGIN SELECT RAISE(ABORT, 'immutable chain rule'); END;
 CREATE TRIGGER chain_service_confirmed_immutable BEFORE UPDATE ON chain_services WHEN OLD.status = 'confirmed' BEGIN SELECT RAISE(ABORT, 'immutable confirmed chain service'); END;
 CREATE TRIGGER chain_contract_immutable BEFORE UPDATE ON help_chains WHEN NEW.chain_rule_version_id != OLD.chain_rule_version_id OR NEW.point_rule_version_id != OLD.point_rule_version_id OR NEW.creator_id != OLD.creator_id BEGIN SELECT RAISE(ABORT, 'immutable chain contract'); END;
-CREATE TRIGGER financial_inputs_immutable BEFORE UPDATE ON financial_contributions WHEN NEW.user_id != OLD.user_id OR NEW.request_key != OLD.request_key OR NEW.amount_cents != OLD.amount_cents OR NEW.currency != OLD.currency BEGIN SELECT RAISE(ABORT, 'immutable financial inputs'); END;
 CREATE TRIGGER achievement_inputs_immutable BEFORE UPDATE ON user_achievements WHEN OLD.status = 'approved' OR NEW.user_id != OLD.user_id OR NEW.achievement_id != OLD.achievement_id OR NEW.point_rule_version_id != OLD.point_rule_version_id OR NEW.points != OLD.points OR NEW.period_key != OLD.period_key OR NEW.evidence != OLD.evidence BEGIN SELECT RAISE(ABORT, 'immutable achievement inputs'); END;
 CREATE TRIGGER chain_services_no_delete BEFORE DELETE ON chain_services BEGIN SELECT RAISE(ABORT, 'immutable chain history'); END;
 CREATE TABLE IF NOT EXISTS "community_policy_versions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "urgent_days" integer DEFAULT 7 NOT NULL, "top_max_days" integer DEFAULT 30 NOT NULL, "created_by_id" integer, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d348b0f6e6"
@@ -635,8 +600,6 @@ FOREIGN KEY ("approved_by_id")
 CREATE INDEX "index_partnerships_on_organization_id" ON "partnerships" ("organization_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_partnerships_on_slug" ON "partnerships" ("slug") /*application='SeosFrance'*/;
 CREATE INDEX "index_partnerships_on_approved_by_id" ON "partnerships" ("approved_by_id") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "feature_flags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "enabled" boolean DEFAULT TRUE NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT feature_flags_key_values CHECK (key IN ('public_map_enabled','financial_support_enabled','voyage_enabled','partnerships_enabled')));
-CREATE UNIQUE INDEX "index_feature_flags_on_key" ON "feature_flags" ("key") /*application='SeosFrance'*/;
 CREATE TRIGGER organization_last_owner_update BEFORE UPDATE ON organization_memberships WHEN OLD.role = 'owner' AND OLD.status = 'active' AND (NEW.status != 'active' OR NEW.role != 'owner' OR NEW.organization_id != OLD.organization_id) AND NOT EXISTS (SELECT 1 FROM organization_memberships WHERE organization_id = OLD.organization_id AND id != OLD.id AND role = 'owner' AND status = 'active') BEGIN SELECT RAISE(ABORT, 'last organization owner'); END;
 CREATE TRIGGER organization_last_owner_delete BEFORE DELETE ON organization_memberships WHEN OLD.role = 'owner' AND OLD.status = 'active'  AND NOT EXISTS (SELECT 1 FROM organization_memberships WHERE organization_id = OLD.organization_id AND id != OLD.id AND role = 'owner' AND status = 'active') BEGIN SELECT RAISE(ABORT, 'last organization owner'); END;
 CREATE TRIGGER mission_messages_no_update BEFORE UPDATE ON mission_messages BEGIN SELECT RAISE(ABORT, 'immutable mission message'); END;
@@ -729,7 +692,6 @@ FOREIGN KEY ("author_id")
   REFERENCES "users" ("id")
 );
 CREATE INDEX "index_crawler_policies_on_author_id" ON "crawler_policies" ("author_id") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "referral_settings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "minimum_age_days" integer DEFAULT 30 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT referral_settings_singleton CHECK (id = 1 AND minimum_age_days >= 0));
 CREATE TABLE IF NOT EXISTS "referral_links" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "owner_id" integer NOT NULL, "token" varchar NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6e1b100b79"
 FOREIGN KEY ("owner_id")
   REFERENCES "users" ("id")
@@ -783,7 +745,14 @@ FOREIGN KEY ("verified_by_id")
 , CONSTRAINT organizations_status CHECK (status IN ('pending', 'verified', 'rejected', 'suspended')), CONSTRAINT organizations_request_kind CHECK (request_kind IS NULL OR request_kind IN ('partnership', 'community_mission')), CONSTRAINT organizations_kind CHECK (kind IN ('association', 'company', 'micro_company', 'institution', 'collective')));
 CREATE UNIQUE INDEX "index_organizations_on_slug" ON "organizations" ("slug") /*application='SeosFrance'*/;
 CREATE INDEX "index_organizations_on_verified_by_id" ON "organizations" ("verified_by_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_categories_on_deleted_at" ON "categories" ("deleted_at");
+CREATE INDEX "index_listings_on_status_and_expires_at" ON "listings" ("status", "expires_at");
+CREATE TABLE IF NOT EXISTS "feature_flags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "enabled" boolean DEFAULT TRUE NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT feature_flags_key_values CHECK (key IN ('public_map_enabled','voyage_enabled','partnerships_enabled')));
+CREATE UNIQUE INDEX "index_feature_flags_on_key" ON "feature_flags" ("key");
 INSERT INTO "schema_migrations" (version) VALUES
+('20261023092000'),
+('20261023091000'),
+('20261023090000'),
 ('20260913190000'),
 ('20260913090000'),
 ('20260912190000'),

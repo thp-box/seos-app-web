@@ -3,7 +3,6 @@ module Admin
     before_action :require_trust_access
 
     def index
-      @versions = TrustAlgorithmVersion.order(id: :desc).limit(20)
       @appeals = TrustAppeal.order(id: :desc).limit(30) if current_user.permission?("trust.manage")
       @events = TrustEvent.order(id: :desc).limit(50)
       @referrals = Referral.order(id: :desc).limit(30)
@@ -19,22 +18,6 @@ module Admin
     def create
       raise Pundit::NotAuthorizedError unless current_user.permission?("trust.manage")
       case params[:operation]
-      when "referral_settings"
-        raise Pundit::NotAuthorizedError unless current_user.super_admin?
-        ReferralSetting.transaction do
-          setting = ReferralSetting.find_or_create_by!(id: 1)
-          previous = setting.minimum_age_days
-          setting.update!(minimum_age_days: params[:minimum_age_days])
-          AuditLog.create!(actor: current_user, target: setting, action: "referral.settings", reason: "Ancienneté minimale : #{previous} → #{setting.minimum_age_days} jours")
-        end
-      when "version"
-        raise Pundit::NotAuthorizedError unless current_user.super_admin?
-        TrustAlgorithmVersion.transaction do
-          version = TrustAlgorithmVersion.create!(version: params[:version], explanation: params[:explanation], configuration: TrustAlgorithmVersion::DEFAULT_CONFIGURATION, created_by: current_user)
-          AuditLog.create!(actor: current_user, target: version, action: "trust.algorithm.create", reason: params[:reason])
-        end
-      when "algorithm"
-        TrustGovernance.transition!(TrustAlgorithmVersion.find(params[:record_id]), actor: current_user, action: params[:decision], reason: params[:reason])
       when "correct"
         raise Exchanges::Invalid, "Correction inconnue." unless %w[exclude restore].include?(params[:decision])
         TrustGovernance.correct!(TrustEvent.find(params[:record_id]), actor: current_user, excluded: params[:decision] == "exclude", reason: params[:reason])
@@ -45,12 +28,6 @@ module Admin
         referral.with_lock { Referrals.invalidate!(referral, current_user, params[:reason]) }
       when "restore_referral"
         TrustGovernance.restore_referral!(Referral.find(params[:record_id]), actor: current_user, reason: params[:reason])
-      when "exemption"
-        raise Pundit::NotAuthorizedError unless current_user.super_admin?
-        ReferralExemption.transaction do
-          exemption = ReferralExemption.create!(user: User.find(params[:record_id]), granted_by: current_user, reason: params[:reason], expires_at: 30.days.from_now)
-          AuditLog.create!(actor: current_user, target: exemption, action: "referral.founder_exemption", reason: params[:reason])
-        end
       when "risk"
         raise Pundit::NotAuthorizedError unless current_user.permission?("trust.risk")
         raise Exchanges::Invalid, "Décision inconnue." unless %w[dismissed reviewed].include?(params[:decision])

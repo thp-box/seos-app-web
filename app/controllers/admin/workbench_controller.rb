@@ -1,7 +1,7 @@
 module Admin
   class WorkbenchController < BaseController
     RESOURCES = {
-      "categories" => [ Category, "categories.manage" ], "restrictions" => [ CategoryRestriction, "categories.manage" ],
+      "categories" => [ Category, "categories.manage" ],
       "annonces" => [ Listing, "listings.moderate" ], "profils" => [ Profile, "listings.moderate" ],
       "echanges" => [ ServiceRequest, "exchanges.support" ], "signalements" => [ Report, "reports.manage" ],
       "contenus" => [ ContentVersion, "content.manage" ], "contacts" => [ ContactRequest, "reports.manage" ]
@@ -24,12 +24,13 @@ module Admin
         @records = scope.includes(:category, user: :profile).limit(20).offset((@page - 1) * 20)
         @report_counts = Report.where(reportable_type: "Listing", reportable_id: @records.select(:id)).where.not(status: "resolved").group(:reportable_id).count
       else
+        scope = scope.kept if @model == Category
         scope = scope.where(reportable_type: "Listing", reportable_id: params[:listing_id]) if @kind == "signalements" && params[:listing_id].present?
         @records = scope.limit(100)
       end
     end
     def new
-      raise Pundit::NotAuthorizedError unless %w[categories restrictions contenus].include?(@kind)
+      raise Pundit::NotAuthorizedError unless %w[categories contenus].include?(@kind)
       @record = @model.new
       @record.assign_attributes(LegalExample.attributes_for(params[:document]).merge(kind: "legal", slug: params[:document])) if @kind == "contenus" && ContentVersion::LEGAL_SLUGS.include?(params[:document])
       if params[:from].present? && @kind == "contenus"
@@ -38,9 +39,8 @@ module Admin
       end
     end
     def create
-      raise Pundit::NotAuthorizedError unless %w[categories restrictions contenus].include?(@kind)
+      raise Pundit::NotAuthorizedError unless %w[categories contenus].include?(@kind)
       @record = @model.new(attributes)
-      @record.created_by = current_user if @kind == "restrictions"
       if @kind == "contenus"
         @record.author = current_user
         @record.version = (ContentVersion.where(kind: @record.kind, slug: @record.slug).maximum(:version) || 0) + 1
@@ -48,7 +48,6 @@ module Admin
       @model.transaction do
         @record.save!
         audit!(@record, "created")
-        apply_restrictions if @kind == "restrictions"
       end
       redirect_to admin_workbench_path(@record.id, kind: @kind), notice: "Enregistrement créé.", status: :see_other
     end
@@ -61,14 +60,16 @@ module Admin
       raise Pundit::NotAuthorizedError if @record.is_a?(Listing) && @record.draft? && !current_user.super_admin?
       @model.transaction do
         case @record
-        when Category, CategoryRestriction
+        when Category
           @record.update!(attributes)
-          apply_restrictions
         when Listing
           desired = params[:status]
           raise Exchanges::Invalid, "Statut non autorisé" unless %w[pending_review paused removed published].include?(desired)
           @record.valid?(:moderated_publication) || (raise ActiveRecord::RecordInvalid, @record) if desired == "published"
-          @record.update!(status: desired, moderation_hold: desired != "published", published_at: (@record.published_at || (Time.current if desired == "published")), removed_at: desired == "removed" ? Time.current : nil)
+          @record.update!(status: desired, moderation_hold: desired != "published",
+            published_at: (Time.current if desired == "published") || @record.published_at,
+            expires_at: (1.year.from_now if desired == "published") || @record.expires_at,
+            removed_at: desired == "removed" ? Time.current : nil)
           Notification.notify!(user: @record.user, key: "listing:#{@record.id}:#{@record.lock_version}", title: "Le statut de votre annonce a été examiné.", category: "listings")
         when Profile
           raise Exchanges::Invalid, "Statut non autorisé" unless %w[restricted published].include?(params[:status])
@@ -88,6 +89,17 @@ module Admin
         audit!(@record, "updated")
       end
       redirect_to admin_workbench_path(@record.id, kind: @kind), notice: "Modification enregistrée et auditée.", status: :see_other
+    end
+    def destroy
+      raise Pundit::NotAuthorizedError unless @kind == "categories" && current_user.super_admin?
+      @record = Category.find(params[:id])
+      Category.transaction do
+        @record.children.update_all(parent_id: @record.parent_id, updated_at: Time.current)
+        @record.listings.where(status: "published").update_all(status: "paused", moderation_hold: false, updated_at: Time.current)
+        AuditLog.create!(actor: current_user, target: @record, action: "categories.deleted", reason: params[:reason].presence || "Suppression depuis la gestion des catégories")
+        @record.update!(active: false, deleted_at: Time.current)
+      end
+      redirect_to admin_workbench_index_path(kind: "categories"), notice: "Catégorie supprimée. Les annonces associées ont été conservées et mises en pause.", status: :see_other
     end
     def reveal
       @record = @model.find(params[:id])
@@ -109,14 +121,13 @@ module Admin
     private
     def resource_access
       @kind = params[:kind]
-      raise Pundit::NotAuthorizedError if %w[categories restrictions contenus].include?(@kind) && !current_user.super_admin?
+      raise Pundit::NotAuthorizedError if %w[categories contenus].include?(@kind) && !current_user.super_admin?
       @model, permission = RESOURCES.fetch(@kind) { raise ActiveRecord::RecordNotFound }
       raise Pundit::NotAuthorizedError unless current_user.permission?(permission)
     end
     def attributes
       fields = case @kind
       when "categories" then [ :name, :slug, :parent_id, :position, :active, :sensitive ]
-      when "restrictions" then [ :category_id, :term, :reason, :starts_at, :ends_at, :active, :existing_action, :lock_version ]
       when "contenus" then [ :kind, :slug, :title, :summary, :body, { decorations: [] } ]
       else []
       end
@@ -124,16 +135,6 @@ module Admin
     end
     def audit!(record, event)
       AuditLog.create!(actor: current_user, target: record, action: "#{@kind}.#{event}", reason: params[:reason])
-    end
-    def apply_restrictions
-      Listing.published.includes(:category).find_each do |listing|
-        restriction = CategoryRestriction.effective.find { |item| item.matches?(listing) }
-        next unless restriction || !listing.category.publishable?
-        previous = listing.status
-        listing.update!(status: restriction&.existing_action == "pause" ? "paused" : "pending_review", moderation_hold: true)
-        AuditLog.create!(actor: current_user, target: listing, action: "listing.restricted", reason: params[:reason], metadata: { from: previous, to: listing.status })
-        Notification.notify!(user: listing.user, key: "restriction:#{listing.id}:#{listing.lock_version}", title: "Une annonce a été mise en revue")
-      end
     end
     def moderate_report
       target = @record.reportable

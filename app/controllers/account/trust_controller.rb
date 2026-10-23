@@ -10,7 +10,6 @@ module Account
       @page = [ params[:page].to_i, 1 ].max
       @sponsorships = scope.includes(referred_user: :profile).order(id: :desc).limit(20).offset((@page - 1) * 20)
       @referral_link = ReferralLink.find_by(owner: current_user)
-      @minimum_age_days = ReferralSetting.minimum_age_days
       @appeals = TrustAppeal.where(user: current_user).order(id: :desc).limit(20)
       @events = TrustEvent.where(subject: current_user).order(id: :desc).limit(50)
     end

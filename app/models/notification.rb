@@ -5,7 +5,7 @@ class Notification < ApplicationRecord
     "reviews" => "Avis reçus", "testimonials" => "Mes témoignages", "chains" => "Mes chaînes",
     "trust" => "Confiance et parrainage", "organizations" => "Mes organisations",
     "missions" => "Mes candidatures", "privacy" => "Mes données et mes droits",
-    "security" => "Sécurité du compte", "support" => "Mon soutien", "general" => "Autres notifications"
+    "security" => "Sécurité du compte", "general" => "Autres notifications"
   }.freeze
   PREFIX_CATEGORIES = { "message" => "messages", "exchange" => "messages", "review" => "reviews",
     "achievement" => "quests", "top" => "quests", "points" => "wallet", "testimonial" => "testimonials",

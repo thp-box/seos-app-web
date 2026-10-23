@@ -17,6 +17,8 @@ module Admin
 
     def show
       @user = User.includes(:profile, trust_profile: { trust_score_snapshot: :trust_algorithm_version }).find(params[:id])
+      @point_account = PointAccount.for!(@user)
+      @point_adjustments = PointAdjustment.where(user: @user, point_operation_id: nil).order(id: :desc).limit(5) if current_user.super_admin?
       @listing_counts = @user.listings.group(:status).count
       @reviews = Review.where(reviewee: @user).where("reveal_at <= ?", Time.current).includes(:review_ratings, author: :profile).order(id: :desc)
       @total = @reviews.count
@@ -26,7 +28,8 @@ module Admin
 
     def update
       show
-      if params[:operation] == "review"
+      case params[:operation]
+      when "review"
         raise Pundit::NotAuthorizedError unless current_user.permission?("reports.manage")
         review = Review.where(reviewee: @user).where("reveal_at <= ?", Time.current).find(params[:review_id])
         attributes = case params[:decision]
@@ -39,6 +42,20 @@ module Admin
           review.update!(attributes)
           AuditLog.create!(actor: current_user, target: review, action: "review.#{params[:decision]}", reason: params[:reason])
         end
+      when "promote_admin"
+        raise Pundit::NotAuthorizedError unless current_user.super_admin? && @user.member? && @user.id != current_user.id
+        @user.with_lock do
+          @user.update!(role: "admin")
+          @user.login_sessions.active.update_all(revoked_at: Time.current)
+          AuditLog.create!(actor: current_user, target: @user, action: "user.promoted_admin", reason: params[:reason])
+        end
+      when "point_preview"
+        raise Pundit::NotAuthorizedError unless current_user.super_admin?
+        Points::Adjustments.preview!(user: @user, actor: current_user, amount: Integer(params[:amount], exception: false), reason: params[:reason])
+      when "point_commit"
+        raise Pundit::NotAuthorizedError unless current_user.super_admin?
+        adjustment = PointAdjustment.where(user: @user).find(params[:adjustment_id])
+        Points::Adjustments.commit!(adjustment, actor: current_user)
       else
         raise Pundit::NotAuthorizedError unless current_user.permission?("users.moderate")
         @user.with_lock do

@@ -5,20 +5,24 @@ RSpec.describe "Administration des phases 1 et 2", :"F-012", :"F-016", :"F-024",
   def index_path(kind) = admin_workbench_index_path(kind: kind)
   def record_path(record, kind) = admin_workbench_path(record.id, kind: kind)
 
-  it "refuse les nouvelles sections aux membres et aux administrateurs sans permission" do
-    [ create(:user), create(:user, :admin) ].each do |user|
-      login user
-      Admin::WorkbenchController::RESOURCES.each_key do |kind|
-        get index_path(kind)
-        expect(response).to have_http_status(:forbidden)
-      end
-      patch super_admin_map_setting_path, params: { enabled: "0", reason: "Interdit" }
+  it "refuse l’administration aux membres et les réglages du site aux admins ordinaires" do
+    member = create(:user)
+    login member
+    Admin::WorkbenchController::RESOURCES.each_key do |kind|
+      get index_path(kind)
       expect(response).to have_http_status(:forbidden)
-      delete destroy_user_session_path
+    end
+    delete destroy_user_session_path
+
+    admin = create(:user, :admin)
+    login admin
+    %w[categories contenus].each do |kind|
+      get index_path(kind)
+      expect(response).to have_http_status(:forbidden)
     end
   end
 
-  it "gère les catégories, empêche les cycles et applique une restriction avec audit" do
+  it "gère les sous-catégories et supprime une catégorie sans supprimer ses annonces" do
     login super_admin
     get new_admin_workbench_path(kind: "categories")
     expect(response).to have_http_status(:ok)
@@ -26,17 +30,18 @@ RSpec.describe "Administration des phases 1 et 2", :"F-012", :"F-016", :"F-024",
     category = Category.find_by!(slug: "entraide")
     get record_path(category, "categories")
     expect(response).to have_http_status(:ok)
+    child = create(:category, parent: category)
     patch record_path(category, "categories"), params: { record: { parent_id: category.id }, reason: "Cycle interdit" }
     expect(response).to have_http_status(:unprocessable_content)
-    get new_admin_workbench_path(kind: "restrictions")
-    expect(response).to have_http_status(:ok)
-    post index_path("restrictions"), params: { record: { category_id: listing.category_id, reason: "Revue nécessaire", starts_at: 1.minute.ago.iso8601 }, reason: "Restriction temporaire" }
+    listing.update!(category: category)
+    expect { delete record_path(category, "categories"), params: { reason: "Référentiel simplifié" } }.not_to change(Listing, :count)
     expect(response).to have_http_status(:see_other)
-    expect(listing.reload).to be_pending_review
-    get record_path(CategoryRestriction.last, "restrictions")
-    expect(response).to have_http_status(:ok)
+    expect(category.reload.deleted_at).to be_present
+    expect(listing.reload).to be_paused
+    expect(listing.category).to eq(category)
+    expect(child.reload.parent).to be_nil
     get index_path("categories")
-    expect(response.body).to include("Entraide")
+    expect(response.body).not_to include("Entraide")
   end
 
   it "empêche un propriétaire de contourner un masquage de modération" do
@@ -91,20 +96,6 @@ RSpec.describe "Administration des phases 1 et 2", :"F-012", :"F-016", :"F-024",
     patch record_path(listing, "annonces"), params: { status: "paused" }
     expect(response).to have_http_status(:unprocessable_content)
     expect(listing.reload).to be_published
-  end
-
-  it "contrôle la carte avec verrou optimiste et rétablit le défaut" do
-    login super_admin
-    get edit_super_admin_map_setting_path
-    expect(response).to have_http_status(:ok)
-    flag = FeatureFlag.find_by!(key: "public_map_enabled")
-    patch super_admin_map_setting_path, params: { lock_version: flag.lock_version, enabled: "0", reason: "Masquer la carte" }
-    expect(flag.reload.enabled).to be(false)
-    patch super_admin_map_setting_path, params: { lock_version: -1, enabled: "1", reason: "Formulaire périmé" }
-    expect(response).to have_http_status(:unprocessable_content)
-    patch super_admin_map_setting_path, params: { lock_version: flag.lock_version, reset: "1", reason: "Retour au défaut" }
-    expect(flag.reload.enabled).to be(true)
-    expect(AuditLog.where(action: "map.updated").count).to eq(2)
   end
 
   it "masque les conversations même au super-admin et lie leur révélation à un dossier ouvert" do

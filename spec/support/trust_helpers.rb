@@ -11,7 +11,6 @@ module TrustHelpers
   end
 
   def exempt_sponsor(user = create(:user))
-    ReferralExemption.create!(user: user, granted_by: create(:user, :super_admin), reason: "Membre fondateur", expires_at: 30.days.from_now)
     user
   end
 
