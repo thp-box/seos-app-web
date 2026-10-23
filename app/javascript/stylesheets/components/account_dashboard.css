@@ -136,3 +136,6 @@
 @media (max-width: 650px) { .account-workspace .testimonial-actions { flex-direction: column; align-items: stretch; } .account-workspace .testimonial-actions .btn { width: 100%; text-align: center; } }
 .account-workspace .referral-link-box .btn { margin-top: 12px; }
 .account-workspace .referral-link-box [role=status] { margin: 10px 0 0; }
+.account-workspace { font-size: 1rem; }
+.account-sidebar a,.account-sidebar summary { font-size: .95rem; }
+.account-workspace .help,.account-workspace small { font-size: .95rem; }

@@ -41,7 +41,7 @@ RSpec.describe "Droits et médias des organisations", type: :request do
     expect(response).to have_http_status(:unprocessable_content)
   end
 
-  it "protège les logos et photos des brouillons, et coupe les médias après suspension" do
+  it "protège les logos et photos des missions, et coupe les médias après suspension" do
     login owner
     patch account_organization_path(organization), params: { operation: "profile", organization: { description: "Notre projet" }, logo: photo }
     expect(response).to have_http_status(:see_other)
@@ -51,29 +51,25 @@ RSpec.describe "Droits et médias des organisations", type: :request do
     patch account_organization_path(organization), params: { operation: "mission", mission: mission_attributes, photos: [ photo ] }
     expect(response).to have_http_status(:see_other)
     mission = VolunteerMission.last
-    patch account_organization_path(organization), params: { operation: "partnership", partnership: partnership_attributes, logo: photo }
-    record = Partnership.last
-    expect(record.logo).to be_attached
-    get account_organization_path(organization, mission_id: mission.id, partnership_id: record.id)
-    expect(response.body).to include("Aperçu de la mission", "Voir l’aperçu de ma proposition")
-    [ mission.photos.first, record.logo.attachment ].each do |attachment|
+    get account_organization_path(organization, mission_id: mission.id)
+    expect(response.body).to include("Aperçu de la mission")
+    [ mission.photos.first ].each do |attachment|
       get media_path(attachment)
       expect(response).to have_http_status(:ok)
     end
     delete destroy_user_session_path
-    [ organization.logo.attachment, mission.photos.first, record.logo.attachment ].each do |attachment|
+    [ organization.logo.attachment, mission.photos.first ].each do |attachment|
       get media_path(attachment)
       expect(response).to have_http_status(:not_found)
     end
     OrganizationWorkflow.review!(organization: organization, actor: admin, status: "verified", reason: "Profil vérifié")
     Missions.transition!(mission: mission, actor: admin, status: "published", reason: "Mission vérifiée")
-    PartnershipWorkflow.transition!(record: record, actor: admin, status: "published", reason: "Accord vérifié")
-    [ organization.logo.attachment, mission.photos.first, record.logo.attachment ].each do |attachment|
+    [ organization.logo.attachment, mission.photos.first ].each do |attachment|
       get media_path(attachment)
       expect(response).to have_http_status(:ok)
     end
     organization.update!(status: "suspended")
-    [ organization.logo.attachment, mission.photos.first, record.logo.attachment ].each do |attachment|
+    [ organization.logo.attachment, mission.photos.first ].each do |attachment|
       get media_path(attachment)
       expect(response).to have_http_status(:not_found)
     end
@@ -96,14 +92,7 @@ RSpec.describe "Droits et médias des organisations", type: :request do
     login admin
     post admin_network_index_path, params: { operation: "mission", organization_id: organization.id, mission: mission_attributes.merge(title: "Mission monde créée par l’équipe") }
     expect(response).to have_http_status(:see_other)
-    post admin_network_index_path, params: { operation: "partnership", organization_id: organization.id, partnership: partnership_attributes.merge(kind: "institutional", position: 4) }
-    expect(response).to have_http_status(:see_other)
-    record = Partnership.last
-    post admin_network_index_path, params: { operation: "partnership", record_id: record.id, partnership: { public_title: "Nouveau titre", position: 2 } }
-    expect(response).to have_http_status(:see_other)
     get admin_network_index_path(section: "missions")
     expect(response.body).to include("Mission monde créée par l’équipe")
-    get admin_network_index_path(section: "partnerships")
-    expect(response.body).to include("Nouveau titre")
   end
 end

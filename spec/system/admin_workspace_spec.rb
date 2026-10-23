@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe "Présentation de l’administration", type: :system do
   it "permet d’examiner les dossiers dans une interface adaptée aux deux écrans" do
     organization = organization_space(status: "pending", published_at: nil)
-    Partnership.create!({ organization: organization }.merge(partnership_attributes))
     admin = create(:user, :super_admin)
     visit new_user_session_path
     fill_in "E-mail", with: admin.email

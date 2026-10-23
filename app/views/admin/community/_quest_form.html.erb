@@ -2,6 +2,7 @@
 <div class="quest-editor" data-controller="quest-preview">
   <%= form_with url: admin_community_index_path, data: { action: "input->quest-preview#update change->quest-preview#update" } do |form| %>
     <%= hidden_field_tag :operation, fresh ? "quest" : "quest_update", id: nil %><%= hidden_field_tag :record_id, quest.id, id: nil unless fresh %>
+    <% unless fresh %><%= hidden_field_tag :quest_q, @quest_query, id: nil %><%= hidden_field_tag :quest_status, @quest_status, id: nil %><%= hidden_field_tag :quest_page, @quest_page, id: nil %><% end %>
     <%= input_field form, :name, "Nom de la quête", value: quest.name, id: "#{prefix}-name", required: true, maxlength: 1000 %>
     <%= input_field form, :description, "Objectif et preuve attendue", type: :text_area, value: quest.description, id: "#{prefix}-description", required: true, maxlength: 1000 %>
     <div class="quest-form-grid">

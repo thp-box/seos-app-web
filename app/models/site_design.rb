@@ -1,6 +1,7 @@
 # A declarative document: user content never supplies HTML, CSS or JavaScript.
 class SiteDesign
   SOURCE = Rails.root.join("config/studio/maquette.json")
+  RETIRED_TEMPLATES = %w[home-10 community-support].freeze
   CHROME = {
     "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "La communauté", "url" => "/communaute" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
     "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "La communauté francophone d’entraide et d’échange de services.", "description" => "", "links" => [
@@ -22,6 +23,7 @@ class SiteDesign
       "url" => { "type" => "url", "label" => "Destination", "default" => "/contact" }
     } })
   end
+  def self.editable_templates = templates.except(*RETIRED_TEMPLATES)
   def self.page_paths(slug)
     paths = [ "/pages/#{slug}", "/decouvrir/#{slug}" ]
     paths << "/#{slug}" if %w[communaute voyage-solidaire legal].include?(slug)
@@ -97,8 +99,7 @@ class SiteDesign
         "text-3" => "SEOS réunit les personnes et les associations qui veulent s’entraider. Partagez vos savoir-faire, trouvez un coup de main et créez des liens, près de chez vous ou à distance.",
         "text-4" => "Découvrir les annonces", "link-0" => "/annonces" } },
       { "id" => "community-application", "template" => "community-app", "values" => {} },
-      { "id" => "community-associations", "template" => "community-associations", "values" => {} },
-      { "id" => "community-support", "template" => "community-support", "values" => {} }
+      { "id" => "community-associations", "template" => "community-associations", "values" => {} }
     ] }
   end
   # Upgrade only the original menu item; preserve any administrator customization.
@@ -116,7 +117,7 @@ class SiteDesign
     result
   end
   def self.home_page
-    { "title" => "Accueil", "blocks" => 11.times.map { |index| { "id" => "home-#{index}", "template" => "home-#{index}", "values" => {} } } }
+    { "title" => "Accueil", "blocks" => 10.times.map { |index| { "id" => "home-#{index}", "template" => "home-#{index}", "values" => {} } } }
   end
   def self.default_page(slug)
     return { "title" => "Confiance et informations légales", "blocks" => [ { "id" => "legal-center", "template" => "legal-center", "values" => {} } ] } if slug == "legal"

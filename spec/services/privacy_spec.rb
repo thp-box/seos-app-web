@@ -45,7 +45,7 @@ RSpec.describe "Confidentialité et conservation", type: :service do
     expect(user.profile.reload.phone).to be_nil
     expect(login.reload.revoked_at).to be_present
     expect(record.reload.status).to eq("partial")
-    expect(record.provider_erasure_tasks.count).to eq(3)
+    expect(record.provider_erasure_tasks.count).to eq(2)
   end
   it "bloque les durées illimitées, publie après simulation et borne la purge" do
     policy = RetentionPolicyVersion.new(name: "Essai", created_by: reviewer, rules: { "all" => "forever" }, effective_at: 1.minute.from_now, expires_at: 1.year.from_now)

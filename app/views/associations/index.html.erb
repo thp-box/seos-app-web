@@ -36,7 +36,7 @@
       <span class="eyebrow">Votre association a sa place ici</span>
       <h2>Ensemble, allons plus loin.</h2>
       <p>Présentez votre structure et faites découvrir vos projets à la communauté SEOS.</p>
-      <%= link_to "Proposer mon association", account_organizations_path(request_kind: "community_mission"), class: "btn btn-primary" %>
+      <%= link_to "Proposer mon association", account_organizations_path, class: "btn btn-primary" %>
       <% if FeatureFlag.voyage_enabled? %><%= link_to "Découvrir le voyage solidaire →", volunteer_missions_path, class: "association-travel-link" %><% end %>
     </aside>
   </div>

@@ -2,7 +2,6 @@ module AdminUiHelper
   def network_record_title(record)
     case record
     when Organization then record.name
-    when Partnership then record.public_title
     else record.title
     end
   end

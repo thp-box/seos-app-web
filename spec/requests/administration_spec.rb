@@ -36,7 +36,7 @@ RSpec.describe "Administration", :"F-004", :"F-005", type: :request do
     expect(response.body).to include("21 membres", "Page suivante", "role=member")
     expect(response.body).not_to include(members.first.email)
     get admin_users_path, params: { page: 2, role: "member", status: "active" }
-    expect(response.body).to include("Page précédente", "Ouvrir ##{members.first.id}")
+    expect(response.body).to include("Page précédente", "Voir la fiche complète · ##{members.first.id}")
     get admin_users_path, params: { q: "##{members.last.id}" }
     expect(response.body).to include("1 membres")
     get admin_users_path, params: { q: "inconnu" }

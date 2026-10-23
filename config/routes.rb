@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resource :privacy_preferences, path: "preferences-confidentialite", only: [ :show, :create ]
   resources :associations, param: :slug, only: [ :index, :show ]
   resources :volunteer_missions, path: "voyage-solidaire", param: :slug, only: [ :index, :show ]
-  resources :partnerships, path: "partenaires", param: :slug, only: [ :index, :show ]
+  resource :partnership_page, path: "partenaires", controller: "partnerships", only: :show
   get "organisations/invitation", to: "organization_invitations#show", as: :organization_invitation
   post "organisations/invitation", to: "organization_invitations#create"
   get "points-services", to: "points#show", as: :points_explanation
@@ -80,16 +80,16 @@ Rails.application.routes.draw do
     resources :operations, only: [ :index, :create ] do
       match :user, via: [ :get, :post ], on: :member
     end
-    resources :site, only: [ :index, :create, :edit, :update ] do
+    resources :site, only: [ :index ] do
       get :visual, on: :member, to: "visual_studio#show"
       post :visual_preview, on: :member, to: "visual_studio#preview"
       post :visual_save, on: :member, to: "visual_studio#save"
-      get :kit, on: :member
-      get :new_page, on: :collection
       get :review, on: :member
       post :publish, on: :member
     end
-    resources :studio, only: [ :index, :create ] do
+    resource :partnership_page, path: "partenaires", only: [ :edit, :update ]
+    resources :partners, path: "partenaires/entrees", only: [ :create, :update, :destroy ]
+    resources :studio, only: [] do
       get :preview, on: :member
     end
     resources :privacy, path: "confidentialite", only: [ :index, :create ]

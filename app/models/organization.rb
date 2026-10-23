@@ -5,14 +5,13 @@ class Organization < ApplicationRecord
   has_one_attached :logo
   has_many :organization_invitations, dependent: :restrict_with_exception
   has_many :volunteer_missions, dependent: :restrict_with_exception
-  has_many :partnerships, dependent: :restrict_with_exception
   validates :description, length: { maximum: 5000 }
   validates :public_location, :legal_name, :registration_number, length: { maximum: 150 }
   validates :legal_email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
   validate -> { validate_public_text(:name, :description, :public_location) }
   def publicly_visible? = verified? && published_at.present?
   enum :kind, { association: "association", company: "company", micro_company: "micro_company", institution: "institution", collective: "collective" }, validate: true
-  validates :request_kind, inclusion: { in: %w[partnership community_mission] }, allow_nil: true
+  validates :request_kind, inclusion: { in: %w[community_mission] }, allow_nil: true
   validate on: :create do
     errors.add(:kind, "doit être une association pour une mission communautaire") if request_kind == "community_mission" && kind != "association"
   end

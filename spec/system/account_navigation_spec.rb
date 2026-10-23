@@ -17,14 +17,14 @@ RSpec.describe "Sidebar du compte", type: :system do
         end
         within(".account-sidebar") do
           expect(page).to have_link("Mon compte")
-          expect(page).not_to have_link("Mes sessions", visible: true)
-          find("summary", text: /\AAnnonces et échanges\z/).send_keys(:enter)
+          expect(page).not_to have_link("Compte & sécurité", visible: true)
+          find("summary", text: /\AActivité\z/).send_keys(:enter) unless page.has_link?("Mes annonces")
           expect(page).to have_link("Mes annonces")
-          find("summary", text: /\ASécurité et confidentialité\z/).click
-          expect(page).to have_link("Mes sessions")
+          find("summary", text: /\ARéglages\z/).click unless page.has_link?("Compte & sécurité")
+          expect(page).to have_link("Compte & sécurité")
           expect(page).not_to have_link("Mes annonces", visible: true)
           expect(page).to have_css(".admin-nav-group[open]", count: 1)
-          find("summary", text: /\ASécurité et confidentialité\z/).send_keys(:enter)
+          find("summary", text: /\ARéglages\z/).send_keys(:enter)
           expect(page).not_to have_css(".admin-nav-group[open]")
         end
         expect(page.evaluate_script("document.documentElement.scrollWidth <= innerWidth")).to be(true)
@@ -33,7 +33,7 @@ RSpec.describe "Sidebar du compte", type: :system do
       end
 
       within(".account-sidebar .desktop-workspace-navigation") do
-        find("summary", text: /\AAnnonces et échanges\z/).click
+        find("summary", text: /\AActivité\z/).click
         click_link "Mes annonces"
       end
       expect(page).to have_current_path(account_listings_path)

@@ -30,7 +30,7 @@ RSpec.describe "Composition visuelle", type: :system do
     click_button "Enregistrer", exact: true
     expect(page).to have_content("Copie enregistrée. Elle n’est pas encore en ligne.")
     saved = StudioVersion.last
-    expect(page).to have_link("Éditeur guidé et bibliothèque d’images", href: edit_admin_site_path(saved, page: "home", area: "pages"))
+    expect(page).not_to have_link("Éditeur guidé et bibliothèque d’images")
     expect(saved.status).to eq("draft")
     expect(saved.tokens["deep"]).to eq("#123456")
     expect(saved.site.dig("pages", "home", "blocks", 0, "template")).to eq("text")
@@ -41,7 +41,7 @@ RSpec.describe "Composition visuelle", type: :system do
     end
     click_button "Vérifier et mettre en ligne"
     expect(page).to have_content("Prêt à rendre ces changements visibles ?")
-    expect(page).to have_link("← Continuer les modifications", href: visual_admin_site_path(StudioVersion.last, page: "home", area: "pages"))
+    expect(page).to have_link("← Continuer les modifications", href: visual_admin_site_path(StudioVersion.last, page: "home"))
     click_button "Mettre en ligne"
     expect(page).to have_content("Vos modifications sont en ligne")
   end

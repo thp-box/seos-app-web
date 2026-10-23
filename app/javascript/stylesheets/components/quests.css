@@ -39,7 +39,64 @@
 .quest-admin-item > summary { display: flex; align-items: center; gap: 16px; cursor: pointer; min-height: 52px; }
 .quest-admin-item > summary strong,.quest-admin-item > summary small { display: block; }.quest-admin-item > summary small { margin-top: 4px; }
 .quest-edit-label { margin-left: auto; font-size: .85rem; text-decoration: underline; }.quest-admin-item[open] > summary { padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+
+/* Catalogue admin : dense, filtrable et limité à une page de résultats. */
+.quest-admin-hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0,1.25fr) minmax(420px,.75fr); gap: 32px; overflow: hidden; margin-bottom: 22px; padding: clamp(26px,4vw,42px); border-radius: 26px; background: linear-gradient(120deg,#063a4d 0%,#075d70 64%,#087c87 100%); color: #fff; box-shadow: 0 18px 45px #073e501f; }
+.quest-admin-hero::after { content: ""; position: absolute; z-index: -1; right: -80px; bottom: -125px; width: 340px; height: 340px; border: 56px solid #ffffff0d; border-radius: 50%; }
+.admin-shell .quest-admin-hero h2 { max-width: 580px; margin: 8px 0 12px; color: #fff; font-size: clamp(2rem,3.6vw,3.35rem); line-height: 1; }
+.admin-shell .admin-workspace .quest-admin-hero p { max-width: 620px; margin: 0; color: #d4eaee; font-size: .92rem; }
+.quest-admin-kicker { color: #6f5d16; font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.quest-admin-hero .quest-admin-kicker { color: #e6d485; }
+.quest-admin-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; align-self: center; }
+.quest-admin-metrics > div { min-width: 0; padding: 18px; border: 1px solid #ffffff1f; border-radius: 16px; background: #ffffff0d; backdrop-filter: blur(6px); }
+.quest-admin-metrics strong,.quest-admin-metrics span { display: block; }
+.quest-admin-metrics strong { color: #fff; font-size: clamp(1.5rem,3vw,2.25rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.quest-admin-metrics span { margin-top: 7px; color: #cfe4e9; font-size: .72rem; }
+.quest-admin-toolbar { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: start; gap: 14px; margin-bottom: 30px; }
+.admin-workspace form.quest-admin-search { display: grid; grid-template-columns: minmax(220px,1fr) minmax(170px,.35fr) auto auto; align-items: end; gap: 12px; margin: 0; padding: 18px; border-radius: 18px; background: #edf4f5; }
+.quest-search-control { position: relative; }
+.quest-search-control > svg { position: absolute; z-index: 1; top: 50%; left: 15px; width: 19px; height: 19px; color: #55747e; transform: translateY(-50%); pointer-events: none; }
+.admin-workspace .quest-search-control .control { padding-left: 45px; }
+.admin-workspace .quest-admin-search .btn { min-width: 110px; }
+.quest-filter-reset { display: inline-flex; align-items: center; min-height: 44px; color: #315b67; font-size: .78rem; font-weight: 750; text-underline-offset: 4px; }
+.quest-create-drawer.admin-create-panel { width: max-content; min-width: 250px; margin: 0; padding: 0 18px 18px; border-style: solid; border-color: #ccb65c; background: #fffaf0; }
+.quest-create-drawer.admin-create-panel > summary { display: flex; align-items: center; gap: 9px; padding: 16px 0; white-space: nowrap; }
+.quest-create-drawer.admin-create-panel > summary span { display: grid; width: 27px; height: 27px; place-items: center; border-radius: 8px; background: #073e50; color: #fff; font-size: 1.15rem; line-height: 1; }
+.quest-create-drawer[open] { grid-column: 1 / -1; width: auto; }
+.quest-create-drawer > p { margin: 0 0 10px; font-size: .82rem; }
+.quest-selected-editor { margin: 0 0 32px; padding: 26px; scroll-margin-top: 110px; border: 2px solid #c7ab4c; border-radius: 22px; background: #fffdf7; box-shadow: 0 16px 38px #806b2012; }
+.quest-selected-editor > header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 18px; border-bottom: 1px solid #e9dfb8; }
+.admin-shell .quest-selected-editor > header h3 { margin: 4px 0 0; color: #173e4c; font-size: 1.5rem; }
+.quest-results-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 0 0 16px; }
+.admin-shell .quest-results-heading h3 { margin: 4px 0 0; font-size: 1.45rem; }
+.quest-results-heading > span { color: #526b75; font-size: .78rem; }
+.quest-library-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 15px; }
+.quest-library-card { --quest-color: #07566b; --quest-tint: #e8f3f5; display: flex; min-width: 0; min-height: 300px; flex-direction: column; padding: 20px; border: 1px solid #d8e4e7; border-top: 4px solid var(--quest-color); border-radius: 19px; background: #fff; box-shadow: 0 6px 20px #083c4b08; transition: border-color .18s ease,box-shadow .18s ease,transform .18s ease; }
+.quest-library-card:hover { border-color: #a9c4ca; box-shadow: 0 14px 30px #083c4b12; transform: translateY(-2px); }
+.quest-library-card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.quest-library-icon { display: grid; width: 44px; height: 44px; place-items: center; flex: 0 0 44px; border-radius: 13px; background: var(--quest-tint); color: var(--quest-color); }
+.quest-library-icon svg { width: 24px; height: 24px; }
+.quest-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid; border-radius: 30px; font-size: .68rem; font-weight: 800; }
+.quest-status-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.quest-status-badge.is-active { border-color: #b9ddcf; background: #ecf8f3; color: #24634d; }
+.quest-status-badge.is-archived { border-color: #d5dfe2; background: #f2f5f6; color: #586e76; }
+.quest-library-content { flex: 1; min-width: 0; }
+.quest-library-slug { display: block; overflow: hidden; color: #536f78; font-size: .66rem; font-weight: 750; letter-spacing: .06em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.admin-shell .quest-library-card h3 { display: -webkit-box; overflow: hidden; min-height: 2.5em; margin: 6px 0 8px; font-family: var(--font-body); font-size: 1.05rem; font-weight: 800; line-height: 1.25; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.admin-shell .quest-library-card p { display: -webkit-box; overflow: hidden; margin: 0; color: #526b75; font-size: .78rem; line-height: 1.55; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.quest-library-meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 17px 0 13px; }
+.quest-library-meta span { padding: 5px 8px; border-radius: 7px; background: #f0f5f6; color: #49656f; font-size: .66rem; font-weight: 700; }
+.quest-configure-link { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding-top: 12px; border-top: 1px solid #e5ecee; color: #07566b; font-size: .78rem; font-weight: 800; text-decoration: none; }
+.quest-configure-link span { font-size: 1.15rem; transition: transform .18s ease; }
+.quest-configure-link:hover span { transform: translateX(3px); }
+.quest-library-empty { display: grid; justify-items: center; padding: 54px 24px; border: 1px dashed #aec7cd; border-radius: 22px; background: #f7fafa; text-align: center; }
+.admin-shell .quest-library-empty h3 { margin: 18px 0 6px; }
+.quest-library-empty p { margin: 0 0 20px; }
+.quest-pagination { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; margin-top: 26px; padding: 15px 18px; border: 1px solid #dce7e9; border-radius: 16px; background: #f6f9f9; }
+.quest-pagination > :last-child { justify-self: end; }
+.quest-pagination > span { color: #526b75; font-size: .78rem; text-align: center; }
 @keyframes quest-enter { from { opacity: .5; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes quest-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-@media(max-width: 700px) { .quest-grid,.quest-editor { grid-template-columns: minmax(0,1fr); }.quest-hero { padding: 24px; grid-template-columns: minmax(0,1fr); }.quest-hero-icon { display: none; }.quest-section-heading { align-items: start; flex-direction: column; }.quest-card { padding: 22px; }.quest-editor-preview { position: static; }.quest-form-grid { grid-template-columns: minmax(0,1fr); } }
-@media(prefers-reduced-motion: reduce) { .quest-card[data-animated="true"],.quest-card[data-animated="true"] .quest-icon,.quest-card[data-animated="true"] progress::-webkit-progress-value,.quest-card[data-animated="true"] progress::-moz-progress-bar { animation: none; transition: none; transform: none; } }
+@media(max-width: 1120px) { .quest-admin-hero { grid-template-columns: minmax(0,1fr); }.quest-admin-metrics { max-width: 620px; }.quest-admin-toolbar { grid-template-columns: minmax(0,1fr); }.quest-create-drawer.admin-create-panel { width: auto; }.admin-workspace form.quest-admin-search { grid-template-columns: minmax(0,1fr) minmax(180px,.4fr) auto; }.quest-filter-reset { grid-column: 1 / -1; }.quest-library-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width: 700px) { .quest-grid,.quest-editor { grid-template-columns: minmax(0,1fr); }.quest-hero { padding: 24px; grid-template-columns: minmax(0,1fr); }.quest-hero-icon { display: none; }.quest-section-heading { align-items: start; flex-direction: column; }.quest-card { padding: 22px; }.quest-editor-preview { position: static; }.quest-form-grid { grid-template-columns: minmax(0,1fr); }.quest-admin-hero { padding: 25px; border-radius: 21px; }.quest-admin-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }.admin-workspace form.quest-admin-search { grid-template-columns: minmax(0,1fr); }.quest-filter-reset { grid-column: auto; }.quest-library-grid { grid-template-columns: minmax(0,1fr); }.quest-library-card { min-height: 280px; }.quest-selected-editor { padding: 20px; }.quest-selected-editor > header,.quest-results-heading { align-items: stretch; flex-direction: column; }.quest-pagination { grid-template-columns: minmax(0,1fr); }.quest-pagination > *,.quest-pagination > :last-child { width: 100%; justify-self: stretch; }.quest-pagination > span:empty { display: none; } }
+@media(prefers-reduced-motion: reduce) { .quest-card[data-animated="true"],.quest-card[data-animated="true"] .quest-icon,.quest-card[data-animated="true"] progress::-webkit-progress-value,.quest-card[data-animated="true"] progress::-moz-progress-bar,.quest-library-card,.quest-configure-link span { animation: none; transition: none; transform: none; } }

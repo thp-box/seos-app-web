@@ -30,9 +30,6 @@ application.register("back-to-top", BackToTopController)
 import DirectoryDisplayController from "./directory_display_controller"
 application.register("directory-display", DirectoryDisplayController)
 
-import OrganizationRequestController from "./organization_request_controller"
-application.register("organization-request", OrganizationRequestController)
-
 import NotificationReadController from "./notification_read_controller"
 application.register("notification-read", NotificationReadController)
 
@@ -41,6 +38,9 @@ application.register("workspace-tabs", WorkspaceTabsController)
 
 import MissionFormController from "./mission_form_controller"
 application.register("mission-form", MissionFormController)
+
+import PasswordVisibilityController from "./password_visibility_controller"
+application.register("password-visibility", PasswordVisibilityController)
 
 import DashboardActivityController from "./dashboard_activity_controller"
 application.register("dashboard-activity", DashboardActivityController)

@@ -102,32 +102,4 @@ RSpec.describe "Organisations, Voyage et partenaires", type: :request do
     expect(response).to have_http_status(:forbidden)
   end
 
-  it "publie un partenariat sans transmettre de données privées ni charger de traceur" do
-    login owner
-    patch account_organization_path(organization), params: { operation: "partnership", partnership: partnership_attributes }
-    expect(response).to have_http_status(:see_other)
-    record = Partnership.last
-    get partnership_path(record)
-    expect(response).to have_http_status(:not_found)
-    patch account_organization_path(organization), params: { operation: "partnership_transition", record_id: record.id, status: "pending_review", reason: "Proposition" }
-    delete destroy_user_session_path
-    login admin
-    get admin_network_index_path
-    expect(response).to have_http_status(:ok)
-    post admin_network_index_path, params: { operation: "partnership_transition", record_id: record.id, status: "published", reason: "Accord vérifié" }
-    expect(response).to have_http_status(:see_other)
-    get partnerships_path
-    expect(response.body).to include("Entraide ensemble")
-    get partnership_path(record)
-    expect(response.body).to include('rel="external noopener noreferrer"')
-    expect(response.body).not_to include(organization.legal_email, owner.email, "iframe")
-    post admin_network_index_path, params: { operation: "flag", key: "partnerships_enabled", enabled: "0", reason: "Pause" }
-    get partnerships_path
-    expect(response).to have_http_status(:not_found)
-    post admin_network_index_path, params: { operation: "flag", key: "voyage_enabled", enabled: "0", reason: "Pause" }
-    get volunteer_missions_path
-    expect(response).to have_http_status(:not_found)
-    get account_organizations_path
-    expect(response.body).not_to include('href="/voyage-solidaire"', 'href="/partenaires"')
-  end
 end

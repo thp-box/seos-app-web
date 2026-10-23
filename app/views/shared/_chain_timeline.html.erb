@@ -1,0 +1,10 @@
+<article class="card chain-timeline">
+  <header><div><span class="eyebrow">Chaîne d’entraide n° <%= chain.id %></span><h3><%= chain.name %></h3></div><span class="badge"><%= community_status(chain.status) %></span></header>
+  <ol>
+    <% chain.chain_services.order(:position).each do |service| %>
+      <li><span class="chain-step"><%= service.position %></span><div><strong><%= service.provider.profile&.display_name || "Membre ##{service.provider_id}" %> → <%= service.beneficiary&.profile&.display_name || "Prochaine personne à aider" %></strong><p><%= service.description %></p><small><%= community_status(service.status) %><% if service.confirmed_at %> · confirmé le <%= l service.confirmed_at.to_date %><% end %> · <%= service.chain_rewards.sum(&:points) %> PS reconnus</small></div></li>
+    <% end %>
+  </ol>
+  <% if chain.chain_services.empty? %><p>La chaîne vient de commencer. Son premier service est en préparation.</p><% end %>
+  <% if local_assigns[:admin] %><%= button_to chain.featured_on_home? ? "Retirer de l’accueil" : "Mettre en page d’accueil", admin_user_path(user), method: :patch, params: { operation: "feature_chain", chain_id: chain.id, featured: chain.featured_on_home? ? "0" : "1" }, class: "btn btn-outline" %><% end %>
+</article>

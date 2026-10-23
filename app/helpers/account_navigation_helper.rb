@@ -1,37 +1,26 @@
 module AccountNavigationHelper
   def account_navigation_groups
-    groups = [
-      [ "Profil et notifications", [
-        [ "Mon profil", edit_account_profile_path, %w[account/profiles] ],
-        [ "Notifications", account_notifications_path, %w[account/notifications] ]
-      ] ],
-      [ "Annonces et échanges", [
+    definitions = [
+      [ "Activité", [
+        [ "Vue d’ensemble", account_root_path, %w[account/dashboard] ],
         [ "Mes annonces", account_listings_path, %w[account/listings] ],
         [ "Mes échanges", account_service_requests_path, %w[account/service_requests account/messages] ],
-        [ "Avis reçus", account_reviews_path, %w[account/reviews] ],
-        [ "Mes favoris", account_favorites_path, %w[account/favorites] ]
+        [ "Quêtes & chaînes", account_community_path, %w[account/community account/chains] ],
+        [ "Mon profil", edit_account_profile_path, %w[account/profiles] ]
       ] ],
-      [ "Entraide et points", [
-        [ "Mes quêtes", account_community_path, %w[account/community] ],
-        [ "Mes témoignages", account_testimonials_path, %w[account/testimonials] ],
-        [ "Mes chaînes d’entraide", account_chains_path, %w[account/chains] ],
-        [ "Mon portefeuille", account_points_path, %w[account/points] ],
-        [ "Confiance et parrainage", account_trust_path, %w[account/trust] ]
+      [ "À consulter", [
+        [ "Notifications", account_notifications_path, %w[account/notifications] ],
+        [ "Avis et favoris", account_reviews_path, %w[account/reviews account/favorites] ],
+        [ "Points & confiance", account_points_path, %w[account/points account/trust] ],
+        [ "Associations", account_organizations_path, %w[account/organizations account/mission_applications] ]
       ] ],
-      [ "Organisations et voyage", [
-        [ "Mes organisations", account_organizations_path, %w[account/organizations] ],
-        [ "Mes candidatures Voyage", account_mission_applications_path, %w[account/mission_applications] ]
-      ] ],
-      [ "Sécurité et confidentialité", [
-        [ "Mes sessions", account_login_sessions_path, %w[account/login_sessions] ],
-        [ "Mes identifiants", edit_user_registration_path, %w[users/registrations] ],
-        [ "Mes données et mes droits", account_privacy_path, %w[account/privacy] ]
+      [ "Réglages", [
+        [ "Compte & sécurité", edit_user_registration_path, %w[users/registrations account/login_sessions] ],
+        [ "Données personnelles", account_privacy_path, %w[account/privacy] ]
       ] ]
     ]
-    groups.map do |label, entries|
-      { label: label, links: entries.map do |text, path, controllers|
-        { label: text, path: path, category: notification_category_for(controllers), active: controllers.include?(controller_path) }
-      end }
+    definitions.map do |label, entries|
+      { label: label, links: entries.map { |text, path, controllers| { label: text, path: path, category: notification_category_for(controllers), active: controllers.include?(controller_path) } } }
     end
   end
 end

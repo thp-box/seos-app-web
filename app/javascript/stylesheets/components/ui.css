@@ -14,7 +14,7 @@ img { max-width: 100%; height: auto; display: block; }
 [hidden] { display: none !important; }
 .container { width: min(1240px,100% - 40px); margin-inline: auto; }
 .section { padding: 92px 0; }
-.eyebrow { display: block; font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; margin-bottom: 16px; }
+.eyebrow { display: block; font-size: .88rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 16px; }
 .muted { color: var(--muted); }
 .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 44px; padding: 13px 21px; border: 1px solid transparent; border-radius: 999px; font-weight: 800; text-decoration: none; line-height: 1.5; transition: transform .2s,box-shadow .2s; box-shadow: 0 9px 22px rgba(0,73,97,.09); }
 .btn:hover { transform: translateY(-2px); }
@@ -29,11 +29,16 @@ img { max-width: 100%; height: auto; display: block; }
 .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
 .actions form { margin: 0; }
 .form-field { margin-bottom: 20px; min-width: 0; }
-.form-field label { display: block; font-size: .85rem; font-weight: 700; margin-bottom: 6px; }
-.control { width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; background: var(--white); color: var(--ink); }
+.form-field label { display: block; font-size: 1rem; font-weight: 750; margin-bottom: 8px; }
+.control { width: 100%; min-height: 48px; border: 1px solid #9fb8bf; border-radius: 12px; padding: 12px 14px; background: var(--white); color: var(--ink); font-size: 1rem; }
+.control:focus { border-color: var(--deep); box-shadow: 0 0 0 3px rgba(0,73,97,.12); }
 .control[aria-invalid="true"] { border-color: #A94030; }
 .field-error { display: block; color: #A94030; font-size: .875rem; }
-.help { display: block; color: var(--muted); font-size: .875rem; margin-top: 6px; }
+.help { display: block; color: var(--muted); font-size: .95rem; margin-top: 7px; }
+.password-control { position: relative; }
+.password-control .control { padding-right: 56px; }
+.password-toggle { position: absolute; right: 3px; top: 3px; display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 10px; background: transparent; color: var(--deep); font-size: 1.25rem; }
+.password-toggle:hover { background: var(--mist); }
 .form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
 .card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: 0 10px 28px rgba(0,73,97,.06); }
 .card-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; }
@@ -45,7 +50,7 @@ img { max-width: 100%; height: auto; display: block; }
 .empty-state { text-align: center; padding: 36px 24px; }
 .empty-state p { margin-bottom: 0; }
 .table-scroll { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: .875rem; font-variant-numeric: tabular-nums; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; font-variant-numeric: tabular-nums; }
 th,td { padding: 14px; text-align: left; border-bottom: 1px solid var(--line); }
 th { color: var(--deep); }
 caption { text-align: left; font-weight: 700; padding: 14px; }

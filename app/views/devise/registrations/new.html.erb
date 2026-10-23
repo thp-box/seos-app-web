@@ -5,7 +5,7 @@
 <% if session[:referral_link_id] %><p class="notice">Votre invitation de parrainage est enregistrée. Elle sera rattachée à votre compte après confirmation de votre e-mail.</p><% end %>
 <p>Un e-mail suffit pour commencer. Vos coordonnées restent privées.</p>
 <%= render "devise/shared/error_messages", resource: resource %>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |form| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo: false } }) do |form| %>
   <div class="honeypot" aria-hidden="true"><label for="user_website">Laisser ce champ vide</label><input type="text" name="user[website]" id="user_website" tabindex="-1" autocomplete="off"></div>
   <%= render "shared/form_field", form: form, attribute: :email, label: "E-mail", kind: :email_field, options: { autocomplete: "email", required: true } %>
   <%= render "shared/form_field", form: form, attribute: :password, label: "Mot de passe", kind: :password_field, help: "Au moins 12 caractères.", options: { autocomplete: "new-password", minlength: 12, required: true } %>

@@ -12,9 +12,9 @@ module Admin
       raise ActiveRecord::RecordNotFound unless @source.available_pages.include?(@slug)
       @assets = StudioAsset.includes(image_attachment: :blob).order(id: :desc)
       @editor_data = {
-        settings: @source.settings, page: @slug, area: params[:area], digest: @source.digest,
+        settings: editable_settings, page: @slug, area: params[:area], digest: @source.digest,
         pages: StudioVersion::PAGES.to_h { |slug| [ slug, SiteDesign.default_page(slug) ] },
-        templates: SiteDesign.templates.to_h { |key, template| [ key, { name: helpers.site_section_name(key), fields: template["fields"], groups: key == "text" ? text_groups(template) : SiteSectionEditor.new(template).groups } ] },
+        templates: SiteDesign.editable_templates.to_h { |key, template| [ key, { name: helpers.site_section_name(key), fields: template["fields"], groups: key == "text" ? text_groups(template) : SiteSectionEditor.new(template).groups } ] },
         images: helpers.site_image_options(@assets), colors: StudioVersion::COLORS, colorNames: SiteHelper::COLOR_NAMES,
         options: StudioVersion::OPTIONS.to_h { |key, values| [ key, { label: helpers.site_token_label(key), choices: helpers.site_token_choices(key, values) } ] },
         chrome: SiteDesign::CHROME, styles: SiteSectionStyle::OPTIONS, presets: ContentVersion::PRESETS
@@ -50,12 +50,20 @@ module Admin
       draft = proposal
       raise Exchanges::Invalid, "Cette copie a changé. Rechargez le Studio avant d’enregistrer." unless params[:digest] == @source.digest
       version = Studio.change!(actor: current_user, source: @source, name: "Modifications visuelles du site", settings: draft.settings.slice("site", "tokens"))
-      render json: { digest: version.digest, url: visual_admin_site_path(version), preview: visual_preview_admin_site_path(version), save: visual_save_admin_site_path(version), review: review_admin_site_path(version), guided: edit_admin_site_path(version) }
+      render json: { digest: version.digest, url: visual_admin_site_path(version), preview: visual_preview_admin_site_path(version), save: visual_save_admin_site_path(version), review: review_admin_site_path(version) }
     rescue ActiveRecord::RecordInvalid, Exchanges::Invalid => error
       render json: { error: error.message }, status: :unprocessable_content
     end
 
     private
+
+    def editable_settings
+      settings = @source.settings.deep_dup
+      settings.dig("site", "pages")&.each_value do |page|
+        page["blocks"]&.reject! { |block| SiteDesign::RETIRED_TEMPLATES.include?(block["template"]) }
+      end
+      settings
+    end
 
     def text_groups(template)
       fields = template["fields"].map { |key, field| field.merge("key" => key) }

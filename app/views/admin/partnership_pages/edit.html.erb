@@ -1,0 +1,41 @@
+<% content_for :title, "Page partenaires" %>
+<div class="admin-console partner-admin">
+  <header class="admin-console-heading"><div><span class="account-eyebrow">Contenu public</span><h1>Page partenaires</h1><p>Composez la page publique et gérez chaque partenaire. Aucun partenaire ne dispose d’un accès à cet espace.</p></div><span class="admin-hero-mark" aria-hidden="true"><%= admin_ui_icon("network") %></span></header>
+  <nav class="admin-page-tabs" aria-label="Sections de la page partenaires"><a href="#page-content">Présentation</a><a href="#partners">Partenaires <span><%= @partners.size %></span></a><%= link_to "Aperçu public", partnership_page_path, target: "_blank", rel: "noopener" %></nav>
+
+  <section id="page-content" class="admin-editor-section">
+    <div class="admin-section-intro"><span class="admin-step-number">01</span><div><h2>Présentation de la page</h2><p>Ces textes apparaissent avant la grille des partenaires.</p></div></div>
+    <%= form_with model: @partnership_page, url: admin_partnership_page_path, method: :patch, class: "admin-form-surface" do |form| %>
+      <div class="admin-form-grid"><%= render "shared/form_field", form: form, attribute: :title, label: "Titre de la page", kind: :text_field, options: { maxlength: 150, required: true } %><%= render "shared/form_field", form: form, attribute: :introduction, label: "Introduction", kind: :text_area, help: "Une phrase courte affichée dans l’en-tête public.", options: { maxlength: 600, rows: 4 } %></div>
+      <%= render "shared/form_field", form: form, attribute: :body, label: "Texte de présentation", kind: :text_area, help: "Expliquez la relation de SEOS avec son réseau de partenaires.", options: { maxlength: 20_000, rows: 8 } %>
+      <fieldset><legend>Bouton de contact facultatif</legend><div class="admin-form-grid"><%= render "shared/form_field", form: form, attribute: :contact_label, label: "Texte du bouton", kind: :text_field, options: { maxlength: 80, placeholder: "Devenir partenaire" } %><%= render "shared/form_field", form: form, attribute: :contact_url, label: "Lien du bouton", kind: :url_field, options: { placeholder: "https://…" } %></div></fieldset>
+      <div class="admin-form-actions"><span>Les modifications sont visibles immédiatement après enregistrement.</span><%= form.submit "Enregistrer la présentation", class: "btn btn-primary", data: { turbo_submits_with: "Enregistrement…" } %></div>
+    <% end %>
+  </section>
+
+  <section id="partners" class="admin-editor-section">
+    <div class="admin-section-intro"><span class="admin-step-number">02</span><div><h2>Partenaires affichés</h2><p>Ajoutez un titre, un logo et le lien officiel de chaque structure.</p></div></div>
+    <details class="admin-create-panel" <%= "open" if @partners.empty? %>><summary>Ajouter un partenaire</summary>
+      <%= form_with model: @partner, url: admin_partners_path, class: "admin-form-surface", multipart: true do |form| %>
+        <div class="admin-form-grid"><%= render "shared/form_field", form: form, attribute: :title, label: "Nom du partenaire", kind: :text_field, options: { required: true, maxlength: 150 } %><%= render "shared/form_field", form: form, attribute: :website_url, label: "Lien officiel", kind: :url_field, help: "Une adresse sécurisée commençant par https://", options: { required: true, placeholder: "https://exemple.fr" } %></div>
+        <%= render "shared/form_field", form: form, attribute: :description, label: "Courte présentation", kind: :text_area, help: "Deux ou trois phrases maximum.", options: { maxlength: 600, rows: 4 } %>
+        <div class="admin-form-grid"><%= render "shared/form_field", form: form, attribute: :logo, label: "Logo", kind: :file_field, help: "JPEG, PNG ou WebP, 5 Mo maximum.", options: { required: true, accept: "image/jpeg,image/png,image/webp" } %><%= render "shared/form_field", form: form, attribute: :position, label: "Ordre d’affichage", kind: :number_field, options: { min: 0, max: 10_000, required: true } %></div>
+        <div class="admin-form-actions"><span>Le partenaire apparaîtra sur la page publique.</span><%= form.submit "Ajouter le partenaire", class: "btn btn-primary", data: { turbo_submits_with: "Ajout…" } %></div>
+      <% end %>
+    </details>
+
+    <div class="partner-admin-list">
+      <% @partners.each do |partner| %><article id="partner-<%= partner.id %>" class="partner-admin-card">
+        <div class="partner-admin-preview"><% if partner.logo.attached? %><%= image_tag media_path(partner.logo.attachment), alt: "Logo de #{partner.title}", width: 120, height: 80 %><% else %><span>Logo manquant</span><% end %><div><h3><%= partner.title %></h3><a href="<%= partner.website_url %>" target="_blank" rel="noopener noreferrer">Voir le site officiel</a></div></div>
+        <details><summary>Modifier ce partenaire</summary><%= form_with model: partner, url: admin_partner_path(partner), method: :patch, class: "admin-form-surface", multipart: true do |form| %>
+          <div class="admin-form-grid"><%= render "shared/form_field", form: form, attribute: :title, label: "Nom", kind: :text_field, options: { required: true, maxlength: 150 } %><%= render "shared/form_field", form: form, attribute: :website_url, label: "Lien officiel", kind: :url_field, options: { required: true } %></div>
+          <%= render "shared/form_field", form: form, attribute: :description, label: "Présentation", kind: :text_area, options: { maxlength: 600, rows: 4 } %>
+          <div class="admin-form-grid"><%= render "shared/form_field", form: form, attribute: :logo, label: "Remplacer le logo", kind: :file_field, help: "Laissez vide pour conserver le logo actuel.", options: { accept: "image/jpeg,image/png,image/webp" } %><%= render "shared/form_field", form: form, attribute: :position, label: "Ordre", kind: :number_field, options: { min: 0, max: 10_000, required: true } %></div>
+          <div class="admin-form-actions"><span>Dernière mise à jour : <%= l partner.updated_at.to_date %></span><%= form.submit "Enregistrer", class: "btn btn-primary" %></div>
+        <% end %></details>
+        <div class="partner-admin-danger"><%= button_to "Supprimer ce partenaire", admin_partner_path(partner), method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Supprimer définitivement #{partner.title} de la page partenaires ?" } } %></div>
+      </article><% end %>
+      <% if @partners.empty? %><p class="network-empty">Aucun partenaire pour le moment. Utilisez le formulaire ci-dessus pour créer la première carte.</p><% end %>
+    </div>
+  </section>
+</div>

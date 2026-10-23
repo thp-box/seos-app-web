@@ -31,7 +31,7 @@ class OperationsCatalogue
     "organization" => [ Organization, "operations.read" ],
     "organization_invitation" => [ OrganizationInvitation, "operations.read" ],
     "organization_membership" => [ OrganizationMembership, "operations.read" ],
-    "partnership" => [ Partnership, "operations.read" ],
+    "partnership_page" => [ PartnershipPage, "operations.read" ],
     "point_account" => [ PointAccount, "points.read" ],
     "point_adjustment" => [ PointAdjustment, "points.read" ],
     "point_cycle_progress" => [ PointCycleProgress, "points.read" ],

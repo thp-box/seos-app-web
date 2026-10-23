@@ -1,0 +1,95 @@
+<section class="quest-admin-hero" aria-labelledby="community-tab-title">
+  <div class="quest-admin-hero-copy">
+    <span class="quest-admin-kicker">Bibliothèque de parcours</span>
+    <h2 id="community-tab-title">Catalogue des quêtes</h2>
+    <p>Retrouvez une quête instantanément, pilotez sa visibilité et ouvrez uniquement celle que vous souhaitez modifier.</p>
+  </div>
+  <div class="quest-admin-metrics" aria-label="Résumé du catalogue">
+    <div><strong><%= @quest_total %></strong><span>au total</span></div>
+    <div><strong><%= @quest_visible_total %></strong><span>visibles</span></div>
+    <div><strong><%= @quest_archived_total %></strong><span>archivées</span></div>
+    <div><strong><%= @quest_manual_total %></strong><span>avec preuve</span></div>
+  </div>
+</section>
+
+<% if current_user.permission?("community.manage") %>
+  <section class="quest-admin-toolbar" aria-label="Recherche et création de quêtes">
+    <%= form_with url: admin_community_index_path, method: :get, class: "quest-admin-search" do |form| %>
+      <%= hidden_field_tag :tab, "quests", id: nil %>
+      <div class="form-field quest-search-field">
+        <%= label_tag :quest_q, "Rechercher dans les quêtes" %>
+        <div class="quest-search-control"><%= quest_icon("spark") %><%= search_field_tag :quest_q, @quest_query, class: "control", placeholder: "Nom, description ou identifiant…", autocomplete: "off" %></div>
+      </div>
+      <div class="form-field quest-status-field">
+        <%= label_tag :quest_status, "Visibilité" %>
+        <%= select_tag :quest_status, options_for_select([["Toutes les quêtes", "all"], ["Visibles", "active"], ["Archivées", "archived"]], @quest_status), class: "control" %>
+      </div>
+      <%= form.submit "Afficher", class: "btn btn-primary" %>
+      <% if @quest_query.present? || @quest_status != "all" %><%= link_to "Réinitialiser", admin_community_index_path(tab: "quests"), class: "quest-filter-reset" %><% end %>
+    <% end %>
+
+    <details class="quest-create-drawer admin-create-panel">
+      <summary><span aria-hidden="true">+</span> Créer une quête avec preuve</summary>
+      <p>Définissez une quête personnalisée avec une preuve soumise à validation.</p>
+      <%= render "quest_form", quest: Achievement.new %>
+    </details>
+  </section>
+
+  <% if @edited_quest %>
+    <section class="quest-selected-editor" id="quest-editor" aria-labelledby="quest-editor-title">
+      <header>
+        <div><span class="quest-admin-kicker">Configuration ouverte</span><h3 id="quest-editor-title"><%= @edited_quest.name %></h3></div>
+        <%= link_to "Fermer l’éditeur", admin_community_index_path(tab: "quests", quest_q: @quest_query.presence, quest_status: @quest_status, quest_page: @quest_page), class: "btn btn-outline" %>
+      </header>
+      <%= render "quest_form", quest: @edited_quest %>
+    </section>
+  <% end %>
+
+  <div class="quest-results-heading">
+    <div><span class="quest-admin-kicker">Résultats</span><h3><%= pluralize(@quest_filtered_total, "quête", plural: "quêtes") %></h3></div>
+    <span>Page <strong><%= @quest_page %></strong> sur <strong><%= @quest_pages %></strong></span>
+  </div>
+
+  <% if @achievements.any? %>
+    <div class="quest-library-grid">
+      <% @achievements.each do |quest| %>
+        <article class="quest-library-card" data-accent="<%= quest.accent %>">
+          <div class="quest-library-card-top">
+            <span class="quest-library-icon"><%= quest_icon(quest.icon, quest.event_name) %></span>
+            <span class="quest-status-badge <%= quest.active? ? "is-active" : "is-archived" %>"><%= quest.active? ? "Visible" : "Archivée" %></span>
+          </div>
+          <div class="quest-library-content">
+            <span class="quest-library-slug"><%= quest.slug %></span>
+            <h3><%= quest.name %></h3>
+            <p><%= truncate(quest.description, length: 145) %></p>
+          </div>
+          <div class="quest-library-meta">
+            <span><%= quest_recurrence(quest) %></span>
+            <span><%= quest.builtin? ? "Automatique" : "Preuve manuelle" %></span>
+          </div>
+          <%= link_to admin_community_index_path(tab: "quests", edit_quest: quest.id, quest_q: @quest_query.presence, quest_status: @quest_status, quest_page: @quest_page, anchor: "quest-editor"), class: "quest-configure-link", aria: { label: "Configurer la quête #{quest.name}" } do %>
+            Configurer <span aria-hidden="true">→</span>
+          <% end %>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="quest-library-empty">
+      <span class="quest-library-icon"><%= quest_icon("spark") %></span>
+      <h3>Aucune quête trouvée</h3>
+      <p>Modifiez votre recherche ou affichez à nouveau l’ensemble du catalogue.</p>
+      <%= link_to "Voir toutes les quêtes", admin_community_index_path(tab: "quests"), class: "btn btn-outline" %>
+    </div>
+  <% end %>
+
+  <% if @quest_pages > 1 %>
+    <nav class="quest-pagination" aria-label="Pagination des quêtes">
+      <% pagination_params = { tab: "quests", quest_q: @quest_query.presence, quest_status: @quest_status } %>
+      <% if @quest_page > 1 %><%= link_to "← Page précédente", admin_community_index_path(**pagination_params, quest_page: @quest_page - 1), class: "btn btn-outline", rel: "prev" %><% else %><span></span><% end %>
+      <span>Page <strong><%= @quest_page %></strong> sur <strong><%= @quest_pages %></strong></span>
+      <% if @quest_page < @quest_pages %><%= link_to "Page suivante →", admin_community_index_path(**pagination_params, quest_page: @quest_page + 1), class: "btn btn-outline", rel: "next" %><% else %><span></span><% end %>
+    </nav>
+  <% end %>
+<% else %>
+  <p class="notice">Vous disposez d’un accès en lecture seule à cette rubrique.</p>
+<% end %>

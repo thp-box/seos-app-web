@@ -492,7 +492,7 @@ FOREIGN KEY ("created_by_id")
 );
 CREATE INDEX "index_chain_rule_versions_on_created_by_id" ON "chain_rule_versions" ("created_by_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "one_chain_rule_effective_date" ON "chain_rule_versions" ("effective_at") WHERE status = 'published' /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "help_chains" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "creator_id" integer NOT NULL, "chain_rule_version_id" integer NOT NULL, "point_rule_version_id" integer NOT NULL, "slug" varchar NOT NULL, "name" varchar NOT NULL, "status" varchar DEFAULT 'active' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_a26c303f64"
+CREATE TABLE IF NOT EXISTS "help_chains" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "creator_id" integer NOT NULL, "chain_rule_version_id" integer NOT NULL, "point_rule_version_id" integer NOT NULL, "slug" varchar NOT NULL, "name" varchar NOT NULL, "status" varchar DEFAULT 'active' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "featured_on_home" boolean DEFAULT FALSE NOT NULL, CONSTRAINT "fk_rails_a26c303f64"
 FOREIGN KEY ("creator_id")
   REFERENCES "users" ("id")
 , CONSTRAINT "fk_rails_490fcf5524"
@@ -590,16 +590,6 @@ FOREIGN KEY ("user_id")
 CREATE INDEX "index_mission_messages_on_mission_application_id" ON "mission_messages" ("mission_application_id") /*application='SeosFrance'*/;
 CREATE INDEX "index_mission_messages_on_user_id" ON "mission_messages" ("user_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "unique_mission_message" ON "mission_messages" ("mission_application_id", "user_id", "delivery_key") /*application='SeosFrance'*/;
-CREATE TABLE IF NOT EXISTS "partnerships" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "organization_id" integer NOT NULL, "slug" varchar NOT NULL, "kind" varchar DEFAULT 'operational' NOT NULL, "status" varchar DEFAULT 'draft' NOT NULL, "public_title" varchar, "cta_label" varchar, "cta_url" varchar, "public_description" text, "starts_on" date, "ends_on" date, "position" integer DEFAULT 0 NOT NULL, "approved_by_id" integer, "approved_at" datetime(6), "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ea88a3f869"
-FOREIGN KEY ("organization_id")
-  REFERENCES "organizations" ("id")
-, CONSTRAINT "fk_rails_56c00cf67e"
-FOREIGN KEY ("approved_by_id")
-  REFERENCES "users" ("id")
-);
-CREATE INDEX "index_partnerships_on_organization_id" ON "partnerships" ("organization_id") /*application='SeosFrance'*/;
-CREATE UNIQUE INDEX "index_partnerships_on_slug" ON "partnerships" ("slug") /*application='SeosFrance'*/;
-CREATE INDEX "index_partnerships_on_approved_by_id" ON "partnerships" ("approved_by_id") /*application='SeosFrance'*/;
 CREATE TRIGGER organization_last_owner_update BEFORE UPDATE ON organization_memberships WHEN OLD.role = 'owner' AND OLD.status = 'active' AND (NEW.status != 'active' OR NEW.role != 'owner' OR NEW.organization_id != OLD.organization_id) AND NOT EXISTS (SELECT 1 FROM organization_memberships WHERE organization_id = OLD.organization_id AND id != OLD.id AND role = 'owner' AND status = 'active') BEGIN SELECT RAISE(ABORT, 'last organization owner'); END;
 CREATE TRIGGER organization_last_owner_delete BEFORE DELETE ON organization_memberships WHEN OLD.role = 'owner' AND OLD.status = 'active'  AND NOT EXISTS (SELECT 1 FROM organization_memberships WHERE organization_id = OLD.organization_id AND id != OLD.id AND role = 'owner' AND status = 'active') BEGIN SELECT RAISE(ABORT, 'last organization owner'); END;
 CREATE TRIGGER mission_messages_no_update BEFORE UPDATE ON mission_messages BEGIN SELECT RAISE(ABORT, 'immutable mission message'); END;
@@ -739,17 +729,31 @@ FOREIGN KEY ("published_by_id")
 CREATE INDEX "index_volunteer_missions_on_organization_id" ON "volunteer_missions" ("organization_id") /*application='SeosFrance'*/;
 CREATE UNIQUE INDEX "index_volunteer_missions_on_slug" ON "volunteer_missions" ("slug") /*application='SeosFrance'*/;
 CREATE INDEX "index_volunteer_missions_on_published_by_id" ON "volunteer_missions" ("published_by_id") /*application='SeosFrance'*/;
+CREATE INDEX "index_categories_on_deleted_at" ON "categories" ("deleted_at");
+CREATE INDEX "index_listings_on_status_and_expires_at" ON "listings" ("status", "expires_at");
+CREATE TABLE IF NOT EXISTS "partnership_pages" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar NOT NULL, "introduction" text, "body" text, "contact_label" varchar, "contact_url" varchar, "updated_by_id" integer, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6d95606ca8"
+FOREIGN KEY ("updated_by_id")
+  REFERENCES "users" ("id")
+);
+CREATE INDEX "index_partnership_pages_on_updated_by_id" ON "partnership_pages" ("updated_by_id");
+CREATE TABLE IF NOT EXISTS "feature_flags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "enabled" boolean DEFAULT TRUE NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT feature_flags_key_values CHECK (key IN ('public_map_enabled','voyage_enabled')));
+CREATE UNIQUE INDEX "index_feature_flags_on_key" ON "feature_flags" ("key");
 CREATE TABLE IF NOT EXISTS "organizations" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "slug" varchar NOT NULL, "kind" varchar NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "description" text, "public_location" varchar, "legal_name" text, "registration_number" text, "legal_email" text, "published_at" datetime(6), "verified_at" datetime(6), "verified_by_id" integer, "lock_version" integer DEFAULT 0 NOT NULL, "request_kind" varchar, CONSTRAINT "fk_rails_ae6c29827f"
 FOREIGN KEY ("verified_by_id")
   REFERENCES "users" ("id")
-, CONSTRAINT organizations_status CHECK (status IN ('pending', 'verified', 'rejected', 'suspended')), CONSTRAINT organizations_request_kind CHECK (request_kind IS NULL OR request_kind IN ('partnership', 'community_mission')), CONSTRAINT organizations_kind CHECK (kind IN ('association', 'company', 'micro_company', 'institution', 'collective')));
-CREATE UNIQUE INDEX "index_organizations_on_slug" ON "organizations" ("slug") /*application='SeosFrance'*/;
-CREATE INDEX "index_organizations_on_verified_by_id" ON "organizations" ("verified_by_id") /*application='SeosFrance'*/;
-CREATE INDEX "index_categories_on_deleted_at" ON "categories" ("deleted_at");
-CREATE INDEX "index_listings_on_status_and_expires_at" ON "listings" ("status", "expires_at");
-CREATE TABLE IF NOT EXISTS "feature_flags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "enabled" boolean DEFAULT TRUE NOT NULL, "lock_version" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT feature_flags_key_values CHECK (key IN ('public_map_enabled','voyage_enabled','partnerships_enabled')));
-CREATE UNIQUE INDEX "index_feature_flags_on_key" ON "feature_flags" ("key");
+, CONSTRAINT organizations_status CHECK (status IN ('pending', 'verified', 'rejected', 'suspended')), CONSTRAINT organizations_kind CHECK (kind IN ('association', 'company', 'micro_company', 'institution', 'collective')), CONSTRAINT organizations_request_kind CHECK (request_kind IS NULL OR request_kind = 'community_mission'));
+CREATE UNIQUE INDEX "index_organizations_on_slug" ON "organizations" ("slug");
+CREATE INDEX "index_organizations_on_verified_by_id" ON "organizations" ("verified_by_id");
+CREATE TABLE IF NOT EXISTS "partner_entries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "partnership_page_id" integer NOT NULL, "title" varchar NOT NULL, "description" text, "website_url" varchar NOT NULL, "position" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_534b3e902d"
+FOREIGN KEY ("partnership_page_id")
+  REFERENCES "partnership_pages" ("id")
+);
+CREATE INDEX "index_partner_entries_on_partnership_page_id" ON "partner_entries" ("partnership_page_id");
+CREATE INDEX "index_partner_entries_on_partnership_page_id_and_position" ON "partner_entries" ("partnership_page_id", "position");
 INSERT INTO "schema_migrations" (version) VALUES
+('20261023093200'),
+('20261023093100'),
+('20261023093000'),
 ('20261023092000'),
 ('20261023091000'),
 ('20261023090000'),

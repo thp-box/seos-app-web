@@ -1,19 +1,9 @@
-<%= render "shared/public_hero", eyebrow: "Partenariat · #{network_label(@partnership.kind)}", title: @partnership.public_title, description: @partnership.organization.name %>
-<div class="container association-profile">
-  <nav class="association-breadcrumb" aria-label="Fil d’Ariane"><%= link_to "← Tous les partenariats", partnerships_path %></nav>
-  <section class="association-presentation" aria-labelledby="partnership-about">
-    <div class="association-identity">
-      <div class="association-card-logo">
-        <% if @partnership.logo.attached? %><%= image_tag media_path(@partnership.logo.attachment), alt: "Logo de #{@partnership.organization.name}", width: 96, height: 96 %><% else %><span aria-hidden="true"><%= @partnership.organization.name.split.first(2).map { |word| word.first }.join.upcase %></span><% end %>
-      </div>
-      <span class="association-verified"><%= network_label(@partnership.kind) %></span>
-      <p><%= @partnership.organization.name %></p>
-      <% if @partnership.starts_on && @partnership.ends_on %><p>Du <%= l @partnership.starts_on %><br>au <%= l @partnership.ends_on %></p><% end %>
-    </div>
-    <div class="association-about">
-      <span class="eyebrow">Un engagement partagé</span><h2 id="partnership-about">À propos du partenariat</h2>
-      <%= plain_paragraphs @partnership.public_description %>
-      <% if @partnership.cta_url.present? && @partnership.safe_link? %><%= link_to @partnership.cta_label, @partnership.cta_url, rel: "external noopener noreferrer", class: "btn btn-deep" %><% end %>
-    </div>
-  </section>
-</div>
+<% content_for :title, @partnership_page.title %>
+<%= render "shared/public_hero", eyebrow: "SEOS et son réseau", title: @partnership_page.title, description: @partnership_page.introduction %>
+<section class="container section partner-page" aria-labelledby="partner-page-title">
+  <div class="partner-page-intro"><span class="account-eyebrow">Construire ensemble</span><h2 id="partner-page-title">Des structures engagées à nos côtés</h2><%= plain_paragraphs @partnership_page.body %></div>
+  <% if @partnership_page.partner_entries.any? %><div class="partner-public-grid"><% @partnership_page.partner_entries.each do |partner| %><article class="partner-public-card">
+    <a href="<%= partner.website_url %>" target="_blank" rel="external noopener noreferrer" aria-label="Visiter le site de <%= partner.title %>"><div class="partner-public-logo"><% if partner.logo.attached? %><%= image_tag media_path(partner.logo.attachment), alt: "Logo de #{partner.title}", width: 180, height: 110, loading: "lazy" %><% else %><span><%= partner.title.first.upcase %></span><% end %></div><h3><%= partner.title %></h3><%= plain_paragraphs partner.description %><span class="partner-public-link">Découvrir le partenaire <span aria-hidden="true">→</span></span></a>
+  </article><% end %></div><% else %><p class="partner-public-empty">Les premiers partenaires seront présentés prochainement.</p><% end %>
+  <% if @partnership_page.contact_label.present? && @partnership_page.contact_url.present? %><div class="partner-page-contact"><h2>Construisons quelque chose d’utile</h2><p>Vous souhaitez contribuer au réseau SEOS ?</p><%= link_to @partnership_page.contact_label, @partnership_page.contact_url, class: "btn btn-primary", rel: "external noopener noreferrer" %></div><% end %>
+</section>

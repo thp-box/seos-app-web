@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["status", "guided", "layers", "pages", "pageName", "library", "theme", "inspector", "frame", "frameWrap", "previewForm", "document", "slug", "revision"]
+  static targets = ["status", "layers", "pages", "pageName", "library", "theme", "inspector", "frame", "frameWrap", "previewForm", "document", "slug", "revision"]
   static values = { state: Object, saveUrl: String }
 
   connect() {
@@ -118,20 +118,14 @@ export default class extends Controller {
       const option = this.node("option", page.title); option.value = slug; this.pagesTarget.append(option)
     })
     this.pagesTarget.value = this.page
-    this.updateGuided()
     this.renderLayers()
-  }
-  updateGuided() {
-    const url = new URL(this.guidedTarget.href)
-    url.searchParams.set("page", this.page)
-    this.guidedTarget.href = url.pathname + url.search
   }
   renderLayers() {
     this.layersTarget.replaceChildren()
     this.blocks.forEach((block, index) => this.button(`${index + 1}. ${this.config.templates[block.template].name}${block.hidden ? " — masquée" : ""}`, () => { this.selectedId = block.id; this.selectedField = null; this.inspect(); this.highlight(); this.frameTarget.contentDocument?.getElementById(`site-section-${block.id}`)?.scrollIntoView({ block: "center" }) }, this.layersTarget))
     if (!this.blocks.length) this.layersTarget.append(this.node("p", "Ajoutez une section pour commencer la composition de cette page."))
   }
-  changePage() { this.page = this.pagesTarget.value; this.updateGuided(); this.selectedId = null; this.renderLayers(); this.inspect(); this.refresh() }
+  changePage() { this.page = this.pagesTarget.value; this.selectedId = null; this.renderLayers(); this.inspect(); this.refresh() }
   createPage() {
     const title = this.pageNameTarget.value.trim()
     if (!title || title.length > 100) { this.message("Donnez un nom à votre page (100 caractères maximum)."); return }
@@ -337,7 +331,6 @@ export default class extends Controller {
       if (!response.ok) throw new Error(result.error || "L’enregistrement a échoué.")
       this.saved = sent; this.digest = result.digest; this.saveUrlValue = result.save
       this.previewFormTarget.action = result.preview
-      this.guidedTarget.href = `${result.guided}?area=${encodeURIComponent(this.config.area || "pages")}&page=${encodeURIComponent(this.page)}`
       history.replaceState({}, "", `${result.url}?page=${encodeURIComponent(this.page)}`)
       this.message(this.dirty ? "Copie enregistrée. Des changements plus récents restent à enregistrer." : "Copie enregistrée. Elle n’est pas encore en ligne.")
       if (review && !this.dirty) window.location.assign(`${result.review}?page=${encodeURIComponent(this.page)}&editor=visual`)

@@ -2,7 +2,7 @@ module AdminSupervisionHelper
   REGISTER_LABELS = {
     "user" => "Membres", "profile" => "Profils publics", "listing" => "Annonces", "report" => "Signalements",
     "review" => "Avis", "review_rating" => "Notes des avis", "review_criterion" => "Critères des avis",
-    "organization" => "Organisations", "volunteer_mission" => "Missions communautaires", "partnership" => "Partenariats",
+    "organization" => "Organisations", "volunteer_mission" => "Missions communautaires", "partnership_page" => "Page partenaires",
     "audit_log" => "Journal d’audit", "bulk_operation" => "Opérations groupées", "login_session" => "Sessions de connexion",
     "login_block" => "Blocages de connexion", "admin_permission_grant" => "Droits administratifs",
     "trust_score_snapshot" => "Historique des scores de confiance", "trust_profile" => "Scores de confiance publiés",

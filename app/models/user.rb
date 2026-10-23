@@ -28,7 +28,7 @@ class User < ApplicationRecord
     suspended? || anonymized? ? :inactive : super
   end
 
-  ADMIN_CORE_PERMISSIONS = %w[listings.moderate organizations.read organizations.manage partnerships.manage].freeze
+  ADMIN_CORE_PERMISSIONS = %w[listings.moderate organizations.read organizations.manage].freeze
   SITE_SUPER_ADMIN_PERMISSIONS = %w[content.manage categories.manage studio.read studio.preview studio.manage seo.manage].freeze
 
   def permission?(key)

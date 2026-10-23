@@ -21,9 +21,9 @@ module SiteHelper
   end
   def site_workspace_action(label, version, **options)
     if version
-      link_to label, edit_admin_site_path(version, **options), class: "btn btn-deep"
+      link_to label, visual_admin_site_path(version, **options), class: "btn btn-deep"
     else
-      button_to label, admin_site_index_path, params: options, class: "btn btn-deep"
+      link_to label, admin_site_index_path(options), class: "btn btn-deep"
     end
   end
   def site_token_choices(key, values)

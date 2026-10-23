@@ -62,8 +62,9 @@ RSpec.describe "Parcours communautaires", type: :request do
     expect(response.body).not_to include("Entraide formidable")
     delete destroy_user_session_path
     login admin
-    get admin_community_index_path
-    expect(response.body).to include("Entraide formidable", "Nouveau barème")
+    get admin_community_index_path(tab: "testimonials")
+    expect(response.body).to include("Entraide formidable", "Quêtes", "chaînes")
+    expect(response.body).not_to include("Nouveau barème", "Barèmes de chaînes")
     post admin_community_index_path, params: { operation: "review_testimonial", record_id: record.id, decision: "published", reason: "Accord vérifié" }
     expect(response).to have_http_status(:see_other)
     get testimonials_path
@@ -82,33 +83,25 @@ RSpec.describe "Parcours communautaires", type: :request do
   it "administre les quêtes sans laisser publier un barème à un administrateur délégué" do
     staff = create(:user, :admin)
     login staff
-    get admin_community_index_path
+    get admin_community_index_path(tab: "proofs")
     expect(response).to have_http_status(:forbidden)
     grant(staff, "community.manage")
     post admin_community_index_path, params: { operation: "quest", slug: "quartier", name: "Aider le quartier", description: "Décrire son action", reward_key: "share", recurrence: "monthly", reason: "Campagne" }
     expect(response).to have_http_status(:see_other)
     quest = Achievement.last
     record = Achievements.submit!(user: user, achievement: quest, evidence: "Action locale")
-    get admin_community_index_path
+    get admin_community_index_path(tab: "proofs")
     expect(response.body).to include("Action locale")
     post admin_community_index_path, params: { operation: "review_quest", record_id: record.id, decision: "approved", reason: "Vérifié" }
     expect(response).to have_http_status(:see_other)
     post admin_community_index_path, params: { operation: "quest_update", record_id: quest.id, name: "Quartier", description: "Agir", active: false, reason: "Pause" }
     expect(quest.reload.active).to be(false)
-    post admin_community_index_path, params: { operation: "version", name: "Non", effective_at: 1.day.from_now }
-    expect(response).to have_http_status(:forbidden)
+    expect { post admin_community_index_path, params: { operation: "version", name: "Non", effective_at: 1.day.from_now } }.not_to change(ChainRuleVersion, :count)
+    expect(response).to have_http_status(:unprocessable_content)
     delete destroy_user_session_path
     login admin
-    post admin_community_index_path, params: { operation: "version", name: "Demain", effective_at: 1.day.from_now, reason: "Barème" }
-    expect(response).to have_http_status(:see_other)
-    version = ChainRuleVersion.last
-    %w[simulate publish].each do |action|
-      post admin_community_index_path, params: { operation: action, record_id: version.id, reason: "Recette" }
-      expect(response).to have_http_status(:see_other)
-    end
-    post admin_community_index_path, params: { operation: "rollback", record_id: version.id, name: "Retour", effective_at: 2.days.from_now, reason: "Retour" }
-    expect(response).to have_http_status(:see_other)
-    expect(ChainRuleVersion.last.status).to eq("draft")
+    expect { post admin_community_index_path, params: { operation: "version", name: "Demain", effective_at: 1.day.from_now, reason: "Barème" } }.not_to change(ChainRuleVersion, :count)
+    expect(response).to have_http_status(:unprocessable_content)
     post admin_community_index_path, params: { operation: "unknown" }
     expect(response).to have_http_status(:unprocessable_content)
   end

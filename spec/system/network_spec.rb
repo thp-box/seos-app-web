@@ -50,10 +50,9 @@ RSpec.describe "Interfaces des organisations et Voyage", type: :system do
     expect(find_field("Lien privé de l’invitation").value).to include("invitation_token=")
   end
 
-  it "garde la revue administrative accessible avec les formulaires de plusieurs ressources" do
+  it "garde la revue administrative accessible avec les missions" do
     organization = organization_space
     world_mission(organization: organization)
-    Partnership.create!({ organization: organization }.merge(partnership_attributes))
     browser_login(create(:user, :super_admin))
     visit admin_network_index_path
     check_page("network-admin")
