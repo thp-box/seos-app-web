@@ -1,3 +1,8 @@
+<% if page["canvas"].present? %>
+  <%= render "site/edit_link", slug: slug %>
+  <%= tag.style SiteCanvasDocument.sanitize_css(page.dig("canvas", "css")), nonce: content_security_policy_nonce %>
+  <%= site_canvas_html(page) %>
+<% else %>
 <%= render "site/edit_link", slug: slug %>
 <% display_blocks = page["blocks"].reject { |block| SiteDesign::RETIRED_TEMPLATES.include?(block["template"]) } %>
 <% hero_template = display_blocks.find { |block| !block["hidden"] && %w[home-0 don-0 exchange-0 points-0].include?(block["template"]) }&.fetch("template") %>
@@ -13,6 +18,11 @@
     <% if block["template"] == "spacer" %><div class="site-spacer" aria-hidden="true"><% if @visual_preview %><span>Section vide</span><% end %></div>
     <% elsif block["template"] == "text" %><section class="section"><div class="container"><h2 data-field="title"><%= block["values"].fetch("title", "Votre titre") %></h2><div data-field="body"><%= plain_paragraphs block["values"].fetch("body", "Votre contenu") %></div><% if block["values"]["url"].present? && block["values"]["label"].present? %><%= link_to block["values"]["label"], block["values"]["url"], class: "btn btn-deep" %><% end %></div></section>
     <% else %><%= maquette_html SiteDesign.templates.fetch(block["template"])["html"], block: block, secondary_heading: heading_used %><% heading_used ||= SiteDesign.templates.fetch(block["template"])["html"].to_s.include?("<h1") %><% end %>
+    <% if block.fetch("children", []).any? || @visual_preview %>
+      <div class="container studio-custom-elements" data-studio-elements="<%= block['id'] %>">
+        <%= render partial: "site/builder_element", collection: block.fetch("children", []), as: :element, locals: { parent_id: block.fetch("id") } %>
+      </div>
+    <% end %>
     <% next_block = visible_blocks[index + 1] %>
     <% explicit = block["placement"] != "top" && ContentVersion::PRESETS.include?(block["separator"]) %>
     <% automatic = block["separator"].nil? && (SiteSectionSurface.automatic?(block) || (next_block.nil? && SiteSectionSurface.tone(block) != "cream")) %>
@@ -21,3 +31,4 @@
     </div>
   <% end %>
 </div></div>
+<% end %>

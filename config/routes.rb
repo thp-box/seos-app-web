@@ -84,6 +84,8 @@ Rails.application.routes.draw do
       get :visual, on: :member, to: "visual_studio#show"
       post :visual_preview, on: :member, to: "visual_studio#preview"
       post :visual_save, on: :member, to: "visual_studio#save"
+      get :builder, on: :member, to: "visual_studio#builder"
+      post :builder_save, on: :member, to: "visual_studio#builder_save"
       get :review, on: :member
       post :publish, on: :member
     end

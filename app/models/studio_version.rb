@@ -1,7 +1,7 @@
 class StudioVersion < ApplicationRecord
   DEFAULT_NAME = "SEOS Default v1".freeze
   COLORS = { "deep" => "#004961", "seos" => "#0092C5", "turq" => "#21A2AF", "gold" => "#CDAE4F", "cream" => "#FBFAF4", "mist" => "#EEF7F9", "ink" => "#173947", "muted" => "#64767D", "line" => "#D9E4E6", "white" => "#FFFFFF", "danger" => "#DC674F", "ok" => "#2E956D", "footer" => "#002F40" }.freeze
-  OPTIONS = { "radius" => %w[12px 18px 26px 32px], "font-body" => [ "DM Sans, sans-serif", "Playfair Display, serif", "system-ui, sans-serif" ], "font-heading" => [ "Playfair Display, serif", "DM Sans, sans-serif" ], "motion" => %w[none subtle standard], "button-radius" => %w[12px 26px 999px], "card-radius" => %w[16px 24px 38px], "section-space" => %w[48px 72px 92px 112px], "wave-height" => %w[50px 100px 135px 190px], "wave-speed" => %w[4s 8s 12s 20s], "wave-amplitude" => %w[0px 8px 16px 24px], "wave-shape" => %w[wave curve diagonal flat], "shadow" => [ "none", "0 18px 50px rgba(0,73,97,.10)" ] }.freeze
+  OPTIONS = { "radius" => %w[12px 18px 26px 32px], "font-body" => [ "DM Sans, sans-serif", "Playfair Display, serif", "system-ui, sans-serif" ], "font-heading" => [ "Playfair Display, serif", "DM Sans, sans-serif" ], "motion" => %w[none subtle standard], "button-radius" => %w[12px 26px 999px], "card-radius" => %w[16px 24px 38px], "section-space" => %w[48px 72px 92px 112px], "wave-height" => %w[50px 100px 135px 190px], "wave-speed" => %w[4s 8s 12s 20s], "wave-amplitude" => %w[0px 8px 16px 24px], "wave-angle" => %w[-12deg -6deg 0deg 6deg 12deg], "wave-roundness" => %w[25% 50% 75% 100%], "wave-shape" => %w[wave curve diagonal flat], "shadow" => [ "none", "0 18px 50px rgba(0,73,97,.10)" ] }.freeze
   PAGES = %w[legal home don echange points communaute voyage-solidaire].freeze
   belongs_to :author, class_name: "User"
   validates :name, presence: true, length: { maximum: 100 }
@@ -48,7 +48,21 @@ class StudioVersion < ApplicationRecord
       errors.add(:settings, "référence éditoriale invalide")
     end
     tokens.each do |key, value|
-      valid = COLORS.key?(key) ? value.is_a?(String) && value.match?(/\A#[0-9a-fA-F]{6}\z/) : OPTIONS.fetch(key, []).include?(value)
+      valid = if COLORS.key?(key)
+        value.is_a?(String) && value.match?(/\A#[0-9a-fA-F]{6}\z/)
+      elsif key == "wave-height"
+        css_number?(value, "px", 40..220)
+      elsif key == "wave-speed"
+        css_number?(value, "s", 2..24)
+      elsif key == "wave-amplitude"
+        css_number?(value, "px", 0..32)
+      elsif key == "wave-angle"
+        css_number?(value, "deg", -15..15)
+      elsif key == "wave-roundness"
+        css_number?(value, "%", 0..100)
+      else
+        OPTIONS.fetch(key, []).include?(value)
+      end
       errors.add(:settings, "token interdit : #{key}") unless valid
     end
     settings.fetch("pages", {}).each do |slug, fields|
@@ -67,5 +81,9 @@ class StudioVersion < ApplicationRecord
       end
       errors.add(:settings, "texte alternatif requis") if fields["image"] && fields["alt"].blank?
     end
+  end
+  def css_number?(value, unit, range)
+    return false unless value.is_a?(String) && value.match?(/\A-?\d+#{Regexp.escape(unit)}\z/)
+    range.cover?(value.delete_suffix(unit).to_i)
   end
 end

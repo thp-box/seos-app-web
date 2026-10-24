@@ -10,6 +10,7 @@ module Admin
 
     def review
       @area = params[:area]
+      @editor = params[:editor].presence_in(%w[visual builder]) || "visual"
       @slug = params[:page].presence || "home"
       raise ActiveRecord::RecordNotFound unless @version.available_pages.include?(@slug)
       @device = params[:device].presence_in(%w[phone tablet desktop]) || "desktop"

@@ -1,0 +1,45 @@
+<% content_for :title, "Studio V2 — éditeur visuel" %>
+<main class="studio-v2 studio-v2-elementor" data-studio-builder data-turbo="false">
+  <script type="application/json" data-studio-config><%= raw json_escape(@builder_data.to_json) %></script>
+  <header class="studio-v2-topbar">
+    <div class="studio-v2-brand">
+      <%= link_to admin_root_path, class: "studio-v2-back", aria: { label: "Retour à l’administration" } do %><span aria-hidden="true">←</span><% end %>
+      <span class="studio-v2-logo" aria-hidden="true"><%= quest_icon("spark") %></span>
+      <div><strong>Studio V2</strong><small>Constructeur visuel libre</small></div><span class="studio-v2-beta">Bêta</span>
+    </div>
+    <div class="studio-v2-history" aria-label="Historique"><button type="button" data-studio-command="undo" aria-label="Annuler">↶</button><button type="button" data-studio-command="redo" aria-label="Rétablir">↷</button></div>
+    <p class="studio-v2-status" data-studio-status role="status" aria-live="polite">Tous les éléments de la page sont modifiables.</p>
+    <div class="studio-v2-publish-actions">
+      <%= link_to "Ancien éditeur", visual_admin_site_path(@source, page: @slug), class: "studio-v2-secondary-action" %>
+      <button type="button" data-studio-save class="studio-v2-secondary-action">Enregistrer</button>
+      <button type="button" data-studio-review class="studio-v2-primary-action">Vérifier et publier</button>
+    </div>
+  </header>
+  <div class="studio-v2-workspace">
+    <aside class="studio-v2-sidebar" aria-label="Outils de construction">
+      <div class="studio-v2-page-picker"><label for="studio-v2-page">Page à modifier</label><select id="studio-v2-page" data-studio-pages></select></div>
+      <div class="studio-v2-sidebar-tabs" role="tablist"><button type="button" class="is-active" data-studio-tab="library">＋ Ajouter</button><button type="button" data-studio-tab="layers">☷ Structure</button><button type="button" data-studio-tab="settings">⚙ Réglages</button></div>
+      <section class="studio-v2-panel is-active" data-studio-panel="library">
+        <div class="studio-v2-panel-heading"><span>Bibliothèque</span><h2>Glisser dans la page</h2></div>
+        <div class="studio-v2-library-switch"><button type="button" class="is-active" data-library-view="widgets">Éléments</button><button type="button" data-library-view="sections">Compositions</button></div>
+        <label class="studio-v2-search"><span class="sr-only">Rechercher</span><%= quest_icon("spark") %><input type="search" placeholder="Rechercher un élément…" data-studio-search></label>
+        <div class="studio-v2-real-library" data-studio-library></div><p class="studio-v2-library-empty" data-library-empty hidden>Aucun résultat.</p>
+      </section>
+      <section class="studio-v2-panel" data-studio-panel="layers" hidden>
+        <div class="studio-v2-panel-heading"><span>Navigateur</span><h2>Tous les éléments</h2></div>
+        <p class="studio-v2-panel-help">Glissez une ligne pour la déplacer. Chaque titre, image, bouton et conteneur reste indépendant.</p><div class="studio-v2-grapes-layers" data-studio-layers></div>
+      </section>
+      <section class="studio-v2-panel" data-studio-panel="settings" hidden>
+        <div class="studio-v2-selection-head"><button type="button" data-studio-back aria-label="Retour">←</button><div><span>Élément sélectionné</span><h2 data-studio-selection-name>Aucune sélection</h2></div></div>
+        <div class="studio-v2-selection-tabs"><button type="button" class="is-active" data-settings-tab="style">Style</button><button type="button" data-settings-tab="content">Contenu</button><button type="button" data-settings-tab="advanced">Avancé</button></div>
+        <div data-settings-panel="style"><div class="studio-v2-wave-controls" data-wave-controls hidden><strong>Forme de la vague</strong><label>Courbure <output data-wave-output="roundness">55%</output><input type="range" min="0" max="100" value="55" data-wave-control="roundness"></label><label>Profondeur <output data-wave-output="depth">65%</output><input type="range" min="10" max="110" value="65" data-wave-control="depth"></label><label>Inclinaison <output data-wave-output="angle">0°</output><input type="range" min="-15" max="15" value="0" data-wave-control="angle"></label></div><div data-studio-styles></div></div>
+        <div data-settings-panel="content" hidden><div class="studio-v2-inline-help"><strong>Texte libre</strong><p>Double-cliquez un texte dans la page. La barre flottante permet gras, italique, souligné et liens.</p></div><div data-studio-traits></div></div>
+        <div data-settings-panel="advanced" hidden><div class="studio-v2-inline-help"><strong>Placement</strong><p>Déplacez l’élément dans n’importe quel conteneur depuis la page ou l’arbre.</p></div><button type="button" class="studio-v2-danger-action" data-studio-delete>Supprimer cet élément</button></div>
+      </section>
+    </aside>
+    <section class="studio-v2-canvas-shell" aria-label="Éditeur visuel">
+      <header class="studio-v2-canvas-toolbar"><div><span class="studio-v2-live-dot"></span><strong>Édition directe</strong></div><div class="studio-v2-devices"><button type="button" data-device="Desktop" class="is-active">Ordinateur</button><button type="button" data-device="Tablet">Tablette</button><button type="button" data-device="Mobile portrait">Téléphone</button></div><button type="button" class="studio-v2-preview-action" data-studio-fullscreen>Plein écran</button></header>
+      <div class="studio-v2-canvas"><div id="studio-v2-editor"></div></div><p class="studio-v2-canvas-help">Cliquez pour sélectionner · Double-cliquez pour écrire · Glissez pour déplacer · Ctrl/⌘ + Z pour annuler</p>
+    </section>
+  </div>
+</main>

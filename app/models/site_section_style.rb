@@ -7,7 +7,9 @@ class SiteSectionStyle
     "size" => { "normal" => "Taille d’origine", "small" => "Plus petit", "large" => "Plus grand" },
     "space" => { "normal" => "Espacement d’origine", "compact" => "Rapproché", "airy" => "Aéré" },
     "shape" => { "normal" => "Forme d’origine", "rounded" => "Arrondie", "organic" => "Organique" },
-    "animation" => { "none" => "Sans animation", "appear" => "Apparition douce", "float" => "Flottement doux", "breathe" => "Respiration" }
+    "animation" => { "none" => "Sans animation", "appear" => "Apparition douce", "float" => "Flottement doux", "breathe" => "Respiration" },
+    "width" => { "full" => "Toute la largeur", "half" => "Une demi-colonne", "third" => "Un tiers", "two-thirds" => "Deux tiers" },
+    "align" => { "left" => "Aligné à gauche", "center" => "Centré", "right" => "Aligné à droite" }
   }.freeze
   def self.valid?(style)
     style.is_a?(Hash) && style.all? { |key, value| OPTIONS.fetch(key, {}).key?(value) }
@@ -24,6 +26,16 @@ class SiteSectionStyle
       # Field identifiers come from the reference schema, never from arbitrary selectors.
       css += rules("#{selector} [data-field=#{field}],#{selector} [data-image=#{field}]", style, section: false)
     end
+    block.fetch("children", []).each do |element|
+      element_selector = "#{selector} #site-element-#{element.fetch('id')}"
+      css += rules(element_selector, element.fetch("style", {}), section: false)
+      if element["template"] == "spacer"
+        fields = SiteDesign.templates.fetch("spacer").fetch("fields")
+        desktop = element.fetch("values", {}).fetch("height", fields.dig("height", "default")).to_i.clamp(8, 1200)
+        mobile = element.fetch("values", {}).fetch("mobile_height", fields.dig("mobile_height", "default")).to_i.clamp(8, 1200)
+        css += "#{element_selector}{min-height:#{desktop}px}@media(max-width:760px){#{element_selector}{min-height:#{mobile}px}}"
+      end
+    end
     css
   end
   def self.rules(selector, style, section:)
@@ -39,6 +51,11 @@ class SiteSectionStyle
     if %w[appear float breathe].include?(style["animation"])
       animation = { "appear" => "site-appear .7s ease-out both", "float" => "site-float 6s ease-in-out infinite alternate", "breathe" => "site-breathe 8s ease-in-out infinite alternate" }.fetch(style["animation"])
       rules << ":is(#{selector}){animation:#{animation};#{'display:inline-block' unless section}}"
+    end
+    unless section
+      span = { "full" => 12, "half" => 6, "third" => 4, "two-thirds" => 8 }[style["width"]]
+      rules << "#{selector}{grid-column:span #{span}}" if span
+      rules << "#{selector}{text-align:#{style['align']};justify-self:#{style['align'] == 'left' ? 'start' : style['align'] == 'right' ? 'end' : 'center'}}" if %w[left center right].include?(style["align"])
     end
     rules.join
   end

@@ -1,7 +1,7 @@
 <% content_for :title, "Éditeur visuel — Studio admin" %>
 <div data-controller="visual-studio" data-visual-studio-state-value="<%= @editor_data.to_json %>" data-visual-studio-save-url-value="<%= visual_save_admin_site_path(@source) %>" data-turbo="false" class="visual-studio">
   <div class="visual-toolbar">
-    <%= link_to "← Studio admin", admin_root_path %><h1>Éditeur visuel</h1>
+    <%= link_to "← Studio admin", admin_root_path %><h1>Éditeur visuel</h1><%= link_to "Essayer Studio V2", builder_admin_site_path(@source, page: @slug), class: "btn btn-deep" %>
     <button type="button" class="btn btn-outline" data-action="visual-studio#undo">Annuler</button><button type="button" class="btn btn-outline" data-action="visual-studio#redo">Rétablir</button>
     <button type="button" class="btn btn-outline" data-action="visual-studio#save">Enregistrer</button><button type="button" class="btn btn-deep" data-action="visual-studio#review">Vérifier et mettre en ligne</button>
   </div>

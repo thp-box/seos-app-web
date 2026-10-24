@@ -2,6 +2,7 @@
 class SiteDesign
   SOURCE = Rails.root.join("config/studio/maquette.json")
   RETIRED_TEMPLATES = %w[home-10 community-support].freeze
+  ATOMIC_TEMPLATES = %w[heading paragraph image button divider spacer text].freeze
   CHROME = {
     "header" => { "mobile_join_label" => "Créer un compte", "join_label" => "Rejoindre SEOS", "login_label" => "Connexion", "account_label" => "Mon espace", "logo" => "seos-logo.png", "alt" => "SEOS", "links" => [ { "label" => "Découvrir", "url" => "/" }, { "label" => "Annonces", "url" => "/annonces" }, { "label" => "La communauté", "url" => "/communaute" }, { "label" => "Voyage solidaire", "url" => "/voyage-solidaire" } ] },
     "footer" => { "logo" => "seos-logo.png", "alt" => "SEOS", "title" => "La communauté francophone d’entraide et d’échange de services.", "description" => "", "links" => [
@@ -21,7 +22,34 @@ class SiteDesign
       "body" => { "type" => "text", "label" => "Contenu", "default" => "Votre contenu" },
       "label" => { "type" => "text", "label" => "Bouton", "default" => "En savoir plus" },
       "url" => { "type" => "url", "label" => "Destination", "default" => "/contact" }
-    } })
+    } }).merge(
+      "heading" => { "name" => "Titre", "html" => '<section class="section builder-atomic builder-heading"><div class="container"><h2><span data-field="text">Votre titre</span></h2></div></section>', "fields" => {
+        "text" => { "type" => "text", "label" => "Titre", "default" => "Votre titre" }
+      } },
+      "paragraph" => { "name" => "Texte", "html" => '<section class="section builder-atomic builder-paragraph"><div class="container"><div data-field="text">Écrivez votre texte ici.</div></div></section>', "fields" => {
+        "text" => { "type" => "text", "label" => "Texte", "default" => "Écrivez votre texte ici." }
+      } },
+      "image" => { "name" => "Image", "html" => '<section class="section builder-atomic builder-image"><div class="container"><figure><img data-image="image" data-alt="alt" src="maquette/photo-1581578731548-c64695cc695294a873d9.jpg" alt="Une scène d’entraide"><figcaption data-field="caption">Votre légende</figcaption></figure></div></section>', "fields" => {
+        "image" => { "type" => "image", "label" => "Image", "default" => "maquette/photo-1581578731548-c64695cc695294a873d9.jpg" },
+        "alt" => { "type" => "text", "label" => "Description accessible", "default" => "Une scène d’entraide" },
+        "caption" => { "type" => "text", "label" => "Légende", "default" => "Votre légende" }
+      } },
+      "button" => { "name" => "Bouton", "html" => '<section class="section builder-atomic builder-button"><div class="container"><a class="btn btn-deep" data-field="label" data-link="url" href="/contact">En savoir plus</a></div></section>', "fields" => {
+        "label" => { "type" => "text", "label" => "Texte du bouton", "default" => "En savoir plus" },
+        "url" => { "type" => "url", "label" => "Page à ouvrir", "default" => "/contact" }
+      } },
+      "divider" => { "name" => "Séparateur", "html" => '<section class="section builder-atomic builder-divider"><div class="container"><hr></div></section>', "fields" => {} },
+      "blank-section" => { "name" => "Conteneur vide", "html" => '<section class="section builder-blank-section"><div class="container"></div></section>', "fields" => {} },
+      "free-section" => { "name" => "Section libre", "html" => '<section class="section builder-free-section"><div class="container"><div class="builder-free-grid"><div><span class="eyebrow" data-field="kicker">Votre introduction</span><h2><span data-field="title">Construisez cette section</span></h2><p><span data-field="body">Modifiez chaque élément, l’image, le bouton, le fond et les animations.</span></p><a class="btn btn-deep" data-field="label" data-link="url" href="/contact">Votre action</a></div><img data-image="image" data-alt="alt" src="maquette/photo-1581578731548-c64695cc695294a873d9.jpg" alt="Une scène d’entraide"></div></div></section>', "fields" => {
+        "kicker" => { "type" => "text", "label" => "Petit titre", "default" => "Votre introduction" },
+        "title" => { "type" => "text", "label" => "Titre", "default" => "Construisez cette section" },
+        "body" => { "type" => "text", "label" => "Texte", "default" => "Modifiez chaque élément, l’image, le bouton, le fond et les animations." },
+        "label" => { "type" => "text", "label" => "Texte du bouton", "default" => "Votre action" },
+        "url" => { "type" => "url", "label" => "Page à ouvrir", "default" => "/contact" },
+        "image" => { "type" => "image", "label" => "Image", "default" => "maquette/photo-1581578731548-c64695cc695294a873d9.jpg" },
+        "alt" => { "type" => "text", "label" => "Description accessible", "default" => "Une scène d’entraide" }
+      } }
+    )
   end
   def self.editable_templates = templates.except(*RETIRED_TEMPLATES)
   def self.page_paths(slug)
@@ -69,16 +97,24 @@ class SiteDesign
     pages = data.fetch("pages", {})
     return false unless pages.is_a?(Hash) && pages.size <= 50
     pages.all? do |slug, page|
-      slug.match?(/\A[a-z][a-z0-9-]{0,70}\z/) && page.is_a?(Hash) && (page.keys - %w[title blocks]).empty? && text?(page["title"]) && page["title"].present? && page["blocks"].is_a?(Array) && page["blocks"].size <= 40 && page["blocks"].map { |b| b.is_a?(Hash) ? b["id"] : nil }.uniq.size == page["blocks"].size && page["blocks"].all? { |block| valid_block?(block) }
+      next false unless slug.match?(/\A[a-z][a-z0-9-]{0,70}\z/) && page.is_a?(Hash) && (page.keys - %w[title blocks canvas]).empty? && text?(page["title"]) && page["title"].present? && page["blocks"].is_a?(Array) && page["blocks"].size <= 40
+      next false if page.key?("canvas") && !SiteCanvasDocument.valid?(page["canvas"])
+      identifiers = page["blocks"].flat_map do |block|
+        children = block.is_a?(Hash) && block["children"].is_a?(Array) ? block["children"].filter_map { |child| child.is_a?(Hash) ? child["id"] : nil } : []
+        block.is_a?(Hash) ? [ block["id"], *children ] : [ nil ]
+      end
+      identifiers.uniq.size == identifiers.size && page["blocks"].all? { |block| valid_block?(block) }
     end
   end
   def self.valid_block?(block)
-    return false unless block.is_a?(Hash) && (block.keys - %w[id template values hidden separator placement style elements]).empty? && block["id"].is_a?(String) && block["id"].match?(/\A[a-z0-9-]{1,50}\z/) && [ true, false, nil ].include?(block["hidden"])
+    return false unless block.is_a?(Hash) && (block.keys - %w[id template values hidden separator placement style elements children]).empty? && block["id"].is_a?(String) && block["id"].match?(/\A[a-z0-9-]{1,50}\z/) && [ true, false, nil ].include?(block["hidden"])
     return false unless [ nil, "none", *ContentVersion::PRESETS ].include?(block["separator"]) && [ nil, "top", "bottom" ].include?(block["placement"])
     template = templates[block["template"]]
     return false unless SiteSectionStyle.valid?(block.fetch("style", {}))
     elements = block.fetch("elements", {})
     return false unless elements.is_a?(Hash) && template && elements.all? { |field, style| template["fields"].key?(field) && SiteSectionStyle.valid?(style) }
+    children = block.fetch("children", [])
+    return false unless children.is_a?(Array) && children.size <= 80 && children.filter_map { |child| child.is_a?(Hash) ? child["id"] : nil }.uniq.size == children.size && children.all? { |child| valid_element?(child) }
     values = block["values"]
     return false unless template && values.is_a?(Hash) && (values.keys - template["fields"].keys).empty?
     values.all? do |key, value|
@@ -91,6 +127,21 @@ class SiteDesign
       else text?(value)
       end
     end && template["fields"].keys.grep(/\Aimage-/).all? { |key| values.fetch(key.sub("image-", "alt-"), template["fields"][key.sub("image-", "alt-")]["default"]).present? }
+  end
+  def self.valid_element?(element)
+    return false unless element.is_a?(Hash) && (element.keys - %w[id template values style]).empty?
+    return false unless element["id"].is_a?(String) && element["id"].match?(/\A[a-z0-9-]{1,50}\z/) && ATOMIC_TEMPLATES.include?(element["template"])
+    template = templates[element["template"]]
+    values = element["values"]
+    return false unless template && values.is_a?(Hash) && (values.keys - template["fields"].keys).empty? && SiteSectionStyle.valid?(element.fetch("style", {}))
+    values.all? do |key, value|
+      case template["fields"][key]["type"]
+      when "height" then value.is_a?(String) && value.match?(/\A[0-9]{1,4}\z/) && value.to_i.between?(8, 1200)
+      when "url" then safe_url?(value)
+      when "image" then image?(value)
+      else text?(value)
+      end
+    end
   end
   def self.community_page
     { "title" => "La communauté", "blocks" => [

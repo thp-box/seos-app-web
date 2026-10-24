@@ -1,0 +1,13 @@
+<% template = element.fetch("template") %>
+<% fields = SiteDesign.templates.fetch(template).fetch("fields") %>
+<% values = fields.transform_values { |field| field["default"] }.merge(element.fetch("values", {})) %>
+<div id="site-element-<%= element.fetch("id") %>" class="studio-custom-element studio-custom-element--<%= template %>" data-studio-element="<%= element.fetch("id") %>" data-studio-parent="<%= parent_id %>">
+  <% if template == "heading" %><h2 data-field="text"><%= values.fetch("text") %></h2>
+  <% elsif template == "paragraph" %><div data-field="text"><%= plain_paragraphs(values.fetch("text")) %></div>
+  <% elsif template == "image" %><figure><%= image_tag site_image_path(values.fetch("image")), alt: values.fetch("alt"), data: { image: "image", alt: "alt" }, loading: "lazy" %><figcaption data-field="caption"><%= values.fetch("caption") %></figcaption></figure>
+  <% elsif template == "button" %><%= link_to values.fetch("label"), values.fetch("url"), class: "btn btn-deep", data: { field: "label", link: "url" } %>
+  <% elsif template == "divider" %><hr>
+  <% elsif template == "spacer" %><span class="sr-only">Espace</span>
+  <% elsif template == "text" %><h2 data-field="title"><%= values.fetch("title") %></h2><div data-field="body"><%= plain_paragraphs(values.fetch("body")) %></div><% if element.dig("values", "label").present? && element.dig("values", "url").present? %><%= link_to values.fetch("label"), values.fetch("url"), class: "btn btn-deep", data: { field: "label", link: "url" } %><% end %>
+  <% end %>
+</div>

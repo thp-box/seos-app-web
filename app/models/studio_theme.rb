@@ -6,15 +6,20 @@ class StudioTheme
     rules << ".card,.maquette-surface :is(.exchange-card,.ad-card,.travel-card,.support-card,.testimonial){border-radius:var(--card-radius)}" if tokens.key?("card-radius")
     rules << ".section,.maquette-surface .section{padding-block:var(--section-space)}" if tokens.key?("section-space")
     wave = ".hero::after,.maquette-surface .hero-wave,.section-decoration,.maquette-surface .hero-organic-cut,.maquette-surface .page-hero-organic-cut,.maquette-surface .yoga-separator"
+    wave_layers = ".maquette-surface .site-wave-layers"
     rules << "#{wave}{height:var(--wave-height)}" if tokens.key?("wave-height")
+    rules << "#{wave},#{wave_layers}{rotate:var(--wave-angle);scale:1.08;transform-origin:center}" if tokens.key?("wave-angle")
     shapes = { "wave" => "58% 42% 0 0 / 70% 90% 0 0", "curve" => "50% 50% 0 0 / 100% 100% 0 0", "diagonal" => "0", "flat" => "0" }
     if tokens.key?("wave-shape")
       rules << ".maquette-surface :is(.hero-organic-cut,.page-hero-organic-cut,.yoga-separator){background:var(--cream)}.maquette-surface :is(.hero-organic-cut,.page-hero-organic-cut,.yoga-separator)>svg{display:none}"
       rules << "#{wave}{border-radius:#{shapes.fetch(tokens['wave-shape'])};clip-path:#{tokens['wave-shape'] == 'diagonal' ? 'polygon(0 100%,100% 0,100% 100%)' : 'none'}}"
     end
-    if tokens.key?("wave-speed") || tokens.key?("wave-amplitude") || tokens["motion"].in?(%w[subtle standard])
+    if tokens.key?("wave-roundness") && !tokens["wave-shape"].in?(%w[diagonal flat])
+      rules << "#{wave}{border-radius:var(--wave-roundness) calc(100% - var(--wave-roundness)) 0 0 / 100% 100% 0 0;overflow:hidden}"
+    end
+    if tokens["motion"] != "none" && (tokens.key?("wave-speed") || tokens.key?("wave-amplitude") || tokens["motion"].in?(%w[subtle standard]))
       amplitude = tokens["motion"] == "subtle" ? "8px" : "16px"
-      rules << "#{wave}{animation:seos-wave var(--wave-speed,8s) ease-in-out infinite alternate}"
+      rules << "#{wave},#{wave_layers}{animation:seos-wave var(--wave-speed,8s) ease-in-out infinite alternate}"
       rules << "@keyframes seos-wave{from{translate:0 0}to{translate:0 var(--wave-amplitude,#{amplitude})}}"
     end
     rules << ".topbar{background:linear-gradient(90deg,var(--deep),var(--footer))}" if tokens.key?("deep") || tokens.key?("footer")

@@ -1,6 +1,6 @@
 module SiteHelper
   PAGE_NAMES = { "legal" => "Confiance et informations légales", "voyage-solidaire" => "Voyage solidaire", "communaute" => "La communauté", "home" => "Accueil", "don" => "Le don", "echange" => "L’échange", "points" => "Les Points Services", "fonctionnement" => "Comment ça marche ?" }.freeze
-  SECTION_NAMES = { "legal-center" => "Centre de confiance et documents légaux", "travel-hero" => "Voyage solidaire : présentation", "travel-missions" => "Voyage solidaire : missions et filtre", "spacer" => "Section vide", "community-app" => "La communauté : l’application", "community-associations" => "La communauté : les associations", "community-support" => "La communauté : participer", "home-0" => "Grande présentation avec photo", "home-1" => "Les trois façons de s’entraider", "home-2" => "Catégories d’annonces", "home-3" => "Annonces récentes", "home-4" => "La chaîne d’entraide", "home-5" => "Présentation de SEOS", "home-6" => "Témoignages de membres", "home-7" => "Confiance et sécurité", "home-8" => "La communauté francophone", "home-9" => "Invitation à nous rejoindre", "home-10" => "Soutenir SEOS", "don-0" => "Présentation du don", "don-1" => "Le don en trois étapes", "exchange-0" => "Présentation de l’échange", "exchange-1" => "L’échange en trois étapes", "points-0" => "Présentation des Points Services", "points-1" => "Les Points Services en trois étapes", "text" => "Texte libre" }.freeze
+  SECTION_NAMES = { "legal-center" => "Centre de confiance et documents légaux", "travel-hero" => "Voyage solidaire : présentation", "travel-missions" => "Voyage solidaire : missions et filtre", "spacer" => "Espace", "heading" => "Titre", "paragraph" => "Texte", "image" => "Image", "button" => "Bouton", "divider" => "Séparateur", "blank-section" => "Conteneur vide", "free-section" => "Section préconfigurée libre", "community-app" => "La communauté : l’application", "community-associations" => "La communauté : les associations", "community-support" => "La communauté : participer", "home-0" => "Grande présentation avec photo", "home-1" => "Les trois façons de s’entraider", "home-2" => "Catégories d’annonces", "home-3" => "Annonces récentes", "home-4" => "La chaîne d’entraide", "home-5" => "Présentation de SEOS", "home-6" => "Témoignages de membres", "home-7" => "Confiance et sécurité", "home-8" => "La communauté francophone", "home-9" => "Invitation à nous rejoindre", "home-10" => "Soutenir SEOS", "don-0" => "Présentation du don", "don-1" => "Le don en trois étapes", "exchange-0" => "Présentation de l’échange", "exchange-1" => "L’échange en trois étapes", "points-0" => "Présentation des Points Services", "points-1" => "Les Points Services en trois étapes", "text" => "Texte et bouton" }.freeze
   COLOR_NAMES = { "deep" => "Bleu principal", "seos" => "Bleu des liens et accents", "turq" => "Turquoise", "gold" => "Doré des boutons", "cream" => "Fond des pages", "mist" => "Fond des encadrés", "ink" => "Textes principaux", "muted" => "Textes secondaires", "line" => "Bordures", "white" => "Surfaces claires", "danger" => "Alertes", "ok" => "Confirmations", "footer" => "Fond du bas de page" }.freeze
   def site_kit_screen_name(key)
     { "home" => "Accueil", "don" => "Don", "exchange" => "Échange", "points" => "Points Services", "listings" => "Liste des annonces", "detail" => "Détail d’une annonce", "publish" => "Création d’une annonce", "auth" => "Connexion et inscription", "dashboard" => "Espace membre", "chain" => "Chaîne d’entraide", "travel" => "Voyage solidaire", "admin" => "Gestion du site", "chain-validation" => "Confirmation d’un service", "legal" => "Informations légales" }.fetch(key)
@@ -11,6 +11,9 @@ module SiteHelper
   end
   def site_section_name(key) = SECTION_NAMES.fetch(key)
   def site_section_description(key)
+    return "Un conteneur entièrement vide dans lequel déposer vos propres éléments." if key == "blank-section"
+    return "Une zone complète à construire avec titre, texte, image et bouton." if key == "free-section"
+    return { "heading" => "Un titre indépendant.", "paragraph" => "Un bloc de texte indépendant.", "image" => "Une image avec description et légende.", "button" => "Un bouton et sa destination.", "divider" => "Une séparation visuelle.", "spacer" => "Un espace dont vous choisissez la hauteur." }.fetch(key) if %w[heading paragraph image button divider spacer].include?(key)
     return "Un espace vide avec une hauteur réglable, sur ordinateur et téléphone." if key == "spacer"
     return "Les annonces visibles du site s’affichent ici automatiquement." if key == "home-3"
     return "Les témoignages acceptés et publiés s’affichent ici automatiquement." if key == "home-6"
@@ -34,6 +37,7 @@ module SiteHelper
       when "shadow" then value == "none" ? "Sans ombre" : "Ombre douce"
       when "font-body", "font-heading" then value.split(",").first == "system-ui" ? "Police de l’appareil" : value.split(",").first
       when "wave-speed" then "Un mouvement toutes les #{value.delete_suffix('s')} secondes"
+      when "wave-angle" then { "-12deg" => "Forte inclinaison vers la gauche", "-6deg" => "Légère inclinaison vers la gauche", "0deg" => "Horizontale", "6deg" => "Légère inclinaison vers la droite", "12deg" => "Forte inclinaison vers la droite" }.fetch(value)
       else [ "Très léger", "Léger", "Prononcé", "Très prononcé" ][values.index(value)]
       end
       [ label, value ]
@@ -58,8 +62,33 @@ module SiteHelper
   def site_image_options(assets)
     [ [ "Logo SEOS", "seos-logo.png" ] ] + assets.map { |asset| [ "Image importée ##{asset.id}", "asset:#{asset.id}" ] } + SiteDesign.reference["images"].values.uniq.each_with_index.map { |path, i| [ "Maquette — photo #{i + 1}", path ] }
   end
+  def site_canvas_html(page)
+    doc = Nokogiri::HTML5.fragment(SiteCanvasDocument.sanitize_html(page.dig("canvas", "html")))
+    blocks = page.fetch("blocks", [])
+    dynamic = {
+      "home-2" => [ ".category-grid", "site/categories" ],
+      "home-3" => [ ".ad-grid", "site/listings" ],
+      "home-6" => [ ".testimonial-grid", "site/testimonials" ]
+    }
+    dynamic.each do |template_key, (selector, partial)|
+      slot = doc.at_css(selector)
+      block = blocks.find { |item| item["template"] == template_key }
+      next unless slot && block
+      values = SiteDesign.templates.fetch(template_key).fetch("fields").transform_values { |field| field["default"] }.merge(block.fetch("values", {}))
+      slot.inner_html = render(partial, section_values: values)
+    end
+    if (slot = doc.at_css(".travel-missions-slot")) && (block = blocks.find { |item| item["template"] == "travel-missions" })
+      values = SiteDesign.templates.fetch("travel-missions").fetch("fields").transform_values { |field| field["default"] }.merge(block.fetch("values", {}))
+      slot.inner_html = render("volunteer_missions/catalogue", values: values, block_id: block["id"])
+    end
+    if (slot = doc.at_css(".legal-tabs-slot")) && (block = blocks.find { |item| item["template"] == "legal-center" })
+      values = SiteDesign.templates.fetch("legal-center").fetch("fields").transform_values { |field| field["default"] }.merge(block.fetch("values", {}))
+      slot.inner_html = render("contents/legal_tabs", values: values, block_id: block["id"])
+    end
+    doc.to_html.html_safe
+  end
   def site_token_label(key)
-    { "radius" => "Arrondi général", "font-body" => "Police des textes", "font-heading" => "Police des titres", "motion" => "Animations du site", "button-radius" => "Arrondi des boutons", "card-radius" => "Arrondi des cartes", "section-space" => "Espacement des sections", "wave-height" => "Hauteur des vagues", "wave-speed" => "Durée d’un cycle de vague", "wave-amplitude" => "Amplitude des vagues", "wave-shape" => "Forme des vagues", "shadow" => "Ombre des cartes" }.fetch(key)
+    { "radius" => "Arrondi général", "font-body" => "Police des textes", "font-heading" => "Police des titres", "motion" => "Animations du site", "button-radius" => "Arrondi des boutons", "card-radius" => "Arrondi des cartes", "section-space" => "Espacement des sections", "wave-height" => "Hauteur des vagues", "wave-speed" => "Durée d’un cycle de vague", "wave-amplitude" => "Amplitude des vagues", "wave-angle" => "Angle des vagues", "wave-roundness" => "Arrondi des vagues", "wave-shape" => "Forme des vagues", "shadow" => "Ombre des cartes" }.fetch(key)
   end
   def site_version = @studio_version || (@published_site_version ||= StudioVersion.current)
   def site_chrome(area) = site_version&.chrome(area) || SiteDesign::CHROME.fetch(area)
